@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>AGAJOTA HUB</title>
 
@@ -44,14 +45,14 @@
       user-select:none;
     }
 
-    /* Letras de fundo de ecran */
+    /* Letras de fundo */
 
     .background-letters h1{
       font-size:65vw;
       font-weight:900;
       letter-spacing:4vw;
       color:rgba(255,255,255,0.05);
-      filter: blur(3px);
+      filter:blur(3px);
     }
 
     /* Container principal */
@@ -99,6 +100,7 @@
       transition:0.3s ease;
       position:relative;
       overflow:hidden;
+      cursor:pointer;
     }
 
     .hub-button:hover{
@@ -166,8 +168,8 @@
 
   <!-- Letras de fundo -->
 
-  <div class="background-letters"><h1>HJ</h1>
-  
+  <div class="background-letters">
+    <h1>HJ</h1>
   </div>
 
   <!-- Conteúdo -->
@@ -182,32 +184,17 @@
 
       <!-- ALTERAR LINKS AQUI -->
 
-      <a href="02_gard3npt.html" class="hub-button"> 👤 Gard3npt </a>
+      <a href="02_gard3npt.html" class="hub-button">
+        👤 Gard3npt
+      </a>
 
-      <a href="https://gard3npt.github.io/calculadoratanb" class="hub-button"> Calculadora TANB </a>
-      
-      <button class="hub-button" onclick="abrirPagina()"> ✅ SC 🔒(555)</button>
+      <a href="https://gard3npt.github.io/calculadoratanb" class="hub-button">
+        Calculadora TANB
+      </a>
 
-     
-<script>
-
-function abrirPagina(){
-
-  let senha = prompt("Introduz a senha:");
-
-  if(senha === "555"){
-
-    window.location.href = "https://gard3npt.github.io/sc/";
-
-  }else{
-
-    alert("Senha incorreta");
-
-  }
-
-}
-
-</script>
+      <button class="hub-button" onclick="abrirPagina()">
+        ✅ SC 🔒(555)
+      </button>
 
     </div>
 
@@ -216,6 +203,28 @@ function abrirPagina(){
     </footer>
 
   </div>
+
+  <!-- Script -->
+
+  <script>
+
+    function abrirPagina(){
+
+      let senha = prompt("Introduz a senha:");
+
+      if(senha === "555"){
+
+        window.location.href = "https://gard3npt.github.io/sc/";
+
+      }else{
+
+        alert("Senha incorreta");
+
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
