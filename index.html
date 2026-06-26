@@ -7,16 +7,20 @@
 
   <title>AGAJOTA HUB</title>
 
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922"
-     crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922"
+    crossorigin="anonymous">
+  </script>
 
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -37,18 +41,19 @@
     }
 
     /* Fundo minimalista */
+
     .background-letters{
-      position:fixed;
+      position:absolute;
       inset:0;
       display:flex;
       justify-content:center;
       align-items:center;
       pointer-events:none;
       user-select:none;
-      z-index:0;
     }
 
     /* Letras de fundo */
+
     .background-letters h1{
       font-size:65vw;
       font-weight:900;
@@ -58,9 +63,11 @@
     }
 
     /* Container principal */
+
     .container{
-      width:min(95%, 1400px);
-      padding:40px 25px 110px; /* Margem extra no fundo para dar folga ao footer */
+      width:100%;
+      max-width:1000px;
+      padding:40px 25px;
       z-index:2;
       text-align:center;
     }
@@ -74,42 +81,23 @@
 
     .subtitle{
       color:#8f98a3;
-      margin-bottom:40px;
+      margin-bottom:60px;
       letter-spacing:3px;
       text-transform:uppercase;
       font-size:0.9rem;
     }
 
-    /* Contentor do Google AdSense para controlo de layout e espaçamento */
-    .adsense-holder {
-      margin: 20px auto 50px;
-      width: 100%;
-      max-width: 1200px;
-      overflow: hidden;
-      min-height: 90px; /* Evita o 'layout shift' quando o anúncio carrega */
-    }
-
-    .section-title{
-      text-align:left;
-      margin:40px 0 20px;
-      font-size:1.2rem;
-      color:#8f98a3;
-      letter-spacing:2px;
-      text-transform:uppercase;
-    }
-
     /* Grid dos botões */
+
     .button-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
       gap:22px;
-      margin-bottom:60px;
     }
 
     .hub-button{
-      background:rgba(27,31,36,0.75);
-      border:1px solid rgba(255, 255, 255, 0.192);
-      box-shadow:0 8px 20px rgba(0,0,0,0.3);
+      background:#1B1F24;
+      border:1px solid rgba(255,255,255,0.05);
       border-radius:20px;
       padding:28px 20px;
       text-decoration:none;
@@ -120,17 +108,13 @@
       position:relative;
       overflow:hidden;
       cursor:pointer;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      backdrop-filter:blur(6px);
     }
 
     .hub-button:hover{
       transform:translateY(-5px);
       background:#232931;
-      border-color:rgba(255,255,255,0.75);
-      box-shadow:0 10px 30px rgba(0,0,0,0.4);
+      border-color:rgba(255,255,255,0.12);
+      box-shadow:0 10px 30px rgba(0,0,0,0.3);
     }
 
     .hub-button::before{
@@ -153,41 +137,43 @@
       left:100%;
     }
 
-    /* Rodapé */
     footer{
-        position:fixed;
-        bottom:0;
-        left:0;
-        width:100%;
-        height:50px;
-        background:rgba(0,0,0,0.85);
-        backdrop-filter:blur(10px);
-        color:#ffffff;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        font-size:0.9rem;
-        border-top:1px solid rgba(255,255,255,0.15);
-        z-index:1000;
+      margin-top:60px;
+      color:#5e6670;
+      font-size:0.8rem;
+      letter-spacing:2px;
+    }
+
+/* Rodapé */
+
+    footer{
+      position:fixed;
+      bottom:0;
+      left:0;
+      width:100%;
+      height:50px;
+      background:rgba(0,0,0,0.4);
+      backdrop-filter:blur(10px);
+      color:#8f98a3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:0.9rem;
+      border-top:1px solid rgba(255,255,255,0.05);
+      z-index:1000;
     }
 
     /* Mobile */
+
     @media(max-width:700px){
+
       .title{
         font-size:2.5rem;
         letter-spacing:5px;
       }
 
       .subtitle{
-        margin-bottom:30px;
-      }
-
-      .adsense-holder {
-        margin: 10px auto 35px;
-      }
-
-      .section-title{
-        text-align:center; /* Centrado no mobile harmoniza com o resto do design */
+        margin-bottom:40px;
       }
 
       .hub-button{
@@ -198,239 +184,78 @@
       .background-letters h1{
         font-size:40vw;
       }
+
     }
 
-    /* MODAL */
-    .modal{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.7);
-      backdrop-filter:blur(6px);
-      justify-content:center;
-      align-items:center;
-      z-index:9999;
-    }
-
-    .modal-content{
-      background:#1B1F24;
-      padding:30px;
-      border-radius:20px;
-      width:90%;
-      max-width:380px;
-      text-align:center;
-    }
-
-    /* PASSWORD WRAPPER */
-    .password-wrapper{
-      position:relative;
-      margin-top:15px;
-    }
-
-    .password-wrapper input{
-      width:100%;
-      padding:12px 45px 12px 12px;
-      border:none;
-      border-radius:10px;
-      background:#121417;
-      color:#fff;
-      font-family: inherit;
-    }
-
-    /* OLHO */
-    .toggle-eye{
-      position:absolute;
-      right:10px;
-      top:50%;
-      transform:translateY(-50%);
-      background:none;
-      border:none;
-      cursor:pointer;
-      font-size:18px;
-      color:#aaa;
-    }
-
-    .modal-buttons{
-      margin-top:15px;
-      display:flex;
-      gap:10px;
-    }
-
-    .modal-buttons button{
-      flex:1;
-      padding:10px;
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight: 600;
-    }
-
-    .modal-buttons button:first-child {
-      background: #ffffff;
-      color: #121417;
-    }
-
-    .modal-buttons button:last-child {
-      background: #333;
-      color: #fff;
-    }
   </style>
 </head>
 
 <body>
 
   <!-- Letras de fundo -->
+
   <div class="background-letters">
     <h1>HJ</h1>
   </div>
 
   <!-- Conteúdo -->
+
   <div class="container">
 
     <h1 class="title">AGAJOTA</h1>
+
     <p class="subtitle">Centro de atalhos</p>
 
-    <!-- Bloco de anúncio AdSense otimizado -->
-    <div class="adsense-holder">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-4094039418988922"
-           data-ad-slot="4033482498"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-
-    <h2 class="section-title">Social Media:</h2>
     <div class="button-grid">
-      <a href="https://www.instagram.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://www.facebook.com/jardimhelder" class="hub-button" target="_blank" rel="noopener noreferrer">Facebook</a>
-      <a href="https://www.facebook.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">Facebook | Fan Page</a>
-      <a href="https://www.instagram.com/r3d_mini" class="hub-button" target="_blank" rel="noopener noreferrer">Instagram | My Car</a>
-      <a href="https://www.instagram.com/nico_black_cat" class="hub-button" target="_blank" rel="noopener noreferrer">Instagram | My Cat</a>
-      <a href="https://www.youtube.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">Youtube</a>
-      <a href="https://www.tiktok.com/@gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">TikToK</a>
-      <a href="https://discord.com/channels/822605864350646313/878278938118455317" class="hub-button" target="_blank" rel="noopener noreferrer">Discord</a>
-      <a href="https://www.twitter.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">Twitter | X</a>
-      <a href="https://steamcommunity.com/id/gard3npt/" class="hub-button" target="_blank" rel="noopener noreferrer">Steam</a>
-      <a href="https://open.spotify.com/user/3f97p9x9neepy829kwg89o8z3" class="hub-button" target="_blank" rel="noopener noreferrer">Spotify</a>
+
+      <!-- ALTERAR LINKS AQUI -->
+
+      <a href="02_gard3npt.html" class="hub-button">
+        👤 Gard3npt
+      </a>
+
+      <a href="https://gard3npt.github.io/calculadoratanb" class="hub-button">
+        Calculadora TANB
+      </a>
+
+      <a href="https://gard3npt.github.io/caricas_metalicas/" class="hub-button">
+        Caricas Metalicas
+      </a>
+
+      <button class="hub-button" onclick="abrirPagina()">
+        ✅ SC 🔒
+      </button>
+
     </div>
 
-    <h2 class="section-title">Sites desenvolvidos:</h2>
-    <div class="button-grid">
-      <a href="https://gard3npt.github.io/calculadoratanb" class="hub-button">Calculadora TANB</a>
-      <a href="https://gard3npt.github.io/caricas_metalicas/" class="hub-button">Caricas Metálicas</a>
-      <button type="button" class="hub-button" onclick="abrirModal()">🔐 SC 🔐</button>
-    </div>
+<!-- Rodapé -->
 
-    <h2 class="section-title">Blogs:</h2>
-    <div class="button-grid">
-      <a href="https://gard3npt.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">Agora Todos Podem Ver...</a>
-      <a href="https://caricasmetalicas.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">@caricas_metalicas</a>
-      <a href="https://calculadoratanb.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">Calculadora TANB</a>
-    </div>
+    <footer>
+      © 2026 Agajota | Helder Jardim | @gard3npt
+    </footer>
 
-    <h2 class="section-title">Lives:</h2>
-    <div class="button-grid">
-      <a href="https://www.twitch.tv/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">Twitch</a>
-    </div>
-
-    <h2 class="section-title">Vários 1:</h2>
-    <div class="button-grid">
-      <a href="https://letyshops.com/pt/winwin?ww=12072651" class="hub-button" target="_blank" rel="noopener noreferrer">Letyshops</a>
-      <a href="https://my.picodi.com/pt/refer/f7a96f6e-2079-4edb-9419-a355df42ab7c" class="hub-button" target="_blank" rel="noopener noreferrer">Picodi</a>
-      <a href="https://pt.beruby.com/promocode/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">Beruby</a>
-    </div>
-
-    <h2 class="section-title">Vários locais remunerados:</h2>
-    <div class="button-grid">
-      <a href="https://r.honeygain.me/JARDI844A9" class="hub-button" target="_blank" rel="noopener noreferrer">Honeygain</a>
-      <a href="https://www.publipt.com/pages/index.php?refid=gard3n" class="hub-button" target="_blank" rel="noopener noreferrer">!Publipt</a>
-      <a href="https://attapoll.app/join/oidoj" class="hub-button" target="_blank" rel="noopener noreferrer">AttaPoll | Questionários remunerados</a>
-      <a href="https://app.stocardapp.com/invite/mckanddu" class="hub-button" target="_blank" rel="noopener noreferrer">Stocard | Guarda os teus cartões</a>
-      <a href="https://streamyard.com/pal/c/5338073179357184" class="hub-button" target="_blank" rel="noopener noreferrer">StreamYard</a>
-    </div>
-
-    <h2 class="section-title">Pay:</h2>
-    <div class="button-grid">
-      <a href="https://www.paypal.com/paypalme/gard3npt" class="hub-button">Paypal</a>
-    </div>
-
-    <h2 class="section-title">Gard3npt:</h2>
-    <div class="button-grid">
-      <a href="02_gard3npt.html" class="hub-button">👤 Gard3npt</a>
-    </div>
-
-  </div> <!-- Fecho correto da div .container -->
-
-  <!-- MODAL -->
-  <div id="senhaModal" class="modal">
-    <div class="modal-content">
-      <h2>🔒 Área Protegida</h2>
-      <p>Introduza a palavra-passe</p>
-
-      <div class="password-wrapper">
-        <input type="password" id="senha" placeholder="Palavra-passe" onkeydown="verificarEnter(event)">
-        <button type="button" class="toggle-eye" onclick="togglePassword()">👁️</button>
-      </div>
-
-      <div class="modal-buttons">
-        <button onclick="validarSenha()">Entrar</button>
-        <button onclick="fecharModal()">Cancelar</button>
-      </div>
-    </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    © 2026 Agajota | Helder Jardim | @gard3npt
-  </footer>
-
   <!-- Script -->
+
   <script>
-    function abrirModal(){
-      document.getElementById("senhaModal").style.display = "flex";
-      const campoSenha = document.getElementById("senha");
-      campoSenha.value = ""; // Limpa a senha anterior
-      campoSenha.focus();
-    }
 
-    function fecharModal(){
-      document.getElementById("senhaModal").style.display = "none";
-    }
+    function abrirPagina(){
 
-    function validarSenha(){
-      const senha = document.getElementById("senha").value;
+      let senha = prompt("Introduz a senha:");
 
-      if(senha === "112"){
+      if(senha === "125"){
+
         window.location.href = "https://gard3npt.github.io/sc/";
-      } else {
+
+      }else{
+
         alert("Senha incorreta");
+
       }
+
     }
 
-    // Validação automática ao pressionar a tecla Enter
-    function verificarEnter(event) {
-      if (event.key === "Enter") {
-        validarSenha();
-      }
-    }
-
-    /* 👁️ TOGGLE PASSWORD */
-    function togglePassword(){
-      const input = document.getElementById("senha");
-      input.type = input.type === "password" ? "text" : "password";
-    }
-
-    /* clicar fora fecha modal */
-    window.onclick = function(e){
-      const modal = document.getElementById("senhaModal");
-      if(e.target === modal){
-        fecharModal();
-      }
-    }
   </script>
 
 </body>
