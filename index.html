@@ -21,6 +21,20 @@
       box-sizing: border-box;
     }
 
+    /* FORÇAR A OCULTAÇÃO DA BARRA DE SCROLL EM TODO O DOCUMENTO (HTML E BODY) */
+    html, body {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE e Edge */
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    *::-webkit-scrollbar {
+      display: none !important; /* Chrome, Safari e Opera */
+      width: 0 !important;
+      height: 0 !important;
+    }
+
     body {
       font-family: 'Montserrat', sans-serif;
       background: radial-gradient(circle at top center, #1e1b4b 0%, #0f172a 40%, #020617 100%);
@@ -31,11 +45,50 @@
       justify-content: space-between;
       align-items: center;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: auto; /* Permite rolar a página com o rato/toque, mas sem mostrar a barra */
       position: relative;
     }
 
-    /* Fundo minimalista com branding corrigido para maior perceção */
+    /* BOTÃO SOBRE (CANTO SUPERIOR DIREITO) */
+    .about-btn {
+      position: absolute;
+      top: 25px;
+      right: 4%;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 12px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .about-btn:hover {
+      background: #ffffff;
+      color: #020617;
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .about-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* Fundo minimalista com branding */
     .background-letters {
       position: fixed;
       inset: 0;
@@ -60,7 +113,7 @@
     /* Container principal */
     .container {
       width: min(92%, 1000px);
-      padding: 70px 20px;
+      padding: 80px 20px 20px 20px; /* Espaço para o botão no desktop */
       z-index: 2;
       text-align: center;
       flex: 1 0 auto;
@@ -80,7 +133,7 @@
 
     .subtitle {
       color: #94a3b8;
-      margin-bottom: 60px;
+      margin-bottom: 25px;
       letter-spacing: 6px;
       text-transform: uppercase;
       font-size: 0.85rem;
@@ -88,36 +141,51 @@
       opacity: 0.8;
     }
 
-    /* AdSense Dinâmico: não ocupa espaço enquanto estiver vazio */
+    /* AdSense Dinâmico (Topo e Fundo) */
     .adsense-holder {
-      margin: 0 auto 40px;
+      margin: 0 auto 25px;
       width: 100%;
       max-width: 800px;
       overflow: hidden;
       display: block;
     }
 
-    /* --- CATEGORIAS PRINCIPAIS (ESTILO VIDRO FLUIDO) --- */
+    .adsense-bottom {
+      margin: 40px auto 20px;
+      width: 100%;
+      max-width: 800px;
+      overflow: hidden;
+      display: block;
+      z-index: 2;
+    }
+
+    ins.adsbygoogle[data-ad-status="unfilled"] {
+      display: none !important;
+    }
+
+    /* --- CATEGORIAS PRINCIPAIS --- */
     .category-section {
       margin-bottom: 20px;
       width: 100%;
       background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 24px;
       overflow: hidden;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
       transition: border-color 0.4s, background-color 0.4s, box-shadow 0.4s, transform 0.4s;
     }
 
     .category-section:hover {
       background: rgba(30, 41, 59, 0.45);
-      border-color: rgba(129, 140, 248, 0.25);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      transform: translateY(-1px);
+      border-color: rgba(129, 140, 248, 0.6);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  0 0 15px rgba(129, 140, 248, 0.15);
+      transform: translateY(-2px);
     }
 
-    /* Ajustado para centralizar o texto mantendo o ícone no sítio */
     .category-trigger {
       width: 100%;
       background: transparent;
@@ -130,7 +198,7 @@
       text-transform: uppercase;
       cursor: pointer;
       display: grid;
-      grid-template-columns: 24px 1fr 24px; /* Garante centralização real */
+      grid-template-columns: 24px 1fr 24px;
       align-items: center;
       text-align: center;
     }
@@ -139,7 +207,6 @@
       grid-column: 2;
     }
 
-    /* Ícone de seta minimalista posicionado à direita */
     .category-trigger .arrow-icon {
       grid-column: 3;
       justify-self: end;
@@ -148,11 +215,11 @@
       color: #64748b;
     }
 
-    /* Estado Ativo do Menu Acordeão */
     .category-section.active {
       background: rgba(15, 23, 42, 0.60);
-      border-color: rgba(129, 140, 248, 0.4);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      border-color: rgba(129, 140, 248, 0.8);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4),
+                  0 0 20px rgba(129, 140, 248, 0.1);
     }
 
     .category-section.active .category-trigger .arrow-icon {
@@ -160,7 +227,7 @@
       color: #818cf8;
     }
 
-    /* --- CONTEÚDO EXPANSÍVEL ULTRA SUAVE --- */
+    /* --- CONTEÚDO EXPANSÍVEL --- */
     .category-wrapper {
       display: grid;
       grid-template-rows: 0fr;
@@ -220,7 +287,6 @@
       transform: scale(1.1);
     }
 
-    /* Estilo para blocos internos complexos (Insta / Face) */
     .inner-sub-block {
       grid-column: 1 / -1;
       display: grid;
@@ -259,15 +325,17 @@
       border-top: 1px solid rgba(255, 255, 255, 0.02);
       z-index: 1000;
       flex-shrink: 0;
-      margin-top: 80px;
       letter-spacing: 1px;
     }
 
     /* Configuração Mobile */
     @media(max-width:700px){
+      .about-btn { position: relative; top: 0; right: 0; margin: 20px auto 0; width: fit-content; }
+      .container { padding: 25px 15px 15px 15px; }
       .title { font-size: 3rem; letter-spacing: 8px; }
-      .subtitle { margin-bottom: 40px; }
-      .adsense-holder { margin-bottom: 25px; }
+      .subtitle { margin-bottom: 15px; }
+      .adsense-holder { margin-bottom: 15px; }
+      .adsense-bottom { margin: 25px auto 15px; }
       .category-trigger { padding: 22px 24px; font-size: 1.05rem; grid-template-columns: 16px 1fr 16px; }
       .category-grid-inner { padding: 0 24px 24px 24px; gap: 12px; }
       .inner-sub-block { padding: 16px; }
@@ -276,13 +344,14 @@
       footer { font-size: 0.75rem; height: 70px; }
     }
 
-    /* MODAL PREMIUM */
+    /* MODAIS COMUNS (ESTILO BASE) */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(2, 6, 23, 0.85);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       justify-content: center;
       align-items: center;
       z-index: 9999;
@@ -290,10 +359,10 @@
 
     .modal-content {
       background: #0f172a;
-      padding: 40px 35px;
+      padding: 35px 30px;
       border-radius: 28px;
       width: 90%;
-      max-width: 420px;
+      max-width: 440px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 25px 60px rgba(0,0,0,0.6);
@@ -305,34 +374,66 @@
       margin-bottom: 5px;
     }
 
+    /* ESTILOS DOS CAMPOS DO FORMULÁRIO DO CONTACTO */
+    .form-group {
+      text-align: left;
+      margin-top: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      padding-left: 4px;
+    }
+
+    .input-wrapper input, .textarea-wrapper textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      background: #020617;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .textarea-wrapper textarea {
+      resize: none;
+      height: 110px;
+    }
+    
+    .input-wrapper input:focus, .textarea-wrapper textarea:focus, .password-wrapper input:focus {
+      outline: none;
+      border-color: #818cf8;
+      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+    }
+
+    /* MODAL PALAVRA-PASSE */
     .password-wrapper {
       position: relative;
       margin-top: 20px;
     }
-
     .password-wrapper input {
       width: 100%;
-      padding: 16px 50px 16px 18px;
+      padding: 16px 18px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 14px;
       background: #020617;
       color: #fff;
       font-family: inherit;
       font-size: 1rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      padding-right: 50px;
     }
-    
-    .password-wrapper input:focus {
-      outline: none;
-      border-color: #818cf8;
-      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
-    }
-    
     .password-wrapper input.input-erro {
       border-color: #ef4444;
       box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
     }
-
     .toggle-eye {
       position: absolute;
       right: 16px;
@@ -345,27 +446,47 @@
       color: #475569;
     }
 
-    .modal-buttons {
-      margin-top: 24px;
+    /* BOTÕES DO MODAL EM STACK */
+    .modal-buttons-stack {
+      margin-top: 22px;
       display: flex;
-      gap: 12px;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .modal-buttons button {
-      flex: 1;
+    .modal-buttons-stack button {
+      width: 100%;
       padding: 14px;
       border: none;
       border-radius: 14px;
       cursor: pointer;
       font-weight: 600;
       font-size: 0.95rem;
-      transition: background 0.2s, opacity 0.2s;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
     }
 
+    .modal-buttons-stack button svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .btn-direct { background: #24a1de; color: white; }
+    .btn-direct:hover { background: #208ec4; }
+
+    .btn-cancel { background: rgba(255,255,255,0.04); color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); }
+    .btn-cancel:hover { background: rgba(255,255,255,0.08); }
+
+    /* Estilo padrão legado do modal da senha */
+    .modal-buttons { margin-top: 24px; display: flex; gap: 12px; }
+    .modal-buttons button { flex: 1; padding: 14px; border: none; border-radius: 14px; cursor: pointer; font-weight: 600; font-size: 0.95rem; }
     .modal-buttons button:first-child { background: #ffffff; color: #020617; }
     .modal-buttons button:first-child:hover { background: #e2e8f0; }
     .modal-buttons button:last-child { background: rgba(255,255,255,0.04); color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); }
-    .modal-buttons button:last-child:hover { background: rgba(255,255,255,0.08); }
     #error-message { color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none; font-weight: 600; }
   </style>
 </head>
@@ -377,20 +498,26 @@
     <symbol id="icon-face" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></symbol>
     <symbol id="icon-yt" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
     <symbol id="icon-tiktok" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.05 1.62 4.2 1.21 1.4 3 2.27 4.87 2.45v3.9c-1.78-.13-3.52-.77-4.95-1.87-.19-.15-.36-.31-.53-.48-.02 2.38-.01 4.76-.02 7.14 0 2.22-.64 4.49-2.06 6.19-1.75 2.15-4.57 3.19-7.27 2.76-2.61-.37-5-2.11-6.1-4.51-1.39-2.91-.94-6.68 1.15-9.15 1.57-1.9 4-2.88 6.44-2.55v3.89c-1.32-.23-2.73.19-3.6 1.17-.92 1.01-1.12 2.57-.49 3.77.63 1.25 2.05 2.04 3.45 1.9 1.51-.06 2.78-1.28 2.87-2.79.03-3.32.01-6.64.02-9.97z"/></symbol>
-    <symbol id="icon-discord" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.298 12.298 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03a.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></symbol>
+    <symbol id="icon-discord" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.298 12.298 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084-.028 19.839 19.839 0 006.002-3.03a.076.076 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></symbol>
     <symbol id="icon-twitter" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
     <symbol id="icon-steam" viewBox="0 0 24 24"><path d="M21.83 8.66a12 12 0 10-10.42 13.31l3.56-5.06a4.41 4.41 0 112.52-4.44l5.07-3.56c.07.41.11.83.11 1.25a11.91 11.91 0 01-.84 4.5zm-8.4 5.75l-3.32 4.73A10.15 10.15 0 011.88 12c0-5.62 4.56-10.18 10.17-10.18a10.2 10.2 0 019.04 5.53l-4.78 3.36a4.42 4.42 0 01-2.88 3.7zm1.18-3.03a1.95 1.95 0 10-2.76 2.76 1.95 1.95 0 002.76-2.76z"/></symbol>
     <symbol id="icon-spotify" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.372 0 12s5.373 12 12 12 12-5.372 12-12S18.627 0 12 0zm5.494 17.307c-.215.352-.676.463-1.028.248-2.857-1.747-6.453-2.14-10.686-1.173-.402.092-.806-.16-.898-.562-.092-.403.16-.806.562-.897 4.634-1.059 8.602-.614 11.8 1.341.352.214.464.675.25 1.028zm1.469-3.262c-.27 1.405-1.405 1.837-2.316 1.285-3.27-2.01-8.258-2.595-12.126-1.42-.452.137-.923-.118-1.06-.57-.138-.453.118-.924.57-1.06 4.423-1.343 9.917-.69 13.633 1.597.452.278.592.868.314 1.319zm.126-3.414C15.346 8.3 8.307 8.067 4.22 9.306c-.596.18-1.226-.153-1.407-.75-.18-.596.153-1.226.75-1.407 4.68-1.42 12.44-1.155 17.022 1.565.538.32.712 1.018.393 1.556-.32.538-1.018.712-1.556.393z"/></symbol>
     <symbol id="icon-calc" viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 18H6V4h12v16zm-1-7h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4H7v2h2v-2zm0-4H7v2h2V9zm8 6h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H7v2h2v-2z"/></symbol>
     <symbol id="icon-globe" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.66 0 3 1.34 3 3v.17c2.47.76 4.19 3.03 4.19 5.72 0 .5-.07.98-.19 1.45z"/></symbol>
-    <symbol id="icon-blog" viewBox="0 0 24 24"><path d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45 3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
+    <symbol id="icon-brand" viewBox="0 0 24 24"><path d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45 3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
     <symbol id="icon-twitch" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
     <symbol id="icon-info" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
     <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
     <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
     <symbol id="icon-video" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
     <symbol id="icon-paypal" viewBox="0 0 24 24"><path d="M20.007 7.031c-.347 2.531-1.99 4.125-4.469 4.125h-1.344c-.453 0-.828.328-.922.766l-1.078 5.109-.156.688c-.047.25-.266.422-.516.422h-3.391c-.344 0-.578-.344-.484-.672l2.359-11.141c.094-.438.469-.75.922-.75h4.609c1.234 0 2.234.313 2.906.969.656.625.859 1.516.563 2.531zm-2.453-.047c-.172-.75-.75-1.125-1.688-1.125H12.93l-1.344 6.328h1.453c1.172 0 2.063-.297 2.609-.906.547-.625.688-1.5.516-2.297z"/></symbol>
+    <symbol id="icon-message" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
   </svg>
+
+  <!-- BOTÃO SOBRE (CANTO SUPERIOR DIREITO) -->
+  <button type="button" class="about-btn" onclick="acaoBotaoSobre()">
+    <svg><use href="#icon-message"/></svg> Sobre
+  </button>
 
   <div class="background-letters">
     <h1>HJ</h1>
@@ -401,6 +528,7 @@
     <h1 class="title">AGAJOTA</h1>
     <p class="subtitle">Centro de atalhos</p>
 
+    <!-- BLOCO DE ANÚNCIO DO TOPO -->
     <div class="adsense-holder">
       <ins class="adsbygoogle"
            style="display:block"
@@ -413,6 +541,7 @@
       </script>
     </div>
 
+    <!-- SEÇÕES DO HUB -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
         <span class="trigger-text">Social Media</span> <span class="arrow-icon">▼</span>
@@ -500,13 +629,13 @@
         <div class="category-content">
           <div class="category-grid-inner">
             <a href="https://gard3npt.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-blog"/></svg> Agora Todos Podem Ver...
+              <svg><use href="#icon-brand"/></svg> Agora Todos Podem Ver...
             </a>
             <a href="https://caricasmetalicas.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-blog"/></svg> @caricas_metalicas
+              <svg><use href="#icon-brand"/></svg> @caricas_metalicas
             </a>
             <a href="https://calculadoratanb.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-blog"/></svg> Calculadora TANB
+              <svg><use href="#icon-brand"/></svg> Calculadora TANB
             </a>
           </div>
         </div>
@@ -576,8 +705,63 @@
       </div>
     </div>
 
+    <!-- BLOCO DE ANÚNCIO ANTES DO RODAPÉ -->
+    <div class="adsense-bottom">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4094039418988922"
+           data-ad-slot="4033482498"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+  </div> <!-- Fim do Container -->
+
+  <!-- QUADRO DE CONTACTO (ATUALIZADO COM OS DOIS PONTOS E MAIS ESPAÇO ABAIXO) -->
+  <div id="sobreModal" class="modal">
+    <div class="modal-content">
+      <h2>👋 Contacto</h2>
+      <p style="color: #cbd5e1; margin-top: 10px; margin-bottom: 30px; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px;">Iniciar a conversa via Telegram:</p>
+
+      <!-- CAMPO: NOME (FACULTATIVO) -->
+      <div class="form-group">
+        <label for="nomeMensagem">O teu nome (facultativo)</label>
+        <div class="input-wrapper">
+          <input type="text" id="nomeMensagem" placeholder="Ex: Hélder Jardim">
+        </div>
+      </div>
+
+      <!-- CAMPO: ASSUNTO (FACULTATIVO) -->
+      <div class="form-group">
+        <label for="assuntoMensagem">Assunto (facultativo)</label>
+        <div class="input-wrapper">
+          <input type="text" id="assuntoMensagem" placeholder="Ex: Parceria / Sugestão">
+        </div>
+      </div>
+
+      <!-- CAMPO: MENSAGEM -->
+      <div class="form-group">
+        <label for="textoMensagem">Mensagem</label>
+        <div class="textarea-wrapper">
+          <textarea id="textoMensagem" placeholder="Escreve aqui o teu texto..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-buttons-stack">
+        <button type="button" class="btn-direct" onclick="abrirChatTelegram()">
+          <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></svg> 
+          Enviar mensagem
+        </button>
+
+        <button type="button" class="btn-cancel" onclick="fecharSobreModal()">Cancelar</button>
+      </div>
+    </div>
   </div>
 
+  <!-- MODAL DE PALAVRA PASSE (SC LAB) -->
   <div id="senhaModal" class="modal">
     <div class="modal-content">
       <h2>🔒 Área Protegida</h2>
@@ -602,6 +786,49 @@
   </footer>
 
   <script>
+    // --- CONFIGURAÇÃO DO TELEGRAM ---
+    const TELEGRAM_USERNAME = "gard3npt"; 
+
+    function acaoBotaoSobre() {
+      abrirSobreModal();
+    }
+
+    function abrirSobreModal() {
+      document.getElementById("sobreModal").style.display = "flex";
+      
+      // Limpar todos os campos ao abrir o modal
+      document.getElementById("nomeMensagem").value = "";
+      document.getElementById("assuntoMensagem").value = "";
+      const campoTexto = document.getElementById("textoMensagem");
+      campoTexto.value = "";
+      
+      setTimeout(() => campoTexto.focus(), 100);
+    }
+
+    function fecharSobreModal() {
+      document.getElementById("sobreModal").style.display = "none";
+    }
+
+    /* MONTA E COPIA A MENSAGEM COMPLETA E FORMATADA */
+    function abrirChatTelegram() {
+      const nome = document.getElementById("nomeMensagem").value.trim();
+      const assunto = document.getElementById("assuntoMensagem").value.trim();
+      const msg = document.getElementById("textoMensagem").value.trim();
+      
+      if(msg !== "") {
+        const txtNome = nome !== "" ? nome : "Não preenchido";
+        const txtAssunto = assunto !== "" ? assunto : "Geral";
+        
+        const mensagemCompleta = `Nome: ${txtNome}\nAssunto: ${txtAssunto}\nMensagem: ${msg}`;
+        navigator.clipboard.writeText(mensagemCompleta).catch(() => {});
+      }
+      
+      window.open(`https://t.me/${TELEGRAM_USERNAME}`, '_blank', 'noopener,noreferrer');
+      fecharSobreModal();
+    }
+
+
+    /* FUNÇÕES JÁ EXISTENTES DO TEU HUB */
     function toggleCategory(triggerElement) {
       const parentSection = triggerElement.parentElement;
       parentSection.classList.toggle('active');
@@ -648,10 +875,15 @@
       input.type = input.type === "password" ? "text" : "password";
     }
 
+    // Fechar modais ao clicar fora deles
     window.onclick = function(e){
-      const modal = document.getElementById("senhaModal");
-      if(e.target === modal){
+      const modalSenha = document.getElementById("senhaModal");
+      const modalSobre = document.getElementById("sobreModal");
+      if(e.target === modalSenha){
         fecharModal();
+      }
+      if(e.target === modalSobre) {
+        fecharSobreModal();
       }
     }
   </script>
