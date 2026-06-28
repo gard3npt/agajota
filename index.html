@@ -25,6 +25,7 @@
     html, body {
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE e Edge */
+      scroll-behavior: smooth; /* Scroll suave ao voltar ao início */
     }
 
     html::-webkit-scrollbar,
@@ -49,14 +50,19 @@
       position: relative;
     }
 
-    /* BOTÃO SOBRE (CANTO SUPERIOR DIREITO) */
-    .about-btn {
-      position: absolute;
+    /* CONTAINER DOS BOTÕES DO TOPO - AGORA FIXO E SEMPRE VISÍVEL */
+    .top-buttons-container {
+      position: fixed;
       top: 25px;
       right: 4%;
-      z-index: 10;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 999; /* Garante que fica acima de tudo */
+      display: flex;
+      gap: 12px;
+    }
+
+    .top-btn {
+      background: rgba(15, 23, 42, 0.6); /* Fundo um pouco mais escuro para melhor legibilidade */
+      border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 10px 20px;
       border-radius: 12px;
       color: #cbd5e1;
@@ -72,17 +78,19 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
+      outline: none;
+      -webkit-tap-highlight-color: transparent; /* Remove o flash azul em telemóveis */
     }
 
-    .about-btn:hover {
+    .top-btn:hover, .top-btn:focus {
       background: #ffffff;
       color: #020617;
       border-color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1.5);
     }
 
-    .about-btn svg {
+    .top-btn svg {
       width: 14px;
       height: 14px;
       fill: currentColor;
@@ -113,7 +121,7 @@
     /* Container principal */
     .container {
       width: min(92%, 1000px);
-      padding: 80px 20px 20px 20px; /* Espaço para o botão no desktop */
+      padding: 100px 20px 20px 20px; /* Aumentado para não ficar tapado pelos botões fixos */
       z-index: 2;
       text-align: center;
       flex: 1 0 auto;
@@ -330,8 +338,21 @@
 
     /* Configuração Mobile */
     @media(max-width:700px){
-      .about-btn { position: relative; top: 0; right: 0; margin: 20px auto 0; width: fit-content; }
-      .container { padding: 25px 15px 15px 15px; }
+      .top-buttons-container { 
+        position: fixed; 
+        top: 0; 
+        left: 0;
+        right: 0;
+        margin: 0; 
+        width: 100%; 
+        justify-content: center; 
+        background: rgba(2, 6, 23, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .container { padding: 90px 15px 15px 15px; }
       .title { font-size: 3rem; letter-spacing: 8px; }
       .subtitle { margin-bottom: 15px; }
       .adsense-holder { margin-bottom: 15px; }
@@ -498,7 +519,7 @@
     <symbol id="icon-face" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></symbol>
     <symbol id="icon-yt" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
     <symbol id="icon-tiktok" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.05 1.62 4.2 1.21 1.4 3 2.27 4.87 2.45v3.9c-1.78-.13-3.52-.77-4.95-1.87-.19-.15-.36-.31-.53-.48-.02 2.38-.01 4.76-.02 7.14 0 2.22-.64 4.49-2.06 6.19-1.75 2.15-4.57 3.19-7.27 2.76-2.61-.37-5-2.11-6.1-4.51-1.39-2.91-.94-6.68 1.15-9.15 1.57-1.9 4-2.88 6.44-2.55v3.89c-1.32-.23-2.73.19-3.6 1.17-.92 1.01-1.12 2.57-.49 3.77.63 1.25 2.05 2.04 3.45 1.9 1.51-.06 2.78-1.28 2.87-2.79.03-3.32.01-6.64.02-9.97z"/></symbol>
-    <symbol id="icon-discord" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.298 12.298 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084-.028 19.839 19.839 0 006.002-3.03a.076.076 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></symbol>
+    <symbol id="icon-discord" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.298 12.298 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084-.028 19.839 19.839 0 006.002-3.03a.076.076 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></symbol>
     <symbol id="icon-twitter" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
     <symbol id="icon-steam" viewBox="0 0 24 24"><path d="M21.83 8.66a12 12 0 10-10.42 13.31l3.56-5.06a4.41 4.41 0 112.52-4.44l5.07-3.56c.07.41.11.83.11 1.25a11.91 11.91 0 01-.84 4.5zm-8.4 5.75l-3.32 4.73A10.15 10.15 0 011.88 12c0-5.62 4.56-10.18 10.17-10.18a10.2 10.2 0 019.04 5.53l-4.78 3.36a4.42 4.42 0 01-2.88 3.7zm1.18-3.03a1.95 1.95 0 10-2.76 2.76 1.95 1.95 0 002.76-2.76z"/></symbol>
     <symbol id="icon-spotify" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.372 0 12s5.373 12 12 12 12-5.372 12-12S18.627 0 12 0zm5.494 17.307c-.215.352-.676.463-1.028.248-2.857-1.747-6.453-2.14-10.686-1.173-.402.092-.806-.16-.898-.562-.092-.403.16-.806.562-.897 4.634-1.059 8.602-.614 11.8 1.341.352.214.464.675.25 1.028zm1.469-3.262c-.27 1.405-1.405 1.837-2.316 1.285-3.27-2.01-8.258-2.595-12.126-1.42-.452.137-.923-.118-1.06-.57-.138-.453.118-.924.57-1.06 4.423-1.343 9.917-.69 13.633 1.597.452.278.592.868.314 1.319zm.126-3.414C15.346 8.3 8.307 8.067 4.22 9.306c-.596.18-1.226-.153-1.407-.75-.18-.596.153-1.226.75-1.407 4.68-1.42 12.44-1.155 17.022 1.565.538.32.712 1.018.393 1.556-.32.538-1.018.712-1.556.393z"/></symbol>
@@ -510,14 +531,18 @@
     <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
     <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
     <symbol id="icon-video" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
-    <symbol id="icon-paypal" viewBox="0 0 24 24"><path d="M20.007 7.031c-.347 2.531-1.99 4.125-4.469 4.125h-1.344c-.453 0-.828.328-.922.766l-1.078 5.109-.156.688c-.047.25-.266.422-.516.422h-3.391c-.344 0-.578-.344-.484-.672l2.359-11.141c.094-.438.469-.75.922-.75h4.609c1.234 0 2.234.313 2.906.969.656.625.859 1.516.563 2.531zm-2.453-.047c-.172-.75-.75-1.125-1.688-1.125H12.93l-1.344 6.328h1.453c1.172 0 2.063-.297 2.609-.906.547-.625.688-1.5.516-2.297z"/></symbol>
+    <symbol id="icon-paypal" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.354a1.282 1.282 0 0 1 1.264-1.065h7.286c3.275 0 5.462.678 6.502 2.03 1.077 1.4 1.02 3.426.471 5.485-.688 2.576-2.616 4.318-5.3 4.318h-2.146a.641.641 0 0 0-.632.535l-1.14 5.166a.641.641 0 0 1-.633.534zm10.305-11.5c.348-1.306.33-2.528-.433-3.518C16.1 5.23 14.33 4.793 11.956 4.793H6.843l-2.4 15.263h2.383l1.11-5.027a1.923 1.923 0 0 1 1.896-1.605h1.616c2.4 0 4.168-1.517 4.743-3.666l.19-.721z"/></symbol>
     <symbol id="icon-message" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
   </svg>
 
-  <!-- BOTÃO SOBRE (CANTO SUPERIOR DIREITO) -->
-  <button type="button" class="about-btn" onclick="acaoBotaoSobre()">
-    <svg><use href="#icon-message"/></svg> Sobre
-  </button>
+  <div class="top-buttons-container">
+    <button type="button" class="top-btn" onclick="voltarAoInicio()">
+      <svg><use href="#icon-globe"/></svg> Início
+    </button>
+    <button type="button" class="top-btn" onclick="acaoBotaoSobre()">
+      <svg><use href="#icon-message"/></svg> Contacto
+    </button>
+  </div>
 
   <div class="background-letters">
     <h1>HJ</h1>
@@ -528,7 +553,6 @@
     <h1 class="title">AGAJOTA</h1>
     <p class="subtitle">Centro de atalhos</p>
 
-    <!-- BLOCO DE ANÚNCIO DO TOPO -->
     <div class="adsense-holder">
       <ins class="adsbygoogle"
            style="display:block"
@@ -541,7 +565,6 @@
       </script>
     </div>
 
-    <!-- SEÇÕES DO HUB -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
         <span class="trigger-text">Social Media</span> <span class="arrow-icon">▼</span>
@@ -665,7 +688,7 @@
 
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Locais remunerados</span> <span class="arrow-icon">▼</span>
+        <span class="trigger-text"> Recompensa por referidos</span> <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -684,6 +707,9 @@
             </a>
             <a href="https://streamyard.com/pal/c/5338073179357184" class="hub-button" target="_blank" rel="noopener noreferrer">
               <svg><use href="#icon-video"/></svg> StreamYard
+            </a>
+            <a href="https://py.pl/8bPEvHhNvU2" class="hub-button" target="_blank" rel="noopener noreferrer">
+              <svg><use href="#icon-paypal"/></svg> Paypal
             </a>
           </div>
         </div>
@@ -705,7 +731,6 @@
       </div>
     </div>
 
-    <!-- BLOCO DE ANÚNCIO ANTES DO RODAPÉ -->
     <div class="adsense-bottom">
       <ins class="adsbygoogle"
            style="display:block"
@@ -718,15 +743,11 @@
       </script>
     </div>
 
-  </div> <!-- Fim do Container -->
-
-  <!-- QUADRO DE CONTACTO (ATUALIZADO COM OS DOIS PONTOS E MAIS ESPAÇO ABAIXO) -->
-  <div id="sobreModal" class="modal">
+  </div> <div id="sobreModal" class="modal">
     <div class="modal-content">
       <h2>👋 Contacto</h2>
       <p style="color: #cbd5e1; margin-top: 10px; margin-bottom: 30px; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px;">Iniciar a conversa via Telegram:</p>
 
-      <!-- CAMPO: NOME (FACULTATIVO) -->
       <div class="form-group">
         <label for="nomeMensagem">O teu nome (facultativo)</label>
         <div class="input-wrapper">
@@ -734,7 +755,6 @@
         </div>
       </div>
 
-      <!-- CAMPO: ASSUNTO (FACULTATIVO) -->
       <div class="form-group">
         <label for="assuntoMensagem">Assunto (facultativo)</label>
         <div class="input-wrapper">
@@ -742,7 +762,6 @@
         </div>
       </div>
 
-      <!-- CAMPO: MENSAGEM -->
       <div class="form-group">
         <label for="textoMensagem">Mensagem</label>
         <div class="textarea-wrapper">
@@ -761,7 +780,6 @@
     </div>
   </div>
 
-  <!-- MODAL DE PALAVRA PASSE (SC LAB) -->
   <div id="senhaModal" class="modal">
     <div class="modal-content">
       <h2>🔒 Área Protegida</h2>
@@ -788,6 +806,25 @@
   <script>
     // --- CONFIGURAÇÃO DO TELEGRAM ---
     const TELEGRAM_USERNAME = "gard3npt"; 
+
+    // --- NOVA FUNÇÃO INTELIGENTE PARA O BOTÃO INÍCIO ---
+    function voltarAoInicio() {
+      // 1. Fecha qualquer modal aberto
+      fecharSobreModal();
+      fecharModal();
+      
+      // 2. Fecha todas as secções/categorias expansíveis do Hub
+      const seccoes = document.querySelectorAll('.category-section');
+      seccoes.forEach(seccao => {
+        seccao.classList.remove('active');
+      });
+      
+      // 3. Faz scroll suave de volta para o topo absoluto da página
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
 
     function acaoBotaoSobre() {
       abrirSobreModal();
@@ -828,7 +865,7 @@
     }
 
 
-    /* FUNÇÕES JÁ EXISTENTES DO TEU HUB */
+    /* FUNÇÕES DO HUB */
     function toggleCategory(triggerElement) {
       const parentSection = triggerElement.parentElement;
       parentSection.classList.toggle('active');
