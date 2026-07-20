@@ -87,7 +87,7 @@
       color: #020617;
       border-color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1.5);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
     }
 
     .top-btn svg {
@@ -532,6 +532,7 @@
     <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
     <symbol id="icon-video" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
     <symbol id="icon-paypal" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.354a1.282 1.282 0 0 1 1.264-1.065h7.286c3.275 0 5.462.678 6.502 2.03 1.077 1.4 1.02 3.426.471 5.485-.688 2.576-2.616 4.318-5.3 4.318h-2.146a.641.641 0 0 0-.632.535l-1.14 5.166a.641.641 0 0 1-.633.534zm10.305-11.5c.348-1.306.33-2.528-.433-3.518C16.1 5.23 14.33 4.793 11.956 4.793H6.843l-2.4 15.263h2.383l1.11-5.027a1.923 1.923 0 0 1 1.896-1.605h1.616c2.4 0 4.168-1.517 4.743-3.666l.19-.721z"/></symbol>
+    <symbol id="icon-brand" viewBox="0 0 24 24"><path d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45 3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
     <symbol id="icon-message" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
   </svg>
 
@@ -629,10 +630,11 @@
       <div class="category-wrapper">
         <div class="category-content">
           <div class="category-grid-inner">
-            <a href="https://gard3npt.github.io/calculadoratanb" class="hub-button">
+            <!-- links atualizados com target="_blank" e rel="noopener noreferrer" -->
+            <a href="https://gard3npt.github.io/calculadoratanb" class="hub-button" target="_blank" rel="noopener noreferrer">
               <svg><use href="#icon-calc"/></svg> Calculadora TANB
             </a>
-            <a href="https://gard3npt.github.io/caricas_metalicas/" class="hub-button">
+            <a href="https://gard3npt.github.io/caricas_metalicas/" class="hub-button" target="_blank" rel="noopener noreferrer">
               <svg><use href="#icon-globe"/></svg> Caricas Metálicas
             </a>
             <button type="button" class="hub-button" onclick="abrirModal()">
@@ -892,7 +894,9 @@
       const senha = campoSenha.value;
 
       if(senha === "112"){
-        window.location.href = "https://gard3npt.github.io/sc/";
+        // Atualizado para abrir em nova aba e fechar o modal em seguida
+        window.open("https://gard3npt.github.io/sc/", "_blank", "noopener,noreferrer");
+        fecharModal();
       } else {
         campoSenha.classList.add("input-erro");
         errorMsg.style.display = "block";
