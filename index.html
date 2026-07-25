@@ -131,12 +131,20 @@
       font-size: 5rem;
       font-weight: 900;
       letter-spacing: 16px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       text-transform: uppercase;
       background: linear-gradient(135deg, #ffffff 20%, #c7d2fe 50%, #818cf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.15));
+    }
+
+    .author-name {
+      color: #a5b4fc;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      margin-bottom: 8px;
     }
 
     .subtitle {
@@ -341,6 +349,7 @@
       }
       .container { padding: 90px 15px 15px 15px; }
       .title { font-size: 3rem; letter-spacing: 8px; }
+      .author-name { font-size: 1rem; letter-spacing: 2px; }
       .category-trigger { padding: 22px 24px; font-size: 1.05rem; grid-template-columns: 16px 1fr 16px; }
       .category-grid-inner { padding: 0 24px 24px 24px; gap: 12px; }
       .inner-sub-block { padding: 16px; }
@@ -458,7 +467,8 @@
   <div class="container">
 
     <h1 class="title">AGAJOTA</h1>
-    <p class="subtitle">Centro de atalhos</p>
+    <p class="author-name">Helder Jardim (Gard3npt)</p>
+    <p class="subtitle">Centro de atalhos:</p>
 
     <div class="adsense-holder">
       <ins class="adsbygoogle"
@@ -474,7 +484,7 @@
 
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Social Media</span> <span class="arrow-icon">▼</span>
+        <span class="trigger-text">Social Media:</span> <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -531,7 +541,7 @@
 
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Sites desenvolvidos</span> <span class="arrow-icon">▼</span>
+        <span class="trigger-text">Sites desenvolvidos:</span> <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -553,7 +563,7 @@
 
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Blogs</span> <span class="arrow-icon">▼</span>
+        <span class="trigger-text">Blogs:</span> <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -574,7 +584,7 @@
 
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Reembolso Parcial</span> <span class="arrow-icon">▼</span>
+        <span class="trigger-text">Reembolso Parcial:</span> <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -595,7 +605,7 @@
 
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text"> Recompensa por referidos</span> <span class="arrow-icon">▼</span>
+        <span class="trigger-text"> Recompensa por referidos:</span> <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -652,14 +662,15 @@
 
   </div>
 
-  <!-- MODAL SOBRE (NOVO) -->
+  <!-- MODAL SOBRE -->
   <div id="sobreInfoModal" class="modal">
     <div class="modal-content">
-      <h2>ℹ️ Sobre o Agajota Hub</h2>
+      <h2>ℹ️ Sobre:</h2>
       <div class="about-body">
-        <p><strong>🎯 O Projeto:</strong> Este espaço nasceu para centralizar todos os atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
-        <p><strong>👨‍💻 Quem Sou:</strong> Criador de conteúdos digitais e entusiasta de programação web, sempre focado em criar ferramentas práticas para o dia a dia.</p>
-        <p><strong>🛠️ Tecnologias:</strong> Desenvolvido com HTML5 moderno, CSS Grid/Flexbox avançado e efeitos visuais em tempo real, alojado diretamente via GitHub Pages.</p>
+        <p><strong>🎯 O Projeto:</strong> Este espaço nasceu para centralizar todos os meus atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
+        <p><strong>👨‍💻 Quem Sou:</strong> Criador e entusiasta de programação web, sempre focado em criar ferramentas práticas para o dia a dia.</p>
+        <p><strong>🛠️ Mãos à Obra & Bricolage:</strong> Fora do ecrã, gosto de pôr as mãos à obra. Tenho um grande fascínio por trabalhos manuais e bricolage — criar, reparar e dar vida a projetos físicos com as minhas próprias mãos é algo que me apaixona no dia a dia.</p>
+        <p><strong>🚗 Paixão Automóvel:</strong> Entusiasta de carros clássicos, onde dedico tempo a trabalhos de mecânica básica no meu MINI clássico e à participação ativa em encontros de clássicos.</p>
       </div>
       <button type="button" class="btn-cancel" onclick="fecharSobreModalInfo()">Fechar</button>
     </div>
@@ -668,12 +679,12 @@
   <!-- MODAL DE CONTACTO -->
   <div id="sobreModal" class="modal">
     <div class="modal-content">
-      <h2>📬 Opções de Contacto</h2>
-      <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 25px;">Escolhe a tua plataforma preferida:</p>
+      <h2>📬 Contacto:</h2>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 25px;">Escolhe uma plataforma:</p>
 
       <div class="modal-buttons-stack">
         
-        <!-- Opção WhatsApp (Primeiro) -->
+        <!-- WhatsApp -->
         <a href="https://wa.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
           <button type="button" class="btn-direct" style="background: #25D366; color: white; width: 100%;">
             <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-whatsapp"/></svg> 
@@ -681,7 +692,7 @@
           </button>
         </a>
 
-        <!-- Opção Telegram -->
+        <!-- Telegram -->
         <a href="https://t.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
           <button type="button" class="btn-direct" style="background: #2AABEE; color: white; width: 100%;">
             <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-telegram"/></svg> 
@@ -689,7 +700,7 @@
           </button>
         </a>
 
-        <!-- Opção Messenger -->
+        <!-- Messenger -->
         <a href="https://m.me/jardimhelder" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
           <button type="button" class="btn-direct" style="background: #0084FF; color: white; width: 100%;">
             <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-messenger"/></svg> 
@@ -697,11 +708,11 @@
           </button>
         </a>
 
-        <!-- Opção Zello (Último) -->
+        <!-- Zello -->
         <a href="https://zello.me/u/gard3n" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
           <button type="button" class="btn-direct" style="background: #ea580c; color: white; width: 100%;">
             <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-zello"/></svg> 
-            Zello (gard3n)
+            Zello
           </button>
         </a>
 
@@ -821,7 +832,7 @@
       const modalSobreInfo = document.getElementById("sobreInfoModal");
       if(e.target === modalSenha){ fecharModal(); }
       if(e.target === modalSobre) { fecharSobreModal(); }
-      if(e.target === modalSobreInfo) { fecharSobreModalInfo(); }
+      if(e.target === modalSobreInfo) { fecharSobreModal(); }
     }
   </script>
 
