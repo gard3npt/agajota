@@ -25,13 +25,13 @@
     html, body {
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE e Edge */
-      scroll-behavior: smooth; /* Scroll suave ao voltar ao início */
+      scroll-behavior: smooth;
     }
 
     html::-webkit-scrollbar,
     body::-webkit-scrollbar,
     *::-webkit-scrollbar {
-      display: none !important; /* Chrome, Safari e Opera */
+      display: none !important;
       width: 0 !important;
       height: 0 !important;
     }
@@ -46,22 +46,22 @@
       justify-content: space-between;
       align-items: center;
       overflow-x: hidden;
-      overflow-y: auto; /* Permite rolar a página com o rato/toque, mas sem mostrar a barra */
+      overflow-y: auto;
       position: relative;
     }
 
-    /* CONTAINER DOS BOTÕES DO TOPO - AGORA FIXO E SEMPRE VISÍVEL */
+    /* CONTAINER DOS BOTÕES DO TOPO (INÍCIO À ESQUERDA) */
     .top-buttons-container {
       position: fixed;
       top: 25px;
-      right: 4%;
-      z-index: 999; /* Garante que fica acima de tudo */
+      left: 4%;
+      z-index: 999;
       display: flex;
       gap: 12px;
     }
 
     .top-btn {
-      background: rgba(15, 23, 42, 0.6); /* Fundo um pouco mais escuro para melhor legibilidade */
+      background: rgba(15, 23, 42, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 10px 20px;
       border-radius: 12px;
@@ -79,7 +79,7 @@
       gap: 8px;
       cursor: pointer;
       outline: none;
-      -webkit-tap-highlight-color: transparent; /* Remove o flash azul em telemóveis */
+      -webkit-tap-highlight-color: transparent;
     }
 
     .top-btn:hover, .top-btn:focus {
@@ -121,7 +121,7 @@
     /* Container principal */
     .container {
       width: min(92%, 1000px);
-      padding: 100px 20px 20px 20px; /* Aumentado para não ficar tapado pelos botões fixos */
+      padding: 100px 20px 20px 20px;
       z-index: 2;
       text-align: center;
       flex: 1 0 auto;
@@ -149,8 +149,8 @@
       opacity: 0.8;
     }
 
-    /* AdSense Dinâmico (Topo e Fundo) */
-    .adsense-holder {
+    /* AdSense Dinâmico */
+    .adsense-holder, .adsense-bottom {
       margin: 0 auto 25px;
       width: 100%;
       max-width: 800px;
@@ -160,10 +160,6 @@
 
     .adsense-bottom {
       margin: 40px auto 20px;
-      width: 100%;
-      max-width: 800px;
-      overflow: hidden;
-      display: block;
       z-index: 2;
     }
 
@@ -171,7 +167,7 @@
       display: none !important;
     }
 
-    /* --- CATEGORIAS PRINCIPAIS --- */
+    /* CATEGORIAS PRINCIPAIS */
     .category-section {
       margin-bottom: 20px;
       width: 100%;
@@ -226,8 +222,7 @@
     .category-section.active {
       background: rgba(15, 23, 42, 0.60);
       border-color: rgba(129, 140, 248, 0.8);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4),
-                  0 0 20px rgba(129, 140, 248, 0.1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(129, 140, 248, 0.1);
     }
 
     .category-section.active .category-trigger .arrow-icon {
@@ -235,7 +230,6 @@
       color: #818cf8;
     }
 
-    /* --- CONTEÚDO EXPANSÍVEL --- */
     .category-wrapper {
       display: grid;
       grid-template-rows: 0fr;
@@ -257,7 +251,6 @@
       gap: 16px;
     }
 
-    /* --- SUB-BOTÕES INTERNOS --- */
     .hub-button {
       background: rgba(2, 6, 23, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.03);
@@ -319,7 +312,6 @@
       text-align: left;
     }
 
-    /* RODAPÉ */
     footer {
       width: 100%;
       height: 80px;
@@ -336,16 +328,11 @@
       letter-spacing: 1px;
     }
 
-    /* Configuração Mobile */
     @media(max-width:700px){
       .top-buttons-container { 
         position: fixed; 
-        top: 0; 
-        left: 0;
-        right: 0;
-        margin: 0; 
-        width: 100%; 
-        justify-content: center; 
+        top: 0; left: 0; right: 0; margin: 0; 
+        width: 100%; justify-content: center; 
         background: rgba(2, 6, 23, 0.8);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
@@ -354,9 +341,6 @@
       }
       .container { padding: 90px 15px 15px 15px; }
       .title { font-size: 3rem; letter-spacing: 8px; }
-      .subtitle { margin-bottom: 15px; }
-      .adsense-holder { margin-bottom: 15px; }
-      .adsense-bottom { margin: 25px auto 15px; }
       .category-trigger { padding: 22px 24px; font-size: 1.05rem; grid-template-columns: 16px 1fr 16px; }
       .category-grid-inner { padding: 0 24px 24px 24px; gap: 12px; }
       .inner-sub-block { padding: 16px; }
@@ -365,7 +349,7 @@
       footer { font-size: 0.75rem; height: 70px; }
     }
 
-    /* MODAIS COMUNS (ESTILO BASE) */
+    /* MODAIS */
     .modal {
       display: none;
       position: fixed;
@@ -383,10 +367,12 @@
       padding: 35px 30px;
       border-radius: 28px;
       width: 90%;
-      max-width: 440px;
+      max-width: 480px;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-content h2 {
@@ -395,118 +381,32 @@
       margin-bottom: 5px;
     }
 
-    /* ESTILOS DOS CAMPOS DO FORMULÁRIO DO CONTACTO */
-    .form-group {
+    .about-body {
       text-align: left;
-      margin-top: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 700;
       color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 6px;
-      padding-left: 4px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-top: 15px;
+      margin-bottom: 25px;
     }
 
-    .input-wrapper input, .textarea-wrapper textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      background: #020617;
-      color: #fff;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
+    .about-body p {
+      margin-bottom: 12px;
     }
 
-    .textarea-wrapper textarea {
-      resize: none;
-      height: 110px;
-    }
-    
-    .input-wrapper input:focus, .textarea-wrapper textarea:focus, .password-wrapper input:focus {
-      outline: none;
-      border-color: #818cf8;
-      box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
-    }
+    .password-wrapper { position: relative; margin-top: 20px; }
+    .password-wrapper input { width: 100%; padding: 16px 18px; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; background: #020617; color: #fff; font-size: 1rem; padding-right: 50px; }
+    .toggle-eye { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px; color: #475569; }
 
-    /* MODAL PALAVRA-PASSE */
-    .password-wrapper {
-      position: relative;
-      margin-top: 20px;
-    }
-    .password-wrapper input {
-      width: 100%;
-      padding: 16px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      background: #020617;
-      color: #fff;
-      font-family: inherit;
-      font-size: 1rem;
-      padding-right: 50px;
-    }
-    .password-wrapper input.input-erro {
-      border-color: #ef4444;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-    }
-    .toggle-eye {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: #475569;
-    }
-
-    /* BOTÕES DO MODAL EM STACK */
-    .modal-buttons-stack {
-      margin-top: 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .modal-buttons-stack button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .modal-buttons-stack button svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    .btn-direct { background: #24a1de; color: white; }
-    .btn-direct:hover { background: #208ec4; }
-
+    .modal-buttons-stack { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
+    .modal-buttons-stack button { width: 100%; padding: 14px; border: none; border-radius: 14px; cursor: pointer; font-weight: 600; font-size: 0.95rem; display: inline-flex; justify-content: center; align-items: center; gap: 8px; transition: transform 0.2s ease, opacity 0.2s ease; }
+    .modal-buttons-stack button:hover { transform: translateY(-2px); opacity: 0.95; }
+    .btn-direct { color: white; }
     .btn-cancel { background: rgba(255,255,255,0.04); color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); }
-    .btn-cancel:hover { background: rgba(255,255,255,0.08); }
 
-    /* Estilo padrão legado do modal da senha */
     .modal-buttons { margin-top: 24px; display: flex; gap: 12px; }
-    .modal-buttons button { flex: 1; padding: 14px; border: none; border-radius: 14px; cursor: pointer; font-weight: 600; font-size: 0.95rem; }
+    .modal-buttons button { flex: 1; padding: 14px; border: none; border-radius: 14px; cursor: pointer; font-weight: 600; }
     .modal-buttons button:first-child { background: #ffffff; color: #020617; }
-    .modal-buttons button:first-child:hover { background: #e2e8f0; }
     .modal-buttons button:last-child { background: rgba(255,255,255,0.04); color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); }
     #error-message { color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none; font-weight: 600; }
   </style>
@@ -532,13 +432,19 @@
     <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
     <symbol id="icon-video" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
     <symbol id="icon-paypal" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.354a1.282 1.282 0 0 1 1.264-1.065h7.286c3.275 0 5.462.678 6.502 2.03 1.077 1.4 1.02 3.426.471 5.485-.688 2.576-2.616 4.318-5.3 4.318h-2.146a.641.641 0 0 0-.632.535l-1.14 5.166a.641.641 0 0 1-.633.534zm10.305-11.5c.348-1.306.33-2.528-.433-3.518C16.1 5.23 14.33 4.793 11.956 4.793H6.843l-2.4 15.263h2.383l1.11-5.027a1.923 1.923 0 0 1 1.896-1.605h1.616c2.4 0 4.168-1.517 4.743-3.666l.19-.721z"/></symbol>
-    <symbol id="icon-brand" viewBox="0 0 24 24"><path d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45 3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
     <symbol id="icon-message" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></symbol>
+    <symbol id="icon-telegram" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
+    <symbol id="icon-messenger" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.251.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.26 5.888-3.26-6.559 6.963z"/></symbol>
+    <symbol id="icon-zello" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-12S17.52 2 12 2zm1 14.5h-2v-5h2v5zm0-6.5h-2V8h2v2z"/></symbol>
   </svg>
 
   <div class="top-buttons-container">
     <button type="button" class="top-btn" onclick="voltarAoInicio()">
       <svg><use href="#icon-globe"/></svg> Início
+    </button>
+    <button type="button" class="top-btn" onclick="abrirSobreModalInfo()">
+      <svg><use href="#icon-info"/></svg> Sobre
     </button>
     <button type="button" class="top-btn" onclick="acaoBotaoSobre()">
       <svg><use href="#icon-message"/></svg> Contacto
@@ -630,7 +536,6 @@
       <div class="category-wrapper">
         <div class="category-content">
           <div class="category-grid-inner">
-            <!-- links atualizados com target="_blank" e rel="noopener noreferrer" -->
             <a href="https://gard3npt.github.io/calculadoratanb" class="hub-button" target="_blank" rel="noopener noreferrer">
               <svg><use href="#icon-calc"/></svg> Calculadora TANB
             </a>
@@ -725,7 +630,7 @@
       <div class="category-wrapper">
         <div class="category-content">
           <div class="category-grid-inner">
-            <a href="https://www.paypal.com/paypalme/gard3npt" class="hub-button">
+            <a href="https://www.paypal.com/paypalme/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
               <svg><use href="#icon-paypal"/></svg> Paypal
             </a>
           </div>
@@ -745,43 +650,67 @@
       </script>
     </div>
 
-  </div> <div id="sobreModal" class="modal">
+  </div>
+
+  <!-- MODAL SOBRE (NOVO) -->
+  <div id="sobreInfoModal" class="modal">
     <div class="modal-content">
-      <h2>👋 Contacto</h2>
-      <p style="color: #cbd5e1; margin-top: 10px; margin-bottom: 30px; font-size: 1.05rem; font-weight: 600; letter-spacing: 0.5px;">Iniciar a conversa via Telegram:</p>
-
-      <div class="form-group">
-        <label for="nomeMensagem">O teu nome (facultativo)</label>
-        <div class="input-wrapper">
-          <input type="text" id="nomeMensagem" placeholder="Ex: Hélder Jardim">
-        </div>
+      <h2>ℹ️ Sobre o Agajota Hub</h2>
+      <div class="about-body">
+        <p><strong>🎯 O Projeto:</strong> Este espaço nasceu para centralizar todos os atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
+        <p><strong>👨‍💻 Quem Sou:</strong> Criador de conteúdos digitais e entusiasta de programação web, sempre focado em criar ferramentas práticas para o dia a dia.</p>
+        <p><strong>🛠️ Tecnologias:</strong> Desenvolvido com HTML5 moderno, CSS Grid/Flexbox avançado e efeitos visuais em tempo real, alojado diretamente via GitHub Pages.</p>
       </div>
+      <button type="button" class="btn-cancel" onclick="fecharSobreModalInfo()">Fechar</button>
+    </div>
+  </div>
 
-      <div class="form-group">
-        <label for="assuntoMensagem">Assunto (facultativo)</label>
-        <div class="input-wrapper">
-          <input type="text" id="assuntoMensagem" placeholder="Ex: Parceria / Sugestão">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="textoMensagem">Mensagem</label>
-        <div class="textarea-wrapper">
-          <textarea id="textoMensagem" placeholder="Escreve aqui o teu texto..."></textarea>
-        </div>
-      </div>
+  <!-- MODAL DE CONTACTO -->
+  <div id="sobreModal" class="modal">
+    <div class="modal-content">
+      <h2>📬 Opções de Contacto</h2>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 25px;">Escolhe a tua plataforma preferida:</p>
 
       <div class="modal-buttons-stack">
-        <button type="button" class="btn-direct" onclick="abrirChatTelegram()">
-          <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></svg> 
-          Enviar mensagem
-        </button>
+        
+        <!-- Opção WhatsApp (Primeiro) -->
+        <a href="https://wa.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <button type="button" class="btn-direct" style="background: #25D366; color: white; width: 100%;">
+            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-whatsapp"/></svg> 
+            WhatsApp
+          </button>
+        </a>
 
-        <button type="button" class="btn-cancel" onclick="fecharSobreModal()">Cancelar</button>
+        <!-- Opção Telegram -->
+        <a href="https://t.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <button type="button" class="btn-direct" style="background: #2AABEE; color: white; width: 100%;">
+            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-telegram"/></svg> 
+            Telegram
+          </button>
+        </a>
+
+        <!-- Opção Messenger -->
+        <a href="https://m.me/jardimhelder" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <button type="button" class="btn-direct" style="background: #0084FF; color: white; width: 100%;">
+            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-messenger"/></svg> 
+            Messenger
+          </button>
+        </a>
+
+        <!-- Opção Zello (Último) -->
+        <a href="https://zello.me/u/gard3n" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <button type="button" class="btn-direct" style="background: #ea580c; color: white; width: 100%;">
+            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-zello"/></svg> 
+            Zello (gard3n)
+          </button>
+        </a>
+
+        <button type="button" class="btn-cancel" onclick="fecharSobreModal()" style="margin-top: 15px;">Cancelar</button>
       </div>
     </div>
   </div>
 
+  <!-- MODAL SENHA -->
   <div id="senhaModal" class="modal">
     <div class="modal-content">
       <h2>🔒 Área Protegida</h2>
@@ -806,26 +735,25 @@
   </footer>
 
   <script>
-    // --- CONFIGURAÇÃO DO TELEGRAM ---
-    const TELEGRAM_USERNAME = "gard3npt"; 
-
-    // --- NOVA FUNÇÃO INTELIGENTE PARA O BOTÃO INÍCIO ---
     function voltarAoInicio() {
-      // 1. Fecha qualquer modal aberto
       fecharSobreModal();
+      fecharSobreModalInfo();
       fecharModal();
       
-      // 2. Fecha todas as secções/categorias expansíveis do Hub
       const seccoes = document.querySelectorAll('.category-section');
       seccoes.forEach(seccao => {
         seccao.classList.remove('active');
       });
       
-      // 3. Faz scroll suave de volta para o topo absoluto da página
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function abrirSobreModalInfo() {
+      document.getElementById("sobreInfoModal").style.display = "flex";
+    }
+
+    function fecharSobreModalInfo() {
+      document.getElementById("sobreInfoModal").style.display = "none";
     }
 
     function acaoBotaoSobre() {
@@ -834,40 +762,12 @@
 
     function abrirSobreModal() {
       document.getElementById("sobreModal").style.display = "flex";
-      
-      // Limpar todos os campos ao abrir o modal
-      document.getElementById("nomeMensagem").value = "";
-      document.getElementById("assuntoMensagem").value = "";
-      const campoTexto = document.getElementById("textoMensagem");
-      campoTexto.value = "";
-      
-      setTimeout(() => campoTexto.focus(), 100);
     }
 
     function fecharSobreModal() {
       document.getElementById("sobreModal").style.display = "none";
     }
 
-    /* MONTA E COPIA A MENSAGEM COMPLETA E FORMATADA */
-    function abrirChatTelegram() {
-      const nome = document.getElementById("nomeMensagem").value.trim();
-      const assunto = document.getElementById("assuntoMensagem").value.trim();
-      const msg = document.getElementById("textoMensagem").value.trim();
-      
-      if(msg !== "") {
-        const txtNome = nome !== "" ? nome : "Não preenchido";
-        const txtAssunto = assunto !== "" ? assunto : "Geral";
-        
-        const mensagemCompleta = `Nome: ${txtNome}\nAssunto: ${txtAssunto}\nMensagem: ${msg}`;
-        navigator.clipboard.writeText(mensagemCompleta).catch(() => {});
-      }
-      
-      window.open(`https://t.me/${TELEGRAM_USERNAME}`, '_blank', 'noopener,noreferrer');
-      fecharSobreModal();
-    }
-
-
-    /* FUNÇÕES DO HUB */
     function toggleCategory(triggerElement) {
       const parentSection = triggerElement.parentElement;
       parentSection.classList.toggle('active');
@@ -894,7 +794,6 @@
       const senha = campoSenha.value;
 
       if(senha === "112"){
-        // Atualizado para abrir em nova aba e fechar o modal em seguida
         window.open("https://gard3npt.github.io/sc/", "_blank", "noopener,noreferrer");
         fecharModal();
       } else {
@@ -916,16 +815,13 @@
       input.type = input.type === "password" ? "text" : "password";
     }
 
-    // Fechar modais ao clicar fora deles
     window.onclick = function(e){
       const modalSenha = document.getElementById("senhaModal");
       const modalSobre = document.getElementById("sobreModal");
-      if(e.target === modalSenha){
-        fecharModal();
-      }
-      if(e.target === modalSobre) {
-        fecharSobreModal();
-      }
+      const modalSobreInfo = document.getElementById("sobreInfoModal");
+      if(e.target === modalSenha){ fecharModal(); }
+      if(e.target === modalSobre) { fecharSobreModal(); }
+      if(e.target === modalSobreInfo) { fecharSobreModalInfo(); }
     }
   </script>
 
