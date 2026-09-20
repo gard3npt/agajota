@@ -12,19 +12,30 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg-dark: #020617;
+      --card-bg: rgba(15, 23, 42, 0.55);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(129, 140, 248, 0.5);
+      --accent: #818cf8;
+      --accent-glow: rgba(129, 140, 248, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* FORÇAR A OCULTAÇÃO DA BARRA DE SCROLL EM TODO O DOCUMENTO (HTML E BODY) */
+    /* Ocultação da barra de scroll */
     html, body {
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE e Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
       scroll-behavior: smooth;
     }
 
@@ -38,8 +49,8 @@
 
     body {
       font-family: 'Montserrat', sans-serif;
-      background: radial-gradient(circle at top center, #1e1b4b 0%, #0f172a 40%, #020617 100%);
-      color: #f8fafc;
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, var(--bg-dark) 100%);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -50,53 +61,69 @@
       position: relative;
     }
 
-    /* CONTAINER DOS BOTÕES DO TOPO (INÍCIO À ESQUERDA) */
-    .top-buttons-container {
+    /* BARRA FIXA DO CABEÇALHO COMPLETA */
+    .top-header-bar {
       position: fixed;
-      top: 25px;
-      left: 4%;
-      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
       display: flex;
-      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .top-buttons-container {
+      display: flex;
+      gap: 10px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 6px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .top-btn {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 10px 20px;
+      background: transparent;
+      border: 1px solid transparent;
+      padding: 8px 18px;
       border-radius: 12px;
       color: #cbd5e1;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
       outline: none;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    .top-btn:hover, .top-btn:focus {
+    .top-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .top-btn.active-btn, .top-btn:active {
       background: #ffffff;
       color: #020617;
-      border-color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
     }
 
     .top-btn svg {
-      width: 14px;
-      height: 14px;
+      width: 15px;
+      height: 15px;
       fill: currentColor;
     }
 
-    /* Fundo minimalista com branding */
+    /* FUNDO MONOGRAMA/BRANDING */
     .background-letters {
       position: fixed;
       inset: 0;
@@ -109,61 +136,62 @@
     }
 
     .background-letters h1 {
-      font-size: 55vw;
+      font-size: 50vw;
       font-weight: 900;
-      letter-spacing: -1vw;
-      background: linear-gradient(180deg, rgba(165, 180, 252, 0.07) 0%, rgba(255, 255, 255, 0) 85%);
+      letter-spacing: -2vw;
+      background: linear-gradient(180deg, rgba(165, 180, 252, 0.05) 0%, rgba(255, 255, 255, 0) 80%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: blur(3px) drop-shadow(0 0 40px rgba(99, 102, 241, 0.05));
+      filter: blur(2px);
     }
 
-    /* Container principal */
+    /* CONTAINER PRINCIPAL */
     .container {
-      width: min(92%, 1000px);
-      padding: 100px 20px 20px 20px;
+      width: min(92%, 900px);
+      padding: 120px 20px 40px 20px;
       z-index: 2;
       text-align: center;
       flex: 1 0 auto;
     }
 
     .title {
-      font-size: 5rem;
+      font-size: clamp(3rem, 8vw, 5.5rem);
       font-weight: 900;
-      letter-spacing: 16px;
-      margin-bottom: 4px;
+      letter-spacing: 12px;
+      margin-bottom: 2px;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #ffffff 20%, #c7d2fe 50%, #818cf8 100%);
+      background: linear-gradient(135deg, #ffffff 30%, #c7d2fe 60%, #818cf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.15));
+      filter: drop-shadow(0 4px 20px rgba(99, 102, 241, 0.2));
     }
 
     .author-name {
       color: #a5b4fc;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      letter-spacing: 3px;
-      margin-bottom: 8px;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
     }
 
     .subtitle {
-      color: #94a3b8;
-      margin-bottom: 25px;
-      letter-spacing: 6px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
       opacity: 0.8;
     }
 
-    /* AdSense Dinâmico */
+    /* ADSENSE */
     .adsense-holder, .adsense-bottom {
-      margin: 0 auto 25px;
+      margin: 0 auto 30px;
       width: 100%;
       max-width: 800px;
       overflow: hidden;
       display: block;
+      border-radius: 12px;
     }
 
     .adsense-bottom {
@@ -175,67 +203,60 @@
       display: none !important;
     }
 
-    /* CATEGORIAS PRINCIPAIS */
+    /* CATEGORIAS COLAPSÁVEIS */
     .category-section {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       width: 100%;
-      background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
       overflow: hidden;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-      transition: border-color 0.4s, background-color 0.4s, box-shadow 0.4s, transform 0.4s;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .category-section:hover {
-      background: rgba(30, 41, 59, 0.45);
-      border-color: rgba(129, 140, 248, 0.6);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
-                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                  0 0 15px rgba(129, 140, 248, 0.15);
-      transform: translateY(-2px);
+      border-color: rgba(129, 140, 248, 0.4);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-glow);
     }
 
     .category-trigger {
       width: 100%;
       background: transparent;
       border: none;
-      padding: 26px 35px;
+      padding: 22px 28px;
       color: #ffffff;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       cursor: pointer;
-      display: grid;
-      grid-template-columns: 24px 1fr 24px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      text-align: center;
+      transition: background 0.3s ease;
     }
 
-    .category-trigger span.trigger-text {
-      grid-column: 2;
+    .category-trigger:hover {
+      background: rgba(255, 255, 255, 0.02);
     }
 
     .category-trigger .arrow-icon {
-      grid-column: 3;
-      justify-self: end;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 0.85rem;
-      color: #64748b;
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
     .category-section.active {
-      background: rgba(15, 23, 42, 0.60);
-      border-color: rgba(129, 140, 248, 0.8);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(129, 140, 248, 0.1);
+      background: rgba(15, 23, 42, 0.75);
+      border-color: var(--card-hover-border);
     }
 
     .category-section.active .category-trigger .arrow-icon {
       transform: rotate(180deg);
-      color: #818cf8;
+      color: var(--accent);
     }
 
     .category-wrapper {
@@ -253,109 +274,229 @@
     }
 
     .category-grid-inner {
-      padding: 5px 35px 35px 35px;
+      padding: 5px 24px 28px 24px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
     }
 
+    /* BOTÕES DO HUB */
     .hub-button {
-      background: rgba(2, 6, 23, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-      border-radius: 16px;
-      padding: 18px 16px;
+      background: rgba(2, 6, 23, 0.5);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
       text-decoration: none;
       color: #cbd5e1;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: all 0.25s ease;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
     }
 
-    .hub-button svg, .hub-button img {
-      width: 20px;
-      height: 20px;
+    .hub-button svg {
+      width: 18px;
+      height: 18px;
       fill: currentColor;
       flex-shrink: 0;
-      transition: transform 0.3s ease;
+      transition: transform 0.25s ease;
     }
 
     .hub-button:hover {
       background: #ffffff;
       color: #020617;
       border-color: #ffffff;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
     }
 
     .hub-button:hover svg {
       transform: scale(1.1);
     }
 
+    /* SUB-BLOCOS (EX: INSTAGRAM / FACEBOOK) */
     .inner-sub-block {
       grid-column: 1 / -1;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      background: rgba(2, 6, 23, 0.3);
-      padding: 24px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.02);
-      margin-top: 10px;
-      margin-bottom: 5px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      background: rgba(2, 6, 23, 0.35);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 6px;
+      margin-bottom: 4px;
     }
 
     .inner-title {
       grid-column: 1 / -1;
-      font-size: 0.8rem;
-      color: #64748b;
+      font-size: 0.75rem;
+      color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       font-weight: 700;
-      margin-bottom: -2px;
       text-align: left;
+      margin-bottom: 2px;
     }
 
-    footer {
+    /* CARTÕES DE VÍDEO */
+    .video-card {
+      background: rgba(2, 6, 23, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      transition: all 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--card-hover-border);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .video-thumb-wrap {
+      position: relative;
       width: 100%;
-      height: 80px;
-      background: #020617;
-      color: #475569;
+      padding-top: 56.25%;
+      background: #000;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .video-thumb-wrap img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .video-card:hover .video-thumb-wrap img {
+      transform: scale(1.06);
+    }
+
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.85rem;
-      font-weight: 500;
-      border-top: 1px solid rgba(255, 255, 255, 0.02);
-      z-index: 1000;
-      flex-shrink: 0;
-      letter-spacing: 1px;
+      transition: background 0.3s ease;
     }
 
-    @media(max-width:700px){
-      .top-buttons-container { 
-        position: fixed; 
-        top: 0; left: 0; right: 0; margin: 0; 
-        width: 100%; justify-content: center; 
-        background: rgba(2, 6, 23, 0.8);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      }
-      .container { padding: 90px 15px 15px 15px; }
-      .title { font-size: 3rem; letter-spacing: 8px; }
-      .author-name { font-size: 1rem; letter-spacing: 2px; }
-      .category-trigger { padding: 22px 24px; font-size: 1.05rem; grid-template-columns: 16px 1fr 16px; }
-      .category-grid-inner { padding: 0 24px 24px 24px; gap: 12px; }
-      .inner-sub-block { padding: 16px; }
-      .hub-button { padding: 16px 14px; font-size: 0.9rem; }
-      .background-letters h1 { font-size: 50vw; }
-      footer { font-size: 0.75rem; height: 70px; }
+    .video-thumb-wrap:hover .play-overlay {
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .play-btn-icon {
+      width: 44px;
+      height: 44px;
+      background: #ff0000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .video-thumb-wrap:hover .play-btn-icon {
+      transform: scale(1.15);
+    }
+
+    .video-info {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .video-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      line-height: 1.3;
+    }
+
+    .video-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .video-btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .video-btn:hover {
+      background: #ffffff;
+      color: #020617;
+      border-color: #ffffff;
+    }
+
+    /* IFRAME DO MODAL */
+    .video-container-iframe {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      margin-top: 15px;
+    }
+
+    .video-container-iframe iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      width: 100%;
+      padding: 25px 15px;
+      background: var(--bg-dark);
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 10;
+      letter-spacing: 1px;
     }
 
     /* MODAIS */
@@ -369,31 +510,36 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      padding: 20px;
     }
 
     .modal-content {
       background: #0f172a;
-      padding: 35px 30px;
-      border-radius: 28px;
-      width: 90%;
-      max-width: 480px;
+      padding: 30px 25px;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 460px;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
       max-height: 90vh;
       overflow-y: auto;
     }
 
+    .modal-content.modal-video-large {
+      max-width: 800px;
+    }
+
     .modal-content h2 {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: 700;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .about-body {
       text-align: left;
-      color: #94a3b8;
-      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
       line-height: 1.6;
       margin-top: 15px;
       margin-bottom: 25px;
@@ -403,26 +549,145 @@
       margin-bottom: 12px;
     }
 
-    .password-wrapper { position: relative; margin-top: 20px; }
-    .password-wrapper input { width: 100%; padding: 16px 18px; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; background: #020617; color: #fff; font-size: 1rem; padding-right: 50px; }
-    .toggle-eye { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 18px; color: #475569; }
+    .password-wrapper { 
+      position: relative; 
+      margin-top: 18px; 
+    }
+    
+    .password-wrapper input { 
+      width: 100%; 
+      padding: 14px 16px; 
+      border: 1px solid rgba(255, 255, 255, 0.1); 
+      border-radius: 12px; 
+      background: #020617; 
+      color: #fff; 
+      font-size: 0.95rem; 
+      padding-right: 45px; 
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
 
-    .modal-buttons-stack { margin-top: 22px; display: flex; flex-direction: column; gap: 12px; }
-    .modal-buttons-stack button { width: 100%; padding: 14px; border: none; border-radius: 14px; cursor: pointer; font-weight: 600; font-size: 0.95rem; display: inline-flex; justify-content: center; align-items: center; gap: 8px; transition: transform 0.2s ease, opacity 0.2s ease; }
-    .modal-buttons-stack button:hover { transform: translateY(-2px); opacity: 0.95; }
+    .password-wrapper input:focus {
+      border-color: var(--accent);
+    }
+
+    .toggle-eye { 
+      position: absolute; 
+      right: 14px; 
+      top: 50%; 
+      transform: translateY(-50%); 
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      font-size: 16px; 
+      color: #64748b; 
+    }
+
+    .modal-buttons-stack { 
+      margin-top: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; 
+    }
+
+    .modal-buttons-stack button { 
+      width: 100%; 
+      padding: 13px; 
+      border: none; 
+      border-radius: 12px; 
+      cursor: pointer; 
+      font-weight: 600; 
+      font-size: 0.9rem; 
+      display: inline-flex; 
+      justify-content: center; 
+      align-items: center; 
+      gap: 8px; 
+      transition: transform 0.2s ease, opacity 0.2s ease; 
+    }
+
+    .modal-buttons-stack button:hover { 
+      transform: translateY(-2px); 
+      opacity: 0.95; 
+    }
+
     .btn-direct { color: white; }
-    .btn-cancel { background: rgba(255,255,255,0.04); color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); }
+    
+    .btn-cancel { 
+      background: rgba(255,255,255,0.05); 
+      color: var(--text-muted); 
+      border: 1px solid rgba(255,255,255,0.08); 
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: all 0.2s ease;
+    }
 
-    .modal-buttons { margin-top: 24px; display: flex; gap: 12px; }
-    .modal-buttons button { flex: 1; padding: 14px; border: none; border-radius: 14px; cursor: pointer; font-weight: 600; }
-    .modal-buttons button:first-child { background: #ffffff; color: #020617; }
-    .modal-buttons button:last-child { background: rgba(255,255,255,0.04); color: #94a3b8; border: 1px solid rgba(255,255,255,0.05); }
-    #error-message { color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none; font-weight: 600; }
+    .btn-cancel:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    .modal-buttons { 
+      margin-top: 20px; 
+      display: flex; 
+      gap: 10px; 
+    }
+
+    .modal-buttons button { 
+      flex: 1; 
+      padding: 13px; 
+      border: none; 
+      border-radius: 12px; 
+      cursor: pointer; 
+      font-weight: 600; 
+    }
+
+    .modal-buttons button:first-child { 
+      background: #ffffff; 
+      color: #020617; 
+    }
+
+    .modal-buttons button:last-child { 
+      background: rgba(255,255,255,0.05); 
+      color: var(--text-muted); 
+      border: 1px solid rgba(255,255,255,0.08); 
+    }
+
+    #error-message { 
+      color: #ef4444; 
+      font-size: 0.8rem; 
+      margin-top: 8px; 
+      display: none; 
+      font-weight: 600; 
+    }
+
+    /* ADAPTAÇÃO MOBILE */
+    @media(max-width: 640px){
+      .top-header-bar {
+        padding: 8px 10px;
+      }
+      .top-buttons-container { 
+        width: min(100%, 400px);
+        justify-content: space-around;
+      }
+      .top-btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+      }
+      .container { padding: 100px 12px 30px 12px; }
+      .category-trigger { padding: 18px 20px; font-size: 0.95rem; }
+      .category-grid-inner { padding: 0 16px 20px 16px; gap: 10px; }
+      .inner-sub-block { padding: 12px; }
+      .hub-button { padding: 14px; font-size: 0.85rem; }
+    }
   </style>
 </head>
 
 <body>
 
+  <!-- SIMBOLOS SVG -->
   <svg style="display: none;">
     <symbol id="icon-insta" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></symbol>
     <symbol id="icon-face" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></symbol>
@@ -445,20 +710,22 @@
     <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></symbol>
     <symbol id="icon-telegram" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
     <symbol id="icon-messenger" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.251.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.26 5.888-3.26-6.559 6.963z"/></symbol>
-    <symbol id="icon-zello" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-12S17.52 2 12 2zm1 14.5h-2v-5h2v5zm0-6.5h-2V8h2v2z"/></symbol>
   </svg>
 
-  <div class="top-buttons-container">
-    <button type="button" class="top-btn" onclick="voltarAoInicio()">
-      <svg><use href="#icon-globe"/></svg> Início
-    </button>
-    <button type="button" class="top-btn" onclick="abrirSobreModalInfo()">
-      <svg><use href="#icon-info"/></svg> Sobre
-    </button>
-    <button type="button" class="top-btn" onclick="acaoBotaoSobre()">
-      <svg><use href="#icon-message"/></svg> Contacto
-    </button>
-  </div>
+  <!-- BARRA DE CABEÇALHO FIXA -->
+  <header class="top-header-bar">
+    <div class="top-buttons-container">
+      <button type="button" class="top-btn" onclick="voltarAoInicio()">
+        <svg><use href="#icon-globe"/></svg> Início
+      </button>
+      <button type="button" class="top-btn" onclick="abrirSobreModalInfo()">
+        <svg><use href="#icon-info"/></svg> Sobre
+      </button>
+      <button type="button" class="top-btn" onclick="acaoBotaoSobre()">
+        <svg><use href="#icon-message"/></svg> Contacto
+      </button>
+    </div>
+  </header>
 
   <div class="background-letters">
     <h1>HJ</h1>
@@ -468,7 +735,7 @@
 
     <h1 class="title">AGAJOTA</h1>
     <p class="author-name">Helder Jardim (Gard3npt)</p>
-    <p class="subtitle">Centro de atalhos:</p>
+    <p class="subtitle">Centro de atalhos</p>
 
     <div class="adsense-holder">
       <ins class="adsbygoogle"
@@ -482,9 +749,110 @@
       </script>
     </div>
 
+    <!-- VÍDEOS EM DESTAQUE -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Social Media:</span> <span class="arrow-icon">▼</span>
+        <span>🎬 Vídeos em Destaque</span> 
+        <span class="arrow-icon">▼</span>
+      </button>
+      <div class="category-wrapper">
+        <div class="category-content">
+          <div class="category-grid-inner">
+            
+            <!-- VÍDEO 1 -->
+            <div class="video-card">
+              <div class="video-thumb-wrap" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
+                <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes Thumbnail">
+                <div class="play-overlay">
+                  <div class="play-btn-icon">▶</div>
+                </div>
+              </div>
+              <div class="video-info">
+                <p class="video-title">Mini vibes</p>
+                <div class="video-actions">
+                  <button type="button" class="video-btn" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
+                    ▶ Assistir
+                  </button>
+                  <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="video-btn">
+                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- VÍDEO 2 -->
+            <div class="video-card">
+              <div class="video-thumb-wrap" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
+                <img src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night Thumbnail">
+                <div class="play-overlay">
+                  <div class="play-btn-icon">▶</div>
+                </div>
+              </div>
+              <div class="video-info">
+                <p class="video-title">Pulse of the Night</p>
+                <div class="video-actions">
+                  <button type="button" class="video-btn" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
+                    ▶ Assistir
+                  </button>
+                  <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="video-btn">
+                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- VÍDEO 3 -->
+            <div class="video-card">
+              <div class="video-thumb-wrap" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
+                <img src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse Thumbnail">
+                <div class="play-overlay">
+                  <div class="play-btn-icon">▶</div>
+                </div>
+              </div>
+              <div class="video-info">
+                <p class="video-title">Deep sub-bass pulse</p>
+                <div class="video-actions">
+                  <button type="button" class="video-btn" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
+                    ▶ Assistir
+                  </button>
+                  <a href="https://youtu.be/Iiv9qnvlNTA" target="_blank" rel="noopener noreferrer" class="video-btn">
+                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- VÍDEO 4 -->
+            <div class="video-card">
+              <div class="video-thumb-wrap" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
+                <img src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Nico, meu amigo especial Thumbnail">
+                <div class="play-overlay">
+                  <div class="play-btn-icon">▶</div>
+                </div>
+              </div>
+              <div class="video-info">
+                <p class="video-title">Nico, meu amigo especial</p>
+                <div class="video-actions">
+                  <button type="button" class="video-btn" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
+                    ▶ Assistir
+                  </button>
+                  <a href="https://youtu.be/X0FzDwYclos" target="_blank" rel="noopener noreferrer" class="video-btn">
+                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REDES SOCIAIS -->
+    <div class="category-section">
+      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
+        <span>🌐 Social Media</span> 
+        <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -517,13 +885,13 @@
               <svg><use href="#icon-yt"/></svg> Youtube
             </a>
             <a href="https://www.tiktok.com/@gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-tiktok"/></svg> TikToK
+              <svg><use href="#icon-tiktok"/></svg> TikTok
             </a>
             <a href="https://discord.com/channels/822605864350646313/878278938118455317" class="hub-button" target="_blank" rel="noopener noreferrer">
               <svg><use href="#icon-discord"/></svg> Discord
             </a>
             <a href="https://www.twitter.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-twitter"/></svg> X | Twitter
+              <svg><use href="#icon-twitter"/></svg> X / Twitter
             </a>
             <a href="https://steamcommunity.com/id/gard3npt/" class="hub-button" target="_blank" rel="noopener noreferrer">
               <svg><use href="#icon-steam"/></svg> Steam
@@ -539,9 +907,11 @@
       </div>
     </div>
 
+    <!-- SITES DESENVOLVIDOS -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Sites desenvolvidos:</span> <span class="arrow-icon">▼</span>
+        <span>💻 Sites Desenvolvidos</span> 
+        <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -560,9 +930,11 @@
       </div>
     </div>
 
+    <!-- BLOGS -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Blogs:</span> <span class="arrow-icon">▼</span>
+        <span>📝 Blogs</span> 
+        <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -581,9 +953,11 @@
       </div>
     </div>
 
+    <!-- REEMBOLSO PARCIAL -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Reembolso Parcial:</span> <span class="arrow-icon">▼</span>
+        <span>💸 Reembolso Parcial</span> 
+        <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -602,9 +976,11 @@
       </div>
     </div>
 
+    <!-- RECOMPENSA POR REFERIDOS -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text"> Recompensa por referidos:</span> <span class="arrow-icon">▼</span>
+        <span>🎁 Recompensa por Referidos</span> 
+        <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -632,9 +1008,11 @@
       </div>
     </div>
 
+    <!-- PAY -->
     <div class="category-section">
       <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span class="trigger-text">Pay</span> <span class="arrow-icon">▼</span>
+        <span>☕ Apoio / Pay</span> 
+        <span class="arrow-icon">▼</span>
       </button>
       <div class="category-wrapper">
         <div class="category-content">
@@ -661,10 +1039,21 @@
 
   </div>
 
+  <!-- MODAL DE VÍDEO -->
+  <div id="videoModal" class="modal">
+    <div class="modal-content modal-video-large">
+      <h2 id="videoModalTitle">Vídeo</h2>
+      <div class="video-container-iframe">
+        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <button type="button" class="btn-cancel" onclick="fecharVideoModal()" style="margin-top: 18px;">Fechar</button>
+    </div>
+  </div>
+
   <!-- MODAL SOBRE -->
   <div id="sobreInfoModal" class="modal">
     <div class="modal-content">
-      <h2>ℹ️ Sobre:</h2>
+      <h2>ℹ️ Sobre o Projeto</h2>
       <div class="about-body">
         <p><strong>🎯 O Projeto:</strong> Este espaço nasceu para centralizar todos os meus atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
         <p><strong>👨‍💻 Quem Sou:</strong> Criador e entusiasta de programação, focado em criar ferramentas práticas e que facilitem o dia a dia.</p>
@@ -678,15 +1067,14 @@
   <!-- MODAL DE CONTACTO -->
   <div id="sobreModal" class="modal">
     <div class="modal-content">
-      <h2>📬 Contacto:</h2>
-      <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 25px;">Escolhe uma plataforma:</p>
+      <h2>📬 Contacto</h2>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">Escolhe a tua plataforma preferida:</p>
 
       <div class="modal-buttons-stack">
-        
         <!-- WhatsApp -->
         <a href="https://wa.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
           <button type="button" class="btn-direct" style="background: #25D366; color: white; width: 100%;">
-            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-whatsapp"/></svg> 
+            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><use href="#icon-whatsapp"/></svg> 
             WhatsApp
           </button>
         </a>
@@ -694,7 +1082,7 @@
         <!-- Telegram -->
         <a href="https://t.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
           <button type="button" class="btn-direct" style="background: #2AABEE; color: white; width: 100%;">
-            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-telegram"/></svg> 
+            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><use href="#icon-telegram"/></svg> 
             Telegram
           </button>
         </a>
@@ -702,12 +1090,12 @@
         <!-- Messenger -->
         <a href="https://m.me/jardimhelder" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
           <button type="button" class="btn-direct" style="background: #0084FF; color: white; width: 100%;">
-            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 20px; height: 20px; margin-right: 8px;"><use href="#icon-messenger"/></svg> 
+            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><use href="#icon-messenger"/></svg> 
             Messenger
           </button>
         </a>
 
-        <button type="button" class="btn-cancel" onclick="fecharSobreModal()" style="margin-top: 15px;">Cancelar</button>
+        <button type="button" class="btn-cancel" onclick="fecharSobreModal()" style="margin-top: 10px;">Cancelar</button>
       </div>
     </div>
   </div>
@@ -716,7 +1104,7 @@
   <div id="senhaModal" class="modal">
     <div class="modal-content">
       <h2>🔒 Área Protegida</h2>
-      <p style="color: #64748b; margin-bottom: 5px; font-size: 0.9rem;">Introduza a palavra-passe para aceder</p>
+      <p style="color: var(--text-muted); margin-bottom: 5px; font-size: 0.88rem;">Introduza a palavra-passe para aceder</p>
 
       <div class="password-wrapper">
         <input type="password" id="senha" placeholder="Palavra-passe" onkeydown="verificarEnter(event)">
@@ -726,8 +1114,8 @@
       <p id="error-message">Palavra-passe incorreta!</p>
 
       <div class="modal-buttons">
-        <button onclick="validarSenha()">Entrar</button>
-        <button onclick="fecharModal()">Cancelar</button>
+        <button type="button" onclick="validarSenha()">Entrar</button>
+        <button type="button" onclick="fecharModal()">Cancelar</button>
       </div>
     </div>
   </div>
@@ -741,6 +1129,7 @@
       fecharSobreModal();
       fecharSobreModalInfo();
       fecharModal();
+      fecharVideoModal();
       
       const seccoes = document.querySelectorAll('.category-section');
       seccoes.forEach(seccao => {
@@ -750,6 +1139,26 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    /* VÍDEO MODAL */
+    function abrirVideoModal(videoId, titulo) {
+      const modal = document.getElementById("videoModal");
+      const iframe = document.getElementById("videoIframe");
+      const titleElem = document.getElementById("videoModalTitle");
+      
+      titleElem.textContent = titulo || "Vídeo";
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      modal.style.display = "flex";
+    }
+
+    function fecharVideoModal() {
+      const modal = document.getElementById("videoModal");
+      const iframe = document.getElementById("videoIframe");
+      
+      iframe.src = "";
+      modal.style.display = "none";
+    }
+
+    /* SOBRE MODAL INFO */
     function abrirSobreModalInfo() {
       document.getElementById("sobreInfoModal").style.display = "flex";
     }
@@ -758,6 +1167,7 @@
       document.getElementById("sobreInfoModal").style.display = "none";
     }
 
+    /* CONTACTO MODAL */
     function acaoBotaoSobre() {
       abrirSobreModal();
     }
@@ -770,17 +1180,19 @@
       document.getElementById("sobreModal").style.display = "none";
     }
 
+    /* CATEGORIAS */
     function toggleCategory(triggerElement) {
       const parentSection = triggerElement.parentElement;
       parentSection.classList.toggle('active');
     }
 
+    /* SENHA MODAL */
     function abrirModal(){
       document.getElementById("senhaModal").style.display = "flex";
       const campoSenha = document.getElementById("senha");
       const errorMsg = document.getElementById("error-message");
       
-      campoSenha.classList.remove("input-erro");
+      campoSenha.style.borderColor = "rgba(255, 255, 255, 0.1)";
       errorMsg.style.display = "none";
       campoSenha.value = "";
       campoSenha.focus();
@@ -799,7 +1211,7 @@
         window.open("https://gard3npt.github.io/sc/", "_blank", "noopener,noreferrer");
         fecharModal();
       } else {
-        campoSenha.classList.add("input-erro");
+        campoSenha.style.borderColor = "#ef4444";
         errorMsg.style.display = "block";
         campoSenha.value = "";
         campoSenha.focus();
@@ -817,13 +1229,17 @@
       input.type = input.type === "password" ? "text" : "password";
     }
 
+    /* FECHAR MODAIS CLICANDO FORA */
     window.onclick = function(e){
       const modalSenha = document.getElementById("senhaModal");
       const modalSobre = document.getElementById("sobreModal");
       const modalSobreInfo = document.getElementById("sobreInfoModal");
+      const modalVideo = document.getElementById("videoModal");
+
       if(e.target === modalSenha){ fecharModal(); }
       if(e.target === modalSobre) { fecharSobreModal(); }
-      if(e.target === modalSobreInfo) { fecharSobreModal(); }
+      if(e.target === modalSobreInfo) { fecharSobreModalInfo(); }
+      if(e.target === modalVideo) { fecharVideoModal(); }
     }
   </script>
 
