@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-PT" class="dark">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AGAJOTA HUB</title>
+  <title>AGAJOTA</title>
 
+  <!-- Google Adsense -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922"
      crossorigin="anonymous"></script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Montserrat', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              900: '#1e1b4b',
+              dark: '#030712',
+            }
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    :root {
-      --bg-dark: #020617;
-      --card-bg: rgba(15, 23, 42, 0.55);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-hover-border: rgba(129, 140, 248, 0.5);
-      --accent: #818cf8;
-      --accent-glow: rgba(129, 140, 248, 0.25);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* Ocultação da barra de scroll */
+    /* Ocultação elegante da barra de scroll */
     html, body {
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -47,1201 +59,988 @@
       height: 0 !important;
     }
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, var(--bg-dark) 100%);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      overflow-x: hidden;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    /* BARRA FIXA DO CABEÇALHO COMPLETA */
-    .top-header-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px 16px;
-      background: rgba(2, 6, 23, 0.85);
+    /* Glassmorphism Backgrounds com mais cor */
+    .glass-nav {
+      background: rgba(3, 7, 18, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid rgba(129, 140, 248, 0.2);
     }
 
-    .top-buttons-container {
-      display: flex;
-      gap: 10px;
-      background: rgba(15, 23, 42, 0.6);
-      padding: 6px;
-      border-radius: 16px;
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .top-btn {
-      background: transparent;
-      border: 1px solid transparent;
-      padding: 8px 18px;
-      border-radius: 12px;
-      color: #cbd5e1;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      outline: none;
-    }
-
-    .top-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-    }
-
-    .top-btn.active-btn, .top-btn:active {
-      background: #ffffff;
-      color: #020617;
-      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
-    }
-
-    .top-btn svg {
-      width: 15px;
-      height: 15px;
-      fill: currentColor;
-    }
-
-    /* FUNDO MONOGRAMA/BRANDING */
-    .background-letters {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      pointer-events: none;
-      user-select: none;
-      z-index: 0;
-    }
-
-    .background-letters h1 {
-      font-size: 50vw;
-      font-weight: 900;
-      letter-spacing: -2vw;
-      background: linear-gradient(180deg, rgba(165, 180, 252, 0.05) 0%, rgba(255, 255, 255, 0) 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: blur(2px);
-    }
-
-    /* CONTAINER PRINCIPAL */
-    .container {
-      width: min(92%, 900px);
-      padding: 120px 20px 40px 20px;
-      z-index: 2;
-      text-align: center;
-      flex: 1 0 auto;
-    }
-
-    .title {
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      font-weight: 900;
-      letter-spacing: 12px;
-      margin-bottom: 2px;
-      text-transform: uppercase;
-      background: linear-gradient(135deg, #ffffff 30%, #c7d2fe 60%, #818cf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 4px 20px rgba(99, 102, 241, 0.2));
-    }
-
-    .author-name {
-      color: #a5b4fc;
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      margin-bottom: 6px;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      margin-bottom: 30px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      font-weight: 700;
-      opacity: 0.8;
-    }
-
-    /* ADSENSE */
-    .adsense-holder, .adsense-bottom {
-      margin: 0 auto 30px;
-      width: 100%;
-      max-width: 800px;
-      overflow: hidden;
-      display: block;
-      border-radius: 12px;
-    }
-
-    .adsense-bottom {
-      margin: 40px auto 20px;
-      z-index: 2;
-    }
-
-    ins.adsbygoogle[data-ad-status="unfilled"] {
-      display: none !important;
-    }
-
-    /* CATEGORIAS COLAPSÁVEIS */
-    .category-section {
-      margin-bottom: 16px;
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      overflow: hidden;
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .category-section:hover {
-      border-color: rgba(129, 140, 248, 0.4);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 15px var(--accent-glow);
-    }
-
-    .category-trigger {
-      width: 100%;
-      background: transparent;
-      border: none;
-      padding: 22px 28px;
-      color: #ffffff;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.3s ease;
-    }
-
-    .category-trigger:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .category-trigger .arrow-icon {
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .category-section.active {
-      background: rgba(15, 23, 42, 0.75);
-      border-color: var(--card-hover-border);
-    }
-
-    .category-section.active .category-trigger .arrow-icon {
-      transform: rotate(180deg);
-      color: var(--accent);
-    }
-
-    .category-wrapper {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .category-section.active .category-wrapper {
-      grid-template-rows: 1fr;
-    }
-
-    .category-content {
-      overflow: hidden;
-    }
-
-    .category-grid-inner {
-      padding: 5px 24px 28px 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-
-    /* BOTÕES DO HUB */
-    .hub-button {
-      background: rgba(2, 6, 23, 0.5);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 16px;
-      text-decoration: none;
-      color: #cbd5e1;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all 0.25s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .hub-button svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-      flex-shrink: 0;
-      transition: transform 0.25s ease;
-    }
-
-    .hub-button:hover {
-      background: #ffffff;
-      color: #020617;
-      border-color: #ffffff;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
-    }
-
-    .hub-button:hover svg {
-      transform: scale(1.1);
-    }
-
-    /* SUB-BLOCOS (EX: INSTAGRAM / FACEBOOK) */
-    .inner-sub-block {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      background: rgba(2, 6, 23, 0.35);
-      padding: 18px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      margin-top: 6px;
-      margin-bottom: 4px;
-    }
-
-    .inner-title {
-      grid-column: 1 / -1;
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-weight: 700;
-      text-align: left;
-      margin-bottom: 2px;
-    }
-
-    /* CARTÕES DE VÍDEO */
-    .video-card {
-      background: rgba(2, 6, 23, 0.6);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      transition: all 0.3s ease;
-    }
-
-    .video-card:hover {
+    .glass-card:hover {
+      border-color: rgba(168, 85, 247, 0.5);
+      box-shadow: 0 12px 30px -8px rgba(147, 51, 234, 0.35);
       transform: translateY(-3px);
-      border-color: var(--card-hover-border);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
 
-    .video-thumb-wrap {
+    .glass-modal {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Gradient Glowing Text */
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 10%, #a855f7 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+
+    /* Custom Motion Animations */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.08); }
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .animate-glow {
+      animation: pulseGlow 6s infinite ease-in-out;
+    }
+
+    .animate-float {
+      animation: floatCard 4s infinite ease-in-out;
+    }
+
+    /* Animação para os vídeos em destaque */
+    .featured-video-card {
       position: relative;
-      width: 100%;
-      padding-top: 56.25%;
-      background: #000;
-      cursor: pointer;
-      overflow: hidden;
+      transition: all 0.4s ease;
     }
 
-    .video-thumb-wrap img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-
-    .video-card:hover .video-thumb-wrap img {
-      transform: scale(1.06);
-    }
-
-    .play-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease;
-    }
-
-    .video-thumb-wrap:hover .play-overlay {
-      background: rgba(0, 0, 0, 0.15);
-    }
-
-    .play-btn-icon {
-      width: 44px;
-      height: 44px;
-      background: #ff0000;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5);
-      transition: transform 0.3s ease;
-      font-size: 0.8rem;
-    }
-
-    .video-thumb-wrap:hover .play-btn-icon {
-      transform: scale(1.15);
-    }
-
-    .video-info {
-      padding: 12px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-      justify-content: space-between;
-    }
-
-    .video-title {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #e2e8f0;
-      line-height: 1.3;
-    }
-
-    .video-actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .video-btn {
-      flex: 1;
-      padding: 8px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.05);
-      color: #cbd5e1;
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-decoration: none;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-    }
-
-    .video-btn:hover {
-      background: #ffffff;
-      color: #020617;
-      border-color: #ffffff;
-    }
-
-    /* IFRAME DO MODAL */
-    .video-container-iframe {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      height: 0;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #000;
-      margin-top: 15px;
-    }
-
-    .video-container-iframe iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    /* FOOTER */
-    footer {
-      width: 100%;
-      padding: 25px 15px;
-      background: var(--bg-dark);
-      color: #64748b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 500;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      z-index: 10;
-      letter-spacing: 1px;
-    }
-
-    /* MODAIS */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: #0f172a;
-      padding: 30px 25px;
-      border-radius: 24px;
-      width: 100%;
-      max-width: 460px;
-      text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    .modal-content.modal-video-large {
-      max-width: 800px;
-    }
-
-    .modal-content h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .about-body {
-      text-align: left;
-      color: var(--text-muted);
-      font-size: 0.88rem;
-      line-height: 1.6;
-      margin-top: 15px;
-      margin-bottom: 25px;
-    }
-
-    .about-body p {
-      margin-bottom: 12px;
-    }
-
-    .password-wrapper { 
-      position: relative; 
-      margin-top: 18px; 
-    }
-    
-    .password-wrapper input { 
-      width: 100%; 
-      padding: 14px 16px; 
-      border: 1px solid rgba(255, 255, 255, 0.1); 
-      border-radius: 12px; 
-      background: #020617; 
-      color: #fff; 
-      font-size: 0.95rem; 
-      padding-right: 45px; 
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .password-wrapper input:focus {
-      border-color: var(--accent);
-    }
-
-    .toggle-eye { 
-      position: absolute; 
-      right: 14px; 
-      top: 50%; 
-      transform: translateY(-50%); 
-      background: none; 
-      border: none; 
-      cursor: pointer; 
-      font-size: 16px; 
-      color: #64748b; 
-    }
-
-    .modal-buttons-stack { 
-      margin-top: 20px; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 10px; 
-    }
-
-    .modal-buttons-stack button { 
-      width: 100%; 
-      padding: 13px; 
-      border: none; 
-      border-radius: 12px; 
-      cursor: pointer; 
-      font-weight: 600; 
-      font-size: 0.9rem; 
-      display: inline-flex; 
-      justify-content: center; 
-      align-items: center; 
-      gap: 8px; 
-      transition: transform 0.2s ease, opacity 0.2s ease; 
-    }
-
-    .modal-buttons-stack button:hover { 
-      transform: translateY(-2px); 
-      opacity: 0.95; 
-    }
-
-    .btn-direct { color: white; }
-    
-    .btn-cancel { 
-      background: rgba(255,255,255,0.05); 
-      color: var(--text-muted); 
-      border: 1px solid rgba(255,255,255,0.08); 
-      padding: 12px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.88rem;
-      transition: all 0.2s ease;
-    }
-
-    .btn-cancel:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-    }
-
-    .modal-buttons { 
-      margin-top: 20px; 
-      display: flex; 
-      gap: 10px; 
-    }
-
-    .modal-buttons button { 
-      flex: 1; 
-      padding: 13px; 
-      border: none; 
-      border-radius: 12px; 
-      cursor: pointer; 
-      font-weight: 600; 
-    }
-
-    .modal-buttons button:first-child { 
-      background: #ffffff; 
-      color: #020617; 
-    }
-
-    .modal-buttons button:last-child { 
-      background: rgba(255,255,255,0.05); 
-      color: var(--text-muted); 
-      border: 1px solid rgba(255,255,255,0.08); 
-    }
-
-    #error-message { 
-      color: #ef4444; 
-      font-size: 0.8rem; 
-      margin-top: 8px; 
-      display: none; 
-      font-weight: 600; 
-    }
-
-    /* ADAPTAÇÃO MOBILE */
-    @media(max-width: 640px){
-      .top-header-bar {
-        padding: 8px 10px;
-      }
-      .top-buttons-container { 
-        width: min(100%, 400px);
-        justify-content: space-around;
-      }
-      .top-btn {
-        padding: 8px 12px;
-        font-size: 0.75rem;
-      }
-      .container { padding: 100px 12px 30px 12px; }
-      .category-trigger { padding: 18px 20px; font-size: 0.95rem; }
-      .category-grid-inner { padding: 0 16px 20px 16px; gap: 10px; }
-      .inner-sub-block { padding: 12px; }
-      .hub-button { padding: 14px; font-size: 0.85rem; }
+    .featured-video-card:hover {
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
     }
   </style>
 </head>
 
-<body>
+<body class="bg-[#030712] text-slate-100 font-sans min-h-screen flex flex-col justify-between relative selection:bg-pink-500 selection:text-white">
 
-  <!-- SIMBOLOS SVG -->
+  <!-- SÍMBOLOS SVG -->
   <svg style="display: none;">
-    <symbol id="icon-insta" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></symbol>
-    <symbol id="icon-face" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></symbol>
-    <symbol id="icon-yt" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
-    <symbol id="icon-tiktok" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.05 1.62 4.2 1.21 1.4 3 2.27 4.87 2.45v3.9c-1.78-.13-3.52-.77-4.95-1.87-.19-.15-.36-.31-.53-.48-.02 2.38-.01 4.76-.02 7.14 0 2.22-.64 4.49-2.06 6.19-1.75 2.15-4.57 3.19-7.27 2.76-2.61-.37-5-2.11-6.1-4.51-1.39-2.91-.94-6.68 1.15-9.15 1.57-1.9 4-2.88 6.44-2.55v3.89c-1.32-.23-2.73.19-3.6 1.17-.92 1.01-1.12 2.57-.49 3.77.63 1.25 2.05 2.04 3.45 1.9 1.51-.06 2.78-1.28 2.87-2.79.03-3.32.01-6.64.02-9.97z"/></symbol>
-    <symbol id="icon-discord" viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.298 12.298 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084-.028 19.839 19.839 0 006.002-3.03a.076.076 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></symbol>
-    <symbol id="icon-twitter" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
-    <symbol id="icon-steam" viewBox="0 0 24 24"><path d="M21.83 8.66a12 12 0 10-10.42 13.31l3.56-5.06a4.41 4.41 0 112.52-4.44l5.07-3.56c.07.41.11.83.11 1.25a11.91 11.91 0 01-.84 4.5zm-8.4 5.75l-3.32 4.73A10.15 10.15 0 011.88 12c0-5.62 4.56-10.18 10.17-10.18a10.2 10.2 0 019.04 5.53l-4.78 3.36a4.42 4.42 0 01-2.88 3.7zm1.18-3.03a1.95 1.95 0 10-2.76 2.76 1.95 1.95 0 002.76-2.76z"/></symbol>
-    <symbol id="icon-spotify" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.372 0 12s5.373 12 12 12 12-5.372 12-12S18.627 0 12 0zm5.494 17.307c-.215.352-.676.463-1.028.248-2.857-1.747-6.453-2.14-10.686-1.173-.402.092-.806-.16-.898-.562-.092-.403.16-.806.562-.897 4.634-1.059 8.602-.614 11.8 1.341.352.214.464.675.25 1.028zm1.469-3.262c-.27 1.405-1.405 1.837-2.316 1.285-3.27-2.01-8.258-2.595-12.126-1.42-.452.137-.923-.118-1.06-.57-.138-.453.118-.924.57-1.06 4.423-1.343 9.917-.69 13.633 1.597.452.278.592.868.314 1.319zm.126-3.414C15.346 8.3 8.307 8.067 4.22 9.306c-.596.18-1.226-.153-1.407-.75-.18-.596.153-1.226.75-1.407 4.68-1.42 12.44-1.155 17.022 1.565.538.32.712 1.018.393 1.556-.32.538-1.018.712-1.556.393z"/></symbol>
-    <symbol id="icon-calc" viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 18H6V4h12v16zm-1-7h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4H7v2h2v-2zm0-4H7v2h2V9zm8 6h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H7v2h2v-2z"/></symbol>
-    <symbol id="icon-globe" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.66 0 3 1.34 3 3v.17c2.47.76 4.19 3.03 4.19 5.72 0 .5-.07.98-.19 1.45z"/></symbol>
-    <symbol id="icon-brand" viewBox="0 0 24 24"><path d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45 3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
-    <symbol id="icon-twitch" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
-    <symbol id="icon-info" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
-    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
-    <symbol id="icon-wallet" viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
-    <symbol id="icon-video" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
-    <symbol id="icon-paypal" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.354a1.282 1.282 0 0 1 1.264-1.065h7.286c3.275 0 5.462.678 6.502 2.03 1.077 1.4 1.02 3.426.471 5.485-.688 2.576-2.616 4.318-5.3 4.318h-2.146a.641.641 0 0 0-.632.535l-1.14 5.166a.641.641 0 0 1-.633.534zm10.305-11.5c.348-1.306.33-2.528-.433-3.518C16.1 5.23 14.33 4.793 11.956 4.793H6.843l-2.4 15.263h2.383l1.11-5.027a1.923 1.923 0 0 1 1.896-1.605h1.616c2.4 0 4.168-1.517 4.743-3.666l.19-.721z"/></symbol>
-    <symbol id="icon-message" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
-    <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></symbol>
-    <symbol id="icon-telegram" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
-    <symbol id="icon-messenger" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.251.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.26 5.888-3.26-6.559 6.963z"/></symbol>
+    <symbol id="icon-insta" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></symbol>
+    <symbol id="icon-face" viewBox="0 0 24 24"><path fill="currentColor" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></symbol>
+    <symbol id="icon-yt" viewBox="0 0 24 24"><path fill="currentColor" d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></symbol>
+    <symbol id="icon-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.05 1.62 4.2 1.21 1.4 3 2.27 4.87 2.45v3.9c-1.78-.13-3.52-.77-4.95-1.87-.19-.15-.36-.31-.53-.48-.02 2.38-.01 4.76-.02 7.14 0 2.22-.64 4.49-2.06 6.19-1.75 2.15-4.57 3.19-7.27 2.76-2.61-.37-5-2.11-6.1-4.51-1.39-2.91-.94-6.68 1.15-9.15 1.57-1.9 4-2.88 6.44-2.55v3.89c-1.32-.23-2.73.19-3.6 1.17-.92 1.01-1.12 2.57-.49 3.77.63 1.25 2.05 2.04 3.45 1.9 1.51-.06 2.78-1.28 2.87-2.79.03-3.32.01-6.64.02-9.97z"/></symbol>
+    <symbol id="icon-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.298 12.298 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084-.028 19.839 19.839 0 006.002-3.03a.076.076 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></symbol>
+    <symbol id="icon-twitter" viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
+    <symbol id="icon-steam" viewBox="0 0 24 24"><path fill="currentColor" d="M21.83 8.66a12 12 0 10-10.42 13.31l3.56-5.06a4.41 4.41 0 112.52-4.44l5.07-3.56c.07.41.11.83.11 1.25a11.91 11.91 0 01-.84 4.5zm-8.4 5.75l-3.32 4.73A10.15 10.15 0 011.88 12c0-5.62 4.56-10.18 10.17-10.18a10.2 10.2 0 019.04 5.53l-4.78 3.36a4.42 4.42 0 01-2.88 3.7zm1.18-3.03a1.95 1.95 0 10-2.76 2.76 1.95 1.95 0 002.76-2.76z"/></symbol>
+    <symbol id="icon-spotify" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 5.372 0 12s5.373 12 12 12 12-5.372 12-12S18.627 0 12 0zm5.494 17.307c-.215.352-.676.463-1.028.248-2.857-1.747-6.453-2.14-10.686-1.173-.402.092-.806-.16-.898-.562-.092-.403.16-.806.562-.897 4.634-1.059 8.602-.614 11.8 1.341.352.214.464.675.25 1.028zm1.469-3.262c-.27 1.405-1.405 1.837-2.316 1.285-3.27-2.01-8.258-2.595-12.126-1.42-.452.137-.923-.118-1.06-.57-.138-.453.118-.924.57-1.06 4.423-1.343 9.917-.69 13.633 1.597.452.278.592.868.314 1.319zm.126-3.414C15.346 8.3 8.307 8.067 4.22 9.306c-.596.18-1.226-.153-1.407-.75-.18-.596.153-1.226.75-1.407 4.68-1.42 12.44-1.155 17.022 1.565.538.32.712 1.018.393 1.556-.32.538-1.018.712-1.556.393z"/></symbol>
+    <symbol id="icon-calc" viewBox="0 0 24 24"><path fill="currentColor" d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 18H6V4h12v16zm-1-7h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4H7v2h2v-2zm0-4H7v2h2V9zm8 6h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H7v2h2v-2z"/></symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.66 0 3 1.34 3 3v.17c2.47.76 4.19 3.03 4.19 5.72 0 .5-.07.98-.19 1.45z"/></symbol>
+    <symbol id="icon-brand" viewBox="0 0 24 24"><path fill="currentColor" d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45 3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
+    <symbol id="icon-twitch" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
+    <symbol id="icon-wallet" viewBox="0 0 24 24"><path fill="currentColor" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
+    <symbol id="icon-video" viewBox="0 0 24 24"><path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
+    <symbol id="icon-paypal" viewBox="0 0 24 24"><path fill="currentColor" d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.354a1.282 1.282 0 0 1 1.264-1.065h7.286c3.275 0 5.462.678 6.502 2.03 1.077 1.4 1.02 3.426.471 5.485-.688 2.576-2.616 4.318-5.3 4.318h-2.146a.641.641 0 0 0-.632.535l-1.14 5.166a.641.641 0 0 1-.633.534zm10.305-11.5c.348-1.306.33-2.528-.433-3.518C16.1 5.23 14.33 4.793 11.956 4.793H6.843l-2.4 15.263h2.383l1.11-5.027a1.923 1.923 0 0 1 1.896-1.605h1.616c2.4 0 4.168-1.517 4.743-3.666l.19-.721z"/></symbol>
+    <symbol id="icon-message" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></symbol>
+    <symbol id="icon-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
+    <symbol id="icon-messenger" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.251.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.26 5.888-3.26-6.559 6.963z"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></symbol>
   </svg>
 
+  <!-- BACKGROUND VIBRANTE COM GLOWS COLORIDOS -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-indigo-600/30 rounded-full blur-[120px] animate-glow"></div>
+    <div class="absolute top-1/3 -right-40 w-[500px] h-[500px] bg-pink-600/25 rounded-full blur-[120px] animate-glow" style="animation-delay: 2s;"></div>
+    <div class="absolute bottom-10 left-1/4 w-[500px] h-[500px] bg-purple-600/25 rounded-full blur-[120px] animate-glow" style="animation-delay: 4s;"></div>
+    <div class="absolute inset-0 bg-grid-pattern opacity-40"></div>
+  </div>
+
   <!-- BARRA DE CABEÇALHO FIXA -->
-  <header class="top-header-bar">
-    <div class="top-buttons-container">
-      <button type="button" class="top-btn" onclick="voltarAoInicio()">
-        <svg><use href="#icon-globe"/></svg> Início
-      </button>
-      <button type="button" class="top-btn" onclick="abrirSobreModalInfo()">
-        <svg><use href="#icon-info"/></svg> Sobre
-      </button>
-      <button type="button" class="top-btn" onclick="acaoBotaoSobre()">
-        <svg><use href="#icon-message"/></svg> Contacto
-      </button>
+  <header class="top-header-bar fixed top-0 left-0 w-full z-50 glass-nav px-4 py-3 transition-all">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      
+      <!-- Logo / Brand -->
+      <a href="javascript:void(0)" onclick="voltarAoInicio()" class="flex items-center gap-2 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-indigo-500/40 group-hover:scale-105 transition-transform">
+          HJ
+        </div>
+        <div class="flex flex-col">
+          <span class="font-extrabold text-sm tracking-wider text-white group-hover:text-pink-400 transition-colors">AGAJOTA</span>
+          <span class="text-[10px] text-slate-400 tracking-widest uppercase">Helder Jardim (@gard3npt) | Blog & Hub</span>
+        </div>
+      </a>
+
+      <!-- Navigation Buttons -->
+      <nav class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
+        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
+          <svg class="w-4 h-4"><use href="#icon-globe"/></svg>
+          <span class="hidden sm:inline">Início</span>
+        </button>
+        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="abrirSobreModalInfo()">
+          <svg class="w-4 h-4"><use href="#icon-info"/></svg>
+          <span class="hidden sm:inline">Sobre</span>
+        </button>
+        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-900 bg-gradient-to-r from-pink-500 to-purple-500 hover:brightness-110 text-white transition-all shadow-md" onclick="acaoBotaoSobre()">
+          <svg class="w-4 h-4"><use href="#icon-message"/></svg>
+          <span>Contacto</span>
+        </button>
+      </nav>
+
     </div>
   </header>
 
-  <div class="background-letters">
-    <h1>HJ</h1>
-  </div>
+  <!-- CONTAINER PRINCIPAL -->
+  <main class="container max-w-6xl mx-auto px-4 pt-28 pb-16 z-10 flex-1 relative">
 
-  <div class="container">
-
-    <h1 class="title">AGAJOTA</h1>
-    <p class="author-name">Helder Jardim (Gard3npt)</p>
-    <p class="subtitle">Centro de atalhos</p>
-
-    <div class="adsense-holder">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-4094039418988922"
-           data-ad-slot="4033482498"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-
-    <!-- VÍDEOS EM DESTAQUE -->
-    <div class="category-section">
-      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span>🎬 Vídeos em Destaque</span> 
-        <span class="arrow-icon">▼</span>
-      </button>
-      <div class="category-wrapper">
-        <div class="category-content">
-          <div class="category-grid-inner">
-            
-            <!-- VÍDEO 1 -->
-            <div class="video-card">
-              <div class="video-thumb-wrap" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
-                <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes Thumbnail">
-                <div class="play-overlay">
-                  <div class="play-btn-icon">▶</div>
-                </div>
-              </div>
-              <div class="video-info">
-                <p class="video-title">Mini vibes</p>
-                <div class="video-actions">
-                  <button type="button" class="video-btn" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
-                    ▶ Assistir
-                  </button>
-                  <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="video-btn">
-                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- VÍDEO 2 -->
-            <div class="video-card">
-              <div class="video-thumb-wrap" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
-                <img src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night Thumbnail">
-                <div class="play-overlay">
-                  <div class="play-btn-icon">▶</div>
-                </div>
-              </div>
-              <div class="video-info">
-                <p class="video-title">Pulse of the Night</p>
-                <div class="video-actions">
-                  <button type="button" class="video-btn" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
-                    ▶ Assistir
-                  </button>
-                  <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="video-btn">
-                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- VÍDEO 3 -->
-            <div class="video-card">
-              <div class="video-thumb-wrap" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
-                <img src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse Thumbnail">
-                <div class="play-overlay">
-                  <div class="play-btn-icon">▶</div>
-                </div>
-              </div>
-              <div class="video-info">
-                <p class="video-title">Deep sub-bass pulse</p>
-                <div class="video-actions">
-                  <button type="button" class="video-btn" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
-                    ▶ Assistir
-                  </button>
-                  <a href="https://youtu.be/Iiv9qnvlNTA" target="_blank" rel="noopener noreferrer" class="video-btn">
-                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- VÍDEO 4 -->
-            <div class="video-card">
-              <div class="video-thumb-wrap" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
-                <img src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Nico, meu amigo especial Thumbnail">
-                <div class="play-overlay">
-                  <div class="play-btn-icon">▶</div>
-                </div>
-              </div>
-              <div class="video-info">
-                <p class="video-title">Nico, meu amigo especial</p>
-                <div class="video-actions">
-                  <button type="button" class="video-btn" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
-                    ▶ Assistir
-                  </button>
-                  <a href="https://youtu.be/X0FzDwYclos" target="_blank" rel="noopener noreferrer" class="video-btn">
-                    <svg style="width: 12px; height: 12px; fill: currentColor;"><use href="#icon-yt"/></svg> YouTube
-                  </a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- REDES SOCIAIS -->
-    <div class="category-section">
-      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span>🌐 Social Media</span> 
-        <span class="arrow-icon">▼</span>
-      </button>
-      <div class="category-wrapper">
-        <div class="category-content">
-          <div class="category-grid-inner">
-            
-            <div class="inner-sub-block">
-              <p class="inner-title">📷 Instagram</p>
-              <a href="https://www.instagram.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-                <svg><use href="#icon-insta"/></svg> @gard3npt
-              </a>
-              <a href="https://www.instagram.com/r3d_mini" class="hub-button" target="_blank" rel="noopener noreferrer">
-                <svg><use href="#icon-insta"/></svg> @r3d_mini
-              </a>
-              <a href="https://www.instagram.com/caricas_metalicas" class="hub-button" target="_blank" rel="noopener noreferrer">
-                <svg><use href="#icon-insta"/></svg> @caricas_metalicas
-              </a>
-            </div>
-
-            <div class="inner-sub-block">
-              <p class="inner-title">📘 Facebook</p>
-              <a href="https://www.facebook.com/jardimhelder" class="hub-button" target="_blank" rel="noopener noreferrer">
-                <svg><use href="#icon-face"/></svg> Hélder Jardim
-              </a>
-              <a href="https://www.facebook.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-                <svg><use href="#icon-face"/></svg> Hélder Jardim | Page
-              </a>
-            </div>
-
-            <a href="https://www.youtube.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-yt"/></svg> Youtube
-            </a>
-            <a href="https://www.tiktok.com/@gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-tiktok"/></svg> TikTok
-            </a>
-            <a href="https://discord.com/channels/822605864350646313/878278938118455317" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-discord"/></svg> Discord
-            </a>
-            <a href="https://www.twitter.com/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-twitter"/></svg> X / Twitter
-            </a>
-            <a href="https://steamcommunity.com/id/gard3npt/" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-steam"/></svg> Steam
-            </a>
-            <a href="https://open.spotify.com/user/3f97p9x9neepy829kwg89o8z3" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-spotify"/></svg> Spotify
-            </a>
-            <a href="https://www.twitch.tv/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-twitch"/></svg> Twitch
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SITES DESENVOLVIDOS -->
-    <div class="category-section">
-      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span>💻 Sites Desenvolvidos</span> 
-        <span class="arrow-icon">▼</span>
-      </button>
-      <div class="category-wrapper">
-        <div class="category-content">
-          <div class="category-grid-inner">
-            <a href="https://gard3npt.github.io/simuladorjuros" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-calc"/></svg> Simulador de Juros
-            </a>
-            <a href="https://gard3npt.github.io/caricas_metalicas/" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-globe"/></svg> Caricas Metálicas
-            </a>
-            <button type="button" class="hub-button" onclick="abrirModal()">
-              SC Lab 🔐
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BLOGS -->
-    <div class="category-section">
-      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span>📝 Blogs</span> 
-        <span class="arrow-icon">▼</span>
-      </button>
-      <div class="category-wrapper">
-        <div class="category-content">
-          <div class="category-grid-inner">
-            <a href="https://gard3npt.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-brand"/></svg> Agora Todos Podem Ver...
-            </a>
-            <a href="https://caricasmetalicas.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-brand"/></svg> @caricas_metalicas
-            </a>
-            <a href="https://calculadoratanb.blogspot.com" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-brand"/></svg> Calculadora TANB
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- REEMBOLSO PARCIAL -->
-    <div class="category-section">
-      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span>💸 Reembolso Parcial</span> 
-        <span class="arrow-icon">▼</span>
-      </button>
-      <div class="category-wrapper">
-        <div class="category-content">
-          <div class="category-grid-inner">
-            <a href="https://letyshops.com/pt/winwin?ww=12072651" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-info"/></svg> Letyshops
-            </a>
-            <a href="https://my.picodi.com/pt/refer/f7a96f6e-2079-4edb-9419-a355df42ab7c" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-heart"/></svg> Picodi
-            </a>
-            <a href="https://pt.beruby.com/promocode/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-info"/></svg> Beruby
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RECOMPENSA POR REFERIDOS -->
-    <div class="category-section">
-      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span>🎁 Recompensa por Referidos</span> 
-        <span class="arrow-icon">▼</span>
-      </button>
-      <div class="category-wrapper">
-        <div class="category-content">
-          <div class="category-grid-inner">
-            <a href="https://r.honeygain.me/JARDI844A9" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-globe"/></svg> Honeygain
-            </a>
-            <a href="https://www.publipt.com/pages/index.php?refid=gard3n" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-info"/></svg> !Publipt
-            </a>
-            <a href="https://attapoll.app/join/oidoj" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-info"/></svg> AttaPoll | Questionários
-            </a>
-            <a href="https://app.stocardapp.com/invite/mckanddu" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-wallet"/></svg> Stocard | Cartões
-            </a>
-            <a href="https://streamyard.com/pal/c/5338073179357184" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-video"/></svg> StreamYard
-            </a>
-            <a href="https://py.pl/8bPEvHhNvU2" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-paypal"/></svg> Paypal
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PAY -->
-    <div class="category-section">
-      <button type="button" class="category-trigger" onclick="toggleCategory(this)">
-        <span>☕ Apoio / Pay</span> 
-        <span class="arrow-icon">▼</span>
-      </button>
-      <div class="category-wrapper">
-        <div class="category-content">
-          <div class="category-grid-inner">
-            <a href="https://www.paypal.com/paypalme/gard3npt" class="hub-button" target="_blank" rel="noopener noreferrer">
-              <svg><use href="#icon-paypal"/></svg> Paypal
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="adsense-bottom">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-4094039418988922"
-           data-ad-slot="4033482498"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-
-  </div>
-
-  <!-- MODAL DE VÍDEO -->
-  <div id="videoModal" class="modal">
-    <div class="modal-content modal-video-large">
-      <h2 id="videoModalTitle">Vídeo</h2>
-      <div class="video-container-iframe">
-        <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <button type="button" class="btn-cancel" onclick="fecharVideoModal()" style="margin-top: 18px;">Fechar</button>
-    </div>
-  </div>
-
-  <!-- MODAL SOBRE -->
-  <div id="sobreInfoModal" class="modal">
-    <div class="modal-content">
-      <h2>ℹ️ Sobre o Projeto</h2>
-      <div class="about-body">
-        <p><strong>🎯 O Projeto:</strong> Este espaço nasceu para centralizar todos os meus atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
-        <p><strong>👨‍💻 Quem Sou:</strong> Criador e entusiasta de programação, focado em criar ferramentas práticas e que facilitem o dia a dia.</p>
-        <p><strong>🛠️ Mãos à Obra & Bricolage:</strong> Fora do ecrã, gosto de pôr as mãos à obra. Tenho um grande fascínio por trabalhos manuais e bricolage — Criar, reparar e dar vida a projetos físicos com as minhas próprias mãos é algo que me apaixona.</p>
-        <p><strong>🚗 Paixão Automóvel:</strong> Entusiasta de carros clássicos, onde dedico quando necessário a trabalhos de mecânica básica no meu Clássico MINI 1000 e à participação ativa em encontros de clássicos.</p>
-      </div>
-      <button type="button" class="btn-cancel" onclick="fecharSobreModalInfo()">Fechar</button>
-    </div>
-  </div>
-
-  <!-- MODAL DE CONTACTO -->
-  <div id="sobreModal" class="modal">
-    <div class="modal-content">
-      <h2>📬 Contacto</h2>
-      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px;">Escolhe a tua plataforma preferida:</p>
-
-      <div class="modal-buttons-stack">
-        <!-- WhatsApp -->
-        <a href="https://wa.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-          <button type="button" class="btn-direct" style="background: #25D366; color: white; width: 100%;">
-            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><use href="#icon-whatsapp"/></svg> 
-            WhatsApp
-          </button>
-        </a>
-
-        <!-- Telegram -->
-        <a href="https://t.me/gard3npt" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-          <button type="button" class="btn-direct" style="background: #2AABEE; color: white; width: 100%;">
-            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><use href="#icon-telegram"/></svg> 
-            Telegram
-          </button>
-        </a>
-
-        <!-- Messenger -->
-        <a href="https://m.me/jardimhelder" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-          <button type="button" class="btn-direct" style="background: #0084FF; color: white; width: 100%;">
-            <svg viewBox="0 0 24 24" style="fill: currentColor; width: 18px; height: 18px;"><use href="#icon-messenger"/></svg> 
-            Messenger
-          </button>
-        </a>
-
-        <button type="button" class="btn-cancel" onclick="fecharSobreModal()" style="margin-top: 10px;">Cancelar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL SENHA -->
-  <div id="senhaModal" class="modal">
-    <div class="modal-content">
-      <h2>🔒 Área Protegida</h2>
-      <p style="color: var(--text-muted); margin-bottom: 5px; font-size: 0.88rem;">Introduza a palavra-passe para aceder</p>
-
-      <div class="password-wrapper">
-        <input type="password" id="senha" placeholder="Palavra-passe" onkeydown="verificarEnter(event)">
-        <button type="button" class="toggle-eye" onclick="togglePassword()">👁️</button>
-      </div>
+    <!-- HERO SECTION ESTILO BLOG -->
+    <section class="text-center my-8 max-w-3xl mx-auto">
       
-      <p id="error-message">Palavra-passe incorreta!</p>
+      <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-gradient mb-4 leading-tight">
+        AGAJOTA
+      </h1>
 
-      <div class="modal-buttons">
-        <button type="button" onclick="validarSenha()">Entrar</button>
-        <button type="button" onclick="fecharModal()">Cancelar</button>
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 p-0.5">
+          <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs">
+            HJ
+          </div>
+        </div>
+        <div class="text-left">
+          <p class="text-sm font-bold text-slate-200">Helder Jardim</p>
+          <p class="text-xs text-pink-400 font-medium">@gard3npt</p>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <footer>
-    © 2026 Agajota | Helder Jardim | @gard3npt
+      <p class="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+        Bem-vindo ao meu espaço digital. Aqui partilho os meus vídeos do YouTube organizados por temas, ferramentas web, projetos e redes sociais.
+      </p>
+
+      <!-- BARRA DE PESQUISA EM TEMPO REAL -->
+      <div class="mt-8 relative max-w-md mx-auto">
+        <div class="relative flex items-center">
+          <svg class="w-5 h-5 absolute left-4 text-purple-400"><use href="#icon-search"/></svg>
+          <input type="text" id="searchInput" onkeyup="filtrarConteudo()" placeholder="Pesquisar por vídeos, listas, redes, projetos..." 
+                 class="w-full bg-slate-900/90 border border-purple-500/30 rounded-2xl py-3 pl-12 pr-4 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xl">
+        </div>
+      </div>
+
+      <!-- TAGS FILTRO RÁPIDO -->
+      <div class="flex flex-wrap justify-center gap-2 mt-4 text-xs">
+        <button onclick="filtrarTag('all')" class="tag-btn active px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-md transition-all">Todos</button>
+        <button onclick="filtrarTag('video')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🎬 Destaques</button>
+        <button onclick="filtrarTag('playlists')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📺 Vídeos do YouTube</button>
+        <button onclick="filtrarTag('social')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🌐 Redes</button>
+        <button onclick="filtrarTag('project')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💻 Projetos</button>
+        <button onclick="filtrarTag('blog')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📝 Blogs</button>
+        <button onclick="filtrarTag('cashback')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💸 Cashback</button>
+      </div>
+    </section>
+
+    <!-- ADSENSE TOP -->
+    <div class="adsense-holder my-8 max-w-4xl mx-auto overflow-hidden rounded-2xl bg-slate-900/40 border border-white/5">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4094039418988922"
+           data-ad-slot="4033482498"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- 1. SECÇÃO DE VÍDEOS EM DESTAQUE -->
+    <section class="section-block my-12" data-category="video">
+      <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-red-600 to-pink-600 text-white shadow-lg shadow-red-500/30">
+          <svg class="w-5 h-5"><use href="#icon-video"/></svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-extrabold text-white">Vídeos em Destaque</h2>
+          <p class="text-xs text-pink-300">Seleções especiais do canal</p>
+        </div>
+      </div>
+
+      <!-- GRID COM APENAS 3 VÍDEOS EM DESTAQUE -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- VÍDEO DESTAQUE 1 -->
+        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20">
+          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
+            <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+            
+            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+              ★ Destaque #1
+            </div>
+
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-pink-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
+                <span class="ml-1 text-xl animate-pulse">▶</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/20">
+            <div>
+              <span class="text-[11px] font-extrabold text-red-400 uppercase tracking-wider">YouTube Short</span>
+              <h3 class="text-base font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Mini vibes</h3>
+            </div>
+            <div class="flex gap-2 mt-4 pt-3 border-t border-white/10">
+              <button type="button" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')" class="flex-1 py-2 px-3 rounded-xl bg-white/10 hover:bg-white text-slate-200 hover:text-slate-900 text-xs font-bold transition-all text-center">
+                ▶ Assistir na Página
+              </button>
+              <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md">
+                <svg class="w-3.5 h-3.5"><use href="#icon-yt"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- VÍDEO DESTAQUE 2 -->
+        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-purple-500/20">
+          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
+            <img src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+            
+            <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+              ★ Destaque #2
+            </div>
+
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-14 h-14 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-purple-600/50 group-hover:scale-125 transition-transform duration-300">
+                <span class="ml-1 text-xl animate-pulse">▶</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-purple-950/20">
+            <div>
+              <span class="text-[11px] font-extrabold text-purple-400 uppercase tracking-wider">Música / Beat</span>
+              <h3 class="text-base font-bold text-white mt-1 group-hover:text-purple-300 transition-colors">Pulse of the Night</h3>
+            </div>
+            <div class="flex gap-2 mt-4 pt-3 border-t border-white/10">
+              <button type="button" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')" class="flex-1 py-2 px-3 rounded-xl bg-white/10 hover:bg-white text-slate-200 hover:text-slate-900 text-xs font-bold transition-all text-center">
+                ▶ Assistir na Página
+              </button>
+              <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md">
+                <svg class="w-3.5 h-3.5"><use href="#icon-yt"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- VÍDEO DESTAQUE 3 -->
+        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-blue-500/20">
+          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
+            <img src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+            
+            <div class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+              ★ Destaque #3
+            </div>
+
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-14 h-14 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center text-white shadow-xl shadow-blue-600/50 group-hover:scale-125 transition-transform duration-300">
+                <span class="ml-1 text-xl animate-pulse">▶</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-blue-950/20">
+            <div>
+              <span class="text-[11px] font-extrabold text-cyan-400 uppercase tracking-wider">Audio / Visual</span>
+              <h3 class="text-base font-bold text-white mt-1 group-hover:text-cyan-300 transition-colors">Deep sub-bass pulse</h3>
+            </div>
+            <div class="flex gap-2 mt-4 pt-3 border-t border-white/10">
+              <button type="button" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')" class="flex-1 py-2 px-3 rounded-xl bg-white/10 hover:bg-white text-slate-200 hover:text-slate-900 text-xs font-bold transition-all text-center">
+                ▶ Assistir na Página
+              </button>
+              <a href="https://youtu.be/Iiv9qnvlNTA" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md">
+                <svg class="w-3.5 h-3.5"><use href="#icon-yt"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. ESPAÇO DE VÍDEOS DO YOUTUBE (BOTÕES AO CENTRO E RECOLHIDOS POR DEFAULT) -->
+    <section class="section-block my-12" data-category="playlists">
+      <div class="flex flex-col items-center text-center gap-2 mb-6 pb-2 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="p-2.5 rounded-xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30">
+            <svg class="w-5 h-5"><use href="#icon-yt"/></svg>
+          </div>
+          <h2 class="text-xl font-extrabold text-white">Vídeos do YouTube</h2>
+        </div>
+        <p class="text-xs text-pink-300">Clica numa das categorias abaixo para expandir e explorar os vídeos do canal</p>
+
+        <!-- FILTROS DAS LISTAS DE VÍDEOS (BOTÕES AO CENTRO) -->
+        <div class="flex flex-wrap justify-center gap-2 bg-slate-900/90 p-2 rounded-2xl border border-white/10 text-xs mt-3">
+          <button onclick="toggleAbaPlaylist('viagens')" id="tab-viagens" class="yt-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+            <span>✈️ Viagens</span>
+            <svg class="w-4 h-4 transition-transform duration-300 icon-chevron"><use href="#icon-chevron"/></svg>
+          </button>
+          <button onclick="toggleAbaPlaylist('musica')" id="tab-musica" class="yt-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+            <span>🎵 Música</span>
+            <svg class="w-4 h-4 transition-transform duration-300 icon-chevron"><use href="#icon-chevron"/></svg>
+          </button>
+          <button onclick="toggleAbaPlaylist('classicos')" id="tab-classicos" class="yt-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+            <span>🚗 Clássicos & Mini</span>
+            <svg class="w-4 h-4 transition-transform duration-300 icon-chevron"><use href="#icon-chevron"/></svg>
+          </button>
+          <button onclick="toggleAbaPlaylist('projetos')" id="tab-projetos" class="yt-tab-btn flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+            <span>🎞️ Só porque sim</span>
+            <svg class="w-4 h-4 transition-transform duration-300 icon-chevron"><use href="#icon-chevron"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- PAINEL DA CATEGORIA 1: VIAGENS (DESATIVADO POR DEFAULT) -->
+      <div id="playlist-viagens" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
+        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
+        <div class="item-card glass-card p-4 rounded-2xl border border-pink-500/20 hover:border-pink-500/50 flex flex-col justify-between group">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-10 h-10 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-bold text-white group-hover:text-pink-300">Vídeo de Teste</h3>
+            <p class="text-xs text-slate-400 mt-1">✈️ Categoria Viagens</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-pink-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+
+        <div class="item-card glass-card p-4 rounded-2xl border border-pink-500/20 hover:border-pink-500/50 flex flex-col justify-between group">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">✈️</div>
+            <div>
+              <h3 class="text-sm font-bold text-white group-hover:text-pink-300">Passeios e Viagens</h3>
+              <p class="text-xs text-slate-400">Lista de reprodução no YouTube</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <a href="https://www.youtube.com/gard3npt" target="_blank" class="w-full py-2 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white text-xs font-bold text-center transition-all">Ver Lista Completa →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL DA CATEGORIA 2: MÚSICA (DESATIVADO POR DEFAULT) -->
+      <div id="playlist-musica" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
+        <!-- VÍDEO ENVIADO (aknoQYP3vSU) -->
+        <div class="item-card glass-card p-4 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 flex flex-col justify-between group">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3 cursor-pointer" onclick="abrirVideoModal('aknoQYP3vSU', 'Música Especial')">
+            <img src="https://img.youtube.com/vi/aknoQYP3vSU/hqdefault.jpg" alt="Música Especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-bold text-white group-hover:text-purple-300">Música Especial</h3>
+            <p class="text-xs text-slate-400 mt-1">🎵 Categoria Música</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('aknoQYP3vSU', 'Música Especial')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+            <a href="https://youtu.be/aknoQYP3vSU" target="_blank" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+
+        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
+        <div class="item-card glass-card p-4 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 flex flex-col justify-between group">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-bold text-white group-hover:text-purple-300">Vídeo de Teste</h3>
+            <p class="text-xs text-slate-400 mt-1">🎵 Categoria Música</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+
+        <div class="item-card glass-card p-4 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 flex flex-col justify-between group">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">🎧</div>
+            <div>
+              <h3 class="text-sm font-bold text-white group-hover:text-purple-300">Beats & Músicas</h3>
+              <p class="text-xs text-slate-400">Musicas criadas com ajuda de IA</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
+            <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL DA CATEGORIA 3: CLÁSSICOS & MINI (DESATIVADO POR DEFAULT) -->
+      <div id="playlist-classicos" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
+        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
+        <div class="item-card glass-card p-4 rounded-2xl border border-red-500/20 hover:border-red-500/50 flex flex-col justify-between group">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-bold text-white group-hover:text-red-300">Vídeo de Teste</h3>
+            <p class="text-xs text-slate-400 mt-1">🚗 Categoria Clássicos & Mini</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-red-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+
+        <div class="item-card glass-card p-4 rounded-2xl border border-red-500/20 hover:border-red-500/50 flex flex-col justify-between group">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">🚗</div>
+            <div>
+              <h3 class="text-sm font-bold text-white group-hover:text-red-300">Clássico MINI & Encontros</h3>
+              <p class="text-xs text-slate-400">Manutenção, passeios e vídeos do MINI</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
+            <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" class="p-2 rounded-xl bg-red-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAINEL DA CATEGORIA 4: SÓ PORQUE SIM (DESATIVADO POR DEFAULT) -->
+      <div id="playlist-projetos" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
+        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
+        <div class="item-card glass-card p-4 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 flex flex-col justify-between group">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-bold text-white group-hover:text-emerald-300">Vídeo de Teste</h3>
+            <p class="text-xs text-slate-400 mt-1">🎞️ Categoria Só porque sim</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+
+        <div class="item-card glass-card p-4 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 flex flex-col justify-between group">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">🛠️</div>
+            <div>
+              <h3 class="text-sm font-bold text-white group-hover:text-emerald-300">Só porque sim</h3>
+              <p class="text-xs text-slate-400">Apontar a câmara e gravar</p>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
+            <button onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
+            <a href="https://youtu.be/X0FzDwYclos" target="_blank" class="p-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. REDES SOCIAIS & COMUNIDADE -->
+    <section class="section-block my-12" data-category="social">
+      <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-500 text-white shadow-lg shadow-blue-500/30">
+          <svg class="w-5 h-5"><use href="#icon-globe"/></svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-extrabold text-white">Redes Sociais & Comunidade</h2>
+          <p class="text-xs text-blue-300">Siga o meu conteúdo em todas as plataformas</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <!-- SUB-BLOCO INSTAGRAM COM COR GRADIENTE -->
+        <div class="glass-card rounded-2xl p-4 border border-pink-500/30 bg-gradient-to-br from-pink-950/20 via-slate-900/60 to-purple-950/20">
+          <p class="text-xs font-bold text-pink-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-pink-500"><use href="#icon-insta"/></svg> Instagram Profiles
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <a href="https://www.instagram.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
+              <span class="truncate">@gard3npt</span>
+            </a>
+            <a href="https://www.instagram.com/r3d_mini" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
+              <span class="truncate">@r3d_mini</span>
+            </a>
+            <a href="https://www.instagram.com/caricas_metalicas" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
+              <span class="truncate">@caricas_metalicas</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- SUB-BLOCO FACEBOOK COM COR GRADIENTE -->
+        <div class="glass-card rounded-2xl p-4 border border-blue-500/30 bg-gradient-to-br from-blue-950/20 via-slate-900/60 to-indigo-950/20">
+          <p class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-blue-500"><use href="#icon-face"/></svg> Facebook Pages
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <a href="https://www.facebook.com/jardimhelder" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-blue-400"><use href="#icon-face"/></svg>
+              <span class="truncate">Hélder Jardim</span>
+            </a>
+            <a href="https://www.facebook.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-blue-400"><use href="#icon-face"/></svg>
+              <span class="truncate">Hélder Jardim | Page</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OUTRAS REDES SOCIAIS (GRID BOTÕES COLORIDOS) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5">
+        <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-red-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-red-500"><use href="#icon-yt"/></svg> YouTube
+        </a>
+        <a href="https://www.tiktok.com/@gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-cyan-500 hover:text-slate-950 text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-cyan-400"><use href="#icon-tiktok"/></svg> TikTok
+        </a>
+        <a href="https://discord.com/channels/822605864350646313/878278938118455317" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-indigo-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-indigo-400"><use href="#icon-discord"/></svg> Discord
+        </a>
+        <a href="https://www.twitter.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-sky-500 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-sky-400"><use href="#icon-twitter"/></svg> X / Twitter
+        </a>
+        <a href="https://steamcommunity.com/id/gard3npt/" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-slate-700 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-slate-400"><use href="#icon-steam"/></svg> Steam
+        </a>
+        <a href="https://open.spotify.com/user/3f97p9x9neepy829kwg89o8z3" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-emerald-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-emerald-400"><use href="#icon-spotify"/></svg> Spotify
+        </a>
+        <a href="https://www.twitch.tv/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-purple-400"><use href="#icon-twitch"/></svg> Twitch
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. SITES DESENVOLVIDOS & BLOGS GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
+      
+      <!-- SITES DESENVOLVIDOS -->
+      <section class="section-block" data-category="project">
+        <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+          <div class="p-2.5 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30">
+            <svg class="w-5 h-5"><use href="#icon-calc"/></svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-extrabold text-white">Sites & Ferramentas Web</h2>
+            <p class="text-xs text-emerald-300">Projetos originais desenvolvidos de raiz</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <a href="https://gard3npt.github.io/simuladorjuros" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-4 rounded-2xl flex items-center justify-between group border border-emerald-500/20 hover:border-emerald-500/50">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                <svg class="w-5 h-5"><use href="#icon-calc"/></svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">Simulador de Juros</h3>
+                <p class="text-[11px] text-slate-400">Calculadora financeira rápida e intuitiva</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">Abrir →</span>
+          </a>
+
+          <a href="https://gard3npt.github.io/caricas_metalicas/" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-4 rounded-2xl flex items-center justify-between group border border-blue-500/20 hover:border-blue-500/50">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
+                <svg class="w-5 h-5"><use href="#icon-globe"/></svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Caricas Metálicas</h3>
+                <p class="text-[11px] text-slate-400">Catálogo e exposição digital</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-blue-400 group-hover:translate-x-1 transition-transform">Abrir →</span>
+          </a>
+
+          <button type="button" onclick="abrirModal()" class="item-card w-full glass-card p-4 rounded-2xl flex items-center justify-between group text-left border border-purple-500/20 hover:border-purple-500/50">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold">
+                🔐
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-purple-300 transition-colors">SC Lab</h3>
+                <p class="text-[11px] text-slate-400">Área experimental protegida por código</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-purple-400 group-hover:translate-x-1 transition-transform">Aceder 🔒</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- BLOGS -->
+      <section class="section-block" data-category="blog">
+        <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+          <div class="p-2.5 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-lg shadow-orange-500/30">
+            <svg class="w-5 h-5"><use href="#icon-brand"/></svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-extrabold text-white">Blogs & Artigos</h2>
+            <p class="text-xs text-amber-300">Publicações e diários de bordo</p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <a href="https://gard3npt.blogspot.com" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-4 rounded-2xl flex items-center justify-between group border border-orange-500/20 hover:border-orange-500/50">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold">
+                📝
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-orange-300 transition-colors">Agora Todos Podem Ver...</h3>
+                <p class="text-[11px] text-slate-400">Blog pessoal gard3npt.blogspot.com</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-orange-400 group-hover:translate-x-1 transition-transform">Ler Blog →</span>
+          </a>
+
+          <a href="https://caricasmetalicas.blogspot.com" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-4 rounded-2xl flex items-center justify-between group border border-amber-500/20 hover:border-amber-500/50">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+                🍾
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-amber-300 transition-colors">@caricas_metalicas</h3>
+                <p class="text-[11px] text-slate-400">Colecionismo e notas de caricas</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform">Ler Blog →</span>
+          </a>
+
+          <a href="https://calculadoratanb.blogspot.com" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-4 rounded-2xl flex items-center justify-between group border border-cyan-500/20 hover:border-cyan-500/50">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
+                📊
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">Calculadora TANB</h3>
+                <p class="text-[11px] text-slate-400">Análise de taxas e finanças bancárias</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-cyan-400 group-hover:translate-x-1 transition-transform">Ler Blog →</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 5. REEMBOLSO PARCIAL & REFERIDOS -->
+    <section class="section-block my-12" data-category="cashback">
+      <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-yellow-500 to-amber-500 text-slate-950 shadow-lg shadow-yellow-500/30">
+          <svg class="w-5 h-5"><use href="#icon-heart"/></svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-extrabold text-white">Reembolso Parcial & Recompensas</h2>
+          <p class="text-xs text-yellow-300">Links recomendados com bónus de registo</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <a href="https://letyshops.com/pt/winwin?ww=12072651" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-yellow-500/20 text-yellow-400"><svg class="w-4 h-4"><use href="#icon-info"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-yellow-300">Letyshops</h3>
+            <p class="text-[10px] text-slate-400">Cashback em compras online</p>
+          </div>
+        </a>
+
+        <a href="https://my.picodi.com/pt/refer/f7a96f6e-2079-4edb-9419-a355df42ab7c" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-red-500/20 text-red-400"><svg class="w-4 h-4"><use href="#icon-heart"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-red-300">Picodi</h3>
+            <p class="text-[10px] text-slate-400">Descontos e cupões</p>
+          </div>
+        </a>
+
+        <a href="https://pt.beruby.com/promocode/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-blue-500/20 text-blue-400"><svg class="w-4 h-4"><use href="#icon-info"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-blue-300">Beruby</h3>
+            <p class="text-[10px] text-slate-400">Reembolsos de compras</p>
+          </div>
+        </a>
+
+        <a href="https://r.honeygain.me/JARDI844A9" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-amber-500/20 text-amber-400"><svg class="w-4 h-4"><use href="#icon-globe"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-amber-300">Honeygain</h3>
+            <p class="text-[10px] text-slate-400">Rendimento passivo de internet</p>
+          </div>
+        </a>
+
+        <a href="https://www.publipt.com/pages/index.php?refid=gard3n" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-green-500/20 text-green-400"><svg class="w-4 h-4"><use href="#icon-info"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-green-300">!Publipt</h3>
+            <p class="text-[10px] text-slate-400">Ganhar com anúncios</p>
+          </div>
+        </a>
+
+        <a href="https://attapoll.app/join/oidoj" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-cyan-500/20 text-cyan-400"><svg class="w-4 h-4"><use href="#icon-info"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-cyan-300">AttaPoll | Questionários</h3>
+            <p class="text-[10px] text-slate-400">Inquéritos remunerados</p>
+          </div>
+        </a>
+
+        <a href="https://app.stocardapp.com/invite/mckanddu" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-purple-500/20 text-purple-400"><svg class="w-4 h-4"><use href="#icon-wallet"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-purple-300">Stocard | Cartões</h3>
+            <p class="text-[10px] text-slate-400">Gestão de cartões de fidelidade</p>
+          </div>
+        </a>
+
+        <a href="https://streamyard.com/pal/c/5338073179357184" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-indigo-500/20 text-indigo-400"><svg class="w-4 h-4"><use href="#icon-video"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-indigo-300">StreamYard</h3>
+            <p class="text-[10px] text-slate-400">Plataforma de livestreams</p>
+          </div>
+        </a>
+
+        <a href="https://py.pl/8bPEvHhNvU2" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
+          <div class="p-2 rounded-lg bg-blue-500/20 text-blue-400"><svg class="w-4 h-4"><use href="#icon-paypal"/></svg></div>
+          <div>
+            <h3 class="text-xs font-bold text-white group-hover:text-blue-300">Paypal Bónus</h3>
+            <p class="text-[10px] text-slate-400">Recompensa de adesão</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- APOIO / PAY -->
+    <section class="section-block my-10" data-category="pay">
+      <div class="glass-card rounded-2xl p-6 border border-pink-500/30 text-center max-w-xl mx-auto bg-gradient-to-tr from-indigo-950/40 via-purple-950/40 to-pink-950/40">
+        <h3 class="text-lg font-bold text-white mb-2">Apoiar o Projeto</h3>
+        <p class="text-xs text-slate-300 mb-4">Se gosta do conteúdo ou das ferramentas desenvolvidas, pode apoiar o trabalho através de um café virtual.</p>
+        <a href="https://paypal.me/gard3npt" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold text-xs shadow-lg shadow-pink-500/25 transition-all">
+          <svg class="w-4 h-4"><use href="#icon-paypal"/></svg>
+          Contribuir no PayPal
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="w-full py-6 text-center text-xs text-slate-500 border-t border-white/5 relative z-10 bg-slate-950/80 backdrop-blur-md">
+    <p>© AGAJOTA • Helder Jardim (@gard3npt)</p>
   </footer>
 
+  <!-- MODAL DE VÍDEO DO YOUTUBE -->
+  <div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl relative border border-white/20">
+      <div class="p-4 flex items-center justify-between border-b border-white/10 bg-slate-900/60">
+        <h3 id="videoModalTitle" class="text-sm font-bold text-white truncate pr-4">Assistir Vídeo</h3>
+        <button onclick="fecharVideoModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
+      </div>
+      <div class="relative aspect-video w-full bg-black">
+        <iframe id="videoIframe" class="w-full h-full" src="" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PROTEGIDO DO SC LAB -->
+  <div id="scLabModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-md p-6 rounded-3xl text-center relative">
+      <button onclick="fecharModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
+      <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl mx-auto mb-4">🔐</div>
+      <h3 class="text-lg font-extrabold text-white mb-1">Área Reservada SC Lab</h3>
+      <p class="text-xs text-slate-400 mb-6">Introduza o código de acesso para continuar.</p>
+      
+      <form onsubmit="verificarCodigo(event)" class="space-y-4">
+        <input type="password" id="labCodeInput" placeholder="Código de Acesso" class="w-full bg-slate-900 border border-purple-500/30 rounded-xl px-4 py-3 text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
+        <button type="submit" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-all shadow-lg shadow-purple-600/30">Aceder</button>
+      </form>
+      <p id="modalErrorMsg" class="text-xs text-red-400 mt-3 hidden">Código incorreto. Tente novamente.</p>
+    </div>
+  </div>
+
+  <!-- MODAL SOBRE / CONTACTO -->
+  <div id="sobreModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-lg p-6 rounded-3xl relative text-left">
+      <button onclick="fecharSobreModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
+      
+      <div class="flex items-center gap-4 mb-4">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-0.5 flex-shrink-0">
+          <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center font-black text-lg text-white">HJ</div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white">Helder Jardim</h3>
+          <p class="text-xs text-pink-400 font-medium">@gard3npt</p>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed mb-6">
+        Criador de conteúdos digitais, entusiasta de automóveis clássicos, colecionismo (caricas metálicas) e desenvolvimento de ferramentas digitais práticas para o dia a dia.
+      </p>
+
+      <div class="space-y-2 border-t border-white/10 pt-4">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Canais de Contacto:</p>
+        <a href="mailto:jardimhelder@hotmail.com" class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-200 text-xs transition-all">
+          <svg class="w-4 h-4 text-pink-400"><use href="#icon-message"/></svg> E-mail
+        </a>
+        <a href="https://t.me/gard3npt" target="_blank" class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-200 text-xs transition-all">
+          <svg class="w-4 h-4 text-sky-400"><use href="#icon-telegram"/></svg> Telegram
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT DE FUNCIONALIDADES -->
   <script>
-    function voltarAoInicio() {
-      fecharSobreModal();
-      fecharSobreModalInfo();
-      fecharModal();
-      fecharVideoModal();
-      
-      const seccoes = document.querySelectorAll('.category-section');
-      seccoes.forEach(seccao => {
-        seccao.classList.remove('active');
+    // Alternar (Expandir/Esconder) abas das listas do YouTube
+    function toggleAbaPlaylist(categoria) {
+      const targetContent = document.getElementById('playlist-' + categoria);
+      const targetBtn = document.getElementById('tab-' + categoria);
+      const chevron = targetBtn.querySelector('.icon-chevron');
+
+      const isHidden = targetContent.classList.contains('hidden');
+
+      // Fechar todas as listas primeiro
+      document.querySelectorAll('.yt-playlist-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.yt-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-pink-600', 'text-white');
+        btn.classList.add('text-slate-400');
+        const c = btn.querySelector('.icon-chevron');
+        if (c) c.style.transform = 'rotate(0deg)';
       });
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Se estava escondida, abre a clicada
+      if (isHidden) {
+        targetContent.classList.remove('hidden');
+        targetBtn.classList.add('bg-pink-600', 'text-white');
+        targetBtn.classList.remove('text-slate-400');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      }
     }
 
-    /* VÍDEO MODAL */
+    // Pesquisa em tempo real
+    function filtrarConteudo() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.item-card');
+
+      // Se estiver a pesquisar, expande todas as categorias de vídeo para encontrar os resultados
+      if (input.trim() !== "") {
+        document.querySelectorAll('.yt-playlist-content').forEach(el => el.classList.remove('hidden'));
+      }
+
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(input)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Filtro por Tags principais
+    function filtrarTag(tag) {
+      document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white'));
+      event.target.classList.add('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
+
+      const seccoes = document.querySelectorAll('.section-block');
+      seccoes.forEach(sec => {
+        if (tag === 'all' || sec.getAttribute('data-category') === tag) {
+          sec.style.display = "";
+        } else {
+          sec.style.display = "none";
+        }
+      });
+    }
+
+    // Modais de Vídeo
     function abrirVideoModal(videoId, titulo) {
-      const modal = document.getElementById("videoModal");
-      const iframe = document.getElementById("videoIframe");
-      const titleElem = document.getElementById("videoModalTitle");
-      
-      titleElem.textContent = titulo || "Vídeo";
-      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-      modal.style.display = "flex";
+      document.getElementById('videoModalTitle').innerText = titulo;
+      document.getElementById('videoIframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+      document.getElementById('videoModal').classList.remove('hidden');
+      document.getElementById('videoModal').classList.add('flex');
     }
 
     function fecharVideoModal() {
-      const modal = document.getElementById("videoModal");
-      const iframe = document.getElementById("videoIframe");
-      
-      iframe.src = "";
-      modal.style.display = "none";
+      document.getElementById('videoIframe').src = '';
+      document.getElementById('videoModal').classList.add('hidden');
+      document.getElementById('videoModal').classList.remove('flex');
     }
 
-    /* SOBRE MODAL INFO */
+    // Modais SC Lab
+    function abrirModal() {
+      document.getElementById('scLabModal').classList.remove('hidden');
+      document.getElementById('scLabModal').classList.add('flex');
+    }
+
+    function fecharModal() {
+      document.getElementById('scLabModal').classList.add('hidden');
+      document.getElementById('scLabModal').classList.remove('flex');
+    }
+
+    function verificarCodigo(e) {
+      e.preventDefault();
+      const codigo = document.getElementById('labCodeInput').value;
+      if (codigo === '1234') { // Substituir pelo teu código
+        window.location.href = 'https://gard3npt.github.io/sclab';
+      } else {
+        document.getElementById('modalErrorMsg').classList.remove('hidden');
+      }
+    }
+
+    // Modais Sobre/Contacto
     function abrirSobreModalInfo() {
-      document.getElementById("sobreInfoModal").style.display = "flex";
-    }
-
-    function fecharSobreModalInfo() {
-      document.getElementById("sobreInfoModal").style.display = "none";
-    }
-
-    /* CONTACTO MODAL */
-    function acaoBotaoSobre() {
-      abrirSobreModal();
-    }
-
-    function abrirSobreModal() {
-      document.getElementById("sobreModal").style.display = "flex";
+      document.getElementById('sobreModal').classList.remove('hidden');
+      document.getElementById('sobreModal').classList.add('flex');
     }
 
     function fecharSobreModal() {
-      document.getElementById("sobreModal").style.display = "none";
+      document.getElementById('sobreModal').classList.add('hidden');
+      document.getElementById('sobreModal').classList.remove('flex');
     }
 
-    /* CATEGORIAS */
-    function toggleCategory(triggerElement) {
-      const parentSection = triggerElement.parentElement;
-      parentSection.classList.toggle('active');
+    function acaoBotaoSobre() {
+      abrirSobreModalInfo();
     }
 
-    /* SENHA MODAL */
-    function abrirModal(){
-      document.getElementById("senhaModal").style.display = "flex";
-      const campoSenha = document.getElementById("senha");
-      const errorMsg = document.getElementById("error-message");
-      
-      campoSenha.style.borderColor = "rgba(255, 255, 255, 0.1)";
-      errorMsg.style.display = "none";
-      campoSenha.value = "";
-      campoSenha.focus();
-    }
-
-    function fecharModal(){
-      document.getElementById("senhaModal").style.display = "none";
-    }
-
-    function validarSenha(){
-      const campoSenha = document.getElementById("senha");
-      const errorMsg = document.getElementById("error-message");
-      const senha = campoSenha.value;
-
-      if(senha === "112"){
-        window.open("https://gard3npt.github.io/sc/", "_blank", "noopener,noreferrer");
-        fecharModal();
-      } else {
-        campoSenha.style.borderColor = "#ef4444";
-        errorMsg.style.display = "block";
-        campoSenha.value = "";
-        campoSenha.focus();
-      }
-    }
-
-    function verificarEnter(event) {
-      if (event.key === "Enter") {
-        validarSenha();
-      }
-    }
-
-    function togglePassword(){
-      const input = document.getElementById("senha");
-      input.type = input.type === "password" ? "text" : "password";
-    }
-
-    /* FECHAR MODAIS CLICANDO FORA */
-    window.onclick = function(e){
-      const modalSenha = document.getElementById("senhaModal");
-      const modalSobre = document.getElementById("sobreModal");
-      const modalSobreInfo = document.getElementById("sobreInfoModal");
-      const modalVideo = document.getElementById("videoModal");
-
-      if(e.target === modalSenha){ fecharModal(); }
-      if(e.target === modalSobre) { fecharSobreModal(); }
-      if(e.target === modalSobreInfo) { fecharSobreModalInfo(); }
-      if(e.target === modalVideo) { fecharVideoModal(); }
+    function voltarAoInicio() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
-
 </body>
 </html>
