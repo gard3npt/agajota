@@ -59,7 +59,7 @@
       height: 0 !important;
     }
 
-    /* Glassmorphism Backgrounds com mais cor */
+    /* Glassmorphism Backgrounds */
     .glass-nav {
       background: rgba(3, 7, 18, 0.85);
       backdrop-filter: blur(16px);
@@ -158,7 +158,6 @@
     <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></symbol>
     <symbol id="icon-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
     <symbol id="icon-messenger" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.251.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.26 5.888-3.26-6.559 6.963z"/></symbol>
-    <symbol id="icon-search" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></symbol>
     <symbol id="icon-chevron" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></symbol>
   </svg>
 
@@ -181,7 +180,7 @@
         </div>
         <div class="flex flex-col">
           <span class="font-extrabold text-sm tracking-wider text-white group-hover:text-pink-400 transition-colors">AGAJOTA</span>
-          <span class="text-[10px] text-slate-400 tracking-widest uppercase">Helder Jardim (@gard3npt) | Blog & Hub</span>
+          <span class="text-[10px] text-slate-400 tracking-widest uppercase">Helder Jardim • @gard3npt</span>
         </div>
       </a>
 
@@ -195,7 +194,7 @@
           <svg class="w-4 h-4"><use href="#icon-info"/></svg>
           <span class="hidden sm:inline">Sobre</span>
         </button>
-        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-900 bg-gradient-to-r from-pink-500 to-purple-500 hover:brightness-110 text-white transition-all shadow-md" onclick="acaoBotaoSobre()">
+        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-900 bg-gradient-to-r from-pink-500 to-purple-500 hover:brightness-110 text-white transition-all shadow-md" onclick="abrirContactoModal()">
           <svg class="w-4 h-4"><use href="#icon-message"/></svg>
           <span>Contacto</span>
         </button>
@@ -210,7 +209,7 @@
     <!-- HERO SECTION ESTILO BLOG -->
     <section class="text-center my-8 max-w-3xl mx-auto">
       
-      <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-gradient mb-4 leading-tight">
+      <h1 class="text-6xl sm:text-9xl font-black tracking-tight text-gradient mb-4 leading-tight">
         AGAJOTA
       </h1>
 
@@ -230,24 +229,15 @@
         Bem-vindo ao meu espaço digital. Aqui partilho os meus vídeos do YouTube organizados por temas, ferramentas web, projetos e redes sociais.
       </p>
 
-      <!-- BARRA DE PESQUISA EM TEMPO REAL -->
-      <div class="mt-8 relative max-w-md mx-auto">
-        <div class="relative flex items-center">
-          <svg class="w-5 h-5 absolute left-4 text-purple-400"><use href="#icon-search"/></svg>
-          <input type="text" id="searchInput" onkeyup="filtrarConteudo()" placeholder="Pesquisar por vídeos, listas, redes, projetos..." 
-                 class="w-full bg-slate-900/90 border border-purple-500/30 rounded-2xl py-3 pl-12 pr-4 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all shadow-xl">
-        </div>
-      </div>
-
       <!-- TAGS FILTRO RÁPIDO -->
-      <div class="flex flex-wrap justify-center gap-2 mt-4 text-xs">
-        <button onclick="filtrarTag('all')" class="tag-btn active px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-md transition-all">Todos</button>
-        <button onclick="filtrarTag('video')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🎬 Destaques</button>
-        <button onclick="filtrarTag('playlists')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📺 Vídeos do YouTube</button>
-        <button onclick="filtrarTag('social')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🌐 Redes</button>
-        <button onclick="filtrarTag('project')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💻 Projetos</button>
-        <button onclick="filtrarTag('blog')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📝 Blogs</button>
-        <button onclick="filtrarTag('cashback')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💸 Cashback</button>
+      <div class="flex flex-wrap justify-center gap-2 mt-8 text-xs">
+        <button onclick="filtrarTag(this, 'all')" class="tag-btn active px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-md transition-all">Todos</button>
+        <button onclick="filtrarTag(this, 'video')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🎬 Destaques</button>
+        <button onclick="filtrarTag(this, 'playlists')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📺 Vídeos do YouTube</button>
+        <button onclick="filtrarTag(this, 'social')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🌐 Redes</button>
+        <button onclick="filtrarTag(this, 'project')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💻 Projetos</button>
+        <button onclick="filtrarTag(this, 'blog')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📝 Blogs</button>
+        <button onclick="filtrarTag(this, 'cashback')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💸 Cashback</button>
       </div>
     </section>
 
@@ -378,7 +368,7 @@
       </div>
     </section>
 
-    <!-- 2. ESPAÇO DE VÍDEOS DO YOUTUBE (BOTÕES AO CENTRO E RECOLHIDOS POR DEFAULT) -->
+    <!-- 2. ESPAÇO DE VÍDEOS DO YOUTUBE (BOTÕES AO CENTRO E CATEGORIA ÚNICA ABERTA DE CADA VEZ) -->
     <section class="section-block my-12" data-category="playlists">
       <div class="flex flex-col items-center text-center gap-2 mb-6 pb-2 border-b border-white/10">
         <div class="flex items-center gap-3">
@@ -410,11 +400,10 @@
         </div>
       </div>
 
-      <!-- PAINEL DA CATEGORIA 1: VIAGENS (DESATIVADO POR DEFAULT) -->
+      <!-- PAINEL DA CATEGORIA 1: VIAGENS -->
       <div id="playlist-viagens" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
-        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
         <div class="item-card glass-card p-4 rounded-2xl border border-pink-500/20 hover:border-pink-500/50 flex flex-col justify-between group">
-          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3 cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
             <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
             <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
               <div class="w-10 h-10 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
@@ -426,7 +415,7 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-pink-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-pink-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
 
@@ -439,14 +428,13 @@
             </div>
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
-            <a href="https://www.youtube.com/gard3npt" target="_blank" class="w-full py-2 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white text-xs font-bold text-center transition-all">Ver Lista Completa →</a>
+            <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white text-xs font-bold text-center transition-all">Ver Lista Completa →</a>
           </div>
         </div>
       </div>
 
-      <!-- PAINEL DA CATEGORIA 2: MÚSICA (DESATIVADO POR DEFAULT) -->
+      <!-- PAINEL DA CATEGORIA 2: MÚSICA -->
       <div id="playlist-musica" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
-        <!-- VÍDEO ENVIADO (aknoQYP3vSU) -->
         <div class="item-card glass-card p-4 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 flex flex-col justify-between group">
           <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3 cursor-pointer" onclick="abrirVideoModal('aknoQYP3vSU', 'Música Especial')">
             <img src="https://img.youtube.com/vi/aknoQYP3vSU/hqdefault.jpg" alt="Música Especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
@@ -460,13 +448,12 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('aknoQYP3vSU', 'Música Especial')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-            <a href="https://youtu.be/aknoQYP3vSU" target="_blank" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://youtu.be/aknoQYP3vSU" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
 
-        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
         <div class="item-card glass-card p-4 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 flex flex-col justify-between group">
-          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3 cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
             <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
             <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
               <div class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
@@ -478,7 +465,7 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
 
@@ -492,16 +479,15 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
-            <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
       </div>
 
-      <!-- PAINEL DA CATEGORIA 3: CLÁSSICOS & MINI (DESATIVADO POR DEFAULT) -->
+      <!-- PAINEL DA CATEGORIA 3: CLÁSSICOS & MINI -->
       <div id="playlist-classicos" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
-        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
         <div class="item-card glass-card p-4 rounded-2xl border border-red-500/20 hover:border-red-500/50 flex flex-col justify-between group">
-          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3 cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
             <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
             <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
               <div class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
@@ -513,7 +499,7 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-red-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
 
@@ -527,16 +513,15 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
-            <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" class="p-2 rounded-xl bg-red-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
       </div>
 
-      <!-- PAINEL DA CATEGORIA 4: SÓ PORQUE SIM (DESATIVADO POR DEFAULT) -->
+      <!-- PAINEL DA CATEGORIA 4: SÓ PORQUE SIM -->
       <div id="playlist-projetos" class="yt-playlist-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 transition-all duration-300">
-        <!-- VÍDEO DE TESTE (0BCwHFQs9OI) -->
         <div class="item-card glass-card p-4 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 flex flex-col justify-between group">
-          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3">
+          <div class="relative aspect-video rounded-xl overflow-hidden bg-black mb-3 cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
             <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
             <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
               <div class="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-lg">▶</div>
@@ -548,7 +533,7 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" class="p-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
 
@@ -562,7 +547,7 @@
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex gap-2">
             <button onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
-            <a href="https://youtu.be/X0FzDwYclos" target="_blank" class="p-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+            <a href="https://youtu.be/X0FzDwYclos" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
           </div>
         </div>
       </div>
@@ -581,7 +566,7 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <!-- SUB-BLOCO INSTAGRAM COM COR GRADIENTE -->
+        <!-- SUB-BLOCO INSTAGRAM -->
         <div class="glass-card rounded-2xl p-4 border border-pink-500/30 bg-gradient-to-br from-pink-950/20 via-slate-900/60 to-purple-950/20">
           <p class="text-xs font-bold text-pink-400 uppercase tracking-wider mb-3 flex items-center gap-2">
             <svg class="w-4 h-4 text-pink-500"><use href="#icon-insta"/></svg> Instagram Profiles
@@ -602,7 +587,7 @@
           </div>
         </div>
 
-        <!-- SUB-BLOCO FACEBOOK COM COR GRADIENTE -->
+        <!-- SUB-BLOCO FACEBOOK -->
         <div class="glass-card rounded-2xl p-4 border border-blue-500/30 bg-gradient-to-br from-blue-950/20 via-slate-900/60 to-indigo-950/20">
           <p class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
             <svg class="w-4 h-4 text-blue-500"><use href="#icon-face"/></svg> Facebook Pages
@@ -620,7 +605,7 @@
         </div>
       </div>
 
-      <!-- OUTRAS REDES SOCIAIS (GRID BOTÕES COLORIDOS) -->
+      <!-- OUTRAS REDES SOCIAIS -->
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5">
         <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-red-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
           <svg class="w-4 h-4 text-red-500"><use href="#icon-yt"/></svg> YouTube
@@ -865,8 +850,74 @@
     <p>© AGAJOTA • Helder Jardim (@gard3npt)</p>
   </footer>
 
+  <!-- MODAL SOBRE -->
+  <div id="sobreModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-2xl p-6 sm:p-8 rounded-3xl relative text-left border border-white/20 max-h-[90vh] overflow-y-auto">
+      <button onclick="fecharSobreModalInfo()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
+      
+      <div class="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
+        <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-2xl">ℹ️</div>
+        <div>
+          <h3 class="text-xl font-extrabold text-white">Sobre o AGAJOTA</h3>
+          <p class="text-xs text-indigo-300">Conheça o projeto e o criador</p>
+        </div>
+      </div>
+
+      <div class="space-y-6 text-sm text-slate-300 leading-relaxed">
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🎯 O Projeto</h4>
+          <p class="text-xs text-slate-300">Este espaço nasceu para centralizar todos os meus atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
+        </div>
+
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">👨‍💻 Quem Sou</h4>
+          <p class="text-xs text-slate-300">Criador e entusiasta de programação, focado em criar ferramentas práticas e que facilitem o dia a dia.</p>
+        </div>
+
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🛠️ Mãos à Obra & Bricolage</h4>
+          <p class="text-xs text-slate-300">Fora do ecrã, gosto de pôr as mãos à obra. Tenho um grande fascínio por trabalhos manuais e bricolage — Criar, reparar e dar vida a projetos físicos com as minhas próprias mãos é algo que me apaixona.</p>
+        </div>
+
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🚗 Paixão Automóvel</h4>
+          <p class="text-xs text-slate-300">Entusiasta de carros clássicos, onde dedico quando necessário a trabalhos de mecânica básica no meu Clássico MINI 1000 e à participação ativa em encontros de clássicos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONTACTO DEDICADO -->
+  <div id="contactoModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-md p-6 rounded-3xl text-center relative border border-white/20">
+      <button onclick="fecharContactoModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
+      <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-2xl mx-auto mb-4">💬</div>
+      <h3 class="text-lg font-extrabold text-white mb-1">Entrar em Contacto</h3>
+      <p class="text-xs text-slate-400 mb-6">Escolha a sua plataforma de contacto preferida:</p>
+
+      <div class="space-y-3">
+        <a href="https://wa.me/351910000000" target="_blank" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+          <svg class="w-5 h-5 text-emerald-400"><use href="#icon-whatsapp"/></svg>
+          <span>WhatsApp Directo</span>
+        </a>
+        <a href="https://t.me/gard3npt" target="_blank" class="flex items-center gap-3 p-3 rounded-2xl bg-sky-600/20 border border-sky-500/30 hover:bg-sky-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+          <svg class="w-5 h-5 text-sky-400"><use href="#icon-telegram"/></svg>
+          <span>Telegram (@gard3npt)</span>
+        </a>
+        <a href="https://m.me/jardimhelder" target="_blank" class="flex items-center gap-3 p-3 rounded-2xl bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+          <svg class="w-5 h-5 text-blue-400"><use href="#icon-messenger"/></svg>
+          <span>Messenger</span>
+        </a>
+        <a href="mailto:jardimhelder@hotmail.com" class="flex items-center gap-3 p-3 rounded-2xl bg-purple-600/20 border border-purple-500/30 hover:bg-purple-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+          <svg class="w-5 h-5 text-purple-400"><use href="#icon-message"/></svg>
+          <span>Enviar E-mail</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL DE VÍDEO DO YOUTUBE -->
-  <div id="videoModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+  <div id="videoModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="glass-modal w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl relative border border-white/20">
       <div class="p-4 flex items-center justify-between border-b border-white/10 bg-slate-900/60">
         <h3 id="videoModalTitle" class="text-sm font-bold text-white truncate pr-4">Assistir Vídeo</h3>
@@ -879,168 +930,150 @@
   </div>
 
   <!-- MODAL PROTEGIDO DO SC LAB -->
-  <div id="scLabModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="glass-modal w-full max-w-md p-6 rounded-3xl text-center relative">
+  <div id="scLabModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-md p-6 rounded-3xl text-center relative border border-white/20">
       <button onclick="fecharModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
       <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl mx-auto mb-4">🔐</div>
-      <h3 class="text-lg font-extrabold text-white mb-1">Área Reservada SC Lab</h3>
+      <h3 class="text-lg font-extrabold text-white mb-1">Área Reservada</h3>
       <p class="text-xs text-slate-400 mb-6">Introduza o código de acesso para continuar.</p>
       
       <form onsubmit="verificarCodigo(event)" class="space-y-4">
-        <input type="password" id="labCodeInput" placeholder="Código de Acesso" class="w-full bg-slate-900 border border-purple-500/30 rounded-xl px-4 py-3 text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
-        <button type="submit" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-all shadow-lg shadow-purple-600/30">Aceder</button>
+        <input type="password" id="labCodeInput" placeholder="Código de Acesso" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
+        <button type="submit" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg">Entrar</button>
       </form>
-      <p id="modalErrorMsg" class="text-xs text-red-400 mt-3 hidden">Código incorreto. Tente novamente.</p>
     </div>
   </div>
 
-  <!-- MODAL SOBRE / CONTACTO -->
-  <div id="sobreModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="glass-modal w-full max-w-lg p-6 rounded-3xl relative text-left">
-      <button onclick="fecharSobreModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
-      
-      <div class="flex items-center gap-4 mb-4">
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 p-0.5 flex-shrink-0">
-          <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center font-black text-lg text-white">HJ</div>
-        </div>
-        <div>
-          <h3 class="text-lg font-bold text-white">Helder Jardim</h3>
-          <p class="text-xs text-pink-400 font-medium">@gard3npt</p>
-        </div>
-      </div>
-
-      <p class="text-xs text-slate-300 leading-relaxed mb-6">
-        Criador de conteúdos digitais, entusiasta de automóveis clássicos, colecionismo (caricas metálicas) e desenvolvimento de ferramentas digitais práticas para o dia a dia.
-      </p>
-
-      <div class="space-y-2 border-t border-white/10 pt-4">
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Canais de Contacto:</p>
-        <a href="mailto:jardimhelder@hotmail.com" class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-200 text-xs transition-all">
-          <svg class="w-4 h-4 text-pink-400"><use href="#icon-message"/></svg> E-mail
-        </a>
-        <a href="https://t.me/gard3npt" target="_blank" class="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-200 text-xs transition-all">
-          <svg class="w-4 h-4 text-sky-400"><use href="#icon-telegram"/></svg> Telegram
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT DE FUNCIONALIDADES -->
+  <!-- JAVASCRIPT DE SUPORTE E NAVEGAÇÃO -->
   <script>
-    // Alternar (Expandir/Esconder) abas das listas do YouTube
-    function toggleAbaPlaylist(categoria) {
-      const targetContent = document.getElementById('playlist-' + categoria);
-      const targetBtn = document.getElementById('tab-' + categoria);
-      const chevron = targetBtn.querySelector('.icon-chevron');
-
-      const isHidden = targetContent.classList.contains('hidden');
-
-      // Fechar todas as listas primeiro
-      document.querySelectorAll('.yt-playlist-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.yt-tab-btn').forEach(btn => {
-        btn.classList.remove('bg-pink-600', 'text-white');
-        btn.classList.add('text-slate-400');
-        const c = btn.querySelector('.icon-chevron');
-        if (c) c.style.transform = 'rotate(0deg)';
-      });
-
-      // Se estava escondida, abre a clicada
-      if (isHidden) {
-        targetContent.classList.remove('hidden');
-        targetBtn.classList.add('bg-pink-600', 'text-white');
-        targetBtn.classList.remove('text-slate-400');
-        if (chevron) chevron.style.transform = 'rotate(180deg)';
-      }
+    // Funções dos Modais
+    function abrirSobreModalInfo() {
+      const m = document.getElementById('sobreModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
     }
 
-    // Pesquisa em tempo real
-    function filtrarConteudo() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.item-card');
-
-      // Se estiver a pesquisar, expande todas as categorias de vídeo para encontrar os resultados
-      if (input.trim() !== "") {
-        document.querySelectorAll('.yt-playlist-content').forEach(el => el.classList.remove('hidden'));
-      }
-
-      cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        if (text.includes(input)) {
-          card.style.display = "";
-        } else {
-          card.style.display = "none";
-        }
-      });
+    function fecharSobreModalInfo() {
+      const m = document.getElementById('sobreModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
     }
 
-    // Filtro por Tags principais
-    function filtrarTag(tag) {
-      document.querySelectorAll('.tag-btn').forEach(btn => btn.classList.remove('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white'));
-      event.target.classList.add('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
-
-      const seccoes = document.querySelectorAll('.section-block');
-      seccoes.forEach(sec => {
-        if (tag === 'all' || sec.getAttribute('data-category') === tag) {
-          sec.style.display = "";
-        } else {
-          sec.style.display = "none";
-        }
-      });
+    function abrirContactoModal() {
+      const m = document.getElementById('contactoModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
     }
 
-    // Modais de Vídeo
-    function abrirVideoModal(videoId, titulo) {
+    function fecharContactoModal() {
+      const m = document.getElementById('contactoModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function abrirVideoModal(id, titulo) {
       document.getElementById('videoModalTitle').innerText = titulo;
-      document.getElementById('videoIframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
-      document.getElementById('videoModal').classList.remove('hidden');
-      document.getElementById('videoModal').classList.add('flex');
+      document.getElementById('videoIframe').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+      const m = document.getElementById('videoModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
     }
 
     function fecharVideoModal() {
       document.getElementById('videoIframe').src = '';
-      document.getElementById('videoModal').classList.add('hidden');
-      document.getElementById('videoModal').classList.remove('flex');
+      const m = document.getElementById('videoModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
     }
 
-    // Modais SC Lab
     function abrirModal() {
-      document.getElementById('scLabModal').classList.remove('hidden');
-      document.getElementById('scLabModal').classList.add('flex');
+      const m = document.getElementById('scLabModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
     }
 
     function fecharModal() {
-      document.getElementById('scLabModal').classList.add('hidden');
-      document.getElementById('scLabModal').classList.remove('flex');
+      const m = document.getElementById('scLabModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    // Fechar modal ao clicar fora da área de conteúdo
+    function fecharAoClicarFora(e, modalElement) {
+      if (e.target === modalElement) {
+        if (modalElement.id === 'videoModal') fecharVideoModal();
+        else if (modalElement.id === 'sobreModal') fecharSobreModalInfo();
+        else if (modalElement.id === 'contactoModal') fecharContactoModal();
+        else if (modalElement.id === 'scLabModal') fecharModal();
+      }
     }
 
     function verificarCodigo(e) {
       e.preventDefault();
-      const codigo = document.getElementById('labCodeInput').value;
-      if (codigo === '1234') { // Substituir pelo teu código
-        window.location.href = 'https://gard3npt.github.io/sclab';
+      const code = document.getElementById('labCodeInput').value;
+      if (code === "1234") {
+        alert("Acesso permitido!");
+        fecharModal();
       } else {
-        document.getElementById('modalErrorMsg').classList.remove('hidden');
+        alert("Código incorreto!");
       }
     }
 
-    // Modais Sobre/Contacto
-    function abrirSobreModalInfo() {
-      document.getElementById('sobreModal').classList.remove('hidden');
-      document.getElementById('sobreModal').classList.add('flex');
-    }
+    // Função ajustada para abrir apenas 1 categoria de cada vez
+    function toggleAbaPlaylist(id) {
+      const targetEl = document.getElementById('playlist-' + id);
+      const targetTab = document.getElementById('tab-' + id);
+      const targetChevron = targetTab ? targetTab.querySelector('.icon-chevron') : null;
 
-    function fecharSobreModal() {
-      document.getElementById('sobreModal').classList.add('hidden');
-      document.getElementById('sobreModal').classList.remove('flex');
-    }
+      const estaAberto = !targetEl.classList.contains('hidden');
 
-    function acaoBotaoSobre() {
-      abrirSobreModalInfo();
+      // Fecha todas as categorias e repõe os botões
+      document.querySelectorAll('.yt-playlist-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.yt-tab-btn').forEach(tab => {
+        tab.classList.remove('text-pink-400', 'bg-white/10');
+        const ch = tab.querySelector('.icon-chevron');
+        if (ch) ch.classList.remove('rotate-180');
+      });
+
+      // Se a clicada não estava aberta, abre-a
+      if (!estaAberto) {
+        targetEl.classList.remove('hidden');
+        if (targetTab) targetTab.classList.add('text-pink-400', 'bg-white/10');
+        if (targetChevron) targetChevron.classList.add('rotate-180');
+      }
     }
 
     function voltarAoInicio() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    function filtrarTag(btnElement, categoria) {
+      const btns = document.querySelectorAll('.tag-btn');
+      btns.forEach(b => {
+        b.classList.remove('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
+        b.classList.add('bg-slate-800/80', 'text-slate-300');
+      });
+      
+      if (btnElement) {
+        btnElement.classList.remove('bg-slate-800/80', 'text-slate-300');
+        btnElement.classList.add('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
+      }
+
+      const blocks = document.querySelectorAll('.section-block');
+      blocks.forEach(block => {
+        if (categoria === 'all' || block.getAttribute('data-category') === categoria) {
+          block.style.display = '';
+        } else {
+          block.style.display = 'none';
+        }
+      });
+
+      // Se a tag selecionada for "playlists", abre automaticamente a primeira categoria para o utilizador ver de imediato
+      if (categoria === 'playlists') {
+        toggleAbaPlaylist('viagens');
+      }
+    }
   </script>
 </body>
+
 </html>
