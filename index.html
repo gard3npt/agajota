@@ -241,7 +241,7 @@
       </div>
     </section>
 
-    <!-- ADSENSE TOP -->
+    <!-- ADSENSE TOP (APÓS OS BOTÕES DE FILTRO) -->
     <div class="adsense-holder my-8 max-w-4xl mx-auto overflow-hidden rounded-2xl bg-slate-900/40 border border-white/5">
       <ins class="adsbygoogle"
            style="display:block"
@@ -377,7 +377,15 @@
           </div>
           <h2 class="text-xl font-extrabold text-white">Vídeos do YouTube</h2>
         </div>
-        <p class="text-xs text-pink-300">Clica numa das categorias abaixo para expandir e explorar os vídeos do canal</p>
+        <p class="text-xs text-pink-300">Clica numa
+	
+	
+		
+	
+	
+		Ativar 3,50% cashback
+	
+ das categorias abaixo para expandir e explorar os vídeos do canal</p>
 
         <!-- FILTROS DAS LISTAS DE VÍDEOS (BOTÕES AO CENTRO) -->
         <div class="flex flex-wrap justify-center gap-2 bg-slate-900/90 p-2 rounded-2xl border border-white/10 text-xs mt-3">
@@ -843,6 +851,19 @@
       </div>
     </section>
 
+    <!-- ADSENSE BOTTOM (ANTES DO RODAPÉ) -->
+    <div class="adsense-holder my-8 max-w-4xl mx-auto overflow-hidden rounded-2xl bg-slate-900/40 border border-white/5">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-4094039418988922"
+           data-ad-slot="4033482498"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
   </main>
 
   <!-- RODAPÉ -->
@@ -906,174 +927,148 @@
         </a>
         <a href="https://m.me/jardimhelder" target="_blank" class="flex items-center gap-3 p-3 rounded-2xl bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
           <svg class="w-5 h-5 text-blue-400"><use href="#icon-messenger"/></svg>
-          <span>Messenger</span>
+          <span>Facebook Messenger</span>
         </a>
-        <a href="mailto:jardimhelder@hotmail.com" class="flex items-center gap-3 p-3 rounded-2xl bg-purple-600/20 border border-purple-500/30 hover:bg-purple-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
-          <svg class="w-5 h-5 text-purple-400"><use href="#icon-message"/></svg>
-          <span>Enviar E-mail</span>
+        <a href="mailto:jardimhelder@hotmail.com" class="flex items-center gap-3 p-3 rounded-2xl bg-pink-600/20 border border-pink-500/30 hover:bg-pink-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+          <svg class="w-5 h-5 text-pink-400"><use href="#icon-message"/></svg>
+          <span>Enviar Email</span>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- MODAL DE VÍDEO DO YOUTUBE -->
+  <!-- MODAL VÍDEO -->
   <div id="videoModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="glass-modal w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl relative border border-white/20">
-      <div class="p-4 flex items-center justify-between border-b border-white/10 bg-slate-900/60">
-        <h3 id="videoModalTitle" class="text-sm font-bold text-white truncate pr-4">Assistir Vídeo</h3>
-        <button onclick="fecharVideoModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
-      </div>
-      <div class="relative aspect-video w-full bg-black">
-        <iframe id="videoIframe" class="w-full h-full" src="" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="glass-modal w-full max-w-3xl p-4 sm:p-6 rounded-3xl relative border border-white/20">
+      <button onclick="fecharVideoModal()" class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-pink-600 text-white flex items-center justify-center text-sm font-bold shadow-lg hover:scale-110 transition-transform z-10">✕</button>
+      <h3 id="videoModalTitle" class="text-base font-bold text-white mb-3 pr-6 truncate">Vídeo</h3>
+      <div class="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
+        <iframe id="videoModalIframe" class="w-full h-full" src="" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 
-  <!-- MODAL PROTEGIDO DO SC LAB -->
+  <!-- MODAL SC LAB / CÓDIGO -->
   <div id="scLabModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="glass-modal w-full max-w-md p-6 rounded-3xl text-center relative border border-white/20">
+    <div class="glass-modal w-full max-w-sm p-6 rounded-3xl text-center relative border border-white/20">
       <button onclick="fecharModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
-      <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl mx-auto mb-4">🔐</div>
-      <h3 class="text-lg font-extrabold text-white mb-1">Área Reservada</h3>
-      <p class="text-xs text-slate-400 mb-6">Introduza o código de acesso para continuar.</p>
-      
-      <form onsubmit="verificarCodigo(event)" class="space-y-4">
-        <input type="password" id="labCodeInput" placeholder="Código de Acesso" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-sm text-center text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
-        <button type="submit" class="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg">Entrar</button>
-      </form>
+      <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mx-auto mb-3">🔐</div>
+      <h3 class="text-lg font-extrabold text-white mb-1">Acesso SC Lab</h3>
+      <p class="text-xs text-slate-400 mb-4">Insira o código de acesso para continuar</p>
+      <input type="password" id="scLabCode" placeholder="Código de acesso" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-sm text-center mb-3 focus:outline-none focus:border-purple-500 transition-colors">
+      <button onclick="verificarCodigo()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:brightness-110 text-white text-xs font-bold transition-all shadow-lg">Aceder</button>
     </div>
   </div>
 
-  <!-- JAVASCRIPT DE SUPORTE E NAVEGAÇÃO -->
+  <!-- SCRIPTS DE NAVEGAÇÃO E LÓGICA DA PÁGINA -->
   <script>
-    // Funções dos Modais
-    function abrirSobreModalInfo() {
-      const m = document.getElementById('sobreModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function fecharSobreModalInfo() {
-      const m = document.getElementById('sobreModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    function abrirContactoModal() {
-      const m = document.getElementById('contactoModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function fecharContactoModal() {
-      const m = document.getElementById('contactoModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    function abrirVideoModal(id, titulo) {
-      document.getElementById('videoModalTitle').innerText = titulo;
-      document.getElementById('videoIframe').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
-      const m = document.getElementById('videoModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function fecharVideoModal() {
-      document.getElementById('videoIframe').src = '';
-      const m = document.getElementById('videoModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    function abrirModal() {
-      const m = document.getElementById('scLabModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function fecharModal() {
-      const m = document.getElementById('scLabModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    // Fechar modal ao clicar fora da área de conteúdo
-    function fecharAoClicarFora(e, modalElement) {
-      if (e.target === modalElement) {
-        if (modalElement.id === 'videoModal') fecharVideoModal();
-        else if (modalElement.id === 'sobreModal') fecharSobreModalInfo();
-        else if (modalElement.id === 'contactoModal') fecharContactoModal();
-        else if (modalElement.id === 'scLabModal') fecharModal();
-      }
-    }
-
-    function verificarCodigo(e) {
-      e.preventDefault();
-      const code = document.getElementById('labCodeInput').value;
-      if (code === "1234") {
-        alert("Acesso permitido!");
-        fecharModal();
-      } else {
-        alert("Código incorreto!");
-      }
-    }
-
-    // Função ajustada para abrir apenas 1 categoria de cada vez
-    function toggleAbaPlaylist(id) {
-      const targetEl = document.getElementById('playlist-' + id);
-      const targetTab = document.getElementById('tab-' + id);
-      const targetChevron = targetTab ? targetTab.querySelector('.icon-chevron') : null;
-
-      const estaAberto = !targetEl.classList.contains('hidden');
-
-      // Fecha todas as categorias e repõe os botões
-      document.querySelectorAll('.yt-playlist-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.yt-tab-btn').forEach(tab => {
-        tab.classList.remove('text-pink-400', 'bg-white/10');
-        const ch = tab.querySelector('.icon-chevron');
-        if (ch) ch.classList.remove('rotate-180');
-      });
-
-      // Se a clicada não estava aberta, abre-a
-      if (!estaAberto) {
-        targetEl.classList.remove('hidden');
-        if (targetTab) targetTab.classList.add('text-pink-400', 'bg-white/10');
-        if (targetChevron) targetChevron.classList.add('rotate-180');
-      }
-    }
-
     function voltarAoInicio() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function filtrarTag(btnElement, categoria) {
-      const btns = document.querySelectorAll('.tag-btn');
-      btns.forEach(b => {
-        b.classList.remove('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
+    function filtrarTag(btn, cat) {
+      document.querySelectorAll('.tag-btn').forEach(b => {
+        b.classList.remove('active', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
         b.classList.add('bg-slate-800/80', 'text-slate-300');
       });
-      
-      if (btnElement) {
-        btnElement.classList.remove('bg-slate-800/80', 'text-slate-300');
-        btnElement.classList.add('bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
-      }
+      btn.classList.add('active', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
+      btn.classList.remove('bg-slate-800/80', 'text-slate-300');
 
       const blocks = document.querySelectorAll('.section-block');
       blocks.forEach(block => {
-        if (categoria === 'all' || block.getAttribute('data-category') === categoria) {
-          block.style.display = '';
+        if (cat === 'all' || block.getAttribute('data-category') === cat) {
+          block.style.display = 'block';
         } else {
           block.style.display = 'none';
         }
       });
+    }
 
-      // Se a tag selecionada for "playlists", abre automaticamente a primeira categoria para o utilizador ver de imediato
-      if (categoria === 'playlists') {
-        toggleAbaPlaylist('viagens');
+    function toggleAbaPlaylist(abaId) {
+      const targetDiv = document.getElementById('playlist-' + abaId);
+      const targetBtn = document.getElementById('tab-' + abaId);
+
+      const isVisible = !targetDiv.classList.contains('hidden');
+
+      // Ocultar todas
+      document.querySelectorAll('.yt-playlist-content').forEach(d => d.classList.add('hidden'));
+      document.querySelectorAll('.yt-tab-btn').forEach(b => {
+        b.classList.remove('bg-pink-600', 'text-white');
+        b.classList.add('text-slate-400');
+        const icon = b.querySelector('.icon-chevron');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      });
+
+      if (!isVisible) {
+        targetDiv.classList.remove('hidden');
+        targetBtn.classList.add('bg-pink-600', 'text-white');
+        targetBtn.classList.remove('text-slate-400');
+        const icon = targetBtn.querySelector('.icon-chevron');
+        if (icon) icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    function abrirVideoModal(videoId, title) {
+      document.getElementById('videoModalTitle').textContent = title;
+      document.getElementById('videoModalIframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+      document.getElementById('videoModal').classList.remove('hidden');
+      document.getElementById('videoModal').classList.add('flex');
+    }
+
+    function fecharVideoModal() {
+      document.getElementById('videoModalIframe').src = '';
+      document.getElementById('videoModal').classList.add('hidden');
+      document.getElementById('videoModal').classList.remove('flex');
+    }
+
+    function abrirSobreModalInfo() {
+      document.getElementById('sobreModal').classList.remove('hidden');
+      document.getElementById('sobreModal').classList.add('flex');
+    }
+
+    function fecharSobreModalInfo() {
+      document.getElementById('sobreModal').classList.add('hidden');
+      document.getElementById('sobreModal').classList.remove('flex');
+    }
+
+    function abrirContactoModal() {
+      document.getElementById('contactoModal').classList.remove('hidden');
+      document.getElementById('contactoModal').classList.add('flex');
+    }
+
+    function fecharContactoModal() {
+      document.getElementById('contactoModal').classList.add('hidden');
+      document.getElementById('contactoModal').classList.remove('flex');
+    }
+
+    function abrirModal() {
+      document.getElementById('scLabModal').classList.remove('hidden');
+      document.getElementById('scLabModal').classList.add('flex');
+    }
+
+    function fecharModal() {
+      document.getElementById('scLabModal').classList.add('hidden');
+      document.getElementById('scLabModal').classList.remove('flex');
+    }
+
+    function verificarCodigo() {
+      const code = document.getElementById('scLabCode').value;
+      if (code === '1234') {
+        alert('Acesso concedido!');
+        fecharModal();
+      } else {
+        alert('Código incorreto!');
+      }
+    }
+
+    function fecharAoClicarFora(event, container) {
+      if (event.target === container) {
+        container.classList.add('hidden');
+        container.classList.remove('flex');
+        const iframe = container.querySelector('iframe');
+        if (iframe) iframe.src = '';
       }
     }
   </script>
 </body>
-
 </html>
