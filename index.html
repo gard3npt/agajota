@@ -76,8 +76,8 @@
     }
 
     .glass-card:hover {
-      border-color: rgba(168, 85, 247, 0.5);
-      box-shadow: 0 12px 30px -8px rgba(147, 51, 234, 0.35);
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 12px 30px -8px rgba(239, 68, 68, 0.35);
       transform: translateY(-3px);
     }
 
@@ -130,6 +130,11 @@
     .featured-video-card:hover {
       box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
     }
+
+    /* Classes para paginação de vídeos */
+    .hidden-video {
+      display: none !important;
+    }
   </style>
 </head>
 
@@ -147,7 +152,7 @@
     <symbol id="icon-spotify" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 5.372 0 12s5.373 12 12 12 12-5.372 12-12S18.627 0 12 0zm5.494 17.307c-.215.352-.676.463-1.028.248-2.857-1.747-6.453-2.14-10.686-1.173-.402.092-.806-.16-.898-.562-.092-.403.16-.806.562-.897 4.634-1.059 8.602-.614 11.8 1.341.352.214.464.675.25 1.028zm1.469-3.262c-.27 1.405-1.405 1.837-2.316 1.285-3.27-2.01-8.258-2.595-12.126-1.42-.452.137-.923-.118-1.06-.57-.138-.453.118-.924.57-1.06 4.423-1.343 9.917-.69 13.633 1.597.452.278.592.868.314 1.319zm.126-3.414C15.346 8.3 8.307 8.067 4.22 9.306c-.596.18-1.226-.153-1.407-.75-.18-.596.153-1.226.75-1.407 4.68-1.42 12.44-1.155 17.022 1.565.538.32.712 1.018.393 1.556-.32.538-1.018.712-1.556.393z"/></symbol>
     <symbol id="icon-calc" viewBox="0 0 24 24"><path fill="currentColor" d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 18H6V4h12v16zm-1-7h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4H7v2h2v-2zm0-4H7v2h2V9zm8 6h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H7v2h2v-2z"/></symbol>
     <symbol id="icon-globe" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.66 0 3 1.34 3 3v.17c2.47.76 4.19 3.03 4.19 5.72 0 .5-.07.98-.19 1.45z"/></symbol>
-    <symbol id="icon-brand" viewBox="0 0 24 24"><path fill="currentColor" d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45 3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
+    <symbol id="icon-brand" viewBox="0 0 24 24"><path fill="currentColor" d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45H3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1z"/></symbol>
     <symbol id="icon-twitch" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
     <symbol id="icon-info" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
     <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
@@ -257,12 +262,12 @@
     <!-- 1. SECÇÃO DE VÍDEOS EM DESTAQUE -->
     <section class="section-block my-12" data-category="video">
       <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
-        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-red-600 to-pink-600 text-white shadow-lg shadow-red-500/30">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-red-600 to-rose-600 text-white shadow-lg shadow-red-500/30">
           <svg class="w-5 h-5"><use href="#icon-video"/></svg>
         </div>
         <div>
           <h2 class="text-xl font-extrabold text-white">Vídeos em Destaque</h2>
-          <p class="text-xs text-pink-300">Seleções especiais do canal</p>
+          <p class="text-xs text-red-400">Seleções especiais do canal</p>
         </div>
       </div>
 
@@ -270,31 +275,30 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- VÍDEO DESTAQUE 1 -->
-        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20">
+        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
           <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
             <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
-            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md shadow-red-900/50">
               ★ Destaque #1
             </div>
 
             <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-pink-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
+              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-rose-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
                 <span class="ml-1 text-xl animate-pulse">▶</span>
               </div>
             </div>
           </div>
-          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/20">
+          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div>
-              <span class="text-[11px] font-extrabold text-red-400 uppercase tracking-wider">YouTube Short</span>
               <h3 class="text-base font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Mini vibes</h3>
             </div>
             <div class="flex gap-2 mt-4 pt-3 border-t border-white/10">
               <button type="button" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')" class="flex-1 py-2 px-3 rounded-xl bg-white/10 hover:bg-white text-slate-200 hover:text-slate-900 text-xs font-bold transition-all text-center">
                 ▶ Assistir na Página
               </button>
-              <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md">
+              <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md shadow-red-900/50">
                 <svg class="w-3.5 h-3.5"><use href="#icon-yt"/></svg>
               </a>
             </div>
@@ -302,31 +306,30 @@
         </div>
 
         <!-- VÍDEO DESTAQUE 2 -->
-        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-purple-500/20">
+        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
           <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
             <img src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
-            <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md shadow-red-900/50">
               ★ Destaque #2
             </div>
 
             <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-14 h-14 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-purple-600/50 group-hover:scale-125 transition-transform duration-300">
+              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-rose-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
                 <span class="ml-1 text-xl animate-pulse">▶</span>
               </div>
             </div>
           </div>
-          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-purple-950/20">
+          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div>
-              <span class="text-[11px] font-extrabold text-purple-400 uppercase tracking-wider">Música / Beat</span>
-              <h3 class="text-base font-bold text-white mt-1 group-hover:text-purple-300 transition-colors">Pulse of the Night</h3>
+              <h3 class="text-base font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Pulse of the Night</h3>
             </div>
             <div class="flex gap-2 mt-4 pt-3 border-t border-white/10">
               <button type="button" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')" class="flex-1 py-2 px-3 rounded-xl bg-white/10 hover:bg-white text-slate-200 hover:text-slate-900 text-xs font-bold transition-all text-center">
                 ▶ Assistir na Página
               </button>
-              <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md">
+              <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md shadow-red-900/50">
                 <svg class="w-3.5 h-3.5"><use href="#icon-yt"/></svg>
               </a>
             </div>
@@ -334,31 +337,30 @@
         </div>
 
         <!-- VÍDEO DESTAQUE 3 -->
-        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-blue-500/20">
+        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
           <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
             <img src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
-            <div class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md shadow-red-900/50">
               ★ Destaque #3
             </div>
 
             <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-14 h-14 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center text-white shadow-xl shadow-blue-600/50 group-hover:scale-125 transition-transform duration-300">
+              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-rose-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
                 <span class="ml-1 text-xl animate-pulse">▶</span>
               </div>
             </div>
           </div>
-          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-blue-950/20">
+          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div>
-              <span class="text-[11px] font-extrabold text-cyan-400 uppercase tracking-wider">Audio / Visual</span>
-              <h3 class="text-base font-bold text-white mt-1 group-hover:text-cyan-300 transition-colors">Deep sub-bass pulse</h3>
+              <h3 class="text-base font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Deep sub-bass pulse</h3>
             </div>
             <div class="flex gap-2 mt-4 pt-3 border-t border-white/10">
               <button type="button" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')" class="flex-1 py-2 px-3 rounded-xl bg-white/10 hover:bg-white text-slate-200 hover:text-slate-900 text-xs font-bold transition-all text-center">
                 ▶ Assistir na Página
               </button>
-              <a href="https://youtu.be/Iiv9qnvlNTA" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md">
+              <a href="https://youtu.be/Iiv9qnvlNTA" target="_blank" rel="noopener noreferrer" class="py-2 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1 shadow-md shadow-red-900/50">
                 <svg class="w-3.5 h-3.5"><use href="#icon-yt"/></svg>
               </a>
             </div>
@@ -371,37 +373,37 @@
     <!-- 2. ESPAÇO DE VÍDEOS DO YOUTUBE -->
     <section class="section-block my-12" data-category="playlists">
       <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
-        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-red-500 to-rose-500 text-white shadow-lg shadow-red-500/30">
           <svg class="w-5 h-5"><use href="#icon-yt"/></svg>
         </div>
         <div>
           <h2 class="text-xl font-extrabold text-white">Vídeos do YouTube</h2>
-          <p class="text-xs text-pink-300">Escolha uma categoria abaixo para abrir e explorar os vídeos do canal</p>
+          <p class="text-xs text-red-300">Escolha uma categoria abaixo para abrir e explorar os vídeos do canal</p>
         </div>
       </div>
 
-      <!-- BOTÕES DE CATEGORIAS (ACORDEÃO / TOGGLE COM SUPORTE A DESTAQUE) -->
+      <!-- BOTÕES DE CATEGORIAS (Música em 1º e Viagens em 2º) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <button type="button" id="btn-cat-viagens" onclick="toggleYoutubeCat('cat-viagens')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-pink-500/30 hover:bg-pink-500/10 transition-all text-left">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl">✈️</span>
-            <div>
-              <h3 class="text-sm font-bold text-white group-hover:text-pink-300">Viagens</h3>
-              <p class="text-[10px] text-slate-400 cat-status-text">Ver conteúdos</p>
-            </div>
-          </div>
-          <span class="text-pink-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
-        </button>
-
-        <button type="button" id="btn-cat-musica" onclick="toggleYoutubeCat('cat-musica')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-purple-500/30 hover:bg-purple-500/10 transition-all text-left">
+        <button type="button" id="btn-cat-musica" onclick="toggleYoutubeCat('cat-musica')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
           <div class="flex items-center gap-3">
             <span class="text-2xl">🎵</span>
             <div>
-              <h3 class="text-sm font-bold text-white group-hover:text-purple-300">Música</h3>
+              <h3 class="text-sm font-bold text-white group-hover:text-red-300">Música</h3>
               <p class="text-[10px] text-slate-400 cat-status-text">Ver conteúdos</p>
             </div>
           </div>
-          <span class="text-purple-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
+          <span class="text-red-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
+        </button>
+
+        <button type="button" id="btn-cat-viagens" onclick="toggleYoutubeCat('cat-viagens')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">✈️</span>
+            <div>
+              <h3 class="text-sm font-bold text-white group-hover:text-red-300">Viagens</h3>
+              <p class="text-[10px] text-slate-400 cat-status-text">Ver conteúdos</p>
+            </div>
+          </div>
+          <span class="text-red-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
         </button>
 
         <button type="button" id="btn-cat-classicos" onclick="toggleYoutubeCat('cat-classicos')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
@@ -415,184 +417,170 @@
           <span class="text-red-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
         </button>
 
-        <button type="button" id="btn-cat-geral" onclick="toggleYoutubeCat('cat-geral')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-emerald-500/30 hover:bg-emerald-500/10 transition-all text-left">
+        <button type="button" id="btn-cat-geral" onclick="toggleYoutubeCat('cat-geral')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
           <div class="flex items-center gap-3">
             <span class="text-2xl">🛠️</span>
             <div>
-              <h3 class="text-sm font-bold text-white group-hover:text-emerald-300">Só porque sim</h3>
+              <h3 class="text-sm font-bold text-white group-hover:text-red-300">Só porque sim</h3>
               <p class="text-[10px] text-slate-400 cat-status-text">Ver conteúdos</p>
             </div>
           </div>
-          <span class="text-emerald-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
+          <span class="text-red-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
         </button>
       </div>
 
       <!-- CONTEÚDO DAS CATEGORIAS -->
-      <div id="cat-viagens" class="youtube-category-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
-        <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-pink-500/20 hover:border-pink-500/50">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
-            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            <div class="absolute top-3 left-3 bg-pink-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">✈️ Viagens</div>
-            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-              <div class="w-12 h-12 rounded-full bg-pink-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
-            </div>
-          </div>
-          <div class="p-4 flex flex-col justify-between flex-1">
-            <div>
-              <span class="text-[11px] font-extrabold text-pink-400 uppercase tracking-wider">Viagem</span>
-              <h3 class="text-sm font-bold text-white mt-1 group-hover:text-pink-300 transition-colors">Vídeo de Teste</h3>
-            </div>
-            <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
-              <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-              <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-            </div>
-          </div>
-        </div>
+      <div id="cat-musica" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
+        <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          
+          <!-- VÍDEO NOVO ADICIONADO (ID #04 - iLDgiow1rok) -->
+          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('iLDgiow1rok', 'Novo Vídeo Musical')">
+              <img src="https://img.youtube.com/vi/iLDgiow1rok/hqdefault.jpg" alt="Novo Vídeo Musical" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+                ID #04
+              </div>
 
-        <div class="item-card glass-card rounded-2xl p-5 flex flex-col justify-between group border border-pink-500/20 hover:border-pink-500/50 bg-gradient-to-br from-pink-950/20 to-slate-900/60">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">✈️</div>
-            <div>
-              <span class="text-[11px] font-extrabold text-pink-400 uppercase tracking-wider">Playlist</span>
-              <h3 class="text-sm font-bold text-white group-hover:text-pink-300">Passeios e Viagens</h3>
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div>
+                <h3 class="text-sm font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Música #04</h3>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
+                <button onclick="abrirVideoModal('iLDgiow1rok', 'Novo Vídeo Musical')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+                <a href="https://youtu.be/iLDgiow1rok?si=enaeC0yaqLvPOhtI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+              </div>
             </div>
           </div>
-          <p class="text-xs text-slate-400 my-3">Lista de reprodução oficial no canal do YouTube.</p>
-          <div class="pt-3 border-t border-white/10">
-            <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" class="w-full py-2 rounded-xl bg-pink-600/30 hover:bg-pink-600 text-pink-200 hover:text-white text-xs font-bold text-center transition-all block">Ver Lista Completa →</a>
+
+          <!-- VÍDEO NOVO (ID #03) -->
+          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('X0FzDwYclos', 'Novo Vídeo de Música')">
+              <img src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Novo Vídeo de Música" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+                ID #03
+              </div>
+
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div>
+                <h3 class="text-sm font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Música #03</h3>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
+                <button onclick="abrirVideoModal('X0FzDwYclos', 'Novo Vídeo de Música')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+                <a href="https://youtu.be/X0FzDwYclos?si=aluJnUeeok7ywRrI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+              </div>
+            </div>
           </div>
+
+          <!-- VÍDEO LEVO A VIDA COM O CORAÇÃO (ID #02) -->
+          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Levo a vida com o coração')">
+              <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Levo a vida com o coração" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+                ID #02
+              </div>
+
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div>
+                <h3 class="text-sm font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Levo a vida com o coração</h3>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
+                <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Levo a vida com o coração')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+                <a href="https://youtu.be/0BCwHFQs9OI?si=YrFOuV_D8zUYrj8_" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- VÍDEO MINI VIBES (ID #01) -->
+          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
+              <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+                ID #01
+              </div>
+
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div>
+                <h3 class="text-sm font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Mini vibes</h3>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
+                <button onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+                <a href="https://youtu.be/9qS-0X7V_Fc?si=0rmgNgRc-w-a6dQt" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+              </div>
+            </div>
+          </div>
+
         </div>
+        <div class="load-more-container text-center mt-4"></div>
       </div>
 
-      <div id="cat-musica" class="youtube-category-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
-        <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-purple-500/20 hover:border-purple-500/50">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('aknoQYP3vSU', 'Música Especial')">
-            <img src="https://img.youtube.com/vi/aknoQYP3vSU/hqdefault.jpg" alt="Música Especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">🎵 Música</div>
-            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-              <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
-            </div>
-          </div>
-          <div class="p-4 flex flex-col justify-between flex-1">
-            <div>
-              <span class="text-[11px] font-extrabold text-purple-400 uppercase tracking-wider">Música</span>
-              <h3 class="text-sm font-bold text-white mt-1 group-hover:text-purple-300 transition-colors">Música Especial</h3>
-            </div>
-            <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
-              <button onclick="abrirVideoModal('aknoQYP3vSU', 'Música Especial')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-              <a href="https://youtu.be/aknoQYP3vSU" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-            </div>
-          </div>
-        </div>
+      <div id="cat-viagens" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
+        <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          
+          <!-- VÍDEO ADICIONADO: Viagens (ID: aoFprEhmjrk) -->
+          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('aoFprEhmjrk', 'Vídeo de Viagem')">
+              <img src="https://img.youtube.com/vi/aoFprEhmjrk/hqdefault.jpg" alt="Vídeo de Viagem" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
+                Viagens
+              </div>
 
-        <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-purple-500/20 hover:border-purple-500/50">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
-            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            <div class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">🎵 Música</div>
-            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-              <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div>
+                <h3 class="text-sm font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Viagem #01</h3>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
+                <button onclick="abrirVideoModal('aoFprEhmjrk', 'Vídeo de Viagem')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
+                <a href="https://youtu.be/aoFprEhmjrk?si=rCwWb2t2LuQljs29" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
+              </div>
             </div>
           </div>
-          <div class="p-4 flex flex-col justify-between flex-1">
-            <div>
-              <span class="text-[11px] font-extrabold text-purple-400 uppercase tracking-wider">Música</span>
-              <h3 class="text-sm font-bold text-white mt-1 group-hover:text-purple-300 transition-colors">Vídeo de Teste</h3>
-            </div>
-            <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
-              <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-              <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-            </div>
-          </div>
-        </div>
 
-        <div class="item-card glass-card rounded-2xl p-5 flex flex-col justify-between group border border-purple-500/20 hover:border-purple-500/50 bg-gradient-to-br from-purple-950/20 to-slate-900/60">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">🎧</div>
-            <div>
-              <span class="text-[11px] font-extrabold text-purple-400 uppercase tracking-wider">Playlist</span>
-              <h3 class="text-sm font-bold text-white group-hover:text-purple-300">Beats & Músicas</h3>
-            </div>
-          </div>
-          <p class="text-xs text-slate-400 my-3">Músicas criadas com ajuda de IA e produções áudio.</p>
-          <div class="pt-3 border-t border-white/10 flex gap-2">
-            <button onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
-            <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-purple-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-          </div>
         </div>
+        <div class="load-more-container text-center mt-4"></div>
       </div>
 
-      <div id="cat-classicos" class="youtube-category-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
-        <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
-            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">🚗 Clássicos</div>
-            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-              <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
-            </div>
-          </div>
-          <div class="p-4 flex flex-col justify-between flex-1">
-            <div>
-              <span class="text-[11px] font-extrabold text-red-400 uppercase tracking-wider">Automóvel</span>
-              <h3 class="text-sm font-bold text-white mt-1 group-hover:text-red-300 transition-colors">Vídeo de Teste</h3>
-            </div>
-            <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
-              <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-              <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-            </div>
-          </div>
+      <div id="cat-classicos" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
+        <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          <!-- Vazio ou com outros vídeos reais futuramente -->
         </div>
-
-        <div class="item-card glass-card rounded-2xl p-5 flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50 bg-gradient-to-br from-red-950/20 to-slate-900/60">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">🚗</div>
-            <div>
-              <span class="text-[11px] font-extrabold text-red-400 uppercase tracking-wider">Playlist</span>
-              <h3 class="text-sm font-bold text-white group-hover:text-red-300">Clássico MINI & Encontros</h3>
-            </div>
-          </div>
-          <p class="text-xs text-slate-400 my-3">Manutenção, passeios e vídeos dedicados ao MINI.</p>
-          <div class="pt-3 border-t border-white/10 flex gap-2">
-            <button onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
-            <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-red-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-          </div>
-        </div>
+        <div class="load-more-container text-center mt-4"></div>
       </div>
 
-      <div id="cat-geral" class="youtube-category-content hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
-        <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-emerald-500/20 hover:border-emerald-500/50">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')">
-            <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Vídeo de Teste" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-            <div class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">🎞️ Só porque sim</div>
-            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-              <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
-            </div>
-          </div>
-          <div class="p-4 flex flex-col justify-between flex-1">
-            <div>
-              <span class="text-[11px] font-extrabold text-emerald-400 uppercase tracking-wider">Geral</span>
-              <h3 class="text-sm font-bold text-white mt-1 group-hover:text-emerald-300 transition-colors">Vídeo de Teste</h3>
-            </div>
-            <div class="mt-4 pt-3 border-t border-white/10 flex gap-2">
-              <button onclick="abrirVideoModal('0BCwHFQs9OI', 'Vídeo de Teste')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center transition-all">▶ Ver Vídeo</button>
-              <a href="https://youtu.be/0BCwHFQs9OI" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-            </div>
-          </div>
+      <div id="cat-geral" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
+        <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+          <!-- Vazio ou com outros vídeos reais futuramente -->
         </div>
-
-        <div class="item-card glass-card rounded-2xl p-5 flex flex-col justify-between group border border-emerald-500/20 hover:border-emerald-500/50 bg-gradient-to-br from-emerald-950/20 to-slate-900/60">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xl group-hover:scale-110 transition-transform">🛠️</div>
-            <div>
-              <span class="text-[11px] font-extrabold text-emerald-400 uppercase tracking-wider">Playlist</span>
-              <h3 class="text-sm font-bold text-white group-hover:text-emerald-300">Só porque sim</h3>
-            </div>
-          </div>
-          <p class="text-xs text-slate-400 my-3">Apontar a câmara e gravar momentos espontâneos.</p>
-          <div class="pt-3 border-t border-white/10 flex gap-2">
-            <button onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')" class="flex-1 py-1.5 rounded-xl bg-white/10 hover:bg-white hover:text-slate-900 text-xs font-bold text-center">▶ Ver Vídeo</button>
-            <a href="https://youtu.be/X0FzDwYclos" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></a>
-          </div>
-        </div>
+        <div class="load-more-container text-center mt-4"></div>
       </div>
 
     </section>
@@ -953,157 +941,152 @@
       <p class="text-xs text-slate-400 mb-6">Escolha a sua plataforma de contacto preferida:</p>
 
       <div class="space-y-3">
-        <a href="https://wa.me/351910000000" target="_blank" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+        <a href="https://wa.me/351910000000" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
           <svg class="w-5 h-5 text-emerald-400"><use href="#icon-whatsapp"/></svg>
           <span>WhatsApp Directo</span>
         </a>
-        <a href="https://t.me/gard3npt" target="_blank" class="flex items-center gap-3 p-3 rounded-2xl bg-sky-600/20 border border-sky-500/30 hover:bg-sky-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+        <a href="https://t.me/gard3npt" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-sky-600/20 border border-sky-500/30 hover:bg-sky-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
           <svg class="w-5 h-5 text-sky-400"><use href="#icon-telegram"/></svg>
           <span>Telegram (@gard3npt)</span>
         </a>
-        <a href="https://m.me/jardimhelder" target="_blank" class="flex items-center gap-3 p-3 rounded-2xl bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
-          <svg class="w-5 h-5 text-blue-400"><use href="#icon-messenger"/></svg>
-          <span>Facebook Messenger</span>
-        </a>
-        <a href="mailto:jardimhelder@hotmail.com" class="flex items-center gap-3 p-3 rounded-2xl bg-pink-600/20 border border-pink-500/30 hover:bg-pink-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
-          <svg class="w-5 h-5 text-pink-400"><use href="#icon-message"/></svg>
-          <span>Enviar Email</span>
+        <a href="https://m.me/jardimhelder" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-indigo-600/20 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
+          <svg class="w-5 h-5 text-indigo-400"><use href="#icon-messenger"/></svg>
+          <span>Messenger</span>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- MODAL VÍDEO -->
-  <div id="videoModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="glass-modal w-full max-w-3xl p-4 sm:p-6 rounded-3xl relative border border-white/20">
-      <button onclick="fecharVideoModal()" class="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-pink-600 text-white flex items-center justify-center text-sm font-bold shadow-lg hover:scale-110 transition-transform z-10">✕</button>
-      <h3 id="videoModalTitle" class="text-base font-bold text-white mb-3 pr-6 truncate">Vídeo</h3>
-      <div class="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
-        <iframe id="videoIframe" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <!-- MODAL DE VÍDEO -->
+  <div id="videoModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-4xl p-4 sm:p-6 rounded-3xl relative text-center border border-white/20">
+      <button onclick="fecharVideoModal()" class="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center text-base font-bold shadow-lg transition-colors">✕</button>
+      <h3 id="modalVideoTitle" class="text-base sm:text-lg font-bold text-white mb-4">A reproduzir vídeo</h3>
+      <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl">
+        <iframe id="modalVideoIframe" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Vídeo do YouTube"></iframe>
       </div>
     </div>
   </div>
 
-  <!-- MODAL SC LAB (PROTEGIDO POR PASSWORD) -->
-  <div id="scModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+  <!-- MODAL DE PALAVRA-PASSE / SC LAB -->
+  <div id="passwordModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="glass-modal w-full max-w-sm p-6 rounded-3xl text-center relative border border-white/20">
       <button onclick="fecharModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
-      <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mx-auto mb-4">🔐</div>
+      <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mx-auto mb-3">🔐</div>
       <h3 class="text-lg font-extrabold text-white mb-1">SC Lab</h3>
-      <p class="text-xs text-slate-400 mb-4">Introduza o código de acesso para entrar na área restrita:</p>
+      <p class="text-xs text-slate-400 mb-4">Insira o código de acesso reservado:</p>
       
-      <input type="password" id="scPassword" placeholder="Código de acesso..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-white/10 text-white text-sm focus:outline-none focus:border-purple-500 mb-3 text-center tracking-widest">
-      <button type="button" onclick="verificarPassword()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs hover:brightness-110 transition-all shadow-md">Entrar</button>
-      <p id="scError" class="text-xs text-red-400 mt-2 hidden">Código incorreto!</p>
+      <input type="password" id="labPassword" placeholder="Código de acesso" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-white/10 text-white text-sm text-center mb-3 focus:outline-none focus:border-purple-500 transition-colors">
+      <button type="button" onclick="verificarPassword()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-purple-600/30">
+        Entrar no Laboratório
+      </button>
+      <p id="passwordError" class="text-[11px] text-red-400 mt-2 hidden">Código incorreto. Tente novamente.</p>
     </div>
   </div>
 
   <!-- SCRIPTS JAVASCRIPT -->
   <script>
-    // Função para alternar e destacar as categorias de Vídeos do YouTube
     function toggleYoutubeCat(catId) {
-      const contents = document.querySelectorAll('.youtube-category-content');
       const target = document.getElementById(catId);
-      const buttons = document.querySelectorAll('.yt-cat-btn');
+      const btn = document.getElementById('btn-' + catId);
+      const isHidden = target.classList.contains('hidden');
 
-      // Verifica se a categoria clicada já está visível (aberta)
-      const isOpen = !target.classList.contains('hidden');
-
-      // Fecha todos os conteúdos e remove o destaque de todos os botões
-      contents.forEach(el => el.classList.add('hidden'));
-      buttons.forEach(btn => {
-        btn.classList.remove('border-white', 'bg-white/10', 'shadow-lg', 'ring-2', 'ring-purple-500');
-        const status = btn.querySelector('.cat-status-text');
-        if (status) status.textContent = 'Ver conteúdos';
-        const arrow = btn.querySelector('.arrow-icon');
-        if (arrow) arrow.style.transform = 'rotate(0deg)';
+      // Fechar todas as categorias primeiro
+      document.querySelectorAll('.youtube-category-content').forEach(el => {
+        el.classList.add('hidden');
+      });
+      document.querySelectorAll('.yt-cat-btn').forEach(b => {
+        b.classList.remove('border-red-500', 'bg-red-500/10');
+        const arrow = b.querySelector('.arrow-icon');
+        if(arrow) arrow.style.transform = 'rotate(0deg)';
+        const stat = b.querySelector('.cat-status-text');
+        if(stat) stat.textContent = 'Ver conteúdos';
       });
 
-      // Se não estava aberta, abre a selecionada e aplica o destaque visual
-      if (!isOpen) {
+      // Se estivesse oculto, abrir agora
+      if (isHidden) {
         target.classList.remove('hidden');
-        const activeBtn = document.getElementById('btn-' + catId);
-        if (activeBtn) {
-          activeBtn.classList.add('border-white', 'bg-white/10', 'shadow-lg', 'ring-2', 'ring-purple-500');
-          const status = activeBtn.querySelector('.cat-status-text');
-          if (status) status.textContent = 'Conteúdos abertos';
-          const arrow = activeBtn.querySelector('.arrow-icon');
-          if (arrow) arrow.style.transform = 'rotate(180deg)';
-        }
+        btn.classList.add('border-red-500', 'bg-red-500/10');
+        const arrow = btn.querySelector('.arrow-icon');
+        if(arrow) arrow.style.transform = 'rotate(180deg)';
+        const stat = btn.querySelector('.cat-status-text');
+        if(stat) stat.textContent = 'A ver conteúdos';
       }
-    }
-
-    // Funções de Controlo dos Modais
-    function abrirModal() {
-      document.getElementById('scModal').classList.remove('hidden');
-      document.getElementById('scModal').classList.add('flex');
-      document.getElementById('scPassword').value = '';
-      document.getElementById('scError').classList.add('hidden');
-    }
-
-    function fecharModal() {
-      document.getElementById('scModal').classList.remove('flex');
-      document.getElementById('scModal').classList.add('hidden');
-    }
-
-    // Função de verificação do código com redirecionamento correto para o SC Lab
-    function verificarPassword() {
-      const pass = document.getElementById('scPassword').value;
-      const errorText = document.getElementById('scError');
-      
-      // Defina aqui o seu código de acesso correto (exemplo: "1234" ou altere para o pretendido)
-      const codigoCorreto = "112"; 
-
-      if (pass === codigoCorreto) {
-        errorText.classList.add('hidden');
-        fecharModal();
-        // Redireciona para o link do SC Lab pedido
-        window.open('https://gard3npt.github.io/sc/', '_blank');
-      } else {
-        errorText.classList.remove('hidden');
-      }
-    }
-
-    function abrirSobreModalInfo() {
-      document.getElementById('sobreModal').classList.remove('hidden');
-      document.getElementById('sobreModal').classList.add('flex');
-    }
-
-    function fecharSobreModalInfo() {
-      document.getElementById('sobreModal').classList.remove('flex');
-      document.getElementById('sobreModal').classList.add('hidden');
-    }
-
-    function abrirContactoModal() {
-      document.getElementById('contactoModal').classList.remove('hidden');
-      document.getElementById('contactoModal').classList.add('flex');
-    }
-
-    function fecharContactoModal() {
-      document.getElementById('contactoModal').classList.remove('flex');
-      document.getElementById('contactoModal').classList.add('hidden');
     }
 
     function abrirVideoModal(videoId, title) {
-      document.getElementById('videoModalTitle').textContent = title;
-      document.getElementById('videoIframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
-      document.getElementById('videoModal').classList.remove('hidden');
-      document.getElementById('videoModal').classList.add('flex');
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('modalVideoIframe');
+      const titleEl = document.getElementById('modalVideoTitle');
+      
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      titleEl.textContent = title;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     }
 
     function fecharVideoModal() {
-      document.getElementById('videoIframe').src = '';
-      document.getElementById('videoModal').classList.remove('flex');
-      document.getElementById('videoModal').classList.add('hidden');
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('modalVideoIframe');
+      
+      iframe.src = '';
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    function abrirSobreModalInfo() {
+      const modal = document.getElementById('sobreModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function fecharSobreModalInfo() {
+      const modal = document.getElementById('sobreModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    function abrirContactoModal() {
+      const modal = document.getElementById('contactoModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function fecharContactoModal() {
+      const modal = document.getElementById('contactoModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    function abrirModal() {
+      const modal = document.getElementById('passwordModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function fecharModal() {
+      const modal = document.getElementById('passwordModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+      document.getElementById('labPassword').value = '';
+      document.getElementById('passwordError').classList.add('hidden');
+    }
+
+    function verificarPassword() {
+      const pass = document.getElementById('labPassword').value;
+      if (pass === '112') {
+        window.location.href = 'https://gard3npt.github.io/sc/';
+      } else {
+        document.getElementById('passwordError').classList.remove('hidden');
+      }
     }
 
     function fecharAoClicarFora(event, modal) {
       if (event.target === modal) {
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-        if (modal.id === 'videoModal') {
-          document.getElementById('videoIframe').src = '';
-        }
+        if (modal.id === 'videoModal') fecharVideoModal();
+        if (modal.id === 'sobreModal') fecharSobreModalInfo();
+        if (modal.id === 'contactoModal') fecharContactoModal();
+        if (modal.id === 'passwordModal') fecharModal();
       }
     }
 
@@ -1111,25 +1094,24 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Filtragem por Tags Rápidas
-    function filtrarTag(button, categoria) {
-      const botoes = document.querySelectorAll('.tag-btn');
-      botoes.forEach(btn => {
-        btn.classList.remove('active', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white', 'shadow-md');
-        btn.classList.add('bg-slate-800/80', 'border', 'border-white/10', 'text-slate-300');
+    function filtrarTag(btn, category) {
+      document.querySelectorAll('.tag-btn').forEach(b => {
+        b.classList.remove('active', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
+        b.classList.add('bg-slate-800/80', 'text-slate-300');
       });
-      button.classList.add('active', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white', 'shadow-md');
-      button.classList.remove('bg-slate-800/80', 'border', 'border-white/10', 'text-slate-300');
+      btn.classList.add('active', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'text-white');
+      btn.classList.remove('bg-slate-800/80', 'text-slate-300');
 
-      const secoes = document.querySelectorAll('.section-block');
-      secoes.forEach(sec => {
-        if (categoria === 'all' || sec.getAttribute('data-category') === categoria) {
-          sec.style.display = 'block';
+      const blocks = document.querySelectorAll('.section-block');
+      blocks.forEach(block => {
+        if (category === 'all' || block.getAttribute('data-category') === category) {
+          block.style.display = 'block';
         } else {
-          sec.style.display = 'none';
+          block.style.display = 'none';
         }
       });
     }
   </script>
 </body>
+
 </html>
