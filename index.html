@@ -131,6 +131,24 @@
       box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
     }
 
+    /* Botões de filtro (tags) */
+    .tag-btn {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .tag-btn:hover {
+      transform: translateY(-2px);
+      color: #ffffff;
+    }
+
+    .tag-btn.active {
+      border-color: transparent;
+      box-shadow: 0 6px 20px -4px rgba(99, 102, 241, 0.6);
+    }
+
     /* Classes para paginação de vídeos */
     .hidden-video {
       display: none !important;
@@ -148,13 +166,13 @@
     <symbol id="icon-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.05 1.62 4.2 1.21 1.4 3 2.27 4.87 2.45v3.9c-1.78-.13-3.52-.77-4.95-1.87-.19-.15-.36-.31-.53-.48-.02 2.38-.01 4.76-.02 7.14 0 2.22-.64 4.49-2.06 6.19-1.75 2.15-4.57 3.19-7.27 2.76-2.61-.37-5-2.11-6.1-4.51-1.39-2.91-.94-6.68 1.15-9.15 1.57-1.9 4-2.88 6.44-2.55v3.89c-1.32-.23-2.73.19-3.6 1.17-.92 1.01-1.12 2.57-.49 3.77.63 1.25 2.05 2.04 3.45 1.9 1.51-.06 2.78-1.28 2.87-2.79.03-3.32.01-6.64.02-9.97z"/></symbol>
     <symbol id="icon-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 00-.041-.106 13.107 13.107 0 01-1.873-.894.077.077 0 01-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 01.077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 01.078.009c.12.099.246.195.373.289a.077.077 0 01-.006.127 12.298 12.298 0 01-1.873.894.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084-.028 19.839 19.839 0 006.002-3.03a.076.076 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></symbol>
     <symbol id="icon-twitter" viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></symbol>
-    <symbol id="icon-steam" viewBox="0 0 24 24"><path fill="currentColor" d="M21.83 8.66a12 12 0 10-10.42 13.31l3.56-5.06a4.41 4.41 0 112.52-4.44l5.07-3.56c.07.41.11.83.11 1.25a11.91 11.91 0 01-.84 4.5zm-8.4 5.75l-3.32 4.73A10.15 10.15 0 011.88 12c0-5.62 4.56-10.18 10.17-10.18a10.2 10.2 0 019.04 5.53l-4.78 3.36a4.42 4.42 0 01-2.88 3.7zm1.18-3.03a1.95 1.95 0 10-2.76 2.76 1.95 1.95 0 002.76-2.76z"/></symbol>
+    <symbol id="icon-steam" viewBox="0 0 24 24"><path fill="currentColor" d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0zM7.54 18.21l-1.473-.61c.262.543.714.999 1.314 1.25 1.297.539 2.793-.076 3.332-1.375.263-.63.264-1.319.005-1.949s-.75-1.121-1.377-1.383c-.624-.26-1.29-.249-1.878-.03l1.523.63c.956.4 1.409 1.5 1.009 2.455-.397.957-1.497 1.41-2.454 1.012H7.54zm11.415-9.303c0-1.662-1.353-3.015-3.015-3.015-1.665 0-3.015 1.353-3.015 3.015 0 1.665 1.35 3.015 3.015 3.015 1.663 0 3.015-1.35 3.015-3.015zm-5.273-.005c0-1.252 1.013-2.266 2.265-2.266 1.249 0 2.266 1.014 2.266 2.266 0 1.251-1.017 2.265-2.266 2.265-1.253 0-2.265-1.014-2.265-2.265z"/></symbol>
     <symbol id="icon-spotify" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 5.372 0 12s5.373 12 12 12 12-5.372 12-12S18.627 0 12 0zm5.494 17.307c-.215.352-.676.463-1.028.248-2.857-1.747-6.453-2.14-10.686-1.173-.402.092-.806-.16-.898-.562-.092-.403.16-.806.562-.897 4.634-1.059 8.602-.614 11.8 1.341.352.214.464.675.25 1.028zm1.469-3.262c-.27 1.405-1.405 1.837-2.316 1.285-3.27-2.01-8.258-2.595-12.126-1.42-.452.137-.923-.118-1.06-.57-.138-.453.118-.924.57-1.06 4.423-1.343 9.917-.69 13.633 1.597.452.278.592.868.314 1.319zm.126-3.414C15.346 8.3 8.307 8.067 4.22 9.306c-.596.18-1.226-.153-1.407-.75-.18-.596.153-1.226.75-1.407 4.68-1.42 12.44-1.155 17.022 1.565.538.32.712 1.018.393 1.556-.32.538-1.018.712-1.556.393z"/></symbol>
     <symbol id="icon-calc" viewBox="0 0 24 24"><path fill="currentColor" d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 18H6V4h12v16zm-1-7h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4h-2v2h2v-2zm0-4h-2v2h2V9zm-4 4H7v2h2v-2zm0-4H7v2h2V9zm8 6h-2v2h2v-2zm-4 0h-2v2h2v-2zm-4 0H7v2h2v-2z"/></symbol>
-    <symbol id="icon-globe" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.66 0 3 1.34 3 3v.17c2.47.76 4.19 3.03 4.19 5.72 0 .5-.07.98-.19 1.45z"/></symbol>
-    <symbol id="icon-brand" viewBox="0 0 24 24"><path fill="currentColor" d="M22.78 10.45A3.4 3.4 0 0019.42 7H17a5 5 0 00-5-5 5 5 0 00-5 5H4.58A3.4 3.4 0 001.22 10.45a3.38 3.38 0 001.4 4.13A3.38 3.38 0 001.22 18.7a3.4 3.4 0 003.36 3.45H19.42a3.4 3.4 0 003.36-3.45H3.38 3.38 0 00-1.4-4.12 3.38 3.38 0 001.4-4.13zM12 4a3 3 0 013 3H9a3 3 0 013-3zm3.5 13H8.5a.5.5 0 010-1h7a.5.5 0 010 1zm2-3H6.5a.5.5 0 010-1h11a.5.5 0 010 1 z"/></symbol>
+    <symbol id="icon-globe" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></symbol>
+    <symbol id="icon-brand" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></symbol>
     <symbol id="icon-twitch" viewBox="0 0 24 24"><path fill="currentColor" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></symbol>
-    <symbol id="icon-info" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 10-4.48 10-12S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
     <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
     <symbol id="icon-wallet" viewBox="0 0 24 24"><path fill="currentColor" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
     <symbol id="icon-video" viewBox="0 0 24 24"><path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
@@ -179,13 +197,15 @@
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       
       <!-- Logo / Brand -->
-      <a href="javascript:void(0)" onclick="voltarAoInicio()" class="flex items-center gap-2 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-indigo-500/40 group-hover:scale-105 transition-transform">
-          HJ
+      <a href="javascript:void(0)" onclick="voltarAoInicio()" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 p-0.5 group-hover:scale-105 transition-transform">
+          <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs text-white">
+            HJ
+          </div>
         </div>
-        <div class="flex flex-col">
-          <span class="font-extrabold text-sm tracking-wider text-white group-hover:text-pink-400 transition-colors">AGAJOTA</span>
-          <span class="text-[10px] text-slate-400 tracking-widest uppercase">Helder Jardim • @gard3npt</span>
+        <div class="text-left">
+          <p class="text-sm font-extrabold tracking-wider text-slate-200 group-hover:text-white transition-colors">AGAJOTA</p>
+          <p class="text-xs font-medium"><span class="text-slate-400">Helder Jardim</span> <span class="text-slate-500">•</span> <span class="text-pink-400">@gard3npt</span></p>
         </div>
       </a>
 
@@ -199,7 +219,7 @@
           <svg class="w-4 h-4"><use href="#icon-info"/></svg>
           <span class="hidden sm:inline">Sobre</span>
         </button>
-        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-900 bg-gradient-to-r from-pink-500 to-purple-500 hover:brightness-110 text-white transition-all shadow-md" onclick="abrirContactoModal()">
+        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-pink-500 to-purple-500 hover:brightness-110 text-white transition-all shadow-md" onclick="abrirContactoModal()">
           <svg class="w-4 h-4"><use href="#icon-message"/></svg>
           <span>Contacto</span>
         </button>
@@ -212,52 +232,28 @@
   <main class="container max-w-6xl mx-auto px-4 pt-28 pb-16 z-10 flex-1 relative">
 
     <!-- HERO SECTION ESTILO BLOG -->
-    <section class="text-center my-8 max-w-3xl mx-auto">
+    <section class="text-center my-8 max-w-5xl mx-auto">
       
       <h1 class="text-6xl sm:text-9xl font-black tracking-tight text-gradient mb-4 leading-tight">
         AGAJOTA
       </h1>
 
-      <div class="flex items-center justify-center gap-3 mb-4">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 p-0.5">
-          <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs">
-            HJ
-          </div>
-        </div>
-        <div class="text-left">
-          <p class="text-sm font-bold text-slate-200">Helder Jardim</p>
-          <p class="text-xs text-pink-400 font-medium">@gard3npt</p>
-        </div>
-      </div>
-
       <p class="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
-        Bem-vindo ao meu espaço digital. Aqui partilho os meus vídeos do YouTube organizados por temas, ferramentas web, projetos e redes sociais.
+        Bem-vindo ao meu espaço digital.<br>
+        Aqui encontras os meus vídeos, as ferramentas web que crio e as minhas redes, tudo num só sítio.
       </p>
 
       <!-- TAGS FILTRO RÁPIDO -->
-      <div class="flex flex-wrap justify-center gap-2 mt-8 text-xs">
-        <button onclick="filtrarTag(this, 'all')" class="tag-btn active px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-md transition-all">Todos</button>
-        <button onclick="filtrarTag(this, 'video')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🎬 Destaques</button>
-        <button onclick="filtrarTag(this, 'playlists')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📺 Vídeos do YouTube</button>
-        <button onclick="filtrarTag(this, 'social')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">🌐 Redes</button>
-        <button onclick="filtrarTag(this, 'project')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💻 Projetos</button>
-        <button onclick="filtrarTag(this, 'blog')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">📝 Blogs</button>
-        <button onclick="filtrarTag(this, 'cashback')" class="tag-btn px-3.5 py-1.5 rounded-xl bg-slate-800/80 border border-white/10 text-slate-300 font-medium hover:bg-slate-700 transition-all">💸 Cashback</button>
+      <div class="flex flex-wrap justify-center gap-2.5 mt-8 text-xs">
+        <button onclick="filtrarTag(this, 'all')" class="tag-btn active px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-md transition-all whitespace-nowrap">Todos</button>
+        <button onclick="filtrarTag(this, 'video')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">🎬 Destaques</button>
+        <button onclick="filtrarTag(this, 'playlists')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">📺 Vídeos do YouTube</button>
+        <button onclick="filtrarTag(this, 'social')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">🌐 Redes</button>
+        <button onclick="filtrarTag(this, 'project')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">💻 Projetos</button>
+        <button onclick="filtrarTag(this, 'blog')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">📝 Blogs</button>
+        <button onclick="filtrarTag(this, 'cashback')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">💸 Cashback</button>
       </div>
     </section>
-
-    <!-- ADSENSE TOP -->
-    <div class="adsense-holder my-8 max-w-4xl mx-auto overflow-hidden rounded-2xl bg-slate-900/40 border border-white/5">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-4094039418988922"
-           data-ad-slot="4033482498"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
 
     <!-- 1. SECÇÃO DE VÍDEOS EM DESTAQUE -->
     <section class="section-block my-12" data-category="video">
@@ -280,14 +276,12 @@
             <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
-            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md shadow-red-900/50">
-              ★ Destaque #1
+            <div title="Destaque #1" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+              <span class="text-amber-300">★</span>#1
             </div>
 
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-rose-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
-                <span class="ml-1 text-xl animate-pulse">▶</span>
-              </div>
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
             </div>
           </div>
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
@@ -309,14 +303,12 @@
             <img src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
-            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md shadow-red-900/50">
-              ★ Destaque #2
+            <div title="Destaque #2" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+              <span class="text-amber-300">★</span>#2
             </div>
 
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-rose-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
-                <span class="ml-1 text-xl animate-pulse">▶</span>
-              </div>
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
             </div>
           </div>
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
@@ -338,14 +330,12 @@
             <img src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
-            <div class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md shadow-red-900/50">
-              ★ Destaque #3
+            <div title="Destaque #3" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+              <span class="text-amber-300">★</span>#3
             </div>
 
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="w-14 h-14 bg-gradient-to-r from-red-600 to-rose-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-red-600/50 group-hover:scale-125 transition-transform duration-300">
-                <span class="ml-1 text-xl animate-pulse">▶</span>
-              </div>
+            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+              <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
             </div>
           </div>
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
@@ -413,7 +403,7 @@
 
         <button type="button" id="btn-cat-geral" onclick="toggleYoutubeCat('cat-geral')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
           <div class="flex items-center gap-3">
-            <span class="text-2xl">🛠️️</span>
+            <span class="text-2xl">🛠️</span>
             <div>
               <h3 class="text-sm font-bold text-white group-hover:text-red-300">Só porque sim</h3>
               <p class="text-[10px] text-slate-400 cat-status-text">Ver conteúdos</p>
@@ -429,16 +419,16 @@
           
           <!-- VÍDEO NOVO ADICIONADO (ID #04 - iLDgiow1rok) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('iLDgiow1rok', 'Novo Vídeo Musical')">
-              <img src="https://img.youtube.com/vi/iLDgiow1rok/hqdefault.jpg" alt="Novo Vídeo Musical" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('iLDgiow1rok', 'Sorriso de luar')">
+              <img src="https://img.youtube.com/vi/iLDgiow1rok/hqdefault.jpg" alt="Sorriso de luar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
-              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
-                ID #04
+              <div title="Sorriso de luar" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+                #04
               </div>
 
               <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
               </div>
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
@@ -448,7 +438,7 @@
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
                     <span>YouTube</span>
                   </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Música #04</h3>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Sorriso de luar</h3>
                 </div>
               </div>
             </div>
@@ -456,16 +446,16 @@
 
           <!-- VÍDEO NOVO (ID #03) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('X0FzDwYclos', 'Novo Vídeo de Música')">
-              <img src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Novo Vídeo de Música" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
+              <img src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Nico, meu amigo especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
-              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
-                ID #03
+              <div title="Nico, meu amigo especial" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+                #03
               </div>
 
               <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
               </div>
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
@@ -475,7 +465,7 @@
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
                     <span>YouTube</span>
                   </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Música #03</h3>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Nico, meu amigo especial</h3>
                 </div>
               </div>
             </div>
@@ -487,12 +477,12 @@
               <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Levo a vida com o coração" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
-              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
-                ID #02
+              <div title="ID #02" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+                #02
               </div>
 
               <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
               </div>
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
@@ -514,12 +504,12 @@
               <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
-              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
-                ID #01
+              <div title="ID #01" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+                #01
               </div>
 
               <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
               </div>
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
@@ -544,16 +534,16 @@
           
           <!-- VÍDEO ADICIONADO: Viagens (ID: aoFprEhmjrk) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('aoFprEhmjrk', 'Vídeo de Viagem')">
-              <img src="https://img.youtube.com/vi/aoFprEhmjrk/hqdefault.jpg" alt="Vídeo de Viagem" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('aoFprEhmjrk', 'Quedas de Kalandula - Angola')">
+              <img src="https://img.youtube.com/vi/aoFprEhmjrk/hqdefault.jpg" alt="Quedas de Kalandula - Angola" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
-              <div class="absolute top-3 left-3 bg-slate-900/90 border border-white/20 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
-                Viagens
+              <div title="Quedas de Kalandula - Angola" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+                #01
               </div>
 
               <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
-                <div class="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
               </div>
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
@@ -563,7 +553,7 @@
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
                     <span>YouTube</span>
                   </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Viagem #01</h3>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Quedas de Kalandula - Angola</h3>
                 </div>
               </div>
             </div>
@@ -668,7 +658,7 @@
     </section>
 
     <!-- 4. SITES DESENVOLVIDOS & BLOGS GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
+    <div id="sitesBlogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
       
       <!-- SITES DESENVOLVIDOS -->
       <section class="section-block" data-category="project">
@@ -860,7 +850,7 @@
         <a href="https://py.pl/8bPEvHhNvU2" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">
           <div class="p-2 rounded-lg bg-blue-500/20 text-blue-400"><svg class="w-4 h-4"><use href="#icon-paypal"/></svg></div>
           <div>
-            <h3 class="text-xs font-bold text-white group-hover:text-blue-300">Paypal Bónus</h3>
+            <h3 class="text-xs font-bold text-white group-hover:text-blue-300">PayPal Bónus</h3>
             <p class="text-[10px] text-slate-400">Recompensa de adesão</p>
           </div>
         </a>
@@ -924,13 +914,13 @@
         </div>
 
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
-          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🛠 Mãos à Obra & Bricolage</h4>
-          <p class="text-xs text-slate-300">Fora do ecrã, gosto de pôr as mãos à obra. Tenho um grande fascínio por trabalhos manuais e bricolage — Criar, reparar e dar vida a projetos físicos com as minhas próprias mãos é algo que me apaixona.</p>
+          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🛠️ Mãos à Obra & Bricolage</h4>
+          <p class="text-xs text-slate-300">Fora do ecrã, gosto de pôr as mãos à obra. Tenho um grande fascínio por trabalhos manuais e bricolage — criar, reparar e dar vida a projetos físicos com as minhas próprias mãos é algo que me apaixona.</p>
         </div>
 
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🚗 Paixão Automóvel</h4>
-          <p class="text-xs text-slate-300">Entusiasta de carros clássicos, onde dedico quando necessário a trabalhos de mecânica básica no meu Clássico MINI 1000 e à participação ativa em encontros de clássicos.</p>
+          <p class="text-xs text-slate-300">Entusiasta de carros clássicos, dedico-me, quando necessário, a trabalhos de mecânica básica no meu Clássico MINI 1000 e à participação ativa em encontros de clássicos.</p>
         </div>
       </div>
     </div>
@@ -1114,6 +1104,10 @@
           block.style.display = 'none';
         }
       });
+
+      // Evita meia largura vazia quando só uma das secções (Sites/Blogs) está visível
+      const grid = document.getElementById('sitesBlogsGrid');
+      if (grid) grid.classList.toggle('md:grid-cols-2', category === 'all');
     }
   </script>
 </body>
