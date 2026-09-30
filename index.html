@@ -131,6 +131,47 @@
       box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
     }
 
+    /* Botão Início: estado ativo (topo) e seta "subir" (quando há scroll) */
+    #btnInicio[aria-current="page"] {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    #btnInicio .inicio-seta {
+      width: 0;
+      height: 0.875rem;
+      opacity: 0;
+      margin-left: -0.5rem;
+      transform: rotate(180deg);
+      transition: width 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
+    }
+
+    #btnInicio.is-scrolled .inicio-seta {
+      width: 0.875rem;
+      opacity: 1;
+      margin-left: 0;
+    }
+
+    /* Destaque breve da secção de redes ao vir do logo */
+    #redes {
+      scroll-margin-top: 6rem;
+      border-radius: 1.5rem;
+    }
+
+    #redes.destaque-redes {
+      animation: destaqueRedes 1.8s ease-out;
+    }
+
+    @keyframes destaqueRedes {
+      0%   { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); background-color: rgba(236, 72, 153, 0.08); }
+      60%  { box-shadow: 0 0 0 14px rgba(236, 72, 153, 0); background-color: rgba(236, 72, 153, 0.05); }
+      100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); background-color: transparent; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #redes.destaque-redes { animation: none; }
+    }
+
     /* Botões de filtro (tags) */
     .tag-btn {
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -197,7 +238,7 @@
     <div class="max-w-6xl mx-auto flex items-center justify-between">
       
       <!-- Logo / Brand -->
-      <a href="javascript:void(0)" onclick="voltarAoInicio()" class="flex items-center gap-3 group">
+      <a href="#redes" onclick="irParaRedes(event)" title="Ir para as redes sociais" class="flex items-center gap-3 group">
         <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 p-0.5 group-hover:scale-105 transition-transform">
           <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs text-white">
             HJ
@@ -211,15 +252,16 @@
 
       <!-- Navigation Buttons -->
       <nav class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
-        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
+        <button type="button" id="btnInicio" aria-current="page" title="Voltar ao início" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
           <svg class="w-4 h-4"><use href="#icon-globe"/></svg>
           <span class="hidden sm:inline">Início</span>
+          <svg class="inicio-seta" aria-hidden="true"><use href="#icon-chevron"/></svg>
         </button>
         <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="abrirSobreModalInfo()">
           <svg class="w-4 h-4"><use href="#icon-info"/></svg>
           <span class="hidden sm:inline">Sobre</span>
         </button>
-        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-pink-500 to-purple-500 hover:brightness-110 text-white transition-all shadow-md" onclick="abrirContactoModal()">
+        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="abrirContactoModal()">
           <svg class="w-4 h-4"><use href="#icon-message"/></svg>
           <span>Contacto</span>
         </button>
@@ -580,7 +622,7 @@
     </section>
 
     <!-- 3. REDES SOCIAIS & COMUNIDADE -->
-    <section class="section-block my-12" data-category="social">
+    <section id="redes" class="section-block my-12" data-category="social">
       <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
         <div class="p-2.5 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-500 text-white shadow-lg shadow-blue-500/30">
           <svg class="w-5 h-5"><use href="#icon-globe"/></svg>
@@ -1085,8 +1127,93 @@
     }
 
     function voltarAoInicio() {
+      // Fechar modais abertos (e parar o vídeo que estiver a tocar)
+      fecharVideoModal();
+      fecharSobreModalInfo();
+      fecharContactoModal();
+      fecharModal();
+
+      // Fechar categorias do YouTube abertas
+      document.querySelectorAll('.youtube-category-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.yt-cat-btn').forEach(b => {
+        b.classList.remove('border-red-500', 'bg-red-500/10');
+        const arrow = b.querySelector('.arrow-icon');
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+        const stat = b.querySelector('.cat-status-text');
+        if (stat) stat.textContent = 'Ver conteúdos';
+      });
+
+      // Repor o filtro para "Todos"
+      const btnTodos = document.querySelector('.tag-btn');
+      if (btnTodos) filtrarTag(btnTodos, 'all');
+
+      // Atualizar o URL (#inicio) sem empilhar entradas repetidas no histórico
+      try {
+        if (location.hash !== '#inicio') history.pushState(null, '', '#inicio');
+      } catch (e) { /* ignorar (ex.: ambientes que bloqueiam history) */ }
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    // Logo AGAJOTA: leva à secção de redes sociais e destaca-a brevemente
+    function irParaRedes(event) {
+      if (event) event.preventDefault();
+
+      // Fechar modais que possam estar abertos
+      fecharVideoModal();
+      fecharSobreModalInfo();
+      fecharContactoModal();
+      fecharModal();
+
+      // Garantir que a secção está visível (repor o filtro para "Todos" se preciso)
+      const alvo = document.getElementById('redes');
+      if (!alvo) return;
+      if (alvo.style.display === 'none') {
+        const btnTodos = document.querySelector('.tag-btn');
+        if (btnTodos) filtrarTag(btnTodos, 'all');
+      }
+
+      alvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Reiniciar a animação de destaque (funciona também em cliques repetidos)
+      alvo.classList.remove('destaque-redes');
+      void alvo.offsetWidth;
+      alvo.classList.add('destaque-redes');
+      setTimeout(() => alvo.classList.remove('destaque-redes'), 1900);
+    }
+
+    // Estado do botão Início: ativo no topo, com seta "subir" quando a página desce
+    (function () {
+      const btn = document.getElementById('btnInicio');
+      if (!btn) return;
+      let ticking = false;
+
+      function atualizarBotaoInicio() {
+        const noTopo = window.scrollY < 80;
+        btn.classList.toggle('is-scrolled', !noTopo);
+        if (noTopo) {
+          btn.setAttribute('aria-current', 'page');
+        } else {
+          btn.removeAttribute('aria-current');
+          // Ao sair do topo, limpar o #inicio do URL
+          try {
+            if (location.hash === '#inicio') history.replaceState(null, '', location.pathname + location.search);
+          } catch (e) {}
+        }
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(atualizarBotaoInicio); ticking = true; }
+      }, { passive: true });
+
+      // Se alguém abrir/voltar para o link #inicio, sobe ao topo
+      window.addEventListener('hashchange', () => {
+        if (location.hash === '#inicio') window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      atualizarBotaoInicio();
+    })();
 
     function filtrarTag(btn, category) {
       document.querySelectorAll('.tag-btn').forEach(b => {
