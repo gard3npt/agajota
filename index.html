@@ -5,11 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AGAJOTA</title>
+  <title>AGAJOTA — Vídeos, ferramentas web e redes de Helder Jardim</title>
+  <meta name="description" content="O espaço digital de Helder Jardim (@gard3npt): vídeos, ferramentas web criadas de raiz e redes sociais, tudo num só sítio.">
+  <meta name="theme-color" content="#020617">
 
-  <!-- Google Adsense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922"
-     crossorigin="anonymous"></script>
+  <!-- Partilha (Open Graph / Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_PT">
+  <meta property="og:site_name" content="AGAJOTA">
+  <meta property="og:title" content="AGAJOTA — Vídeos, ferramentas web e redes">
+  <meta property="og:description" content="Vídeos, ferramentas web criadas de raiz e redes sociais de Helder Jardim, tudo num só sítio.">
+  <meta property="og:image" content="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-size='38' font-weight='900' font-family='Arial,sans-serif' text-anchor='middle' fill='white'%3EA%3C/text%3E%3C/svg%3E">
+
+  <!-- Google Adsense: o script só é carregado depois de o visitante aceitar os cookies (ver carregarAnuncios) -->
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -158,7 +170,8 @@
       border-radius: 1.5rem;
     }
 
-    #redes.destaque-redes {
+    #redes.destaque-redes,
+    #apoio.destaque-redes {
       animation: destaqueRedes 1.8s ease-out;
     }
 
@@ -169,7 +182,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      #redes.destaque-redes { animation: none; }
+      #redes.destaque-redes,
+      #apoio.destaque-redes { animation: none; }
     }
 
     /* Botões de filtro (tags) */
@@ -218,6 +232,7 @@
     <symbol id="icon-wallet" viewBox="0 0 24 24"><path fill="currentColor" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
     <symbol id="icon-video" viewBox="0 0 24 24"><path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
     <symbol id="icon-paypal" viewBox="0 0 24 24"><path fill="currentColor" d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.354a1.282 1.282 0 0 1 1.264-1.065h7.286c3.275 0 5.462.678 6.502 2.03 1.077 1.4 1.02 3.426.471 5.485-.688 2.576-2.616 4.318-5.3 4.318h-2.146a.641.641 0 0 0-.632.535l-1.14 5.166a.641.641 0 0 1-.633.534zm10.305-11.5c.348-1.306.33-2.528-.433-3.518C16.1 5.23 14.33 4.793 11.956 4.793H6.843l-2.4 15.263h2.383l1.11-5.027a1.923 1.923 0 0 1 1.896-1.605h1.616c2.4 0 4.168-1.517 4.743-3.666l.19-.721z"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
     <symbol id="icon-message" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
     <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></symbol>
     <symbol id="icon-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
@@ -264,6 +279,10 @@
         <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="abrirContactoModal()">
           <svg class="w-4 h-4"><use href="#icon-message"/></svg>
           <span>Contacto</span>
+        </button>
+        <button type="button" title="Apoiar o Projeto" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-pink-300 hover:text-white hover:bg-pink-500/20 transition-all" onclick="irParaApoio(event)">
+          <svg class="w-4 h-4"><use href="#icon-heart"/></svg>
+          <span class="hidden sm:inline">Apoiar</span>
         </button>
       </nav>
 
@@ -314,8 +333,8 @@
         
         <!-- VÍDEO DESTAQUE 1 -->
         <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
-            <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
+          <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Mini vibes" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
+            <img decoding="async" src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
             <div title="Destaque #1" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -329,9 +348,8 @@
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div class="space-y-3">
               <div class="flex items-center gap-3">
-                <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                   <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  <span>YouTube</span>
                 </a>
                 <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors truncate">Mini vibes</h3>
               </div>
@@ -341,8 +359,8 @@
 
         <!-- VÍDEO DESTAQUE 2 -->
         <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
-            <img src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
+          <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Pulse of the Night" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
+            <img decoding="async" src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
             <div title="Destaque #2" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -356,9 +374,8 @@
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div class="space-y-3">
               <div class="flex items-center gap-3">
-                <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                   <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  <span>YouTube</span>
                 </a>
                 <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors truncate">Pulse of the Night</h3>
               </div>
@@ -368,8 +385,8 @@
 
         <!-- VÍDEO DESTAQUE 3 -->
         <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
-          <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
-            <img src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
+          <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Deep sub-bass pulse" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
+            <img decoding="async" src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
             <div title="Destaque #3" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -383,9 +400,8 @@
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div class="space-y-3">
               <div class="flex items-center gap-3">
-                <a href="https://youtu.be/Iiv9qnvlNTA" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                <a href="https://youtu.be/Iiv9qnvlNTA" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                   <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  <span>YouTube</span>
                 </a>
                 <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors truncate">Deep sub-bass pulse</h3>
               </div>
@@ -461,8 +477,8 @@
           
           <!-- VÍDEO NOVO ADICIONADO (ID #04 - iLDgiow1rok) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('iLDgiow1rok', 'Sorriso de luar')">
-              <img src="https://img.youtube.com/vi/iLDgiow1rok/hqdefault.jpg" alt="Sorriso de luar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Sorriso de luar" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('iLDgiow1rok', 'Sorriso de luar')">
+              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/iLDgiow1rok/hqdefault.jpg" alt="Sorriso de luar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Sorriso de luar" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -476,9 +492,8 @@
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/iLDgiow1rok?si=enaeC0yaqLvPOhtI" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                  <a href="https://youtu.be/iLDgiow1rok?si=enaeC0yaqLvPOhtI" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                    <span>YouTube</span>
                   </a>
                   <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Sorriso de luar</h3>
                 </div>
@@ -488,8 +503,8 @@
 
           <!-- VÍDEO NOVO (ID #03) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
-              <img src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Nico, meu amigo especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Nico, meu amigo especial" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
+              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Nico, meu amigo especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Nico, meu amigo especial" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -503,9 +518,8 @@
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/X0FzDwYclos?si=aluJnUeeok7ywRrI" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                  <a href="https://youtu.be/X0FzDwYclos?si=aluJnUeeok7ywRrI" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                    <span>YouTube</span>
                   </a>
                   <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Nico, meu amigo especial</h3>
                 </div>
@@ -515,8 +529,8 @@
 
           <!-- VÍDEO LEVO A VIDA COM O CORAÇÃO (ID #02) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('0BCwHFQs9OI', 'Levo a vida com o coração')">
-              <img src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Levo a vida com o coração" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Levo a vida com o coração" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('0BCwHFQs9OI', 'Levo a vida com o coração')">
+              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Levo a vida com o coração" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="ID #02" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -530,9 +544,8 @@
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/0BCwHFQs9OI?si=YrFOuV_D8zUYrj8_" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                  <a href="https://youtu.be/0BCwHFQs9OI?si=YrFOuV_D8zUYrj8_" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                    <span>YouTube</span>
                   </a>
                   <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Levo a vida com o coração</h3>
                 </div>
@@ -542,8 +555,8 @@
 
           <!-- VÍDEO MINI VIBES (ID #01) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
-              <img src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Mini vibes" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
+              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="ID #01" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -557,9 +570,8 @@
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/9qS-0X7V_Fc?si=0rmgNgRc-w-a6dQt" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                  <a href="https://youtu.be/9qS-0X7V_Fc?si=0rmgNgRc-w-a6dQt" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                    <span>YouTube</span>
                   </a>
                   <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Mini vibes</h3>
                 </div>
@@ -576,8 +588,8 @@
           
           <!-- VÍDEO ADICIONADO: Viagens (ID: aoFprEhmjrk) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
-            <div class="relative aspect-video overflow-hidden bg-black cursor-pointer" onclick="abrirVideoModal('aoFprEhmjrk', 'Quedas de Kalandula - Angola')">
-              <img src="https://img.youtube.com/vi/aoFprEhmjrk/hqdefault.jpg" alt="Quedas de Kalandula - Angola" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Quedas de Kalandula - Angola" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('aoFprEhmjrk', 'Quedas de Kalandula - Angola')">
+              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/aoFprEhmjrk/hqdefault.jpg" alt="Quedas de Kalandula - Angola" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Quedas de Kalandula - Angola" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -591,9 +603,8 @@
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/aoFprEhmjrk?si=rCwWb2t2LuQljs29" target="_blank" rel="noopener noreferrer" class="py-1.5 px-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-md shadow-red-900/50 shrink-0">
+                  <a href="https://youtu.be/aoFprEhmjrk?si=rCwWb2t2LuQljs29" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
                     <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                    <span>YouTube</span>
                   </a>
                   <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors truncate">Quedas de Kalandula - Angola</h3>
                 </div>
@@ -900,7 +911,7 @@
     </section>
 
     <!-- APOIO / PAY -->
-    <section class="section-block my-10" data-category="pay">
+    <section id="apoio" class="section-block my-10" data-category="pay">
       <div class="glass-card rounded-2xl p-6 border border-pink-500/30 text-center max-w-xl mx-auto bg-gradient-to-tr from-indigo-950/40 via-purple-950/40 to-pink-950/40">
         <h3 class="text-lg font-bold text-white mb-2">Apoiar o Projeto</h3>
         <p class="text-xs text-slate-300 mb-4">Se gosta do conteúdo ou das ferramentas desenvolvidas, pode apoiar o trabalho através de um café virtual.</p>
@@ -912,7 +923,7 @@
     </section>
 
     <!-- ADSENSE BOTTOM -->
-    <div class="adsense-holder my-8 max-w-4xl mx-auto overflow-hidden rounded-2xl bg-slate-900/40 border border-white/5">
+    <div class="adsense-holder hidden my-8 max-w-4xl mx-auto overflow-hidden rounded-2xl bg-slate-900/40 border border-white/5">
       <ins class="adsbygoogle"
            style="display:block"
            data-ad-client="ca-pub-4094039418988922"
@@ -928,13 +939,17 @@
 
   <!-- RODAPÉ -->
   <footer class="w-full py-6 text-center text-xs text-slate-500 border-t border-white/5 relative z-10 bg-slate-950/80 backdrop-blur-md">
-    <p>© AGAJOTA • Helder Jardim (@gard3npt)</p>
+    <p>© <span id="anoAtual">2026</span> AGAJOTA</p>
+    <p class="mt-2 flex items-center justify-center gap-4 text-[11px]">
+      <button type="button" onclick="abrirPrivacidadeModal()" class="underline underline-offset-2 hover:text-slate-300 transition-colors">Privacidade</button>
+      <button type="button" onclick="mostrarBannerCookies()" class="underline underline-offset-2 hover:text-slate-300 transition-colors">Cookies</button>
+    </p>
   </footer>
 
   <!-- MODAL SOBRE -->
-  <div id="sobreModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+  <div id="sobreModal" role="dialog" aria-modal="true" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="glass-modal w-full max-w-2xl p-6 sm:p-8 rounded-3xl relative text-left border border-white/20 max-h-[90vh] overflow-y-auto">
-      <button onclick="fecharSobreModalInfo()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
+      <button aria-label="Fechar" onclick="fecharSobreModalInfo()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
       
       <div class="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
         <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-2xl">ℹ️</div>
@@ -969,9 +984,9 @@
   </div>
 
   <!-- MODAL CONTACTO DEDICADO -->
-  <div id="contactoModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+  <div id="contactoModal" role="dialog" aria-modal="true" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="glass-modal w-full max-w-md p-6 rounded-3xl text-center relative border border-white/20">
-      <button onclick="fecharContactoModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
+      <button aria-label="Fechar" onclick="fecharContactoModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
       <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-2xl mx-auto mb-4">💬</div>
       <h3 class="text-lg font-extrabold text-white mb-1">Entrar em Contacto</h3>
       <p class="text-xs text-slate-400 mb-6">Escolha a sua plataforma de contacto preferida:</p>
@@ -993,10 +1008,65 @@
     </div>
   </div>
 
+  <!-- MODAL POLÍTICA DE PRIVACIDADE -->
+  <div id="privacidadeModal" role="dialog" aria-modal="true" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-modal w-full max-w-2xl p-6 sm:p-8 rounded-3xl relative text-left border border-white/20 max-h-[90vh] overflow-y-auto">
+      <button aria-label="Fechar" onclick="fecharPrivacidadeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
+
+      <div class="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl">🔒</div>
+        <div>
+          <h3 class="text-xl font-extrabold text-white">Privacidade e Cookies</h3>
+          <p class="text-xs text-emerald-300">Última atualização: 1 de outubro de 2026</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Quem é o responsável</h4>
+          <p>Helder Jardim (@gard3npt). Para qualquer questão sobre privacidade, usa os canais da janela “Contacto”.</p>
+        </div>
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Que dados recolhe este site</h4>
+          <p>Este site não tem contas de utilizador, formulários nem comentários, e não recolhe diretamente dados pessoais.</p>
+        </div>
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Publicidade (Google AdSense)</h4>
+          <p>O site pode mostrar anúncios do Google AdSense. Só depois de aceitares é que o código de anúncios é carregado, e o Google pode então usar cookies e identificadores para mostrar e medir anúncios. Se recusares, esse código não é carregado. Podes mudar de ideias a qualquer momento em “Cookies”, no rodapé. Mais informação em policies.google.com/technologies/ads.</p>
+        </div>
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Vídeos do YouTube</h4>
+          <p>Os vídeos abrem em modo de privacidade reforçada (youtube-nocookie.com) e só quando carregas em reproduzir. As miniaturas e os tipos de letra são pedidos aos servidores da Google/YouTube, que podem por isso ver o teu endereço IP.</p>
+        </div>
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Armazenamento no teu navegador</h4>
+          <p>Guardamos apenas a tua escolha sobre cookies, no armazenamento local do navegador, para não voltar a perguntar.</p>
+        </div>
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Ligações externas</h4>
+          <p>As redes sociais, o PayPal e outros sites para onde este site aponta têm as suas próprias políticas de privacidade.</p>
+        </div>
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Os teus direitos</h4>
+          <p>Ao abrigo do RGPD, tens direito de acesso, retificação, apagamento e oposição ao tratamento dos teus dados, bem como o direito de apresentar reclamação à CNPD (cnpd.pt).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANNER DE COOKIES -->
+  <div id="cookieBanner" role="region" aria-label="Aviso de cookies" class="fixed bottom-3 left-3 right-3 sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-sm z-40 hidden flex-col gap-3 p-4 rounded-2xl glass-modal border border-white/20 shadow-2xl">
+    <p class="text-xs text-slate-200 leading-relaxed">🍪 Este site usa cookies de terceiros (Google AdSense) para mostrar anúncios, mas só com a tua autorização. <button type="button" onclick="abrirPrivacidadeModal()" class="underline underline-offset-2 text-indigo-300 hover:text-white">Saber mais</button></p>
+    <div class="flex gap-2">
+      <button type="button" onclick="responderCookies(false)" class="flex-1 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors">Recusar</button>
+      <button type="button" onclick="responderCookies(true)" class="flex-1 px-3 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-xs font-bold transition-all">Aceitar</button>
+    </div>
+  </div>
+
   <!-- MODAL DE VÍDEO -->
-  <div id="videoModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+  <div id="videoModal" role="dialog" aria-modal="true" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
     <div class="glass-modal w-full max-w-4xl p-4 sm:p-6 rounded-3xl relative text-center border border-white/20">
-      <button onclick="fecharVideoModal()" class="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center text-base font-bold shadow-lg transition-colors">✕</button>
+      <button aria-label="Fechar" onclick="fecharVideoModal()" class="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center text-base font-bold shadow-lg transition-colors">✕</button>
       <h3 id="modalVideoTitle" class="text-base sm:text-lg font-bold text-white mb-4">A reproduzir vídeo</h3>
       <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl">
         <iframe id="modalVideoIframe" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Vídeo do YouTube"></iframe>
@@ -1007,7 +1077,7 @@
   <!-- MODAL DE PALAVRA-PASSE / SC LAB -->
   <div id="passwordModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="glass-modal w-full max-w-sm p-6 rounded-3xl text-center relative border border-white/20">
-      <button onclick="fecharModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
+      <button aria-label="Fechar" onclick="fecharModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
       <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mx-auto mb-3">🔐</div>
       <h3 class="text-lg font-extrabold text-white mb-1">SC Lab</h3>
       <p class="text-xs text-slate-400 mb-4">Insira o código de acesso reservado:</p>
@@ -1055,7 +1125,7 @@
       const iframe = document.getElementById('modalVideoIframe');
       const titleEl = document.getElementById('modalVideoTitle');
       
-      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
       titleEl.textContent = title;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
@@ -1117,12 +1187,96 @@
       }
     }
 
+    // Ano automático no rodapé
+    (function () {
+      const el = document.getElementById('anoAtual');
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+
+    // ---- Política de privacidade ----
+    function abrirPrivacidadeModal() {
+      const modal = document.getElementById('privacidadeModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function fecharPrivacidadeModal() {
+      const modal = document.getElementById('privacidadeModal');
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+    }
+
+    // ---- Consentimento de cookies / anúncios ----
+    const CHAVE_COOKIES = 'agajota-cookies';
+
+    function lerConsentimento() {
+      try { return localStorage.getItem(CHAVE_COOKIES); } catch (e) { return null; }
+    }
+
+    function guardarConsentimento(valor) {
+      try { localStorage.setItem(CHAVE_COOKIES, valor); } catch (e) {}
+    }
+
+    function carregarAnuncios() {
+      if (window.__adsCarregado) return;
+      window.__adsCarregado = true;
+      const holder = document.querySelector('.adsense-holder');
+      if (holder) holder.classList.remove('hidden');
+      const sc = document.createElement('script');
+      sc.async = true;
+      sc.crossOrigin = 'anonymous';
+      sc.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922';
+      document.head.appendChild(sc);
+    }
+
+    function mostrarBannerCookies() {
+      const b = document.getElementById('cookieBanner');
+      b.classList.remove('hidden');
+      b.classList.add('flex');
+    }
+
+    function responderCookies(aceite) {
+      guardarConsentimento(aceite ? 'aceite' : 'recusado');
+      const b = document.getElementById('cookieBanner');
+      b.classList.remove('flex');
+      b.classList.add('hidden');
+      if (aceite) {
+        carregarAnuncios();
+      } else {
+        const holder = document.querySelector('.adsense-holder');
+        if (holder) holder.classList.add('hidden');
+        // Se os anúncios já tinham sido carregados, recarrega para os parar
+        if (window.__adsCarregado) location.reload();
+      }
+    }
+
+    (function () {
+      const estado = lerConsentimento();
+      if (estado === 'aceite') carregarAnuncios();
+      else if (estado !== 'recusado') mostrarBannerCookies();
+    })();
+
+    // ---- Teclado: Esc fecha janelas; Enter/Espaço abrem vídeos ----
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        fecharVideoModal();
+        fecharSobreModalInfo();
+        fecharContactoModal();
+        fecharModal();
+        fecharPrivacidadeModal();
+      } else if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-video]')) {
+        e.preventDefault();
+        e.target.click();
+      }
+    });
+
     function fecharAoClicarFora(event, modal) {
       if (event.target === modal) {
         if (modal.id === 'videoModal') fecharVideoModal();
         if (modal.id === 'sobreModal') fecharSobreModalInfo();
         if (modal.id === 'contactoModal') fecharContactoModal();
         if (modal.id === 'passwordModal') fecharModal();
+        if (modal.id === 'privacidadeModal') fecharPrivacidadeModal();
       }
     }
 
@@ -1176,6 +1330,29 @@
       alvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       // Reiniciar a animação de destaque (funciona também em cliques repetidos)
+      alvo.classList.remove('destaque-redes');
+      void alvo.offsetWidth;
+      alvo.classList.add('destaque-redes');
+      setTimeout(() => alvo.classList.remove('destaque-redes'), 1900);
+    }
+
+    function irParaApoio(event) {
+      if (event) event.preventDefault();
+
+      fecharVideoModal();
+      fecharSobreModalInfo();
+      fecharContactoModal();
+      fecharModal();
+
+      const alvo = document.getElementById('apoio');
+      if (!alvo) return;
+      if (alvo.style.display === 'none') {
+        const btnTodos = document.querySelector('.tag-btn');
+        if (btnTodos) filtrarTag(btnTodos, 'all');
+      }
+
+      alvo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
       alvo.classList.remove('destaque-redes');
       void alvo.offsetWidth;
       alvo.classList.add('destaque-redes');
