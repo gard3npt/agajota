@@ -41,18 +41,6 @@
           fontFamily: {
             sans: ['Montserrat', 'sans-serif'],
           },
-          colors: {
-            brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              400: '#818cf8',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-              900: '#1e1b4b',
-              dark: '#030712',
-            }
-          }
         }
       }
     }
@@ -123,17 +111,8 @@
       50% { opacity: 0.6; transform: scale(1.08); }
     }
 
-    @keyframes floatCard {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
-    }
-
     .animate-glow {
       animation: pulseGlow 6s infinite ease-in-out;
-    }
-
-    .animate-float {
-      animation: floatCard 4s infinite ease-in-out;
     }
 
     /* Animação para os vídeos em destaque */
@@ -207,11 +186,6 @@
       box-shadow: 0 6px 20px -4px rgba(99, 102, 241, 0.6);
     }
 
-    /* Classes para paginação de vídeos */
-    .hidden-video {
-      display: none !important;
-    }
-
     /* ===== Rodapé (idêntico ao do Simulador de Juros) ===== */
     #page-footer {
       position: relative;
@@ -259,7 +233,8 @@
       z-index: 100;
     }
     #footer-toast.show { opacity: 1; transform: translate(-50%, 0); }
-    @media print { #page-footer { display: none !important; } }
+    .adsense-holder.ad-pending { height: 0 !important; margin: 0 !important; border: 0 !important; overflow: hidden; }
+    @media print { #page-footer, .adsense-holder { display: none !important; } }
   </style>
 </head>
 
@@ -284,7 +259,6 @@
     <symbol id="icon-wallet" viewBox="0 0 24 24"><path fill="currentColor" d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></symbol>
     <symbol id="icon-video" viewBox="0 0 24 24"><path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></symbol>
     <symbol id="icon-paypal" viewBox="0 0 24 24"><path fill="currentColor" d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.354a1.282 1.282 0 0 1 1.264-1.065h7.286c3.275 0 5.462.678 6.502 2.03 1.077 1.4 1.02 3.426.471 5.485-.688 2.576-2.616 4.318-5.3 4.318h-2.146a.641.641 0 0 0-.632.535l-1.14 5.166a.641.641 0 0 1-.633.534zm10.305-11.5c.348-1.306.33-2.528-.433-3.518C16.1 5.23 14.33 4.793 11.956 4.793H6.843l-2.4 15.263h2.383l1.11-5.027a1.923 1.923 0 0 1 1.896-1.605h1.616c2.4 0 4.168-1.517 4.743-3.666l.19-.721z"/></symbol>
-    <symbol id="icon-heart" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
     <symbol id="icon-message" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
     <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></symbol>
     <symbol id="icon-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
@@ -319,12 +293,12 @@
 
       <!-- Navigation Buttons -->
       <nav class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
-        <button type="button" id="btnInicio" aria-current="page" title="Voltar ao início" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
+        <button type="button" id="btnInicio" aria-current="page" aria-label="Início" title="Voltar ao início" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
           <svg class="w-4 h-4"><use href="#icon-globe"/></svg>
           <span class="hidden sm:inline">Início</span>
           <svg class="inicio-seta" aria-hidden="true"><use href="#icon-chevron"/></svg>
         </button>
-        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="abrirSobreModalInfo()">
+        <button type="button" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="abrirSobreModalInfo()" aria-label="Sobre">
           <svg class="w-4 h-4"><use href="#icon-info"/></svg>
           <span class="hidden sm:inline">Sobre</span>
         </button>
@@ -332,7 +306,7 @@
           <svg class="w-4 h-4"><use href="#icon-message"/></svg>
           <span>Contacto</span>
         </button>
-        <button type="button" title="Apoiar o Projeto" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-pink-300 hover:text-white hover:bg-pink-500/20 transition-all" onclick="irParaApoio(event)">
+        <button type="button" title="Apoiar o Projeto" aria-label="Apoiar o projeto" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-pink-300 hover:text-white hover:bg-pink-500/20 transition-all" onclick="irParaApoio(event)">
           <svg class="w-4 h-4"><use href="#icon-heart"/></svg>
           <span class="hidden sm:inline">Apoiar</span>
         </button>
@@ -478,7 +452,7 @@
 
       <!-- BOTÕES DE CATEGORIAS (Música em 1º e Viagens em 2º) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <button type="button" id="btn-cat-musica" onclick="toggleYoutubeCat('cat-musica')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
+        <button type="button" id="btn-cat-musica" aria-expanded="false" aria-controls="cat-musica" onclick="toggleYoutubeCat('cat-musica')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
           <div class="flex items-center gap-3">
             <span class="text-2xl">🎵</span>
             <div>
@@ -489,7 +463,7 @@
           <span class="text-red-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
         </button>
 
-        <button type="button" id="btn-cat-viagens" onclick="toggleYoutubeCat('cat-viagens')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
+        <button type="button" id="btn-cat-viagens" aria-expanded="false" aria-controls="cat-viagens" onclick="toggleYoutubeCat('cat-viagens')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
           <div class="flex items-center gap-3">
             <span class="text-2xl">✈️</span>
             <div>
@@ -500,7 +474,7 @@
           <span class="text-red-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
         </button>
 
-        <button type="button" id="btn-cat-classicos" onclick="toggleYoutubeCat('cat-classicos')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
+        <button type="button" id="btn-cat-classicos" aria-expanded="false" aria-controls="cat-classicos" onclick="toggleYoutubeCat('cat-classicos')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
           <div class="flex items-center gap-3">
             <span class="text-2xl">🚗</span>
             <div>
@@ -511,7 +485,7 @@
           <span class="text-red-400 font-bold text-xs group-hover:translate-y-0.5 transition-transform arrow-icon">▼</span>
         </button>
 
-        <button type="button" id="btn-cat-geral" onclick="toggleYoutubeCat('cat-geral')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
+        <button type="button" id="btn-cat-geral" aria-expanded="false" aria-controls="cat-geral" onclick="toggleYoutubeCat('cat-geral')" class="yt-cat-btn glass-card p-4 rounded-2xl flex items-center justify-between group border border-red-500/30 hover:bg-red-500/10 transition-all text-left">
           <div class="flex items-center gap-3">
             <span class="text-2xl">🛠️</span>
             <div>
@@ -632,7 +606,6 @@
           </div>
 
         </div>
-        <div class="load-more-container text-center mt-4"></div>
       </div>
 
       <div id="cat-viagens" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
@@ -665,21 +638,18 @@
           </div>
 
         </div>
-        <div class="load-more-container text-center mt-4"></div>
       </div>
 
       <div id="cat-classicos" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
         <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          <!-- Vazio ou com outros vídeos reais futuramente -->
+          <p class="col-span-full text-center text-xs text-slate-400 py-6">Ainda não há vídeos nesta categoria. Volte em breve.</p>
         </div>
-        <div class="load-more-container text-center mt-4"></div>
       </div>
 
       <div id="cat-geral" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
         <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-          <!-- Vazio ou com outros vídeos reais futuramente -->
+          <p class="col-span-full text-center text-xs text-slate-400 py-6">Ainda não há vídeos nesta categoria. Volte em breve.</p>
         </div>
-        <div class="load-more-container text-center mt-4"></div>
       </div>
 
     </section>
@@ -1045,7 +1015,7 @@
       <div class="space-y-3">
         <a href="https://wa.me/351910000000" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-emerald-600/20 border border-emerald-500/30 hover:bg-emerald-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
           <svg class="w-5 h-5 text-emerald-400"><use href="#icon-whatsapp"/></svg>
-          <span>WhatsApp Directo</span>
+          <span>WhatsApp Direto</span>
         </a>
         <a href="https://t.me/gard3npt" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-2xl bg-sky-600/20 border border-sky-500/30 hover:bg-sky-600 hover:text-white text-slate-200 text-xs font-bold transition-all">
           <svg class="w-5 h-5 text-sky-400"><use href="#icon-telegram"/></svg>
@@ -1125,14 +1095,14 @@
   </div>
 
   <!-- MODAL DE PALAVRA-PASSE / SC LAB -->
-  <div id="passwordModal" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+  <div id="passwordModal" role="dialog" aria-modal="true" aria-label="SC Lab" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
     <div class="glass-modal w-full max-w-sm p-6 rounded-3xl text-center relative border border-white/20">
       <button aria-label="Fechar" onclick="fecharModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-sm font-bold">✕</button>
       <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mx-auto mb-3">🔐</div>
       <h3 class="text-lg font-extrabold text-white mb-1">SC Lab</h3>
       <p class="text-xs text-slate-400 mb-4">Insira o código de acesso reservado:</p>
       
-      <input type="password" id="labPassword" placeholder="Código de acesso" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-white/10 text-white text-sm text-center mb-3 focus:outline-none focus:border-purple-500 transition-colors">
+      <input type="password" id="labPassword" autocomplete="off" aria-label="Código de acesso" placeholder="Código de acesso" class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-white/10 text-white text-sm text-center mb-3 focus:outline-none focus:border-purple-500 transition-colors">
       <button type="button" onclick="verificarPassword()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-purple-600/30">
         Entrar no Laboratório
       </button>
@@ -1142,31 +1112,34 @@
 
   <!-- SCRIPTS JAVASCRIPT -->
   <script>
+    function fecharCategoriasYoutube() {
+      document.querySelectorAll('.youtube-category-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.yt-cat-btn').forEach(b => {
+        b.classList.remove('border-red-500', 'bg-red-500/10');
+        b.setAttribute('aria-expanded', 'false');
+        const arrow = b.querySelector('.arrow-icon');
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+        const stat = b.querySelector('.cat-status-text');
+        if (stat) stat.textContent = 'Ver conteúdos';
+      });
+    }
+
     function toggleYoutubeCat(catId) {
       const target = document.getElementById(catId);
       const btn = document.getElementById('btn-' + catId);
-      const isHidden = target.classList.contains('hidden');
+      const estavaOculto = target.classList.contains('hidden');
 
-      // Fechar todas as categorias primeiro
-      document.querySelectorAll('.youtube-category-content').forEach(el => {
-        el.classList.add('hidden');
-      });
-      document.querySelectorAll('.yt-cat-btn').forEach(b => {
-        b.classList.remove('border-red-500', 'bg-red-500/10');
-        const arrow = b.querySelector('.arrow-icon');
-        if(arrow) arrow.style.transform = 'rotate(0deg)';
-        const stat = b.querySelector('.cat-status-text');
-        if(stat) stat.textContent = 'Ver conteúdos';
-      });
+      fecharCategoriasYoutube();
 
-      // Se estivesse oculto, abrir agora
-      if (isHidden) {
+      // Se estava oculta, abrir agora
+      if (estavaOculto) {
         target.classList.remove('hidden');
         btn.classList.add('border-red-500', 'bg-red-500/10');
+        btn.setAttribute('aria-expanded', 'true');
         const arrow = btn.querySelector('.arrow-icon');
-        if(arrow) arrow.style.transform = 'rotate(180deg)';
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
         const stat = btn.querySelector('.cat-status-text');
-        if(stat) stat.textContent = 'A ver conteúdos';
+        if (stat) stat.textContent = 'A ver conteúdos';
       }
     }
 
@@ -1185,9 +1158,18 @@
       const modal = document.getElementById('videoModal');
       const iframe = document.getElementById('modalVideoIframe');
       
-      iframe.src = '';
+      iframe.src = 'about:blank';
       modal.classList.remove('flex');
       modal.classList.add('hidden');
+    }
+
+    // Fecha todas as janelas (e pára o vídeo que estiver a tocar)
+    function fecharTodosModais() {
+      fecharVideoModal();
+      fecharSobreModalInfo();
+      fecharContactoModal();
+      fecharModal();
+      fecharPrivacidadeModal();
     }
 
     function abrirSobreModalInfo() {
@@ -1218,6 +1200,7 @@
       const modal = document.getElementById('passwordModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+      document.getElementById('labPassword').focus();
     }
 
     function fecharModal() {
@@ -1284,9 +1267,22 @@
       if (window.__adsCarregado) return;
       window.__adsCarregado = true;
       const holder = document.querySelector('.adsense-holder');
-      if (holder) holder.classList.remove('hidden');
+      const ins = holder ? holder.querySelector('ins') : null;
+      if (holder) {
+        // Fica sem altura enquanto o Google não devolve um anúncio; se não houver, fica oculto
+        holder.classList.remove('hidden');
+        holder.classList.add('ad-pending');
+        if (ins) {
+          new MutationObserver(() => {
+            const estado = ins.getAttribute('data-ad-status');
+            if (estado === 'filled') holder.classList.remove('ad-pending');
+            else if (estado === 'unfilled') holder.classList.add('hidden');
+          }).observe(ins, { attributes: true, attributeFilter: ['data-ad-status'] });
+        }
+      }
       const sc = document.createElement('script');
       sc.async = true;
+      sc.onerror = () => { if (holder) holder.classList.add('hidden'); };
       sc.crossOrigin = 'anonymous';
       sc.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094039418988922';
       document.head.appendChild(sc);
@@ -1322,11 +1318,10 @@
     // ---- Teclado: Esc fecha janelas; Enter/Espaço abrem vídeos ----
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        fecharVideoModal();
-        fecharSobreModalInfo();
-        fecharContactoModal();
-        fecharModal();
-        fecharPrivacidadeModal();
+        fecharTodosModais();
+      } else if (e.key === 'Enter' && e.target.id === 'labPassword') {
+        e.preventDefault();
+        verificarPassword();
       } else if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-video]')) {
         e.preventDefault();
         e.target.click();
@@ -1345,20 +1340,10 @@
 
     function voltarAoInicio() {
       // Fechar modais abertos (e parar o vídeo que estiver a tocar)
-      fecharVideoModal();
-      fecharSobreModalInfo();
-      fecharContactoModal();
-      fecharModal();
+      fecharTodosModais();
 
       // Fechar categorias do YouTube abertas
-      document.querySelectorAll('.youtube-category-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.yt-cat-btn').forEach(b => {
-        b.classList.remove('border-red-500', 'bg-red-500/10');
-        const arrow = b.querySelector('.arrow-icon');
-        if (arrow) arrow.style.transform = 'rotate(0deg)';
-        const stat = b.querySelector('.cat-status-text');
-        if (stat) stat.textContent = 'Ver conteúdos';
-      });
+      fecharCategoriasYoutube();
 
       // Repor o filtro para "Todos"
       const btnTodos = document.querySelector('.tag-btn');
@@ -1377,10 +1362,7 @@
       if (event) event.preventDefault();
 
       // Fechar modais que possam estar abertos
-      fecharVideoModal();
-      fecharSobreModalInfo();
-      fecharContactoModal();
-      fecharModal();
+      fecharTodosModais();
 
       // Garantir que a secção está visível (repor o filtro para "Todos" se preciso)
       const alvo = document.getElementById('redes');
@@ -1402,10 +1384,7 @@
     function irParaApoio(event) {
       if (event) event.preventDefault();
 
-      fecharVideoModal();
-      fecharSobreModalInfo();
-      fecharContactoModal();
-      fecharModal();
+      fecharTodosModais();
 
       const alvo = document.getElementById('apoio');
       if (!alvo) return;
