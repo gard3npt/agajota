@@ -211,6 +211,55 @@
     .hidden-video {
       display: none !important;
     }
+
+    /* ===== Rodapé (idêntico ao do Simulador de Juros) ===== */
+    #page-footer {
+      position: relative;
+      z-index: 10;
+      width: calc(100% - 32px);
+      min-height: 60px;
+      margin: 32px 16px 16px;
+      border-radius: 12px;
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .footer-link {
+      background: none;
+      border: 0;
+      padding: 0;
+      color: #94a3b8;
+      font: inherit;
+      font-size: 11px;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+    .footer-link:hover { color: #cbd5e1; }
+    .footer-brand { font-size: inherit; text-decoration: none; font-weight: 700; letter-spacing: .04em; }
+    .footer-brand:hover { text-decoration: underline; text-underline-offset: 2px; }
+    #footer-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translate(-50%, 20px);
+      background: rgba(15, 23, 42, 0.97);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      z-index: 100;
+    }
+    #footer-toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media print { #page-footer { display: none !important; } }
   </style>
 </head>
 
@@ -941,13 +990,12 @@
   </main>
 
   <!-- RODAPÉ -->
-  <footer class="w-full py-6 text-center text-xs text-slate-500 border-t border-white/5 relative z-10 bg-slate-950/80 backdrop-blur-md">
-    <p>© <span id="anoAtual">2026</span> AGAJOTA</p>
-    <p class="mt-2 flex items-center justify-center gap-4 text-[11px]">
-      <button type="button" onclick="abrirPrivacidadeModal()" class="underline underline-offset-2 hover:text-slate-300 transition-colors">Privacidade</button>
-      <button type="button" onclick="mostrarBannerCookies()" class="underline underline-offset-2 hover:text-slate-300 transition-colors">Cookies</button>
-    </p>
+  <footer id="page-footer">
+    <span>© <span id="anoAtual">2026</span> <button type="button" class="footer-link footer-brand" onclick="mostrarUltimaAtualizacao()" title="Ver última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span>
+    <button type="button" class="footer-link" onclick="abrirPrivacidadeModal()">Privacidade</button>
+    <button type="button" class="footer-link" onclick="mostrarBannerCookies()">Cookies</button>
   </footer>
+  <div id="footer-toast" role="status" aria-live="polite"></div>
 
   <!-- MODAL SOBRE -->
   <div id="sobreModal" role="dialog" aria-modal="true" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
@@ -1020,14 +1068,13 @@
         <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl">🔒</div>
         <div>
           <h3 class="text-xl font-extrabold text-white">Privacidade e Cookies</h3>
-          <p class="text-xs text-emerald-300">Última atualização: 1 de outubro de 2026</p>
         </div>
       </div>
 
       <div class="space-y-4 text-xs text-slate-300 leading-relaxed">
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Quem é o responsável</h4>
-          <p>Helder Jardim (@gard3npt). Para qualquer questão sobre privacidade, usa os canais da janela “Contacto”.</p>
+          <p>Para qualquer questão sobre privacidade, usa o botão “Contacto”.</p>
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Que dados recolhe este site</h4>
@@ -1059,7 +1106,7 @@
 
   <!-- BANNER DE COOKIES -->
   <div id="cookieBanner" role="region" aria-label="Aviso de cookies" class="fixed bottom-3 left-3 right-3 sm:left-auto sm:right-4 sm:bottom-4 sm:max-w-sm z-40 hidden flex-col gap-3 p-4 rounded-2xl glass-modal border border-white/20 shadow-2xl">
-    <p class="text-xs text-slate-200 leading-relaxed">🍪 Este site usa cookies de terceiros (Google AdSense) para mostrar anúncios, mas só com a tua autorização. <button type="button" onclick="abrirPrivacidadeModal()" class="underline underline-offset-2 text-indigo-300 hover:text-white">Saber mais</button></p>
+    <p class="text-xs text-slate-200 leading-relaxed">🍪 Este site usa cookies de terceiros para mostrar anúncios, mas só com a tua autorização. <button type="button" onclick="abrirPrivacidadeModal()" class="underline underline-offset-2 text-indigo-300 hover:text-white">Saber mais</button></p>
     <div class="flex gap-2">
       <button type="button" onclick="responderCookies(false)" class="flex-1 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors">Recusar</button>
       <button type="button" onclick="responderCookies(true)" class="flex-1 px-3 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-xs font-bold transition-all">Aceitar</button>
@@ -1195,6 +1242,19 @@
       const el = document.getElementById('anoAtual');
       if (el) el.textContent = new Date().getFullYear();
     })();
+
+    // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão
+    const ULTIMA_ATUALIZACAO = '2026-10-06';
+    let footerToastTimer = null;
+    function mostrarUltimaAtualizacao() {
+      const el = document.getElementById('footer-toast');
+      if (!el) return;
+      const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
+      el.textContent = 'Última atualização: ' + d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+      el.classList.add('show');
+      clearTimeout(footerToastTimer);
+      footerToastTimer = setTimeout(() => el.classList.remove('show'), 2500);
+    }
 
     // ---- Política de privacidade ----
     function abrirPrivacidadeModal() {
