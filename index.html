@@ -84,6 +84,47 @@
       transform: translateY(-3px);
     }
 
+    /* Tradutor: esconde a barra/balões do Google (o seletor de idioma é o nosso) */
+    #google_translate_element { display: none; }
+    .goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip, .goog-te-spinner-pos,
+    iframe.skiptranslate { display: none !important; }
+    body { top: 0 !important; }
+    .goog-text-highlight { background: none !important; box-shadow: none !important; }
+
+    /* Leitor de vídeo: mini-leitor flutuante (por defeito) ou expandido */
+    #videoModal.video-mini {
+      inset: auto;
+      right: 1rem;
+      bottom: 1rem;
+      left: auto;
+      top: auto;
+      width: min(20rem, calc(100vw - 2rem));
+      padding: 0;
+      background: transparent;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      pointer-events: none; /* o resto do site continua clicável */
+    }
+    #videoModal.video-mini .video-panel {
+      pointer-events: auto;
+      max-width: none;
+      padding: 0.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.7);
+    }
+    #videoModal.video-mini .video-bar { margin-bottom: 0.5rem; }
+    #videoModal.video-mini #videoYtIcon,
+    #videoModal.video-mini .video-nav { display: none; }
+    #videoModal.video-mini #videoYtLink { pointer-events: none; }
+    #videoModal.video-mini .video-bar { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+    #videoModal.video-mini .video-bar:active { cursor: grabbing; }
+    #videoModal:not(.video-mini) { touch-action: none; } /* permite deslizar para baixo para minimizar */
+    #videoModal.video-mini #modalVideoTitle { font-size: 0.75rem; }
+    #videoModal.video-mini .video-frame { border-radius: 0.75rem; }
+    @media (min-width: 640px) {
+      #videoModal.video-mini { width: 22rem; }
+    }
+
     .glass-modal {
       background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(20px);
@@ -148,8 +189,11 @@
 
     /* Destaque breve da secção de redes ao vir do logo */
     #redes {
-      scroll-margin-top: 6rem;
+      scroll-margin-top: 9.5rem; /* telemóvel: cabeçalho com 2 linhas */
       border-radius: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      #redes { scroll-margin-top: 6rem; }
     }
 
     #redes.destaque-redes,
@@ -267,6 +311,13 @@
     <symbol id="icon-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.89 8.91c-.14.64-.52.8-.11.56l-2.88-2.12-1.39 1.34c-.15.15-.28.28-.58.28l.2-2.94 5.35-4.84c.23-.21-.05-.32-.35-.12L9.62 12.3l-2.85-.89c-.62-.19-.63-.62.13-.92l11.13-4.3c.52-.19.97.12.53.99z"/></symbol>
     <symbol id="icon-messenger" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.251.464 3.443.464 6.627 0 12-4.975 12-11.111S18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.26 5.888-3.26-6.559 6.963z"/></symbol>
     <symbol id="icon-chevron" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></symbol>
+    <!-- Bandeiras (seletor de idioma) -->
+    <symbol id="flag-pt" viewBox="0 0 24 16"><rect width="9.6" height="16" fill="#006600"/><rect x="9.6" width="14.4" height="16" fill="#FF0000"/><circle cx="9.6" cy="8" r="3.3" fill="#FFCC00"/><rect x="8.1" y="6.3" width="3" height="3.5" rx=".7" fill="#FF0000" stroke="#fff" stroke-width=".5"/></symbol>
+    <symbol id="flag-gb" viewBox="0 0 24 16"><rect width="24" height="16" fill="#012169"/><path d="M0 0L24 16M24 0L0 16" stroke="#fff" stroke-width="3.2"/><path d="M0 0L24 16M24 0L0 16" stroke="#C8102E" stroke-width="1.1"/><path d="M12 0V16M0 8H24" stroke="#fff" stroke-width="5.4"/><path d="M12 0V16M0 8H24" stroke="#C8102E" stroke-width="3.2"/></symbol>
+    <symbol id="flag-es" viewBox="0 0 24 16"><rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/></symbol>
+    <symbol id="flag-fr" viewBox="0 0 24 16"><rect width="8" height="16" fill="#0055A4"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#EF4135"/></symbol>
+    <symbol id="flag-de" viewBox="0 0 24 16"><rect width="24" height="5.34" fill="#000"/><rect y="5.33" width="24" height="5.34" fill="#DD0000"/><rect y="10.66" width="24" height="5.34" fill="#FFCE00"/></symbol>
+    <symbol id="flag-it" viewBox="0 0 24 16"><rect width="8" height="16" fill="#009246"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#CE2B37"/></symbol>
   </svg>
 
   <!-- BACKGROUND VIBRANTE COM GLOWS COLORIDOS -->
@@ -278,11 +329,13 @@
   </div>
 
   <!-- BARRA DE CABEÇALHO FIXA -->
+  <div id="google_translate_element" aria-hidden="true"></div>
+
   <header class="top-header-bar fixed top-0 left-0 w-full z-50 glass-nav px-4 py-3 transition-all">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
+    <div class="max-w-6xl mx-auto flex flex-wrap md:flex-nowrap items-center gap-x-2 gap-y-2">
       
       <!-- Logo / Brand -->
-      <a href="#redes" onclick="irParaRedes(event)" title="Ir para as redes sociais" class="flex items-center gap-3 group">
+      <a href="#redes" onclick="irParaRedes(event)" title="Ir para as redes sociais" translate="no" class="notranslate flex items-center gap-3 group flex-1 basis-0 min-w-0 md:flex-none md:basis-auto md:mr-auto">
         <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 p-0.5 group-hover:scale-105 transition-transform">
           <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center font-bold text-xs text-white">
             HJ
@@ -295,7 +348,7 @@
       </a>
 
       <!-- Navigation Buttons -->
-      <nav class="flex items-center gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
+      <nav class="order-3 md:order-2 w-full md:w-auto flex items-center justify-between md:justify-start gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
         <button type="button" id="btnInicio" aria-current="page" aria-label="Início" title="Voltar ao início" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
           <svg class="w-4 h-4"><use href="#icon-globe"/></svg>
           <span class="hidden sm:inline">Início</span>
@@ -315,11 +368,51 @@
         </button>
       </nav>
 
+      <!-- Seletor de idioma: canto superior direito (1.ª linha no telemóvel) -->
+      <div id="langWrap" class="relative order-2 md:order-3 p-1 bg-slate-900/80 rounded-2xl border border-white/10 notranslate" translate="no">
+        <button type="button" id="langBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" aria-label="Idioma: Português" title="Idioma / Language" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="alternarMenuIdioma(event)">
+          <svg id="langFlag" class="w-6 h-4 rounded-sm shadow-sm" aria-hidden="true"><use href="#flag-pt"/></svg>
+          <svg class="w-3.5 h-3.5 opacity-70" aria-hidden="true"><use href="#icon-chevron"/></svg>
+        </button>
+        <div id="langMenu" role="menu" aria-label="Escolher idioma" class="hidden absolute right-0 top-full mt-3 w-60 p-1.5 rounded-2xl glass-modal border border-white/15 shadow-2xl z-50">
+        <button type="button" role="menuitemradio" aria-checked="true" data-lang="pt" lang="pt" onclick="selecionarIdioma('pt')" class="lang-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
+          <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-pt"/></svg>
+          <span class="flex-1 whitespace-nowrap">Português <span class="text-[10px] text-slate-400">(original)</span></span>
+          <span class="lang-check text-emerald-400 text-xs font-bold " aria-hidden="true">✓</span>
+        </button>
+        <button type="button" role="menuitemradio" aria-checked="false" data-lang="en" lang="en" onclick="selecionarIdioma('en')" class="lang-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
+          <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-gb"/></svg>
+          <span class="flex-1">English</span>
+          <span class="lang-check text-emerald-400 text-xs font-bold invisible" aria-hidden="true">✓</span>
+        </button>
+        <button type="button" role="menuitemradio" aria-checked="false" data-lang="es" lang="es" onclick="selecionarIdioma('es')" class="lang-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
+          <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-es"/></svg>
+          <span class="flex-1">Español</span>
+          <span class="lang-check text-emerald-400 text-xs font-bold invisible" aria-hidden="true">✓</span>
+        </button>
+        <button type="button" role="menuitemradio" aria-checked="false" data-lang="fr" lang="fr" onclick="selecionarIdioma('fr')" class="lang-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
+          <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-fr"/></svg>
+          <span class="flex-1">Français</span>
+          <span class="lang-check text-emerald-400 text-xs font-bold invisible" aria-hidden="true">✓</span>
+        </button>
+        <button type="button" role="menuitemradio" aria-checked="false" data-lang="de" lang="de" onclick="selecionarIdioma('de')" class="lang-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
+          <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-de"/></svg>
+          <span class="flex-1">Deutsch</span>
+          <span class="lang-check text-emerald-400 text-xs font-bold invisible" aria-hidden="true">✓</span>
+        </button>
+        <button type="button" role="menuitemradio" aria-checked="false" data-lang="it" lang="it" onclick="selecionarIdioma('it')" class="lang-item w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
+          <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-it"/></svg>
+          <span class="flex-1">Italiano</span>
+          <span class="lang-check text-emerald-400 text-xs font-bold invisible" aria-hidden="true">✓</span>
+        </button>
+        </div>
+      </div>
+
     </div>
   </header>
 
   <!-- CONTAINER PRINCIPAL -->
-  <main class="container max-w-6xl mx-auto px-4 pt-28 pb-16 z-10 flex-1 relative">
+  <main class="container max-w-6xl mx-auto px-4 pt-40 md:pt-28 pb-16 z-10 flex-1 relative">
 
     <!-- HERO SECTION ESTILO BLOG -->
     <section class="text-center my-8 max-w-5xl mx-auto">
@@ -376,12 +469,10 @@
           </div>
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div class="space-y-3">
-              <div class="flex items-center gap-3">
-                <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                  <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
+              <a href="https://www.youtube.com/watch?v=9qS-0X7V_Fc" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Mini vibes</h3>
                 </a>
-                <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Mini vibes</h3>
-              </div>
             </div>
           </div>
         </div>
@@ -402,12 +493,10 @@
           </div>
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div class="space-y-3">
-              <div class="flex items-center gap-3">
-                <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                  <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
+              <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Pulse of the Night</h3>
                 </a>
-                <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Pulse of the Night</h3>
-              </div>
             </div>
           </div>
         </div>
@@ -428,12 +517,10 @@
           </div>
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div class="space-y-3">
-              <div class="flex items-center gap-3">
-                <a href="https://youtu.be/MkfeauWlYH8?si=XeDtQ7ZifpHm7Q2o" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                  <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
+              <a href="https://youtu.be/MkfeauWlYH8?si=XeDtQ7ZifpHm7Q2o" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Soajo, Amigos, Vinho e boa disposição</h3>
                 </a>
-                <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Soajo, Amigos, Vinho e boa disposição</h3>
-              </div>
             </div>
           </div>
         </div>
@@ -444,9 +531,9 @@
     <!-- 2. ESPAÇO DE VÍDEOS DO YOUTUBE -->
     <section class="section-block my-12" data-category="playlists">
       <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
-        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-red-500 to-rose-500 text-white shadow-lg shadow-red-500/30">
+        <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" title="Abrir o canal no YouTube" aria-label="Abrir o canal no YouTube" class="p-2.5 rounded-xl bg-gradient-to-tr from-red-500 to-rose-500 hover:from-red-400 hover:to-rose-400 text-white shadow-lg shadow-red-500/30 transition-all hover:scale-105 outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
           <svg class="w-5 h-5"><use href="#icon-yt"/></svg>
-        </div>
+        </a>
         <div>
           <h2 class="text-xl font-extrabold text-white">Vídeos do YouTube</h2>
           <p class="text-xs text-red-300">Escolha uma categoria abaixo para abrir e explorar os vídeos do canal</p>
@@ -520,12 +607,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/MkfeauWlYH8?si=XeDtQ7ZifpHm7Q2o" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Soajo, Amigos, Vinho e boa disposição</h3>
-                </div>
+                <a href="https://youtu.be/MkfeauWlYH8?si=XeDtQ7ZifpHm7Q2o" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Soajo, Amigos, Vinho e boa disposição</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -546,12 +631,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/14XobK78Lgk?si=x25VJv76jiVqOjjf" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Parabéns, Aline faz 5 anos</h3>
-                </div>
+                <a href="https://youtu.be/14XobK78Lgk?si=x25VJv76jiVqOjjf" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Parabéns, Aline faz 5 anos</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -572,12 +655,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/Iiv9qnvlNTA?si=4IU-_mTQuZ6vcsgl" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Deep sub-bass pulse</h3>
-                </div>
+                <a href="https://youtu.be/Iiv9qnvlNTA?si=4IU-_mTQuZ6vcsgl" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Deep sub-bass pulse</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -598,12 +679,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/2N32b3s5WSE?si=weVeWIMEnvq1-iKl" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Pulse of the Night</h3>
-                </div>
+                <a href="https://youtu.be/2N32b3s5WSE?si=weVeWIMEnvq1-iKl" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Pulse of the Night</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -624,12 +703,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/QaP3gLC8UCA?si=R0f4wop2VtXFn7BV" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Macaco Vaidosão</h3>
-                </div>
+                <a href="https://youtu.be/QaP3gLC8UCA?si=R0f4wop2VtXFn7BV" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Macaco Vaidosão</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -650,12 +727,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/2IKXNKe1VX8?si=g_0Nz1eVd4UlD2r2" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Cinco Anos de casamento, Zé Miguel &amp; Manuel</h3>
-                </div>
+                <a href="https://youtu.be/2IKXNKe1VX8?si=g_0Nz1eVd4UlD2r2" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Cinco Anos de casamento, Zé Miguel &amp; Manuel</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -676,12 +751,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/nKevKjoXK2Y?si=5eumEsCCrb2jk5tU" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Parabéns Maya, primeiro aniversário</h3>
-                </div>
+                <a href="https://youtu.be/nKevKjoXK2Y?si=5eumEsCCrb2jk5tU" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Parabéns Maya, primeiro aniversário</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -702,12 +775,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/RLaibwa4gnA?si=--IVnKePkFfkJTE3" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">A Gatinha Cremilde Maria</h3>
-                </div>
+                <a href="https://youtu.be/RLaibwa4gnA?si=--IVnKePkFfkJTE3" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">A Gatinha Cremilde Maria</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -728,12 +799,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/aknoQYP3vSU?si=1UDYxuh5napXRNAm" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Aline e a Avó</h3>
-                </div>
+                <a href="https://youtu.be/aknoQYP3vSU?si=1UDYxuh5napXRNAm" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Aline e a Avó</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -754,12 +823,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/NOrGHjuU5aU?si=sftdA6yEhZhHu0U-" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Fernando &amp; Sónia, Amor em Viagem</h3>
-                </div>
+                <a href="https://youtu.be/NOrGHjuU5aU?si=sftdA6yEhZhHu0U-" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Fernando &amp; Sónia, Amor em Viagem</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -780,12 +847,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/sSLi7hlBw2g?si=O-mynJZA6buaJV5y" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Quatro Anos José &amp; Manuel</h3>
-                </div>
+                <a href="https://youtu.be/sSLi7hlBw2g?si=O-mynJZA6buaJV5y" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Quatro Anos José &amp; Manuel</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -806,12 +871,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/Fl2ogi2cn-Q?si=MfEilfujIt3SYwRC" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Depois do Turno</h3>
-                </div>
+                <a href="https://youtu.be/Fl2ogi2cn-Q?si=MfEilfujIt3SYwRC" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Depois do Turno</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -832,12 +895,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/DjSYM62edKU?si=-wG4SmHPHTNzjsAk" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Pequena Maya</h3>
-                </div>
+                <a href="https://youtu.be/DjSYM62edKU?si=-wG4SmHPHTNzjsAk" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Pequena Maya</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -858,12 +919,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/-l9LTvZUCO8?si=MDFpUxytDgKRTEEW" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">A Maya já anda</h3>
-                </div>
+                <a href="https://youtu.be/-l9LTvZUCO8?si=MDFpUxytDgKRTEEW" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">A Maya já anda</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -884,12 +943,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/iLDgiow1rok?si=enaeC0yaqLvPOhtI" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Sorriso de luar</h3>
-                </div>
+                <a href="https://youtu.be/iLDgiow1rok?si=enaeC0yaqLvPOhtI" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Sorriso de luar</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -910,12 +967,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/X0FzDwYclos?si=aluJnUeeok7ywRrI" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Nico, meu amigo especial</h3>
-                </div>
+                <a href="https://youtu.be/X0FzDwYclos?si=aluJnUeeok7ywRrI" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Nico, meu amigo especial</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -936,12 +991,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/0BCwHFQs9OI?si=YrFOuV_D8zUYrj8_" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Levo a vida com o coração</h3>
-                </div>
+                <a href="https://youtu.be/0BCwHFQs9OI?si=YrFOuV_D8zUYrj8_" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Levo a vida com o coração</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -962,12 +1015,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/9qS-0X7V_Fc?si=0rmgNgRc-w-a6dQt" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Mini vibes</h3>
-                </div>
+                <a href="https://youtu.be/9qS-0X7V_Fc?si=0rmgNgRc-w-a6dQt" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Mini vibes</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -994,12 +1045,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/0QTAyWEx62g?si=MX6nlGCBLOk49gcU" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Passeio de Barco pelo Arquipélago das Berlengas</h3>
-                </div>
+                <a href="https://youtu.be/0QTAyWEx62g?si=MX6nlGCBLOk49gcU" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Passeio de Barco pelo Arquipélago das Berlengas</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1020,12 +1069,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/k2abTboWoJk?si=BVB49EGPP92Okq01" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Passeio | Aldeias de Castelo Branco</h3>
-                </div>
+                <a href="https://youtu.be/k2abTboWoJk?si=BVB49EGPP92Okq01" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Passeio | Aldeias de Castelo Branco</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1046,12 +1093,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/1TlyoRuRe5w?si=VxZjY_X7Z0dvwxgu" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Rio Tejo - Escaroupim | Salvaterra de Magos, PT</h3>
-                </div>
+                <a href="https://youtu.be/1TlyoRuRe5w?si=VxZjY_X7Z0dvwxgu" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Rio Tejo - Escaroupim | Salvaterra de Magos, PT</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1072,12 +1117,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/nGOtjugU3mk?si=B5pGWl9crHDY-Hl8" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Compilação da Viagem a Ilha da Madeira</h3>
-                </div>
+                <a href="https://youtu.be/nGOtjugU3mk?si=B5pGWl9crHDY-Hl8" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Compilação da Viagem a Ilha da Madeira</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1098,12 +1141,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/qdxs8tiKnsg?si=2j71YPEdwrMNdt3o" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Viagem á República Dominicana</h3>
-                </div>
+                <a href="https://youtu.be/qdxs8tiKnsg?si=2j71YPEdwrMNdt3o" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Viagem á República Dominicana</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1124,12 +1165,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/aoFprEhmjrk?si=rCwWb2t2LuQljs29" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Quedas de Kalandula - Angola</h3>
-                </div>
+                <a href="https://youtu.be/aoFprEhmjrk?si=rCwWb2t2LuQljs29" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Quedas de Kalandula - Angola</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1155,12 +1194,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/7LzkcQZs57A?si=CZkptNAd0wEF8l7b" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">MINI passeio | Fragas de São Simão | @r3d_mini | Mini 1000</h3>
-                </div>
+                <a href="https://youtu.be/7LzkcQZs57A?si=CZkptNAd0wEF8l7b" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">MINI passeio | Fragas de São Simão | @r3d_mini | Mini 1000</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1185,12 +1222,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/VaHT4JP0K1A?si=RUrlVUKpfrHbvZNm" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">1 hour of cycling | 's-Hertogenbosch | Netherlands | Países Baixos</h3>
-                </div>
+                <a href="https://youtu.be/VaHT4JP0K1A?si=RUrlVUKpfrHbvZNm" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">1 hour of cycling | 's-Hertogenbosch | Netherlands | Países Baixos</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1211,12 +1246,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/RxedReqPhmg?si=oMmwpzUbUVbQCHf-" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Troféu Extreme Trial 4x4 - 1ª Prova</h3>
-                </div>
+                <a href="https://youtu.be/RxedReqPhmg?si=oMmwpzUbUVbQCHf-" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Troféu Extreme Trial 4x4 - 1ª Prova</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1237,12 +1270,10 @@
             </div>
             <div class="p-4 flex flex-col justify-between flex-1">
               <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <a href="https://youtu.be/Uv4Nb6LD4kA?si=3G3OupgvFVMoviIN" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" aria-label="Ver no YouTube" class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0">
-                    <svg class="w-4 h-4"><use href="#icon-yt"/></svg>
-                  </a>
-                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug">Dramatização da história “Macaco do rabo cortado”</h3>
-                </div>
+                <a href="https://youtu.be/Uv4Nb6LD4kA?si=3G3OupgvFVMoviIN" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Dramatização da história “Macaco do rabo cortado”</h3>
+                </a>
               </div>
             </div>
           </div>
@@ -1656,8 +1687,12 @@
           <p>Os vídeos abrem em modo de privacidade reforçada (youtube-nocookie.com) e só quando carregas em reproduzir. As miniaturas e os tipos de letra são pedidos aos servidores da Google/YouTube, que podem por isso ver o teu endereço IP.</p>
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+          <h4 class="font-bold text-white text-sm mb-1">Tradução do site (Google Tradutor)</h4>
+          <p>O site está em português. Só se escolheres outro idioma no botão das bandeiras é que é carregado o Google Tradutor, que pode usar cookies e ver o teu endereço IP. Se voltares ao português, deixa de ser usado.</p>
+        </div>
+        <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Armazenamento no teu navegador</h4>
-          <p>Guardamos apenas a tua escolha sobre cookies, no armazenamento local do navegador, para não voltar a perguntar.</p>
+          <p>Guardamos apenas a tua escolha sobre cookies e o idioma escolhido, no armazenamento local do navegador, para não voltar a perguntar.</p>
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Ligações externas</h4>
@@ -1680,13 +1715,26 @@
     </div>
   </div>
 
-  <!-- MODAL DE VÍDEO -->
-  <div id="videoModal" role="dialog" aria-modal="true" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-    <div class="glass-modal w-full max-w-4xl p-4 sm:p-6 rounded-3xl relative text-center border border-white/20">
-      <button aria-label="Fechar" onclick="fecharVideoModal()" class="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center text-base font-bold shadow-lg transition-colors">✕</button>
-      <h3 id="modalVideoTitle" class="text-base sm:text-lg font-bold text-white mb-4">A reproduzir vídeo</h3>
-      <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl">
+  <!-- MODAL DE VÍDEO (mini-leitor flutuante + modo expandido) -->
+  <div id="videoModal" role="dialog" aria-label="Leitor de vídeo" onclick="fecharAoClicarFora(event, this)" class="video-mini fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+    <div class="video-panel glass-modal w-full max-w-4xl p-4 sm:p-6 rounded-3xl relative text-center border border-white/20">
+      <div class="video-bar flex items-center gap-2 mb-4">
+        <a id="videoYtLink" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" onclick="pausarVideoSite()" title="Abrir no YouTube" class="group/yt flex items-center gap-2 flex-1 min-w-0 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+          <span id="videoYtIcon" class="shrink-0 w-8 h-8 rounded-full bg-white/10 group-hover/yt:bg-white/20 text-red-500 flex items-center justify-center transition-colors"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></span>
+          <h3 id="modalVideoTitle" class="min-w-0 truncate text-left text-base sm:text-lg font-bold text-white group-hover/yt:underline underline-offset-2">A reproduzir vídeo</h3>
+        </a>
+        <button type="button" id="videoToggleBtn" onclick="alternarVideoTamanho()" aria-label="Expandir vídeo" title="Expandir vídeo" class="shrink-0 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
+          <svg id="videoToggleIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+        </button>
+        <button type="button" aria-label="Fechar vídeo" title="Fechar vídeo" onclick="fecharVideoModal()" class="shrink-0 w-8 h-8 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
+      </div>
+      <div class="video-frame relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl">
         <iframe id="modalVideoIframe" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Vídeo do YouTube"></iframe>
+      </div>
+      <div id="videoNav" class="video-nav mt-3 flex items-center justify-between gap-2">
+        <button type="button" id="videoPrevBtn" onclick="videoAnterior()" class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/10">← Anterior</button>
+        <span id="videoCounter" class="text-xs text-slate-400"></span>
+        <button type="button" id="videoNextBtn" onclick="videoSeguinte()" class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/10">Seguinte →</button>
       </div>
     </div>
   </div>
@@ -1776,29 +1824,286 @@
       }
     }
 
+    // ===== Leitor de vídeo =====
+    let videoGrupo = [];       // vídeos da mesma lista (para anterior/seguinte)
+    let videoIndice = -1;
+    let videoOpener = null;    // elemento que abriu o vídeo (para devolver o foco ao fechar)
+    let videoFimTratado = false;
+    let miniCanto = 'br';      // canto do mini-leitor: br | bl | tr | tl
+
+    function idDoVideoEl(el) {
+      const m = (el.getAttribute('onclick') || '').match(/abrirVideoModal\('([^']+)'/);
+      return m ? m[1] : null;
+    }
+
+    function tituloDoVideoEl(el) {
+      return (el.getAttribute('aria-label') || '').replace(/^Reproduzir vídeo:\s*/, '').trim();
+    }
+
+    // Todos os vídeos da mesma lista (categoria/destaques), sem repetidos
+    function montarGrupoVideos(el) {
+      const cont = el.closest('.video-grid-container') || el.closest('section') || document;
+      const vistos = new Set();
+      const lista = [];
+      cont.querySelectorAll('[data-video]').forEach(v => {
+        const id = idDoVideoEl(v);
+        if (id && !vistos.has(id)) {
+          vistos.add(id);
+          lista.push({ id: id, title: tituloDoVideoEl(v) || id });
+        }
+      });
+      return lista;
+    }
+
     function abrirVideoModal(videoId, title) {
       const modal = document.getElementById('videoModal');
+
+      // Descobre que cartão foi clicado, para montar a lista anterior/seguinte
+      const ev = window.event;
+      let origem = (ev && ev.target && ev.target.closest) ? ev.target.closest('[data-video]') : null;
+      if (origem && idDoVideoEl(origem) !== videoId) origem = null;
+      if (!origem) origem = Array.from(document.querySelectorAll('[data-video]')).find(e => idDoVideoEl(e) === videoId) || null;
+
+      let grupo = origem ? montarGrupoVideos(origem) : [];
+      let idx = grupo.findIndex(v => v.id === videoId);
+      if (idx < 0) { grupo = [{ id: videoId, title: title }]; idx = 0; }
+
+      if (modal.classList.contains('hidden')) videoOpener = origem || document.activeElement;
+
+      tocarVideoDoGrupo(grupo, idx, title);
+      definirVideoExpandido(true); // começa maximizado; o botão minimiza para mini-leitor
+      try { document.getElementById('videoToggleBtn').focus({ preventScroll: true }); } catch (e) {}
+    }
+
+    function tocarVideoDoGrupo(grupo, idx, titulo) {
+      const modal = document.getElementById('videoModal');
       const iframe = document.getElementById('modalVideoIframe');
-      const titleEl = document.getElementById('modalVideoTitle');
-      
-      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
-      titleEl.textContent = title;
+      const v = grupo[idx];
+      videoGrupo = grupo;
+      videoIndice = idx;
+      videoFimTratado = false;
+
+      let url = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1&enablejsapi=1`;
+      if (/^https?:$/.test(location.protocol)) url += '&origin=' + encodeURIComponent(location.origin);
+      iframe.src = url;
+
+      document.getElementById('modalVideoTitle').textContent = titulo || v.title;
+      const ytUrl = 'https://www.youtube.com/watch?v=' + encodeURIComponent(v.id);
+      document.getElementById('videoYtLink').href = ytUrl;
+      atualizarNavegacaoVideo();
+
+      // Link direto para este vídeo (#v=ID), sem criar entradas no histórico
+      try { history.replaceState(null, '', location.pathname + location.search + '#v=' + v.id); } catch (e) {}
+
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+    }
+
+    function atualizarNavegacaoVideo() {
+      const n = videoGrupo.length;
+      const prev = document.getElementById('videoPrevBtn');
+      const next = document.getElementById('videoNextBtn');
+      document.getElementById('videoNav').style.display = n < 2 ? 'none' : '';
+      document.getElementById('videoCounter').textContent = n > 1 ? (videoIndice + 1) + ' / ' + n : '';
+      prev.disabled = videoIndice <= 0;
+      next.disabled = videoIndice >= n - 1;
+      prev.title = videoIndice > 0 ? videoGrupo[videoIndice - 1].title : '';
+      next.title = videoIndice < n - 1 ? videoGrupo[videoIndice + 1].title : '';
+    }
+
+    function videoSeguinte() {
+      if (videoIndice < videoGrupo.length - 1) tocarVideoDoGrupo(videoGrupo, videoIndice + 1);
+    }
+
+    function videoAnterior() {
+      if (videoIndice > 0) tocarVideoDoGrupo(videoGrupo, videoIndice - 1);
+    }
+
+    // Pausa o vídeo do site (usado ao abrir o vídeo no YouTube)
+    function pausarVideoSite() {
+      const iframe = document.getElementById('modalVideoIframe');
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+          'https://www.youtube-nocookie.com'
+        );
+      } catch (e) { /* sem problema: o vídeo simplesmente continua */ }
+    }
+
+    function videoEstaExpandido() {
+      return !document.getElementById('videoModal').classList.contains('video-mini');
+    }
+
+    // Posiciona o mini-leitor no canto escolhido (e acima do aviso de cookies, se estiver visível)
+    function ajustarPosicaoMiniVideo() {
+      const modal = document.getElementById('videoModal');
+      const banner = document.getElementById('cookieBanner');
+      const st = modal.style;
+      if (videoEstaExpandido()) { st.left = st.right = st.top = st.bottom = ''; return; }
+      const baixo = miniCanto.charAt(0) === 'b';
+      const direita = miniCanto.charAt(1) === 'r';
+      const bannerVisivel = banner && !banner.classList.contains('hidden');
+      const conflito = bannerVisivel && baixo && (window.innerWidth < 640 || direita);
+      st.top = baixo ? 'auto' : '5rem';
+      st.bottom = baixo ? (conflito ? (banner.offsetHeight + 24) + 'px' : '1rem') : 'auto';
+      st.left = direita ? 'auto' : '1rem';
+      st.right = direita ? '1rem' : 'auto';
+    }
+
+    function definirVideoExpandido(expandir) {
+      const modal = document.getElementById('videoModal');
+      const btn = document.getElementById('videoToggleBtn');
+      const icon = document.getElementById('videoToggleIcon');
+      modal.classList.toggle('video-mini', !expandir);
+      modal.setAttribute('aria-modal', expandir ? 'true' : 'false');
+      document.getElementById('videoYtLink').tabIndex = expandir ? 0 : -1;
+      // Maximizado: bloqueia o scroll da página por trás
+      document.documentElement.style.overflow = expandir ? 'hidden' : '';
+      document.body.style.overflow = expandir ? 'hidden' : '';
+      const label = expandir ? 'Minimizar vídeo' : 'Expandir vídeo';
+      btn.setAttribute('aria-label', label);
+      btn.title = label;
+      // ícone: setas para fora (expandir) ou para dentro (minimizar)
+      icon.innerHTML = expandir
+        ? '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>'
+        : '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>';
+      ajustarPosicaoMiniVideo();
+    }
+
+    function alternarVideoTamanho() {
+      definirVideoExpandido(!videoEstaExpandido());
     }
 
     function fecharVideoModal() {
       const modal = document.getElementById('videoModal');
       const iframe = document.getElementById('modalVideoIframe');
-      
+
       iframe.src = 'about:blank';
       modal.classList.remove('flex');
       modal.classList.add('hidden');
+      modal.style.left = modal.style.right = modal.style.top = modal.style.bottom = '';
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+
+      // Remove o #v=ID do endereço
+      try { if (/^#v=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+
+      videoGrupo = [];
+      videoIndice = -1;
+
+      // Devolve o foco ao cartão que abriu o vídeo
+      const op = videoOpener;
+      videoOpener = null;
+      if (op && document.contains(op)) { try { op.focus({ preventScroll: true }); } catch (e) {} }
     }
 
-    // Fecha todas as janelas (e pára o vídeo que estiver a tocar)
+    // Fim do vídeo -> passa automaticamente ao seguinte da lista
+    document.getElementById('modalVideoIframe').addEventListener('load', function () {
+      if (this.src.indexOf('https://www.youtube-nocookie.com') !== 0) return;
+      try {
+        this.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), 'https://www.youtube-nocookie.com');
+        this.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), 'https://www.youtube-nocookie.com');
+      } catch (e) {}
+    });
+
+    window.addEventListener('message', function (e) {
+      const iframe = document.getElementById('modalVideoIframe');
+      if (e.source !== iframe.contentWindow) return;
+      let d;
+      try { d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (err) { return; }
+      if (!d) return;
+      const fim = (d.event === 'onStateChange' && d.info === 0) ||
+                  (d.event === 'infoDelivery' && d.info && d.info.playerState === 0);
+      if (fim && !videoFimTratado) {
+        videoFimTratado = true;
+        videoSeguinte();
+      }
+    });
+
+    // Mini-leitor: arrastar pelo cabeçalho (encaixa no canto mais próximo) ou tocar para expandir;
+    // Maximizado: deslizar para baixo para minimizar.
+    (function () {
+      const modal = document.getElementById('videoModal');
+      const bar = modal.querySelector('.video-bar');
+      let arrasto = null;
+      let deslize = null;
+
+      bar.addEventListener('pointerdown', function (e) {
+        if (!modal.classList.contains('video-mini')) return;
+        if (e.target.closest('button, a')) return;
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        const r = modal.getBoundingClientRect();
+        arrasto = { id: e.pointerId, x: e.clientX, y: e.clientY, left: r.left, top: r.top, moveu: false };
+        try { bar.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+
+      bar.addEventListener('pointermove', function (e) {
+        if (!arrasto || e.pointerId !== arrasto.id) return;
+        const dx = e.clientX - arrasto.x;
+        const dy = e.clientY - arrasto.y;
+        if (!arrasto.moveu && Math.hypot(dx, dy) < 6) return;
+        arrasto.moveu = true;
+        const l = Math.min(Math.max(arrasto.left + dx, 8), window.innerWidth - modal.offsetWidth - 8);
+        const t = Math.min(Math.max(arrasto.top + dy, 8), window.innerHeight - modal.offsetHeight - 8);
+        modal.style.left = l + 'px';
+        modal.style.top = t + 'px';
+        modal.style.right = 'auto';
+        modal.style.bottom = 'auto';
+      });
+
+      function fimArrasto(e, cancelado) {
+        if (!arrasto || e.pointerId !== arrasto.id) return;
+        const a = arrasto;
+        arrasto = null;
+        if (a.moveu) {
+          const r = modal.getBoundingClientRect();
+          const baixo = (r.top + r.height / 2) > window.innerHeight / 2;
+          const direita = (r.left + r.width / 2) > window.innerWidth / 2;
+          miniCanto = (baixo ? 'b' : 't') + (direita ? 'r' : 'l');
+          ajustarPosicaoMiniVideo();
+        } else if (!cancelado) {
+          definirVideoExpandido(true); // toque no cabeçalho expande
+        }
+      }
+      bar.addEventListener('pointerup', function (e) { fimArrasto(e, false); });
+      bar.addEventListener('pointercancel', function (e) { fimArrasto(e, true); });
+
+      modal.addEventListener('pointerdown', function (e) {
+        if (modal.classList.contains('video-mini')) return;
+        if (e.target.closest('button, a, iframe')) return;
+        deslize = { id: e.pointerId, x: e.clientX, y: e.clientY };
+      });
+      modal.addEventListener('pointerup', function (e) {
+        if (!deslize || e.pointerId !== deslize.id) return;
+        const dy = e.clientY - deslize.y;
+        const dx = e.clientX - deslize.x;
+        deslize = null;
+        if (dy > 80 && Math.abs(dx) < dy * 0.6) definirVideoExpandido(false);
+      });
+      modal.addEventListener('pointercancel', function () { deslize = null; });
+    })();
+
+    // Abrir diretamente um vídeo através do link (#v=ID). Só aceita vídeos que existem no site.
+    (function () {
+      function abrirDoEndereco() {
+        const m = location.hash.match(/^#v=([A-Za-z0-9_-]{6,20})$/);
+        if (!m) return;
+        const el = Array.from(document.querySelectorAll('[data-video]')).find(v => idDoVideoEl(v) === m[1]);
+        if (!el) return;
+        const modal = document.getElementById('videoModal');
+        const atual = videoGrupo[videoIndice];
+        if (!modal.classList.contains('hidden') && atual && atual.id === m[1]) return;
+        abrirVideoModal(m[1], tituloDoVideoEl(el));
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', abrirDoEndereco);
+      else abrirDoEndereco();
+      window.addEventListener('hashchange', abrirDoEndereco);
+    })();
+
+    // Fecha as janelas de informação. O vídeo não pára: se estiver expandido
+    // passa a mini-leitor, para o utilizador poder continuar a navegar.
     function fecharTodosModais() {
-      fecharVideoModal();
+      if (videoEstaExpandido()) definirVideoExpandido(false);
       fecharSobreModalInfo();
       fecharContactoModal();
       fecharModal();
@@ -1860,7 +2165,7 @@
     })();
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão
-    const ULTIMA_ATUALIZACAO = '2026-10-13';
+    const ULTIMA_ATUALIZACAO = '2026-10-17';
     let footerToastTimer = null;
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
@@ -1925,6 +2230,7 @@
       const b = document.getElementById('cookieBanner');
       b.classList.remove('hidden');
       b.classList.add('flex');
+      ajustarPosicaoMiniVideo();
     }
 
     function responderCookies(aceite) {
@@ -1932,6 +2238,7 @@
       const b = document.getElementById('cookieBanner');
       b.classList.remove('flex');
       b.classList.add('hidden');
+      ajustarPosicaoMiniVideo();
       if (aceite) {
         carregarAnuncios();
       } else {
@@ -1949,9 +2256,34 @@
     })();
 
     // ---- Teclado: Esc fecha janelas; Enter/Espaço abrem vídeos ----
+    window.addEventListener('resize', ajustarPosicaoMiniVideo);
+
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        fecharTodosModais();
+        if (typeof fecharMenuIdioma === 'function' && fecharMenuIdioma()) return;
+        const video = document.getElementById('videoModal');
+        const videoAberto = !video.classList.contains('hidden');
+        const outroAberto = Array.from(document.querySelectorAll('[role="dialog"]'))
+          .some(m => m !== video && !m.classList.contains('hidden'));
+        if (outroAberto) {
+          fecharTodosModais();
+        } else if (videoAberto) {
+          // Esc: expandido -> minimiza; mini-leitor -> fecha
+          if (videoEstaExpandido()) definirVideoExpandido(false);
+          else fecharVideoModal();
+        }
+      } else if (e.key === 'Tab') {
+        // Vídeo maximizado: o Tab fica dentro da janela
+        const vm = document.getElementById('videoModal');
+        if (!vm.classList.contains('hidden') && !vm.classList.contains('video-mini')) {
+          const f = Array.from(vm.querySelectorAll('button:not([disabled]), a[href], iframe')).filter(el => el.getClientRects().length > 0);
+          if (f.length) {
+            const primeiro = f[0], ultimo = f[f.length - 1];
+            if (!vm.contains(document.activeElement)) { e.preventDefault(); primeiro.focus(); }
+            else if (e.shiftKey && document.activeElement === primeiro) { e.preventDefault(); ultimo.focus(); }
+            else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primeiro.focus(); }
+          }
+        }
       } else if (e.key === 'Enter' && e.target.id === 'labPassword') {
         e.preventDefault();
         verificarPassword();
@@ -1963,7 +2295,7 @@
 
     function fecharAoClicarFora(event, modal) {
       if (event.target === modal) {
-        if (modal.id === 'videoModal') fecharVideoModal();
+        if (modal.id === 'videoModal' && videoEstaExpandido()) definirVideoExpandido(false);
         if (modal.id === 'sobreModal') fecharSobreModalInfo();
         if (modal.id === 'contactoModal') fecharContactoModal();
         if (modal.id === 'passwordModal') fecharModal();
@@ -2130,6 +2462,138 @@
 
         atualizar();
       });
+    })();
+  </script>
+  <!-- SELETOR DE IDIOMA (original: português de Portugal; tradução via Google Tradutor, só quando escolhido) -->
+  <script>
+    (function () {
+      const IDIOMAS = { pt: 'Português', en: 'English', es: 'Español', fr: 'Français', de: 'Deutsch', it: 'Italiano' };
+      const BANDEIRA = { pt: 'pt', en: 'gb', es: 'es', fr: 'fr', de: 'de', it: 'it' };
+      const btn = document.getElementById('langBtn');
+      const menu = document.getElementById('langMenu');
+      let atual = 'pt';
+      let scriptPedido = false;
+      let traducaoCarregada = false;
+
+      try { const g = localStorage.getItem('idioma'); if (g && IDIOMAS[g]) atual = g; } catch (e) {}
+
+      function guardar(code) {
+        try { if (code === 'pt') localStorage.removeItem('idioma'); else localStorage.setItem('idioma', code); } catch (e) {}
+      }
+
+      function definirCookie(valor) {
+        document.cookie = 'googtrans=' + valor + '; path=/';
+        try { document.cookie = 'googtrans=' + valor + '; path=/; domain=' + location.hostname; } catch (e) {}
+      }
+
+      function limparCookies() {
+        const exp = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        document.cookie = exp;
+        document.cookie = exp + '; domain=' + location.hostname;
+        document.cookie = exp + '; domain=.' + location.hostname;
+      }
+
+      function atualizarUI() {
+        document.querySelector('#langFlag use').setAttribute('href', '#flag-' + BANDEIRA[atual]);
+        btn.setAttribute('aria-label', 'Idioma: ' + IDIOMAS[atual]);
+        menu.querySelectorAll('.lang-item').forEach(function (it) {
+          const ativo = it.dataset.lang === atual;
+          it.setAttribute('aria-checked', ativo ? 'true' : 'false');
+          it.querySelector('.lang-check').classList.toggle('invisible', !ativo);
+        });
+      }
+
+      function aplicarNoCombo(code, tentativa) {
+        const combo = document.querySelector('select.goog-te-combo');
+        if (!combo) {
+          if (tentativa < 40) setTimeout(function () { aplicarNoCombo(code, tentativa + 1); }, 150);
+          return;
+        }
+        combo.value = code;
+        combo.dispatchEvent(new Event('change'));
+      }
+
+      function carregarTradutor(aplicarAoIniciar) {
+        scriptPedido = true;
+        window.googleTranslateInit = function () {
+          traducaoCarregada = true;
+          new google.translate.TranslateElement(
+            { pageLanguage: 'pt', includedLanguages: 'en,es,fr,de,it', autoDisplay: false },
+            'google_translate_element'
+          );
+          if (aplicarAoIniciar && atual !== 'pt') aplicarNoCombo(atual, 0);
+        };
+        const sc = document.createElement('script');
+        sc.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateInit';
+        sc.async = true;
+        sc.onerror = function () { // sem ligação ou bloqueado: volta ao original
+          scriptPedido = false;
+          atual = 'pt';
+          guardar('pt');
+          limparCookies();
+          atualizarUI();
+        };
+        document.head.appendChild(sc);
+      }
+
+      function abrirMenu() {
+        menu.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        const ativo = menu.querySelector('[aria-checked="true"]') || menu.querySelector('.lang-item');
+        if (ativo) ativo.focus();
+      }
+
+      window.fecharMenuIdioma = function () {
+        if (menu.classList.contains('hidden')) return false;
+        menu.classList.add('hidden');
+        btn.setAttribute('aria-expanded', 'false');
+        return true;
+      };
+
+      window.alternarMenuIdioma = function (e) {
+        if (e) e.stopPropagation();
+        if (menu.classList.contains('hidden')) abrirMenu();
+        else { window.fecharMenuIdioma(); btn.focus(); }
+      };
+
+      window.selecionarIdioma = function (code) {
+        if (!IDIOMAS[code]) return;
+        window.fecharMenuIdioma();
+        btn.focus();
+        if (code === atual) return;
+        const estavaTraduzido = atual !== 'pt';
+        atual = code;
+        guardar(code);
+        atualizarUI();
+
+        if (code === 'pt') {
+          limparCookies();
+          if (estavaTraduzido && (traducaoCarregada || scriptPedido)) location.reload(); // repõe o original
+          return;
+        }
+        definirCookie('/pt/' + code);
+        if (traducaoCarregada) aplicarNoCombo(code, 0);
+        else if (!scriptPedido) carregarTradutor(true);
+      };
+
+      // Fechar ao clicar fora; setas para navegar no menu
+      document.addEventListener('click', function (e) {
+        if (!document.getElementById('langWrap').contains(e.target)) window.fecharMenuIdioma();
+      });
+      menu.addEventListener('keydown', function (e) {
+        const itens = Array.from(menu.querySelectorAll('.lang-item'));
+        const i = itens.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); itens[(i + 1) % itens.length].focus(); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); itens[(i - 1 + itens.length) % itens.length].focus(); }
+        else if (e.key === 'Tab') { window.fecharMenuIdioma(); }
+      });
+
+      // Idioma escolhido numa visita anterior
+      atualizarUI();
+      if (atual !== 'pt') {
+        definirCookie('/pt/' + atual);
+        carregarTradutor(false);
+      }
     })();
   </script>
 </body>
