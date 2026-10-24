@@ -63,9 +63,9 @@
 
       /* Estado da app: texto a mostrar, se oferece o botão «Instalar app» e quanto tempo fica visível */
       function estado() {
-        if (emApp()) return { msg: '✅ Já tem o atalho instalado.', botao: false, tempo: 5000 };
+        if (emApp()) return { msg: '✅ Já tem a app instalada.', botao: false, tempo: 5000 };
         if (pedido) return { msg: '📲 Adicione o AGAJOTA ao ecrã principal para o abrir com um toque.', botao: true, tempo: 12000 };
-        if (lembrada() || provavel()) return { msg: '✅ Já tem o atalho instalado.', botao: false, tempo: 5000 };
+        if (lembrada() || provavel()) return { msg: '✅ Já tem a app instalada.', botao: false, tempo: 5000 };
         return { msg: '📲 Instalar app. ' + textoAjuda(), botao: false, tempo: 9000 };
       }
       function desenhar(el, est) {
