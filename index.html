@@ -9,6 +9,15 @@
   <meta name="description" content="O espaço digital de Hélder Jardim @gard3npt">
   <meta name="theme-color" content="#020617">
 
+  <!-- App instalável (PWA) -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="AGAJOTA">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="preconnect" href="https://img.youtube.com">
+
   <!-- Partilha (Open Graph / Twitter) -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_PT">
@@ -113,6 +122,7 @@
       box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.7);
     }
     #videoModal.video-mini .video-bar { margin-bottom: 0.5rem; }
+    #videoModal.video-mini #autoplayTxt { display: none; }
     #videoModal.video-mini #videoYtIcon,
     #videoModal.video-mini .video-nav { display: none; }
     #videoModal.video-mini #videoYtLink { pointer-events: none; }
@@ -456,7 +466,7 @@
         <!-- VÍDEO DESTAQUE 1 -->
         <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
           <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Mini vibes" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
-            <img decoding="async" src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
+            <img width="480" height="360" decoding="async" src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
             <div title="Destaque #1" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -480,7 +490,7 @@
         <!-- VÍDEO DESTAQUE 2 -->
         <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
           <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Pulse of the Night" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
-            <img decoding="async" src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
+            <img width="480" height="360" decoding="async" src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
             <div title="Destaque #2" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -504,7 +514,7 @@
         <!-- VÍDEO DESTAQUE 3 -->
         <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
           <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Soajo, Amigos, Vinho e boa disposição" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('MkfeauWlYH8', 'Soajo, Amigos, Vinho e boa disposição')">
-            <img decoding="async" src="https://img.youtube.com/vi/MkfeauWlYH8/hqdefault.jpg" alt="Soajo, Amigos, Vinho e boa disposição" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
+            <img width="480" height="360" decoding="async" src="https://img.youtube.com/vi/MkfeauWlYH8/hqdefault.jpg" alt="Soajo, Amigos, Vinho e boa disposição" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
             <div title="Destaque #3" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -594,7 +604,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #18 - MkfeauWlYH8) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Soajo, Amigos, Vinho e boa disposição" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('MkfeauWlYH8', 'Soajo, Amigos, Vinho e boa disposição')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/MkfeauWlYH8/hqdefault.jpg" alt="Soajo, Amigos, Vinho e boa disposição" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/MkfeauWlYH8/mqdefault.jpg" alt="Soajo, Amigos, Vinho e boa disposição" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Soajo, Amigos, Vinho e boa disposição" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -618,7 +628,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #17 - 14XobK78Lgk) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Parabéns, Aline faz 5 anos" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('14XobK78Lgk', 'Parabéns, Aline faz 5 anos')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/14XobK78Lgk/hqdefault.jpg" alt="Parabéns, Aline faz 5 anos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/14XobK78Lgk/mqdefault.jpg" alt="Parabéns, Aline faz 5 anos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Parabéns, Aline faz 5 anos" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -642,7 +652,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #16 - Iiv9qnvlNTA) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Deep sub-bass pulse" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('Iiv9qnvlNTA', 'Deep sub-bass pulse')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/Iiv9qnvlNTA/hqdefault.jpg" alt="Deep sub-bass pulse" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/Iiv9qnvlNTA/mqdefault.jpg" alt="Deep sub-bass pulse" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Deep sub-bass pulse" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -666,7 +676,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #15 - 2N32b3s5WSE) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Pulse of the Night" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/2N32b3s5WSE/mqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Pulse of the Night" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -690,7 +700,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #14 - QaP3gLC8UCA) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Macaco Vaidosão" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('QaP3gLC8UCA', 'Macaco Vaidosão')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/QaP3gLC8UCA/hqdefault.jpg" alt="Macaco Vaidosão" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/QaP3gLC8UCA/mqdefault.jpg" alt="Macaco Vaidosão" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Macaco Vaidosão" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -714,7 +724,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #13 - 2IKXNKe1VX8) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Cinco Anos de casamento, Zé Miguel &amp; Manuel" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('2IKXNKe1VX8', 'Cinco Anos de casamento, Zé Miguel &amp; Manuel')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/2IKXNKe1VX8/hqdefault.jpg" alt="Cinco Anos de casamento, Zé Miguel &amp; Manuel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/2IKXNKe1VX8/mqdefault.jpg" alt="Cinco Anos de casamento, Zé Miguel &amp; Manuel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Cinco Anos de casamento, Zé Miguel &amp; Manuel" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -738,7 +748,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #12 - nKevKjoXK2Y) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Parabéns Maya, primeiro aniversário" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('nKevKjoXK2Y', 'Parabéns Maya, primeiro aniversário')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/nKevKjoXK2Y/hqdefault.jpg" alt="Parabéns Maya, primeiro aniversário" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/nKevKjoXK2Y/mqdefault.jpg" alt="Parabéns Maya, primeiro aniversário" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Parabéns Maya, primeiro aniversário" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -762,7 +772,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #11 - RLaibwa4gnA) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: A Gatinha Cremilde Maria" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('RLaibwa4gnA', 'A Gatinha Cremilde Maria')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/RLaibwa4gnA/hqdefault.jpg" alt="A Gatinha Cremilde Maria" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/RLaibwa4gnA/mqdefault.jpg" alt="A Gatinha Cremilde Maria" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="A Gatinha Cremilde Maria" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -786,7 +796,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #10 - aknoQYP3vSU) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Aline e a Avó" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('aknoQYP3vSU', 'Aline e a Avó')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/aknoQYP3vSU/hqdefault.jpg" alt="Aline e a Avó" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/aknoQYP3vSU/mqdefault.jpg" alt="Aline e a Avó" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Aline e a Avó" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -810,7 +820,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #09 - NOrGHjuU5aU) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Fernando &amp; Sónia, Amor em Viagem" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('NOrGHjuU5aU', 'Fernando &amp; Sónia, Amor em Viagem')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/NOrGHjuU5aU/hqdefault.jpg" alt="Fernando &amp; Sónia, Amor em Viagem" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/NOrGHjuU5aU/mqdefault.jpg" alt="Fernando &amp; Sónia, Amor em Viagem" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Fernando &amp; Sónia, Amor em Viagem" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -834,7 +844,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #08 - sSLi7hlBw2g) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Quatro Anos José &amp; Manuel" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('sSLi7hlBw2g', 'Quatro Anos José &amp; Manuel')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/sSLi7hlBw2g/hqdefault.jpg" alt="Quatro Anos José &amp; Manuel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/sSLi7hlBw2g/mqdefault.jpg" alt="Quatro Anos José &amp; Manuel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Quatro Anos José &amp; Manuel" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -858,7 +868,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #07 - Fl2ogi2cn-Q) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Depois do Turno" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('Fl2ogi2cn-Q', 'Depois do Turno')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/Fl2ogi2cn-Q/hqdefault.jpg" alt="Depois do Turno" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/Fl2ogi2cn-Q/mqdefault.jpg" alt="Depois do Turno" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Depois do Turno" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -882,7 +892,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #06 - DjSYM62edKU) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Pequena Maya" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('DjSYM62edKU', 'Pequena Maya')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/DjSYM62edKU/hqdefault.jpg" alt="Pequena Maya" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/DjSYM62edKU/mqdefault.jpg" alt="Pequena Maya" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Pequena Maya" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -906,7 +916,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #05 - -l9LTvZUCO8) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: A Maya já anda" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('-l9LTvZUCO8', 'A Maya já anda')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/-l9LTvZUCO8/hqdefault.jpg" alt="A Maya já anda" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/-l9LTvZUCO8/mqdefault.jpg" alt="A Maya já anda" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="A Maya já anda" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -930,7 +940,7 @@
           <!-- VÍDEO NOVO ADICIONADO (ID #04 - iLDgiow1rok) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Sorriso de luar" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('iLDgiow1rok', 'Sorriso de luar')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/iLDgiow1rok/hqdefault.jpg" alt="Sorriso de luar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/iLDgiow1rok/mqdefault.jpg" alt="Sorriso de luar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Sorriso de luar" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -954,7 +964,7 @@
           <!-- VÍDEO NOVO (ID #03) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Nico, meu amigo especial" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('X0FzDwYclos', 'Nico, meu amigo especial')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/X0FzDwYclos/hqdefault.jpg" alt="Nico, meu amigo especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/X0FzDwYclos/mqdefault.jpg" alt="Nico, meu amigo especial" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Nico, meu amigo especial" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -978,7 +988,7 @@
           <!-- VÍDEO LEVO A VIDA COM O CORAÇÃO (ID #02) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Levo a vida com o coração" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('0BCwHFQs9OI', 'Levo a vida com o coração')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/0BCwHFQs9OI/hqdefault.jpg" alt="Levo a vida com o coração" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/0BCwHFQs9OI/mqdefault.jpg" alt="Levo a vida com o coração" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="ID #02" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1002,7 +1012,7 @@
           <!-- VÍDEO MINI VIBES (ID #01) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Mini vibes" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('9qS-0X7V_Fc', 'Mini vibes')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/9qS-0X7V_Fc/hqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/9qS-0X7V_Fc/mqdefault.jpg" alt="Mini vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="ID #01" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1032,7 +1042,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Viagens (ID #06 - 0QTAyWEx62g) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Passeio de Barco pelo Arquipélago das Berlengas" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('0QTAyWEx62g', 'Passeio de Barco pelo Arquipélago das Berlengas')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/0QTAyWEx62g/hqdefault.jpg" alt="Passeio de Barco pelo Arquipélago das Berlengas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/0QTAyWEx62g/mqdefault.jpg" alt="Passeio de Barco pelo Arquipélago das Berlengas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Passeio de Barco pelo Arquipélago das Berlengas" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1056,7 +1066,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Viagens (ID #05 - k2abTboWoJk) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Passeio | Aldeias de Castelo Branco" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('k2abTboWoJk', 'Passeio | Aldeias de Castelo Branco')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/k2abTboWoJk/hqdefault.jpg" alt="Passeio | Aldeias de Castelo Branco" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/k2abTboWoJk/mqdefault.jpg" alt="Passeio | Aldeias de Castelo Branco" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Passeio | Aldeias de Castelo Branco" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1080,7 +1090,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Viagens (ID #04 - 1TlyoRuRe5w) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Rio Tejo - Escaroupim | Salvaterra de Magos, PT" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('1TlyoRuRe5w', 'Rio Tejo - Escaroupim | Salvaterra de Magos, PT')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/1TlyoRuRe5w/hqdefault.jpg" alt="Rio Tejo - Escaroupim | Salvaterra de Magos, PT" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/1TlyoRuRe5w/mqdefault.jpg" alt="Rio Tejo - Escaroupim | Salvaterra de Magos, PT" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Rio Tejo - Escaroupim | Salvaterra de Magos, PT" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1104,7 +1114,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Viagens (ID #03 - nGOtjugU3mk) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Compilação da Viagem a Ilha da Madeira" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('nGOtjugU3mk', 'Compilação da Viagem a Ilha da Madeira')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/nGOtjugU3mk/hqdefault.jpg" alt="Compilação da Viagem a Ilha da Madeira" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/nGOtjugU3mk/mqdefault.jpg" alt="Compilação da Viagem a Ilha da Madeira" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Compilação da Viagem a Ilha da Madeira" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1128,7 +1138,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Viagens (ID #02 - qdxs8tiKnsg) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Viagem á República Dominicana" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('qdxs8tiKnsg', 'Viagem á República Dominicana')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/qdxs8tiKnsg/hqdefault.jpg" alt="Viagem á República Dominicana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/qdxs8tiKnsg/mqdefault.jpg" alt="Viagem á República Dominicana" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Viagem á República Dominicana" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1152,7 +1162,7 @@
           <!-- VÍDEO ADICIONADO: Viagens (ID: aoFprEhmjrk) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Quedas de Kalandula - Angola" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('aoFprEhmjrk', 'Quedas de Kalandula - Angola')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/aoFprEhmjrk/hqdefault.jpg" alt="Quedas de Kalandula - Angola" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/aoFprEhmjrk/mqdefault.jpg" alt="Quedas de Kalandula - Angola" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Quedas de Kalandula - Angola" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1181,7 +1191,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Clássicos & MINI (ID #01 - 7LzkcQZs57A) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: MINI passeio | Fragas de São Simão | @r3d_mini | Mini 1000" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('7LzkcQZs57A', 'MINI passeio | Fragas de São Simão | @r3d_mini | Mini 1000')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/7LzkcQZs57A/hqdefault.jpg" alt="MINI passeio | Fragas de São Simão | @r3d_mini | Mini 1000" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/7LzkcQZs57A/mqdefault.jpg" alt="MINI passeio | Fragas de São Simão | @r3d_mini | Mini 1000" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="MINI passeio | Fragas de São Simão | @r3d_mini | Mini 1000" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1209,7 +1219,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Vários (ID #03 - VaHT4JP0K1A) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: 1 hour of cycling | 's-Hertogenbosch | Netherlands | Países Baixos" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('VaHT4JP0K1A', '1 hour of cycling | \'s-Hertogenbosch | Netherlands | Países Baixos')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/VaHT4JP0K1A/hqdefault.jpg" alt="1 hour of cycling | 's-Hertogenbosch | Netherlands | Países Baixos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/VaHT4JP0K1A/mqdefault.jpg" alt="1 hour of cycling | 's-Hertogenbosch | Netherlands | Países Baixos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="1 hour of cycling | 's-Hertogenbosch | Netherlands | Países Baixos" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1233,7 +1243,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Vários (ID #02 - RxedReqPhmg) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Troféu Extreme Trial 4x4 - 1ª Prova" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('RxedReqPhmg', 'Troféu Extreme Trial 4x4 - 1ª Prova')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/RxedReqPhmg/hqdefault.jpg" alt="Troféu Extreme Trial 4x4 - 1ª Prova" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/RxedReqPhmg/mqdefault.jpg" alt="Troféu Extreme Trial 4x4 - 1ª Prova" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Troféu Extreme Trial 4x4 - 1ª Prova" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1257,7 +1267,7 @@
           <!-- VÍDEO NOVO ADICIONADO: Vários (ID #01 - Uv4Nb6LD4kA) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Dramatização da história &quot;Macaco do rabo cortado&quot;" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('Uv4Nb6LD4kA', 'Dramatização da história “Macaco do rabo cortado”')">
-              <img loading="lazy" decoding="async" src="https://img.youtube.com/vi/Uv4Nb6LD4kA/hqdefault.jpg" alt="Dramatização da história &quot;Macaco do rabo cortado&quot;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/Uv4Nb6LD4kA/mqdefault.jpg" alt="Dramatização da história &quot;Macaco do rabo cortado&quot;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
               
               <div title="Dramatização da história &quot;Macaco do rabo cortado&quot;" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -1692,7 +1702,7 @@
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Armazenamento no teu navegador</h4>
-          <p>Guardamos apenas a tua escolha sobre cookies e o idioma escolhido, no armazenamento local do navegador, para não voltar a perguntar.</p>
+          <p>Guardamos apenas a tua escolha sobre cookies, o idioma escolhido e a opção de reprodução automática de vídeos (só se a desligares), no armazenamento local do navegador, para não voltar a perguntar.</p>
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Ligações externas</h4>
@@ -1723,6 +1733,10 @@
           <span id="videoYtIcon" class="shrink-0 w-8 h-8 rounded-full bg-white/10 group-hover/yt:bg-white/20 text-red-500 flex items-center justify-center transition-colors"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></span>
           <h3 id="modalVideoTitle" class="min-w-0 truncate text-left text-base sm:text-lg font-bold text-white group-hover/yt:underline underline-offset-2">A reproduzir vídeo</h3>
         </a>
+        <button type="button" id="videoAutoBtn" role="switch" aria-checked="true" onclick="alternarAutoplay()" aria-label="Reprodução automática: ligada" title="Reprodução automática: ligada" class="shrink-0 h-8 px-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 6.5v11l8.5-5.5L6 6.5zM16 6h2.2v12H16V6z"/></svg>
+          <span id="autoplayTxt">Auto</span>
+        </button>
         <button type="button" id="videoToggleBtn" onclick="alternarVideoTamanho()" aria-label="Expandir vídeo" title="Expandir vídeo" class="shrink-0 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors">
           <svg id="videoToggleIcon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
         </button>
@@ -1829,6 +1843,32 @@
     let videoIndice = -1;
     let videoOpener = null;    // elemento que abriu o vídeo (para devolver o foco ao fechar)
     let videoFimTratado = false;
+    let videoAutoplay = true;  // passar sozinho ao vídeo seguinte quando termina
+    try { if (localStorage.getItem('videoAutoplay') === '0') videoAutoplay = false; } catch (e) {}
+
+    function atualizarBotaoAutoplay() {
+      const b = document.getElementById('videoAutoBtn');
+      if (!b) return;
+      const txt = 'Reprodução automática: ' + (videoAutoplay ? 'ligada' : 'desligada');
+      b.setAttribute('aria-checked', videoAutoplay ? 'true' : 'false');
+      b.setAttribute('aria-label', txt);
+      b.title = txt;
+      b.classList.toggle('bg-indigo-600', videoAutoplay);
+      b.classList.toggle('hover:bg-indigo-500', videoAutoplay);
+      b.classList.toggle('text-white', videoAutoplay);
+      b.classList.toggle('bg-white/10', !videoAutoplay);
+      b.classList.toggle('hover:bg-white/20', !videoAutoplay);
+      b.classList.toggle('text-slate-400', !videoAutoplay);
+      document.getElementById('autoplayTxt').classList.toggle('line-through', !videoAutoplay);
+    }
+
+    function alternarAutoplay() {
+      videoAutoplay = !videoAutoplay;
+      try { if (videoAutoplay) localStorage.removeItem('videoAutoplay'); else localStorage.setItem('videoAutoplay', '0'); } catch (e) {}
+      atualizarBotaoAutoplay();
+    }
+    atualizarBotaoAutoplay();
+
     let miniCanto = 'br';      // canto do mini-leitor: br | bl | tr | tl
 
     function idDoVideoEl(el) {
@@ -1978,6 +2018,7 @@
       const modal = document.getElementById('videoModal');
       const iframe = document.getElementById('modalVideoIframe');
 
+      pararEscutaVideo();
       iframe.src = 'about:blank';
       modal.classList.remove('flex');
       modal.classList.add('hidden');
@@ -1997,13 +2038,36 @@
       if (op && document.contains(op)) { try { op.focus({ preventScroll: true }); } catch (e) {} }
     }
 
-    // Fim do vídeo -> passa automaticamente ao seguinte da lista
-    document.getElementById('modalVideoIframe').addEventListener('load', function () {
-      if (this.src.indexOf('https://www.youtube-nocookie.com') !== 0) return;
+    // Fim do vídeo -> passa automaticamente ao seguinte da lista (se a reprodução automática estiver ligada)
+    // O leitor do YouTube demora a arrancar depois do 'load' do iframe e ignora mensagens enviadas
+    // antes disso. Por isso repetimos o pedido de "escuta" até o leitor responder.
+    const YT_ORIGEM = 'https://www.youtube-nocookie.com';
+    let videoEscutaTimer = null;
+
+    function pararEscutaVideo() {
+      if (videoEscutaTimer) { clearInterval(videoEscutaTimer); videoEscutaTimer = null; }
+    }
+
+    function enviarEscutaVideo(iframe) {
       try {
-        this.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), 'https://www.youtube-nocookie.com');
-        this.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), 'https://www.youtube-nocookie.com');
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), YT_ORIGEM);
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), YT_ORIGEM);
       } catch (e) {}
+    }
+
+    function iniciarEscutaVideo(iframe) {
+      pararEscutaVideo();
+      let tentativas = 0;
+      enviarEscutaVideo(iframe);
+      videoEscutaTimer = setInterval(function () {
+        if (++tentativas > 40) { pararEscutaVideo(); return; } // ~20 s
+        enviarEscutaVideo(iframe);
+      }, 500);
+    }
+
+    document.getElementById('modalVideoIframe').addEventListener('load', function () {
+      if (this.src.indexOf(YT_ORIGEM) !== 0) { pararEscutaVideo(); return; }
+      iniciarEscutaVideo(this);
     });
 
     window.addEventListener('message', function (e) {
@@ -2012,11 +2076,18 @@
       let d;
       try { d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (err) { return; }
       if (!d) return;
+
+      // O leitor já responde: regista o evento uma última vez e deixa de insistir
+      if (videoEscutaTimer && (d.event === 'onReady' || d.event === 'initialDelivery' || d.event === 'infoDelivery' || d.event === 'onStateChange')) {
+        enviarEscutaVideo(iframe);
+        pararEscutaVideo();
+      }
+
       const fim = (d.event === 'onStateChange' && d.info === 0) ||
                   (d.event === 'infoDelivery' && d.info && d.info.playerState === 0);
       if (fim && !videoFimTratado) {
         videoFimTratado = true;
-        videoSeguinte();
+        if (videoAutoplay) videoSeguinte();
       }
     });
 
@@ -2463,6 +2534,14 @@
         atualizar();
       });
     })();
+  </script>
+  <!-- APP INSTALÁVEL: regista o service worker (só em http/https) -->
+  <script>
+    if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      });
+    }
   </script>
   <!-- SELETOR DE IDIOMA (original: português de Portugal; tradução via Google Tradutor, só quando escolhido) -->
   <script>
