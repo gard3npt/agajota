@@ -26,6 +26,14 @@
       function lembrar(v) {
         try { if (v) localStorage.setItem(CHAVE, '1'); else localStorage.removeItem(CHAVE); } catch (e) {}
       }
+      /* Chrome/Edge/Samsung só disparam o pedido de instalação quando a app NÃO está instalada:
+         passados uns segundos sem pedido, assume-se que já está instalada (a não ser que o visitante tenha recusado) */
+      var inicio = Date.now(), recusou = false;
+      function provavel() {
+          if (!('BeforeInstallPromptEvent' in window)) return false;
+          if (/FBAN|FBAV|Instagram|Line\/|MicroMessenger|Snapchat|TikTok|; wv\)/.test(navigator.userAgent)) return false;
+          return !pedido && !recusou && (Date.now() - inicio > 4000);
+      }
       function lembrada() {
         try { return localStorage.getItem(CHAVE) === '1'; } catch (e) { return false; }
       }
@@ -50,14 +58,14 @@
         window.fecharPainelInstalar();
         var h = document.getElementById('ajudaInstalar'); if (h) h.hidden = true;
         p.prompt();
-        if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === 'accepted') lembrar(true); });
+        if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === 'accepted') lembrar(true); else recusou = true; });
       };
 
       /* Estado da app: texto a mostrar, se oferece o botão «Instalar app» e quanto tempo fica visível */
       function estado() {
         if (emApp()) return { msg: '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.', botao: false, tempo: 5000 };
         if (pedido) return { msg: '📲 Instale o AGAJOTA no ecrã principal para o abrir como uma aplicação.', botao: true, tempo: 12000 };
-        if (lembrada()) return { msg: '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.', botao: false, tempo: 5000 };
+        if (lembrada() || provavel()) return { msg: '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.', botao: false, tempo: 5000 };
         return { msg: '📲 Instalar app. ' + textoAjuda(), botao: false, tempo: 9000 };
       }
       function desenhar(el, est) {
