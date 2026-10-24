@@ -63,9 +63,9 @@
 
       /* Estado da app: texto a mostrar, se oferece o botão «Instalar app» e quanto tempo fica visível */
       function estado() {
-        if (emApp()) return { msg: '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.', botao: false, tempo: 5000 };
-        if (pedido) return { msg: '📲 Instale o AGAJOTA no ecrã principal para o abrir como uma aplicação.', botao: true, tempo: 12000 };
-        if (lembrada() || provavel()) return { msg: '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.', botao: false, tempo: 5000 };
+        if (emApp()) return { msg: '✅ Já tem o atalho instalado.', botao: false, tempo: 5000 };
+        if (pedido) return { msg: '📲 Adicione o AGAJOTA ao ecrã principal para o abrir com um toque.', botao: true, tempo: 12000 };
+        if (lembrada() || provavel()) return { msg: '✅ Já tem o atalho instalado.', botao: false, tempo: 5000 };
         return { msg: '📲 Instalar app. ' + textoAjuda(), botao: false, tempo: 9000 };
       }
       function desenhar(el, est) {
@@ -1728,13 +1728,13 @@
 
       <div class="space-y-6 text-sm text-slate-300 leading-relaxed">
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
-          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🎯 O Projeto</h4>
-          <p class="text-xs text-slate-300">Este espaço nasceu para centralizar todos os meus atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
+          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">👨‍💻 Quem Sou</h4>
+          <p class="text-xs text-slate-300">Criador e entusiasta de programação, focado em criar ferramentas práticas e que facilitem o dia a dia.</p>
         </div>
 
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
-          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">👨‍💻 Quem Sou</h4>
-          <p class="text-xs text-slate-300">Criador e entusiasta de programação, focado em criar ferramentas práticas e que facilitem o dia a dia.</p>
+          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🎯 O Projeto</h4>
+          <p class="text-xs text-slate-300">Este espaço nasceu para centralizar todos os meus atalhos úteis, ferramentas web desenvolvidas de raiz (como calculadoras e utilitários) e as redes sociais num único sítio limpo e rápido.</p>
         </div>
 
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
@@ -1746,13 +1746,15 @@
           <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">🚗 Paixão Automóvel</h4>
           <p class="text-xs text-slate-300">Entusiasta de carros clássicos, dedico-me, quando necessário, a trabalhos de mecânica básica no meu Clássico MINI 1000 e à participação ativa em encontros de clássicos.</p>
         </div>
+      </div>
 
-        <div id="instalarCard" class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
-          <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">📲 Instalar a app</h4>
-          <p class="text-xs text-slate-300">Adicione o AGAJOTA ao ecrã principal para o abrir como uma aplicação.</p>
-          <button type="button" id="btnInstalar" onclick="estadoAppDoSobre(event)" class="mt-3 px-4 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 text-xs font-bold uppercase tracking-wider border border-indigo-400/30 transition-colors">Instalar app</button>
-          <div id="ajudaInstalar" role="status" aria-live="polite" hidden class="mt-3 text-xs text-slate-300 bg-white/5 border border-white/10 rounded-xl p-3"></div>
-        </div>
+      <div class="mt-12 pt-10 border-t-2 border-white/20">
+      <div id="instalarCard" class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
+        <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">📲 Instalar app</h4>
+        <p class="text-xs text-slate-300">Sem lojas de aplicações: adiciona o AGAJOTA ao ecrã principal e abre-o com um toque.</p>
+        <button type="button" id="btnInstalar" onclick="estadoAppDoSobre(event)" class="mt-3 px-4 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 text-xs font-bold uppercase tracking-wider border border-indigo-400/30 transition-colors">Instalar app</button>
+        <div id="ajudaInstalar" role="status" aria-live="polite" hidden class="mt-3 text-xs text-slate-300 bg-white/5 border border-white/10 rounded-xl p-3"></div>
+      </div>
       </div>
     </div>
   </div>
@@ -2379,7 +2381,7 @@
     })();
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão
-    const ULTIMA_ATUALIZACAO = '2026-10-24';
+    const ULTIMA_ATUALIZACAO = '2026-10-25';
     let footerToastTimer = null;
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
