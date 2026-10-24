@@ -37,9 +37,6 @@
           return 'No iPhone/iPad: toque em Partilhar (o quadrado com a seta) na barra do Safari e escolha «Adicionar ao ecrã principal».';
         return 'Abra o menu do browser (⋮) e escolha «Instalar aplicação» ou «Adicionar ao ecrã principal». No computador, use o ícone de instalar na barra de endereço. Se aparecer «Abrir» com o nome da app, já está instalada: procure o ícone no ecrã ou na lista de aplicações.';
       }
-      function esconderCartao() {
-        var c = document.getElementById('instalarCard'); if (c) c.style.display = 'none';
-      }
       function painel() { return document.getElementById('footer-install'); }
 
       window.fecharPainelInstalar = function () {
@@ -48,57 +45,59 @@
       };
 
       window.instalarApp = function () {
-        var h = document.getElementById('ajudaInstalar');
-        if (pedido) {
-          var p = pedido; pedido = null;
-          if (h) h.hidden = true;
-          window.fecharPainelInstalar();
-          p.prompt();
-          if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === 'accepted') lembrar(true); });
-          if (typeof fecharSobreModalInfo === 'function') fecharSobreModalInfo();
-          return;
-        }
-        if (!h) return;
-        var estavaVisivel = !h.hidden;
-        h.textContent = textoAjuda();
-        h.hidden = estavaVisivel;
+        if (!pedido) return;
+        var p = pedido; pedido = null;
+        window.fecharPainelInstalar();
+        var h = document.getElementById('ajudaInstalar'); if (h) h.hidden = true;
+        p.prompt();
+        if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === 'accepted') lembrar(true); });
       };
 
+      /* Estado da app: texto a mostrar, se oferece o botão «Instalar app» e quanto tempo fica visível */
+      function estado() {
+        if (emApp()) return { msg: '✅ App já instalada.', botao: false, tempo: 3000 };
+        if (pedido) return { msg: '📲 Instale o AGAJOTA no ecrã principal para o abrir como uma aplicação.', botao: true, tempo: 12000 };
+        if (lembrada()) return { msg: '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.', botao: false, tempo: 5000 };
+        return { msg: '📲 Instalar app. ' + textoAjuda(), botao: false, tempo: 9000 };
+      }
+      function desenhar(el, est) {
+        el.textContent = '';
+        var m = document.createElement('span'); m.textContent = est.msg; el.appendChild(m);
+        if (est.botao) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'footer-install-btn'; b.textContent = 'Instalar app';
+          b.onclick = window.instalarApp;
+          el.appendChild(b);
+        }
+      }
+
+      /* Botão «Instalar app» da janela Sobre: a resposta aparece dentro da própria janela (sem a fechar) */
+      window.estadoAppDoSobre = function (e) {
+        if (e) e.stopPropagation();
+        var el = document.getElementById('ajudaInstalar'); if (!el) return;
+        desenhar(el, estado());
+        el.hidden = false;
+      };
+
+      /* «© ano» no rodapé: a resposta aparece por cima do rodapé */
       window.mostrarEstadoApp = function (e) {
         if (e) e.stopPropagation();
         var p = painel(); if (!p) return;
         var t = document.getElementById('footer-toast'); if (t) t.classList.remove('show');
-        p.textContent = '';
-        var msg = document.createElement('span');
-        var tempo = 9000;
-        if (emApp()) {
-          msg.textContent = '✅ App já instalada.'; tempo = 3000;
-        } else if (pedido) {
-          msg.textContent = '📲 Instale o AGAJOTA no ecrã principal para o abrir como uma aplicação.';
-          p.appendChild(msg);
-          var b = document.createElement('button');
-          b.type = 'button'; b.className = 'footer-install-btn'; b.textContent = 'Instalar app';
-          b.onclick = window.instalarApp;
-          p.appendChild(b);
-          msg = null; tempo = 12000;
-        } else if (lembrada()) {
-          msg.textContent = '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.'; tempo = 5000;
-        } else {
-          msg.textContent = '📲 Instalar app. ' + textoAjuda();
-        }
-        if (msg) p.appendChild(msg);
+        var est = estado();
+        desenhar(p, est);
         p.classList.add('show');
         clearTimeout(temporizador);
-        temporizador = setTimeout(window.fecharPainelInstalar, tempo);
+        temporizador = setTimeout(window.fecharPainelInstalar, est.tempo);
       };
 
       window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); pedido = e; lembrar(false); });
-      window.addEventListener('appinstalled', function () { pedido = null; lembrar(true); esconderCartao(); });
+      window.addEventListener('appinstalled', function () { pedido = null; lembrar(true); });
       document.addEventListener('click', function (e) {
         var p = painel();
         if (p && p.classList.contains('show') && !p.contains(e.target)) window.fecharPainelInstalar();
       });
-      document.addEventListener('DOMContentLoaded', function () { if (emApp()) { lembrar(true); esconderCartao(); } });
+      document.addEventListener('DOMContentLoaded', function () { if (emApp()) lembrar(true); });
     })();
   </script>
   <meta name="mobile-web-app-capable" content="yes">
@@ -387,6 +386,7 @@
     #footer-install.show { pointer-events: auto; }
     .footer-install-btn { padding: 6px 14px; border-radius: 10px; background: rgba(99, 102, 241, 0.25); border: 1px solid rgba(129, 140, 248, 0.4); color: #e0e7ff; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
     .footer-install-btn:hover { background: rgba(99, 102, 241, 0.45); }
+    #ajudaInstalar .footer-install-btn { display: block; margin-top: 8px; }
     .footer-copy { font-size: inherit; text-decoration: none; }
     .footer-copy:hover { text-decoration: underline; text-underline-offset: 2px; }
     .adsense-holder.ad-pending { height: 0 !important; margin: 0 !important; border: 0 !important; overflow: hidden; }
@@ -1742,8 +1742,8 @@
         <div id="instalarCard" class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">📲 Instalar a app</h4>
           <p class="text-xs text-slate-300">Adicione o AGAJOTA ao ecrã principal para o abrir como uma aplicação.</p>
-          <button type="button" id="btnInstalar" onclick="instalarApp()" class="mt-3 px-4 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 text-xs font-bold uppercase tracking-wider border border-indigo-400/30 transition-colors">Instalar app</button>
-          <p id="ajudaInstalar" role="status" hidden class="mt-3 text-xs text-slate-300 bg-white/5 border border-white/10 rounded-xl p-3"></p>
+          <button type="button" id="btnInstalar" onclick="estadoAppDoSobre(event)" class="mt-3 px-4 py-2 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-200 text-xs font-bold uppercase tracking-wider border border-indigo-400/30 transition-colors">Instalar app</button>
+          <div id="ajudaInstalar" role="status" aria-live="polite" hidden class="mt-3 text-xs text-slate-300 bg-white/5 border border-white/10 rounded-xl p-3"></div>
         </div>
       </div>
     </div>
