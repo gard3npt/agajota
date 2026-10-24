@@ -122,6 +122,7 @@
       box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.7);
     }
     #videoModal.video-mini .video-bar { margin-bottom: 0.5rem; }
+    #videoModal .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
     #videoModal.video-mini #autoplayTxt { display: none; }
     #videoModal.video-mini #videoYtIcon,
     #videoModal.video-mini .video-nav { display: none; }
@@ -1694,7 +1695,7 @@
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Vídeos do YouTube</h4>
-          <p>Os vídeos abrem em modo de privacidade reforçada (youtube-nocookie.com) e só quando carregas em reproduzir. As miniaturas e os tipos de letra são pedidos aos servidores da Google/YouTube, que podem por isso ver o teu endereço IP.</p>
+          <p>Os vídeos abrem em modo de privacidade reforçada (youtube-nocookie.com) e só quando carregas em reproduzir; é nessa altura que é pedido ao YouTube o leitor de vídeo. As miniaturas e os tipos de letra são pedidos aos servidores da Google/YouTube, que podem por isso ver o teu endereço IP.</p>
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Tradução do site (Google Tradutor)</h4>
@@ -1743,7 +1744,7 @@
         <button type="button" aria-label="Fechar vídeo" title="Fechar vídeo" onclick="fecharVideoModal()" class="shrink-0 w-8 h-8 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center text-sm font-bold transition-colors">✕</button>
       </div>
       <div class="video-frame relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl">
-        <iframe id="modalVideoIframe" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Vídeo do YouTube"></iframe>
+        <div id="modalVideoPlayer" class="w-full h-full"></div>
       </div>
       <div id="videoNav" class="video-nav mt-3 flex items-center justify-between gap-2">
         <button type="button" id="videoPrevBtn" onclick="videoAnterior()" class="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white/10">← Anterior</button>
@@ -1917,15 +1918,12 @@
 
     function tocarVideoDoGrupo(grupo, idx, titulo) {
       const modal = document.getElementById('videoModal');
-      const iframe = document.getElementById('modalVideoIframe');
       const v = grupo[idx];
       videoGrupo = grupo;
       videoIndice = idx;
       videoFimTratado = false;
 
-      let url = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1&enablejsapi=1`;
-      if (/^https?:$/.test(location.protocol)) url += '&origin=' + encodeURIComponent(location.origin);
-      iframe.src = url;
+      reproduzirNoLeitor(v.id);
 
       document.getElementById('modalVideoTitle').textContent = titulo || v.title;
       const ytUrl = 'https://www.youtube.com/watch?v=' + encodeURIComponent(v.id);
@@ -1961,13 +1959,7 @@
 
     // Pausa o vídeo do site (usado ao abrir o vídeo no YouTube)
     function pausarVideoSite() {
-      const iframe = document.getElementById('modalVideoIframe');
-      try {
-        iframe.contentWindow.postMessage(
-          JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
-          'https://www.youtube-nocookie.com'
-        );
-      } catch (e) { /* sem problema: o vídeo simplesmente continua */ }
+      try { if (ytPlayer && ytPronto) ytPlayer.pauseVideo(); } catch (e) { /* sem problema: o vídeo simplesmente continua */ }
     }
 
     function videoEstaExpandido() {
@@ -2016,10 +2008,12 @@
 
     function fecharVideoModal() {
       const modal = document.getElementById('videoModal');
-      const iframe = document.getElementById('modalVideoIframe');
 
-      pararEscutaVideo();
-      iframe.src = 'about:blank';
+      ytIdPedido = null;
+      try {
+        if (ytSimples) { const f = document.getElementById('modalVideoPlayer'); if (f && f.tagName === 'IFRAME') f.src = 'about:blank'; }
+        else if (ytPlayer && ytPronto) ytPlayer.stopVideo();
+      } catch (e) {}
       modal.classList.remove('flex');
       modal.classList.add('hidden');
       modal.style.left = modal.style.right = modal.style.top = modal.style.bottom = '';
@@ -2038,58 +2032,93 @@
       if (op && document.contains(op)) { try { op.focus({ preventScroll: true }); } catch (e) {} }
     }
 
-    // Fim do vídeo -> passa automaticamente ao seguinte da lista (se a reprodução automática estiver ligada)
-    // O leitor do YouTube demora a arrancar depois do 'load' do iframe e ignora mensagens enviadas
-    // antes disso. Por isso repetimos o pedido de "escuta" até o leitor responder.
-    const YT_ORIGEM = 'https://www.youtube-nocookie.com';
-    let videoEscutaTimer = null;
+    // ===== Leitor do YouTube (API oficial de iframe, em modo de privacidade reforçada) =====
+    // Usa o leitor oficial para saber quando o vídeo termina e passar ao seguinte (se a reprodução automática estiver ligada).
+    // O script do leitor só é pedido ao YouTube quando carregas num vídeo.
+    let ytPlayer = null;        // leitor criado pela API
+    let ytPronto = false;       // o leitor já pode receber comandos
+    let ytIdPedido = null;      // vídeo que deve estar a tocar agora
+    let ytIdCriado = null;      // vídeo com que o leitor foi criado
+    let ytACriar = false;
+    let ytSimples = false;      // plano B: iframe simples (sem passar ao seguinte sozinho)
+    let ytApiEstado = 0;        // 0 por carregar, 1 a carregar, 2 pronta, -1 falhou
+    const ytApiEsperas = [];
 
-    function pararEscutaVideo() {
-      if (videoEscutaTimer) { clearInterval(videoEscutaTimer); videoEscutaTimer = null; }
+    function ytResolverEsperas(ok) {
+      ytApiEsperas.splice(0).forEach(function (f) { try { f(ok); } catch (e) {} });
     }
 
-    function enviarEscutaVideo(iframe) {
-      try {
-        iframe.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), YT_ORIGEM);
-        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'] }), YT_ORIGEM);
-      } catch (e) {}
+    function carregarYtApi(cb) {
+      if (window.YT && window.YT.Player) { cb(true); return; }
+      if (ytApiEstado === -1) { cb(false); return; }
+      ytApiEsperas.push(cb);
+      if (ytApiEstado === 1) return;
+      ytApiEstado = 1;
+      window.onYouTubeIframeAPIReady = function () { ytApiEstado = 2; ytResolverEsperas(true); };
+      const sc = document.createElement('script');
+      sc.src = 'https://www.youtube.com/iframe_api';
+      sc.async = true;
+      sc.onerror = function () { ytApiEstado = -1; ytResolverEsperas(false); };
+      document.head.appendChild(sc);
+      setTimeout(function () { if (ytApiEstado === 1) { ytApiEstado = -1; ytResolverEsperas(false); } }, 10000);
     }
 
-    function iniciarEscutaVideo(iframe) {
-      pararEscutaVideo();
-      let tentativas = 0;
-      enviarEscutaVideo(iframe);
-      videoEscutaTimer = setInterval(function () {
-        if (++tentativas > 40) { pararEscutaVideo(); return; } // ~20 s
-        enviarEscutaVideo(iframe);
-      }, 500);
-    }
-
-    document.getElementById('modalVideoIframe').addEventListener('load', function () {
-      if (this.src.indexOf(YT_ORIGEM) !== 0) { pararEscutaVideo(); return; }
-      iniciarEscutaVideo(this);
-    });
-
-    window.addEventListener('message', function (e) {
-      const iframe = document.getElementById('modalVideoIframe');
-      if (e.source !== iframe.contentWindow) return;
-      let d;
-      try { d = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch (err) { return; }
-      if (!d) return;
-
-      // O leitor já responde: regista o evento uma última vez e deixa de insistir
-      if (videoEscutaTimer && (d.event === 'onReady' || d.event === 'initialDelivery' || d.event === 'infoDelivery' || d.event === 'onStateChange')) {
-        enviarEscutaVideo(iframe);
-        pararEscutaVideo();
+    function usarIframeSimples(id) {
+      let el = document.getElementById('modalVideoPlayer');
+      if (!el) return;
+      if (el.tagName !== 'IFRAME') {
+        const f = document.createElement('iframe');
+        f.id = 'modalVideoPlayer';
+        f.className = 'w-full h-full border-0';
+        f.title = 'Vídeo do YouTube';
+        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        f.allowFullscreen = true;
+        el.replaceWith(f);
+        el = f;
       }
+      ytSimples = true;
+      el.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&playsinline=1';
+    }
 
-      const fim = (d.event === 'onStateChange' && d.info === 0) ||
-                  (d.event === 'infoDelivery' && d.info && d.info.playerState === 0);
-      if (fim && !videoFimTratado) {
-        videoFimTratado = true;
-        if (videoAutoplay) videoSeguinte();
+    function reproduzirNoLeitor(id) {
+      ytIdPedido = id;
+      if (ytSimples) { usarIframeSimples(id); return; }
+      if (ytPlayer) {
+        // se ainda está a arrancar, o onReady usa ytIdPedido
+        if (ytPronto) { try { ytPlayer.loadVideoById(id); } catch (e) {} }
+        return;
       }
-    });
+      if (ytACriar) return;
+      ytACriar = true;
+      carregarYtApi(function (ok) {
+        ytACriar = false;
+        if (!ytIdPedido || ytPlayer) return; // fechou entretanto
+        if (!ok) { usarIframeSimples(ytIdPedido); return; }
+        ytIdCriado = ytIdPedido;
+        ytPlayer = new YT.Player('modalVideoPlayer', {
+          host: 'https://www.youtube-nocookie.com',
+          width: '100%',
+          height: '100%',
+          videoId: ytIdCriado,
+          playerVars: { autoplay: 1, playsinline: 1 },
+          events: {
+            onReady: function () {
+              ytPronto = true;
+              try {
+                if (!ytIdPedido) ytPlayer.stopVideo();
+                else if (ytIdPedido !== ytIdCriado) ytPlayer.loadVideoById(ytIdPedido);
+              } catch (e) {}
+            },
+            onStateChange: function (e) {
+              if (e.data === 0 && !videoFimTratado) { // 0 = o vídeo terminou
+                videoFimTratado = true;
+                if (videoAutoplay) videoSeguinte();
+              }
+            }
+          }
+        });
+      });
+    }
 
     // Mini-leitor: arrastar pelo cabeçalho (encaixa no canto mais próximo) ou tocar para expandir;
     // Maximizado: deslizar para baixo para minimizar.
