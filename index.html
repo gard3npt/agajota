@@ -13,16 +13,21 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <!-- Instalar app: usa o pedido do browser quando existe; senão mostra instruções -->
+  <!-- Instalar app: tocar em «© 2026» no rodapé mostra sempre o estado (instalar / já instalada / instruções) -->
   <script>
     (function () {
       var pedido = null;
+      var temporizador = null;
+      var CHAVE = 'agajota-app-instalada';
       function emApp() {
         try { return (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
         catch (e) { return false; }
       }
-      function esconderCartao() {
-        var c = document.getElementById('instalarCard'); if (c) c.style.display = 'none';
+      function lembrar(v) {
+        try { if (v) localStorage.setItem(CHAVE, '1'); else localStorage.removeItem(CHAVE); } catch (e) {}
+      }
+      function lembrada() {
+        try { return localStorage.getItem(CHAVE) === '1'; } catch (e) { return false; }
       }
       function textoAjuda() {
         var ua = navigator.userAgent;
@@ -32,14 +37,24 @@
           return 'No iPhone/iPad: toque em Partilhar (o quadrado com a seta) na barra do Safari e escolha «Adicionar ao ecrã principal».';
         return 'Abra o menu do browser (⋮) e escolha «Instalar aplicação» ou «Adicionar ao ecrã principal». No computador, use o ícone de instalar na barra de endereço. Se aparecer «Abrir» com o nome da app, já está instalada: procure o ícone no ecrã ou na lista de aplicações.';
       }
-      window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); pedido = e; });
-      window.addEventListener('appinstalled', function () { pedido = null; esconderCartao(); });
+      function esconderCartao() {
+        var c = document.getElementById('instalarCard'); if (c) c.style.display = 'none';
+      }
+      function painel() { return document.getElementById('footer-install'); }
+
+      window.fecharPainelInstalar = function () {
+        clearTimeout(temporizador);
+        var p = painel(); if (p) p.classList.remove('show');
+      };
+
       window.instalarApp = function () {
         var h = document.getElementById('ajudaInstalar');
         if (pedido) {
           var p = pedido; pedido = null;
           if (h) h.hidden = true;
+          window.fecharPainelInstalar();
           p.prompt();
+          if (p.userChoice) p.userChoice.then(function (r) { if (r && r.outcome === 'accepted') lembrar(true); });
           if (typeof fecharSobreModalInfo === 'function') fecharSobreModalInfo();
           return;
         }
@@ -48,7 +63,42 @@
         h.textContent = textoAjuda();
         h.hidden = estavaVisivel;
       };
-      document.addEventListener('DOMContentLoaded', function () { if (emApp()) esconderCartao(); });
+
+      window.mostrarEstadoApp = function (e) {
+        if (e) e.stopPropagation();
+        var p = painel(); if (!p) return;
+        var t = document.getElementById('footer-toast'); if (t) t.classList.remove('show');
+        p.textContent = '';
+        var msg = document.createElement('span');
+        var tempo = 9000;
+        if (emApp()) {
+          msg.textContent = '✅ App já instalada.'; tempo = 3000;
+        } else if (pedido) {
+          msg.textContent = '📲 Instale o AGAJOTA no ecrã principal para o abrir como uma aplicação.';
+          p.appendChild(msg);
+          var b = document.createElement('button');
+          b.type = 'button'; b.className = 'footer-install-btn'; b.textContent = 'Instalar app';
+          b.onclick = window.instalarApp;
+          p.appendChild(b);
+          msg = null; tempo = 12000;
+        } else if (lembrada()) {
+          msg.textContent = '✅ App já instalada. Procure o ícone no ecrã ou na lista de aplicações.'; tempo = 5000;
+        } else {
+          msg.textContent = '📲 Instalar app. ' + textoAjuda();
+        }
+        if (msg) p.appendChild(msg);
+        p.classList.add('show');
+        clearTimeout(temporizador);
+        temporizador = setTimeout(window.fecharPainelInstalar, tempo);
+      };
+
+      window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); pedido = e; lembrar(false); });
+      window.addEventListener('appinstalled', function () { pedido = null; lembrar(true); esconderCartao(); });
+      document.addEventListener('click', function (e) {
+        var p = painel();
+        if (p && p.classList.contains('show') && !p.contains(e.target)) window.fecharPainelInstalar();
+      });
+      document.addEventListener('DOMContentLoaded', function () { if (emApp()) { lembrar(true); esconderCartao(); } });
     })();
   </script>
   <meta name="mobile-web-app-capable" content="yes">
@@ -313,11 +363,14 @@
     .footer-link:hover { color: #cbd5e1; }
     .footer-brand { font-size: inherit; text-decoration: none; font-weight: 700; letter-spacing: .04em; }
     .footer-brand:hover { text-decoration: underline; text-underline-offset: 2px; }
-    #footer-toast {
-      position: fixed;
+    #footer-toast, #footer-install {
+      position: absolute;
       left: 50%;
-      bottom: 24px;
-      transform: translate(-50%, 20px);
+      bottom: calc(100% + 10px);
+      transform: translate(-50%, 8px);
+      width: max-content;
+      max-width: calc(100vw - 32px);
+      text-align: center;
       background: rgba(15, 23, 42, 0.97);
       color: #fff;
       border: 1px solid rgba(255, 255, 255, 0.15);
@@ -329,7 +382,13 @@
       transition: opacity .25s, transform .25s;
       z-index: 100;
     }
-    #footer-toast.show { opacity: 1; transform: translate(-50%, 0); }
+    #footer-toast.show, #footer-install.show { opacity: 1; transform: translate(-50%, 0); }
+    #footer-install { display: flex; flex-direction: column; align-items: center; gap: 8px; max-width: min(24rem, calc(100vw - 32px)); line-height: 1.4; }
+    #footer-install.show { pointer-events: auto; }
+    .footer-install-btn { padding: 6px 14px; border-radius: 10px; background: rgba(99, 102, 241, 0.25); border: 1px solid rgba(129, 140, 248, 0.4); color: #e0e7ff; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .footer-install-btn:hover { background: rgba(99, 102, 241, 0.45); }
+    .footer-copy { font-size: inherit; text-decoration: none; }
+    .footer-copy:hover { text-decoration: underline; text-underline-offset: 2px; }
     .adsense-holder.ad-pending { height: 0 !important; margin: 0 !important; border: 0 !important; overflow: hidden; }
     @media print { #page-footer, .adsense-holder { display: none !important; } }
   </style>
@@ -1639,11 +1698,12 @@
 
   <!-- RODAPÉ -->
   <footer id="page-footer">
-    <span>© <span id="anoAtual">2026</span> <button type="button" class="footer-link footer-brand" onclick="mostrarUltimaAtualizacao()" title="Ver última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span>
+    <span><button type="button" class="footer-link footer-copy" onclick="mostrarEstadoApp(event)" title="Instalar app" aria-label="Instalar app ou ver se já está instalada">© <span id="anoAtual">2026</span></button> <button type="button" class="footer-link footer-brand" onclick="mostrarUltimaAtualizacao()" title="Ver última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span>
     <button type="button" class="footer-link" onclick="abrirPrivacidadeModal()">Privacidade</button>
     <button type="button" class="footer-link" onclick="mostrarBannerCookies()">Cookies</button>
+    <div id="footer-toast" role="status" aria-live="polite"></div>
+    <div id="footer-install" role="status" aria-live="polite"></div>
   </footer>
-  <div id="footer-toast" role="status" aria-live="polite"></div>
 
   <!-- MODAL SOBRE -->
   <div id="sobreModal" role="dialog" aria-modal="true" onclick="fecharAoClicarFora(event, this)" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
@@ -2316,6 +2376,7 @@
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
       if (!el) return;
+      if (typeof fecharPainelInstalar === 'function') fecharPainelInstalar();
       const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
       el.textContent = 'Última atualização: ' + d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
       el.classList.add('show');
