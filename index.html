@@ -2446,14 +2446,15 @@
     function verificarPassword() {
       const pass = document.getElementById('labPassword').value;
       if (pass === '0') {
-        // Abre o SC Lab noutro separador e mantém o AGAJOTA aberto
-        const nova = window.open('https://gard3npt.github.io/sc/', '_blank', 'noopener');
-        if (nova) {
-          fecharModal();
-        } else {
-          // Se o navegador bloquear o novo separador, abre nesta mesma janela
-          window.location.href = 'https://gard3npt.github.io/sc/';
-        }
+        // Abre o SC Lab noutra aba e mantém o AGAJOTA aberto nesta
+        const a = document.createElement('a');
+        a.href = 'https://gard3npt.github.io/sc/';
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        fecharModal();
       } else {
         document.getElementById('passwordError').classList.remove('hidden');
       }
