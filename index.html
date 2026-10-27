@@ -9,6 +9,18 @@
   <meta name="description" content="O espaço digital de Hélder Jardim @gard3npt">
   <meta name="theme-color" content="#020617">
 
+  <!-- Coletor de erros para a Área de controlo -->
+  <script>
+    window.__erros = [];
+    function __regErro(tipo, msg) { if (window.__erros.length < 30) window.__erros.push({ t: Date.now(), tipo: tipo, msg: String(msg).slice(0, 160) }); }
+    window.addEventListener('error', function (e) {
+      var t = e.target;
+      if (t && t !== window && (t.src || t.href)) __regErro('recurso', t.src || t.href);
+      else __regErro('erro', e.message || 'erro desconhecido');
+    }, true);
+    window.addEventListener('unhandledrejection', function (e) { __regErro('promessa', (e.reason && e.reason.message) || e.reason || 'rejeição'); });
+  </script>
+
   <!-- App instalável (PWA) -->
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -97,6 +109,13 @@
         p.classList.add('show');
         clearTimeout(temporizador);
         temporizador = setTimeout(window.fecharPainelInstalar, est.tempo);
+      };
+
+      /* Verdadeiro se a app já está instalada (aberta como app, ou instalada e lembrada/provável no browser) */
+      window.appJaInstalada = function () {
+        if (emApp()) return true;
+        if (pedido) return false;
+        return lembrada() || provavel();
       };
 
       window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); pedido = e; lembrar(false); });
@@ -397,8 +416,36 @@
     #ajudaInstalar .footer-install-btn { display: block; margin-top: 8px; }
     .footer-copy { font-size: inherit; text-decoration: none; }
     .footer-copy:hover { text-decoration: underline; text-underline-offset: 2px; }
+    /* «© ano» e «AGAJOTA» no rodapé: botões ocultos (parecem texto; só reagem a 3 cliques seguidos) */
+    .footer-oculto, .footer-oculto:hover { cursor: default; text-decoration: none; color: #94a3b8; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+    .footer-oculto:focus-visible { outline: none; }
     .adsense-holder.ad-pending { height: 0 !important; margin: 0 !important; border: 0 !important; overflow: hidden; }
     @media print { #page-footer, .adsense-holder { display: none !important; } }
+    /* ÁREA DE CONTROLO (escondida: 3 cliques em "Sobre o AGAJOTA" + senha) */
+    #painelDonoOverlay { position: fixed; inset: 0; z-index: 99997; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; padding: 12px; }
+    #painelDonoOverlay > div { width: 100%; max-width: 480px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; background: #f8fafc; color: #0f172a; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+    .pd-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #0f172a; color: #fff; font-size: 1rem; }
+    .pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
+    .pd-body { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 4px 14px 16px; text-align: left; }
+    .pd-sec { margin: 18px 0 8px; padding: 16px 2px 0; border-top: 2px solid #cbd5e1; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
+    .pd-sec:first-child { margin-top: 10px; padding-top: 0; border-top: 0; }
+    .pd-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 2px 12px; }
+    .pd-row { display: grid; grid-template-columns: 40% 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid #eef2f7; font-size: 13px; word-break: break-word; }
+    .pd-row:last-child { border-bottom: 0; }
+    .pd-row span { color: #64748b; font-weight: 600; }
+    .pd-row b { font-weight: 700; }
+    .pd-aviso, .pd-ok { padding: 9px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .pd-aviso { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .pd-ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .pd-btn { display: block; box-sizing: border-box; width: 100%; margin-top: 8px; padding: 11px 14px; border: 0; border-radius: 10px; background: #e2e8f0; color: #0f172a; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; text-align: left; }
+    .pd-btn:disabled { opacity: .6; cursor: default; }
+    .pd-azul { background: #2563eb; color: #fff; }
+    .pd-amarelo { background: #fde68a; color: #78350f; }
+    .pd-vermelho { background: #dc2626; color: #fff; }
+    .pd-nota { margin: 3px 4px 0; font-size: 12px; color: #64748b; line-height: 1.35; }
+    .pd-sug { margin: 0; padding: 4px 12px 4px 30px; font-size: 13px; line-height: 1.4; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
+    .pd-sug li { padding: 7px 0; border-bottom: 1px solid #eef2f7; }
+    .pd-sug li:last-child { border-bottom: 0; }
   </style>
 </head>
 
@@ -596,8 +643,8 @@
 
         <!-- VÍDEO DESTAQUE 2 -->
         <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">
-          <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Pulse of the Night" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('2N32b3s5WSE', 'Pulse of the Night')">
-            <img width="480" height="360" decoding="async" src="https://img.youtube.com/vi/2N32b3s5WSE/hqdefault.jpg" alt="Pulse of the Night" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
+          <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Três Litros de Dona Vitória | Música" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('K5HcTXYd708', 'Três Litros de Dona Vitória | Música')">
+            <img width="480" height="360" decoding="async" src="https://img.youtube.com/vi/K5HcTXYd708/hqdefault.jpg" alt="Três Litros de Dona Vitória | Música" class="w-full h-full object-cover group-hover:scale-110 group-hover:-rotate-1 transition-transform duration-500">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
             
             <div title="Destaque #2" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
@@ -610,9 +657,9 @@
           </div>
           <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">
             <div class="space-y-3">
-              <a href="https://www.youtube.com/watch?v=2N32b3s5WSE" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+              <a href="https://youtu.be/K5HcTXYd708?si=313rkkaZszb0rlLz" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
                   <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
-                  <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Pulse of the Night</h3>
+                  <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Três Litros de Dona Vitória | Música</h3>
                 </a>
             </div>
           </div>
@@ -708,6 +755,30 @@
       <div id="cat-musica" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
         <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           
+          <!-- VÍDEO NOVO ADICIONADO (ID #19 - K5HcTXYd708) -->
+          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
+            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Três Litros de Dona Vitória | Música" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('K5HcTXYd708', 'Três Litros de Dona Vitória | Música')">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/K5HcTXYd708/mqdefault.jpg" alt="Três Litros de Dona Vitória | Música" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div title="Três Litros de Dona Vitória | Música" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+                #19
+              </div>
+
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div class="space-y-3">
+                <a href="https://youtu.be/K5HcTXYd708?si=313rkkaZszb0rlLz" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Três Litros de Dona Vitória | Música</h3>
+                </a>
+              </div>
+            </div>
+          </div>
+
           <!-- VÍDEO NOVO ADICIONADO (ID #18 - MkfeauWlYH8) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Soajo, Amigos, Vinho e boa disposição" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('MkfeauWlYH8', 'Soajo, Amigos, Vinho e boa disposição')">
@@ -1706,7 +1777,7 @@
 
   <!-- RODAPÉ -->
   <footer id="page-footer">
-    <span><button type="button" class="footer-link footer-copy" onclick="mostrarEstadoApp(event)" title="Instalar app" aria-label="Instalar app ou ver se já está instalada">© <span id="anoAtual">2026</span></button> <button type="button" class="footer-link footer-brand" onclick="mostrarUltimaAtualizacao()" title="Ver última atualização" aria-label="Ver data da última atualização">AGAJOTA</button></span>
+    <span><button type="button" class="footer-link footer-copy footer-oculto" tabindex="-1" onclick="triploClique(this, mostrarEstadoApp, event)">© <span id="anoAtual">2026</span></button> <button type="button" class="footer-link footer-brand footer-oculto" tabindex="-1" onclick="triploClique(this, mostrarUltimaAtualizacao, event)">AGAJOTA</button></span>
     <button type="button" class="footer-link" onclick="abrirPrivacidadeModal()">Privacidade</button>
     <button type="button" class="footer-link" onclick="mostrarBannerCookies()">Cookies</button>
     <div id="footer-toast" role="status" aria-live="polite"></div>
@@ -1721,7 +1792,7 @@
       <div class="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
         <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-2xl">ℹ️</div>
         <div>
-          <h3 class="text-xl font-extrabold text-white">Sobre o AGAJOTA</h3>
+          <h3 id="sobreTitulo" onclick="triploClique(this, abrirPainelDono)" class="text-xl font-extrabold text-white" style="user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent">Sobre o AGAJOTA</h3>
           <p class="text-xs text-indigo-300">Conheça o projeto e o criador</p>
         </div>
       </div>
@@ -1748,7 +1819,7 @@
         </div>
       </div>
 
-      <div class="mt-12 pt-10 border-t-2 border-white/20">
+      <div id="instalarBloco" class="mt-12 pt-10 border-t-2 border-white/20">
       <div id="instalarCard" class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
         <h4 class="font-bold text-white text-base mb-1 flex items-center gap-2">📲 Instalar app</h4>
         <p class="text-xs text-slate-300">Sem lojas de aplicações: adiciona o AGAJOTA ao ecrã principal e abre-o com um toque.</p>
@@ -2324,10 +2395,17 @@
       fecharContactoModal();
       fecharModal();
       fecharPrivacidadeModal();
+      fecharPainelDono();
     }
 
     function abrirSobreModalInfo() {
       const modal = document.getElementById('sobreModal');
+      const bloco = document.getElementById('instalarBloco');
+      if (bloco) {
+        const instalada = typeof appJaInstalada === 'function' && appJaInstalada();
+        bloco.hidden = instalada;
+        if (instalada) { const aj = document.getElementById('ajudaInstalar'); if (aj) aj.hidden = true; }
+      }
       modal.classList.remove('hidden');
       modal.classList.add('flex');
     }
@@ -2367,11 +2445,325 @@
 
     function verificarPassword() {
       const pass = document.getElementById('labPassword').value;
-      if (pass === '112') {
-        window.location.href = 'https://gard3npt.github.io/sc/';
+      if (pass === '0') {
+        // Abre o SC Lab noutro separador e mantém o AGAJOTA aberto
+        const nova = window.open('https://gard3npt.github.io/sc/', '_blank', 'noopener');
+        if (nova) {
+          fecharModal();
+        } else {
+          // Se o navegador bloquear o novo separador, abre nesta mesma janela
+          window.location.href = 'https://gard3npt.github.io/sc/';
+        }
       } else {
         document.getElementById('passwordError').classList.remove('hidden');
       }
+    }
+
+    /* ---------------- ÁREA DE CONTROLO (escondida) ----------------
+       Abre com 3 cliques seguidos em "Sobre o AGAJOTA" (janela Sobre) + senha do dono (SENHA_DONO). */
+    function triploClique(el, fn, ev) {
+      el._n = (el._n || 0) + 1;
+      clearTimeout(el._t);
+      if (el._n >= 3) { el._n = 0; fn(ev); return; }
+      el._t = setTimeout(function () { el._n = 0; }, 1500);
+    }
+
+    /* Senha do dono: para a mudar, alterar só o texto entre aspas.
+       Atenção: como o site corre no navegador, esta senha serve para evitar toques acidentais e não é uma proteção forte. */
+    const SENHA_DONO = '112';
+    /* Página de diagnóstico da app instalável (tem de estar na mesma pasta do index.html) */
+    const DIAGNOSTICO_PWA = 'diagnostico-pwa.html';
+    let dnDados = null;
+
+    function pdCaixa(id, z) {
+      const antigo = document.getElementById(id); if (antigo) antigo.remove();
+      const ov = document.createElement('div');
+      ov.id = id;
+      ov.style.cssText = 'position:fixed; inset:0; background:rgba(15,23,42,0.55); z-index:' + z + '; display:flex; align-items:center; justify-content:center; padding:16px;';
+      const caixa = document.createElement('div');
+      caixa.style.cssText = 'background:#ffffff; border-radius:14px; padding:20px; max-width:340px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,0.3); text-align:center;';
+      ov.appendChild(caixa);
+      ov.addEventListener('click', function (e) { if (e.target === ov) ov.remove(); });
+      return { ov: ov, caixa: caixa };
+    }
+    function pdBotao(texto, fundo, cor, acao) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.style.cssText = 'flex:1; padding:11px 14px; border-radius:10px; border:none; font-size:15px; font-weight:700; cursor:pointer; background:' + fundo + '; color:' + cor + ';';
+      b.textContent = texto; b.onclick = acao; return b;
+    }
+
+    function pedirSenhaDono(aoValidar) {
+      const c = pdCaixa('senhaDonoOverlay', 99998), ov = c.ov, caixa = c.caixa;
+      const titulo = document.createElement('div');
+      titulo.style.cssText = 'font-size:16px; font-weight:700; color:#0f172a; margin-bottom:12px;';
+      titulo.textContent = 'Área de controlo — introduza a senha';
+      const campo = document.createElement('input');
+      campo.type = 'password'; campo.autocomplete = 'off'; campo.placeholder = 'Senha';
+      campo.style.cssText = 'width:100%; box-sizing:border-box; padding:11px 12px; border:2px solid #cbd5e1; border-radius:10px; font-size:16px; text-align:center; color:#0f172a; background:#fff;';
+      const erro = document.createElement('div');
+      erro.style.cssText = 'color:#dc2626; font-size:14px; font-weight:700; margin-top:8px; min-height:18px;';
+      const botoes = document.createElement('div');
+      botoes.style.cssText = 'display:flex; gap:10px; margin-top:12px;';
+      function validar() {
+        if (campo.value === SENHA_DONO) { ov.remove(); aoValidar(); }
+        else { erro.textContent = 'Senha incorreta.'; campo.value = ''; campo.focus(); }
+      }
+      botoes.appendChild(pdBotao('Cancelar', '#e2e8f0', '#0f172a', function () { ov.remove(); }));
+      botoes.appendChild(pdBotao('Entrar', '#2563eb', '#ffffff', validar));
+      campo.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); validar(); }
+        else if (e.key === 'Escape') { e.stopPropagation(); ov.remove(); }
+      });
+      caixa.appendChild(titulo); caixa.appendChild(campo); caixa.appendChild(erro); caixa.appendChild(botoes);
+      document.body.appendChild(ov);
+      campo.focus();
+    }
+
+    function pdConfirmar(msg, aoConfirmar, rotulo) {
+      const c = pdCaixa('pdConfirmarOverlay', 99999), ov = c.ov, caixa = c.caixa;
+      const t = document.createElement('div');
+      t.style.cssText = 'font-size:15px; font-weight:600; color:#0f172a; line-height:1.4;';
+      t.textContent = msg;
+      const botoes = document.createElement('div');
+      botoes.style.cssText = 'display:flex; gap:10px; margin-top:16px;';
+      botoes.appendChild(pdBotao('Cancelar', '#e2e8f0', '#0f172a', function () { ov.remove(); }));
+      botoes.appendChild(pdBotao(rotulo || 'Confirmar', '#2563eb', '#ffffff', function () { ov.remove(); aoConfirmar(); }));
+      caixa.appendChild(t); caixa.appendChild(botoes);
+      document.body.appendChild(ov);
+    }
+
+    function abrirPainelDono() {
+      pedirSenhaDono(function () { fecharSobreModalInfo(); montarPainelDono(); });
+    }
+    function fecharPainelDono() {
+      const ov = document.getElementById('painelDonoOverlay');
+      if (ov) ov.remove();
+    }
+    function dnEsc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
+    }
+    function dnBytes(n) {
+      if (!isFinite(n)) return '?';
+      if (n < 1024) return n + ' B';
+      if (n < 1048576) return (n / 1024).toFixed(1) + ' KB';
+      if (n < 1073741824) return (n / 1048576).toFixed(1) + ' MB';
+      return (n / 1073741824).toFixed(2) + ' GB';
+    }
+    function dnBrowser() {
+      const u = navigator.userAgent; let b = 'Desconhecido', m;
+      if ((m = u.match(/Edg\/(\d+)/))) b = 'Edge ' + m[1];
+      else if ((m = u.match(/OPR\/(\d+)/))) b = 'Opera ' + m[1];
+      else if ((m = u.match(/SamsungBrowser\/(\d+)/))) b = 'Samsung Internet ' + m[1];
+      else if ((m = u.match(/(?:Chrome|CriOS)\/(\d+)/))) b = 'Chrome ' + m[1];
+      else if ((m = u.match(/(?:Firefox|FxiOS)\/(\d+)/))) b = 'Firefox ' + m[1];
+      else if ((m = u.match(/Version\/(\d+).*Safari/))) b = 'Safari ' + m[1];
+      let so = '';
+      if (/Android/.test(u)) { m = u.match(/Android ([\d.]+)/); so = 'Android ' + (m ? m[1] : ''); }
+      else if (/iPhone|iPad|iPod/.test(u)) so = 'iOS';
+      else if (/Windows/.test(u)) so = 'Windows';
+      else if (/Mac OS X/.test(u)) so = 'macOS';
+      else if (/Linux/.test(u)) so = 'Linux';
+      return so ? b + ' · ' + so : b;
+    }
+    function dnDataAtualizacao() {
+      const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
+      return isNaN(d) ? ULTIMA_ATUALIZACAO : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    /* recolhe o diagnóstico (só lê; não altera nada) */
+    async function dnColetar() {
+      const avisos = [];
+      let ls = null; try { ls = localStorage; } catch (e) {}
+      const standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+      const cons = lerConsentimento();
+
+      const app = [
+        ['Última atualização', dnDataAtualizacao()],
+        ['Aberta como', standalone ? 'App instalada' : 'Browser'],
+        ['Endereço', location.protocol === 'file:' ? 'ficheiro local' : location.host + location.pathname],
+        ['Idioma do site', (ls && ls.getItem('idioma')) || 'pt'],
+        ['Cookies', cons === 'aceite' ? 'aceites' : cons === 'recusado' ? 'recusados' : 'por responder'],
+        ['Reprodução automática', videoAutoplay ? 'ligada' : 'desligada'],
+        ['Vídeos no site', String(document.querySelectorAll('[data-video]').length)]
+      ];
+
+      const net = (navigator.connection && navigator.connection.effectiveType) ? ' (' + navigator.connection.effectiveType + ')' : '';
+      const disp = [
+        ['Ecrã', innerWidth + ' × ' + innerHeight + ' px · ×' + (window.devicePixelRatio || 1)],
+        ['Browser', dnBrowser()],
+        ['Idioma · fuso', navigator.language + ' · ' + (Intl.DateTimeFormat().resolvedOptions().timeZone || '?')],
+        ['Rede', (navigator.onLine ? 'online' : 'offline') + net]
+      ];
+      if (!navigator.onLine) avisos.push('Sem ligação à internet neste momento.');
+
+      let sw;
+      if (location.protocol === 'file:') sw = 'não aplicável (ficheiro local)';
+      else if (!('serviceWorker' in navigator)) sw = 'não suportado';
+      else {
+        try {
+          const r = await navigator.serviceWorker.getRegistrations();
+          sw = r.length ? 'ativo (' + r.length + ')' : 'nenhum registado';
+          if (!r.length) avisos.push('O service worker não está registado (confirme que o ficheiro sw.js está no servidor).');
+        } catch (e) { sw = 'erro ao ler'; }
+      }
+      let cch, cacheNomes = [];
+      if ('caches' in window) {
+        try { cacheNomes = await caches.keys(); cch = cacheNomes.length ? cacheNomes.join(', ') : 'nenhuma'; } catch (e) { cch = 'erro ao ler'; }
+      } else cch = 'não suportado';
+
+      const arm = [];
+      if (ls) {
+        const ks = Object.keys(ls); let tot = 0;
+        ks.forEach(function (k) { tot += k.length + (ls.getItem(k) || '').length; });
+        arm.push(['Dados locais', ks.length + ' chave(s) · ' + dnBytes(tot * 2)]);
+        ks.forEach(function (k) { const v = ls.getItem(k) || ''; arm.push(['· ' + k, v.length > 40 ? v.slice(0, 40) + '…' : v]); });
+      } else arm.push(['Dados locais', 'indisponíveis']);
+      if (navigator.storage && navigator.storage.estimate) {
+        try {
+          const e = await navigator.storage.estimate();
+          if (e.quota) {
+            arm.push(['Espaço usado', dnBytes(e.usage) + ' de ' + dnBytes(e.quota)]);
+            if (e.usage / e.quota > 0.8) avisos.push('O armazenamento do browser está quase cheio.');
+          }
+        } catch (x) {}
+      }
+      arm.push(['Service worker', sw]);
+      arm.push(['Cache da app', cch]);
+
+      const er = window.__erros || [];
+      const erros = er.length
+        ? er.slice(-8).map(function (x) { return [new Date(x.t).toLocaleTimeString('pt-PT'), (x.tipo === 'recurso' ? 'Não carregou: ' : x.tipo === 'promessa' ? 'Falha: ' : 'Erro: ') + x.msg]; })
+        : [['—', 'Nenhum erro desde que a página abriu']];
+      if (er.length) avisos.push(er.length + ' erro(s) desde que a página abriu (ver abaixo).');
+
+      return { avisos: avisos, fatos: { cacheNomes: cacheNomes, recursos: er.filter(function (x) { return x.tipo === 'recurso'; }).length }, grupos: [
+        { t: 'Aplicação', l: app }, { t: 'Dispositivo', l: disp },
+        { t: 'Armazenamento', l: arm }, { t: 'Erros desde que abriu', l: erros }
+      ] };
+    }
+
+    /* sugestões calculadas a partir do estado atual; desaparecem sozinhas quando o ponto deixa de se aplicar */
+    function dnSugestoes() {
+      const s = [], f = (dnDados && dnDados.fatos) || {};
+      if (typeof VERSAO_SITE === 'undefined')
+        s.push(['Número de versão', 'O site ainda não tem número de versão. Mostrar, por exemplo, “v1.4” junto à data ajuda a saber que versão cada pessoa está a usar.']);
+      if (SENHA_DONO.length < 8)
+        s.push(['Senha curta no código', 'A senha desta área tem só ' + SENHA_DONO.length + ' caracteres e está visível no código. Serve para evitar toques acidentais, não para proteger dados.']);
+      if (f.cacheNomes && f.cacheNomes.length && !f.cacheNomes.some(function (n) { return /\d/.test(n); }))
+        s.push(['Cache sem número de versão', 'O nome da cache (“' + f.cacheNomes.join(', ') + '”) não tem número. Mudá-lo a cada atualização garante que todos recebem a versão nova.']);
+      const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
+      const dias = isNaN(d) ? null : Math.floor((Date.now() - d.getTime()) / 86400000);
+      if (dias !== null && dias > 45)
+        s.push(['Data de atualização antiga', 'A última atualização indicada foi há ' + dias + ' dias. Se mexeu no site desde então, atualize a data no código.']);
+      if (f.recursos)
+        s.push(['Ficheiros que não carregam', f.recursos + ' ficheiro(s) não carregaram (ver Erros). Confirme se foram enviados para o servidor.']);
+      return s;
+    }
+
+    function dnTexto() {
+      let t = 'AGAJOTA — diagnóstico (' + new Date().toLocaleString('pt-PT') + ')\n';
+      if (!dnDados) return t;
+      t += '\nAvisos: ' + (dnDados.avisos.length ? '\n- ' + dnDados.avisos.join('\n- ') : 'nenhum') + '\n';
+      dnDados.grupos.forEach(function (g) {
+        t += '\n[' + g.t + ']\n' + g.l.map(function (r) { return r[0] + ': ' + r[1]; }).join('\n') + '\n';
+      });
+      const sg = dnSugestoes();
+      t += '\n[Sugestões automáticas]\n' + (sg.length ? sg.map(function (x) { return '- ' + x[0] + ': ' + x[1]; }).join('\n') : 'nenhuma') + '\n';
+      return t;
+    }
+    async function dnCopiar(btn) {
+      const t = dnTexto(); let ok = false;
+      try { await navigator.clipboard.writeText(t); ok = true; }
+      catch (e) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = t; ta.style.cssText = 'position:fixed; opacity:0;';
+          document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
+        } catch (x) {}
+      }
+      const antes = btn.textContent;
+      btn.textContent = ok ? '✅ Copiado' : '❌ Não foi possível copiar';
+      setTimeout(function () { btn.textContent = antes; }, 1800);
+    }
+
+    /* reposições */
+    async function dnApagarCaches() {
+      try { if ('serviceWorker' in navigator) { const r = await navigator.serviceWorker.getRegistrations(); await Promise.all(r.map(function (x) { return x.unregister(); })); } } catch (e) {}
+      try { if ('caches' in window) { const k = await caches.keys(); await Promise.all(k.map(function (x) { return caches.delete(x); })); } } catch (e) {}
+    }
+    function dnLimparCookieTradutor() {
+      const exp = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+      document.cookie = exp;
+      document.cookie = exp + '; domain=' + location.hostname;
+      document.cookie = exp + '; domain=.' + location.hostname;
+    }
+    function dnLimparCache() {
+      pdConfirmar('Limpar a cache e recarregar a app? As definições mantêm-se.', async function () { await dnApagarCaches(); location.reload(); }, 'Limpar');
+    }
+    function dnReporDefinicoes() {
+      pdConfirmar('Repor as definições? O idioma volta a português, a reprodução automática volta a ligar-se e o aviso de cookies pode voltar a aparecer.', function () {
+        try { ['idioma', 'videoAutoplay', 'agajota-app-instalada', CHAVE_COOKIES].forEach(function (k) { localStorage.removeItem(k); }); } catch (e) {}
+        dnLimparCookieTradutor();
+        location.reload();
+      }, 'Repor');
+    }
+    function dnReporSite() {
+      pdConfirmar('Repor o site ao estado original? Apaga tudo o que está guardado neste dispositivo (definições e cache) e recarrega a página.', async function () {
+        try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
+        dnLimparCookieTradutor();
+        await dnApagarCaches();
+        try { history.replaceState(null, ''); } catch (e) {}
+        location.reload();
+      }, 'Repor tudo');
+    }
+
+    function dnRender(c) {
+      const pos = c.scrollTop;
+      let h = '<div class="pd-sec">Avisos</div>';
+      h += dnDados.avisos.length
+        ? dnDados.avisos.map(function (a) { return '<div class="pd-aviso">⚠️ ' + dnEsc(a) + '</div>'; }).join('')
+        : '<div class="pd-ok">✅ Sem avisos</div>';
+      dnDados.grupos.forEach(function (g) {
+        h += '<div class="pd-sec">' + dnEsc(g.t) + '</div><div class="pd-card">' +
+          g.l.map(function (r) { return '<div class="pd-row"><span>' + dnEsc(r[0]) + '</span><b>' + dnEsc(r[1]) + '</b></div>'; }).join('') + '</div>';
+      });
+      h += '<div class="pd-sec">Ferramentas</div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnCopiar(this)">📋 Copiar diagnóstico</button>' +
+        '<div class="pd-nota">Copia tudo isto como texto, para colar numa mensagem.</div>' +
+        '<button type="button" class="pd-btn" onclick="dnAtualizar()">🔃 Atualizar diagnóstico</button>' +
+        '<a class="pd-btn pd-azul" style="text-decoration:none;" href="' + dnEsc(DIAGNOSTICO_PWA) + '" target="_blank" rel="noopener">🩺 Diagnóstico da app instalável</a>' +
+        '<div class="pd-nota">Verifica se o site pode ser instalado como app no telemóvel (manifesto, ícones e service worker). Abre ' + dnEsc(DIAGNOSTICO_PWA) + ' num novo separador.</div>';
+      h += '<div class="pd-sec">Reposição</div>' +
+        '<button type="button" class="pd-btn pd-amarelo" onclick="dnLimparCache()">🧽 Atualizar app (limpar cache)</button>' +
+        '<div class="pd-nota">Mantém as definições. Útil quando aparece uma versão antiga do site.</div>' +
+        '<button type="button" class="pd-btn pd-amarelo" onclick="dnReporDefinicoes()">↩️ Repor definições</button>' +
+        '<div class="pd-nota">Idioma, reprodução automática e aviso de cookies voltam ao início.</div>' +
+        '<button type="button" class="pd-btn pd-vermelho" onclick="dnReporSite()">⚠️ Repor site original</button>' +
+        '<div class="pd-nota">Apaga tudo o que está guardado neste dispositivo e recarrega a página.</div>';
+      const sg = dnSugestoes();
+      h += '<div class="pd-sec">Sugestões automáticas</div>' + (sg.length
+        ? '<ol class="pd-sug">' + sg.map(function (x) { return '<li><b>' + dnEsc(x[0]) + '.</b> ' + dnEsc(x[1]) + '</li>'; }).join('') + '</ol>'
+        : '<div class="pd-ok">✅ Nada a sugerir de momento</div>') +
+        '<div class="pd-nota">Calculadas a partir do estado atual do site; desaparecem quando o ponto deixa de se aplicar.</div>';
+      c.innerHTML = h;
+      c.scrollTop = pos;
+    }
+    async function dnAtualizar() {
+      dnDados = await dnColetar();
+      const c = document.getElementById('pdCorpo');
+      if (c) dnRender(c);
+    }
+    function montarPainelDono() {
+      fecharPainelDono();
+      const ov = document.createElement('div');
+      ov.id = 'painelDonoOverlay';
+      ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Área de controlo">' +
+        '<div class="pd-head"><strong>🛠️ Área de controlo</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
+        '<div class="pd-body" id="pdCorpo">A recolher diagnóstico…</div></div>';
+      ov.addEventListener('click', function (e) { if (e.target === ov) fecharPainelDono(); });
+      document.body.appendChild(ov);
+      dnAtualizar();
     }
 
     // Ano automático no rodapé
@@ -2381,7 +2773,7 @@
     })();
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão
-    const ULTIMA_ATUALIZACAO = '2026-10-25';
+    const ULTIMA_ATUALIZACAO = '2026-10-27';
     let footerToastTimer = null;
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
