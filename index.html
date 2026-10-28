@@ -759,6 +759,30 @@
       <div id="cat-musica" class="youtube-category-content hidden p-4 rounded-2xl bg-slate-900/50 border border-white/5 mb-6">
         <div class="video-grid-container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           
+          <!-- VÍDEO NOVO ADICIONADO (ID #20 - AfvUJ24rIGE) -->
+          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
+            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Parabéns. Quarenta é que é | Música" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('AfvUJ24rIGE', 'Parabéns. Quarenta é que é | Música')">
+              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/AfvUJ24rIGE/mqdefault.jpg" alt="Parabéns. Quarenta é que é | Música" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
+              
+              <div title="Parabéns. Quarenta é que é | Música" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">
+                #20
+              </div>
+
+              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div class="space-y-3">
+                <a href="https://youtu.be/AfvUJ24rIGE?si=wUxiV24zpopK9sew" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
+                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>
+                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">Parabéns. Quarenta é que é | Música</h3>
+                </a>
+              </div>
+            </div>
+          </div>
+
           <!-- VÍDEO NOVO ADICIONADO (ID #19 - K5HcTXYd708) -->
           <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">
             <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: Três Litros de Dona Vitória | Música" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal('K5HcTXYd708', 'Três Litros de Dona Vitória | Música')">
@@ -2741,7 +2765,7 @@
     })();
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão
-    const ULTIMA_ATUALIZACAO = '2026-10-27';
+    const ULTIMA_ATUALIZACAO = '2026-10-28';
     let footerToastTimer = null;
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
