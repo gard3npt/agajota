@@ -449,6 +449,67 @@
     .pd-sug { margin: 0; padding: 4px 12px 4px 30px; font-size: 13px; line-height: 1.4; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
     .pd-sug li { padding: 7px 0; border-bottom: 1px solid #eef2f7; }
     .pd-sug li:last-child { border-bottom: 0; }
+  
+    /* ===== Banner de subscrição do YouTube ===== */
+    .yt-sub-wrap { position: relative; margin-bottom: 1.25rem; padding: 1.5px; border-radius: 1.25rem;
+      background: linear-gradient(120deg, #ef4444, #ec4899, #8b5cf6, #3b82f6, #ef4444); background-size: 300% 300%;
+      animation: ytBorda 8s linear infinite; }
+    .yt-sub-card { position: relative; overflow: hidden; border-radius: calc(1.25rem - 1.5px); background: rgba(8, 12, 28, 0.96); padding: .8rem 1.1rem; }
+    .yt-sub-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+      background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), rgba(244, 63, 94, 0.22), transparent 70%); }
+    .yt-sub-card:hover::before { opacity: 1; }
+    .yt-sub-main { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem; }
+    .yt-sub-icon { position: relative; flex-shrink: 0; width: 2.75rem; height: 2.75rem; border-radius: .9rem; display: flex; align-items: center; justify-content: center;
+      color: #fff; background: linear-gradient(135deg, #ef4444, #e11d48); box-shadow: 0 8px 24px rgba(239, 68, 68, .35); }
+    .yt-sub-icon::after { content: ''; position: absolute; inset: 0; border-radius: inherit; border: 2px solid rgba(244, 63, 94, .7); animation: ytPulso 2.6s ease-out infinite; }
+    .yt-sub-icon svg { width: 1.4rem; height: 1.4rem; }
+    .yt-sub-info { flex: 1 1 11rem; min-width: 0; }
+    .yt-sub-title { font-weight: 800; font-size: 1.25rem; color: #fff; line-height: 1.2; margin: 0; }
+    .yt-sub-sub { font-size: .78rem; color: #fca5a5; margin-top: .25rem; }
+    a.yt-sub-icon { text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+    a.yt-sub-icon:hover { transform: scale(1.06) rotate(-3deg); box-shadow: 0 10px 28px rgba(239, 68, 68, .5); }
+    a.yt-sub-icon:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .yt-sub-num { display: flex; flex-direction: column; align-items: center; line-height: 1; padding: 0 .25rem; }
+    .yt-sub-num[hidden] { display: none; }
+    .yt-sub-num b { font-size: 1.7rem; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+      background: linear-gradient(135deg, #fda4af, #f472b6, #c4b5fd); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .yt-sub-num span { font-size: .68rem; text-transform: uppercase; letter-spacing: .12em; color: #94a3b8; margin-top: .3rem; }
+    .yt-sub-cta { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; flex-shrink: 0;
+      padding: .6rem 1.2rem; border-radius: 999px; color: #fff; font-weight: 800; font-size: .9rem; text-decoration: none;
+      background: linear-gradient(135deg, #ef4444, #e11d48); box-shadow: 0 6px 20px rgba(239, 68, 68, .4);
+      transition: transform .2s ease, box-shadow .2s ease; }
+    .yt-sub-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(239, 68, 68, .55); }
+    .yt-sub-cta:active { transform: scale(.96); }
+    .yt-sub-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .yt-sub-cta::after { content: ''; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; transform: skewX(-20deg);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .45), transparent); transition: left .6s ease; }
+    .yt-sub-cta:hover::after { left: 130%; }
+    .yt-sub-cta svg { width: 1.1rem; height: 1.1rem; transform-origin: 50% 0; }
+    .yt-sub-cta:hover svg { animation: ytSino .7s ease-in-out; }
+    .yt-sub-data { display: block; font-size: .62rem; color: #64748b; margin-top: .35rem; letter-spacing: .02em; white-space: nowrap; }
+    .yt-sub-data[hidden] { display: none; }
+    .yt-sub-prog { position: relative; margin-top: .7rem; display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .8rem; }
+    .yt-sub-prog[hidden] { display: none; }
+    .yt-sub-bar { flex: 1 1 9rem; height: .4rem; border-radius: 999px; background: rgba(255, 255, 255, .08); overflow: hidden; }
+    .yt-sub-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #ef4444, #ec4899, #8b5cf6); transition: width 1.6s cubic-bezier(.22, 1, .36, 1); }
+    .yt-sub-meta { font-size: .72rem; color: #94a3b8; margin: 0; white-space: nowrap; }
+    .yt-sub-meta strong { color: #e2e8f0; }
+    @keyframes ytBorda { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
+    @keyframes ytPulso { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.65); opacity: 0; } }
+    @keyframes ytSino { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(18deg); } 40% { transform: rotate(-16deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-6deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .yt-sub-wrap, .yt-sub-icon::after, .yt-sub-cta:hover svg { animation: none; }
+      .yt-sub-bar i, .yt-sub-cta, .yt-sub-cta::after { transition: none; }
+    }
+  
+    /* Linha fina a separar os temas (só entre secções visíveis; ver atualizarSeparadores) */
+    .sep-top { position: relative; margin-top: 0 !important; padding-top: 3rem; }
+    .sep-top::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(148, 163, 184, .28) 18%, rgba(148, 163, 184, .28) 82%, transparent); }
+  
+    /* Ao ir para um tema pelo menu, deixa espaço para o cabeçalho fixo */
+    .section-block, #sitesBlogsGrid { scroll-margin-top: 9.5rem; }
+    @media (min-width: 768px) { .section-block, #sitesBlogsGrid { scroll-margin-top: 6.5rem; } }
   </style>
 </head>
 
@@ -518,26 +579,51 @@
         <button type="button" id="menuBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="menuPrincipal" aria-label="Menu" title="Menu" class="flex items-center justify-center w-9 h-8 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="alternarMenuPrincipal(event)">
           <svg class="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
-        <div id="menuPrincipal" role="menu" aria-label="Menu" class="hidden absolute left-0 top-full mt-3 w-64 p-1.5 rounded-2xl glass-modal border border-white/15 shadow-2xl z-50">
+        <div id="menuPrincipal" role="menu" aria-label="Menu" class="hidden absolute left-0 top-full mt-3 w-64 max-h-[78vh] overflow-y-auto p-1.5 rounded-2xl glass-modal border border-white/15 shadow-2xl z-50">
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('video')">
+            <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-red-600 to-rose-600 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-video"/></svg></span>
+            <span>Destaques</span>
+          </button>
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('social')">
+            <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-500 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-globe"/></svg></span>
+            <span>Redes Sociais</span>
+          </button>
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('playlists')">
+            <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-red-500 to-rose-600 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-yt"/></svg></span>
+            <span>Vídeos do YouTube</span>
+          </button>
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('project')">
+            <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-500 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-window"/></svg></span>
+            <span>Sites &amp; Ferramentas</span>
+          </button>
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('blog')">
+            <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-amber-500 to-orange-500 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-brand"/></svg></span>
+            <span>Blogs &amp; Artigos</span>
+          </button>
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('cashback')">
+            <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-yellow-500 to-amber-500 text-slate-950"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-heart"/></svg></span>
+            <span>Reembolso Parcial</span>
+          </button>
+          <div class="my-1.5 border-t border-white/10" role="separator"></div>
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); abrirSobreModalInfo()">
-            <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             <span>Sobre</span>
           </button>
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); abrirContactoModal()">
-            <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             <span>Contacto</span>
           </button>
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-pink-300 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); irParaApoio(event)">
-            <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6 1.4c.3.4.8.6 1.4.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 15 6 6"/><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z"/></svg>
+            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6 1.4c.3.4.8.6 1.4.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 15 6 6"/><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z"/></svg>
             <span>Apoiar</span>
           </button>
           <button type="button" id="btnPartilhar" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="partilharSite(event)">
-            <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
             <span id="btnPartilharTxt">Partilhar</span>
           </button>
           <div id="menuInstalarWrap">
             <button type="button" id="btnInstalar" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="estadoAppDoSobre(event)">
-              <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
               <span>Instalar app</span>
             </button>
             <div id="ajudaInstalar" role="status" aria-live="polite" hidden class="mt-1 mx-1 mb-1 text-xs text-slate-300 bg-white/5 border border-white/10 rounded-xl p-3"></div>
@@ -545,7 +631,7 @@
           <div class="my-1.5 border-t border-white/10"></div>
           <div role="group" aria-label="Idioma" class="notranslate" translate="no">
             <button type="button" id="menuLangToggle" aria-expanded="false" aria-controls="menuLangList" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="alternarIdiomasMenu(event)">
-              <svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+              <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
               <span class="flex-1">Idioma / Language</span>
               <svg id="menuLangFlag" class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-pt"/></svg>
               <svg id="menuLangChevron" class="w-3.5 h-3.5 opacity-70 transition-transform" aria-hidden="true"><use href="#icon-chevron"/></svg>
@@ -725,7 +811,7 @@
   <main class="container max-w-6xl mx-auto px-4 pt-40 md:pt-28 pb-16 z-10 flex-1 relative">
 
     <!-- HERO SECTION ESTILO BLOG -->
-    <section class="text-center my-8 max-w-5xl mx-auto">
+    <section class="text-center mt-8 mb-12 max-w-5xl mx-auto">
       
       <h1 class="text-6xl sm:text-9xl font-black tracking-tight text-gradient mb-4 leading-tight">
         AGAJOTA
@@ -739,18 +825,18 @@
       <!-- TAGS FILTRO RÁPIDO -->
       <div class="flex flex-wrap justify-center gap-2.5 mt-8 text-xs">
         <button onclick="filtrarTag(this, 'all')" class="tag-btn active px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-md transition-all whitespace-nowrap">Todos</button>
-        <button onclick="filtrarTag(this, 'video')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">🎬 Destaques</button>
-        <button onclick="filtrarTag(this, 'playlists')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">📺 Vídeos do YouTube</button>
-        <button onclick="filtrarTag(this, 'social')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">🌐 Redes</button>
-        <button onclick="filtrarTag(this, 'project')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">💻 Projetos</button>
-        <button onclick="filtrarTag(this, 'blog')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">📝 Blogs</button>
-        <button onclick="filtrarTag(this, 'cashback')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap">💸 Cashback</button>
+        <button onclick="filtrarTag(this, 'video')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-video"/></svg>Destaques</button>
+        <button onclick="filtrarTag(this, 'social')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-globe"/></svg>Redes</button>
+        <button onclick="filtrarTag(this, 'playlists')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-yt"/></svg>Vídeos do YouTube</button>
+        <button onclick="filtrarTag(this, 'project')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-window"/></svg>Projetos</button>
+        <button onclick="filtrarTag(this, 'blog')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-brand"/></svg>Blogs</button>
+        <button onclick="filtrarTag(this, 'cashback')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-heart"/></svg>Cashback</button>
       </div>
     </section>
 
     <!-- 1. SECÇÃO DE VÍDEOS EM DESTAQUE -->
     <section class="section-block my-12" data-category="video">
-      <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+      <div class="flex items-center gap-3 mb-6">
         <div class="p-2.5 rounded-xl bg-gradient-to-tr from-red-600 to-rose-600 text-white shadow-lg shadow-red-500/30">
           <svg class="w-5 h-5"><use href="#icon-video"/></svg>
         </div>
@@ -838,15 +924,108 @@
       </div>
     </section>
 
-    <!-- 2. ESPAÇO DE VÍDEOS DO YOUTUBE -->
-    <section class="section-block my-12" data-category="playlists">
-      <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
-        <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" title="Abrir o canal no YouTube" aria-label="Abrir o canal no YouTube" class="p-2.5 rounded-xl bg-gradient-to-tr from-red-500 to-rose-500 hover:from-red-400 hover:to-rose-400 text-white shadow-lg shadow-red-500/30 transition-all hover:scale-105 outline-none focus-visible:ring-2 focus-visible:ring-blue-400">
-          <svg class="w-5 h-5"><use href="#icon-yt"/></svg>
-        </a>
+    <!-- 2. REDES SOCIAIS & COMUNIDADE -->
+    <section id="redes" class="section-block my-12" data-category="social">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-500 text-white shadow-lg shadow-blue-500/30">
+          <svg class="w-5 h-5"><use href="#icon-globe"/></svg>
+        </div>
         <div>
-          <h2 class="text-xl font-extrabold text-white">Vídeos do YouTube</h2>
-          <p class="text-xs text-red-300">Escolha uma categoria abaixo para abrir e explorar os vídeos do canal</p>
+          <h2 class="text-xl font-extrabold text-white">Redes Sociais & Comunidade</h2>
+          <p class="text-xs text-blue-300">Siga o meu conteúdo em todas as plataformas</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <!-- SUB-BLOCO INSTAGRAM -->
+        <div class="glass-card rounded-2xl p-4 border border-pink-500/30 bg-gradient-to-br from-pink-950/20 via-slate-900/60 to-purple-950/20">
+          <p class="text-xs font-bold text-pink-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-pink-500"><use href="#icon-insta"/></svg> Instagram Profiles
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <a href="https://www.instagram.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
+              <span class="truncate">@gard3npt</span>
+            </a>
+            <a href="https://www.instagram.com/r3d_mini" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
+              <span class="truncate">@r3d_mini</span>
+            </a>
+            <a href="https://www.instagram.com/caricas_metalicas" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
+              <span class="truncate">@caricas_metalicas</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- SUB-BLOCO FACEBOOK -->
+        <div class="glass-card rounded-2xl p-4 border border-blue-500/30 bg-gradient-to-br from-blue-950/20 via-slate-900/60 to-indigo-950/20">
+          <p class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <svg class="w-4 h-4 text-blue-500"><use href="#icon-face"/></svg> Facebook Pages
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <a href="https://www.facebook.com/jardimhelder" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-blue-400"><use href="#icon-face"/></svg>
+              <span class="truncate">Hélder Jardim</span>
+            </a>
+            <a href="https://www.facebook.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
+              <svg class="w-4 h-4 flex-shrink-0 text-blue-400"><use href="#icon-face"/></svg>
+              <span class="truncate">Hélder Jardim | Page</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- OUTRAS REDES SOCIAIS -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5">
+        <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-red-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-red-500"><use href="#icon-yt"/></svg> YouTube
+        </a>
+        <a href="https://www.tiktok.com/@gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-cyan-500 hover:text-slate-950 text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-cyan-400"><use href="#icon-tiktok"/></svg> TikTok
+        </a>
+        <a href="https://discord.com/channels/822605864350646313/878278938118455317" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-indigo-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-indigo-400"><use href="#icon-discord"/></svg> Discord
+        </a>
+        <a href="https://www.twitter.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-sky-500 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-sky-400"><use href="#icon-twitter"/></svg> X / Twitter
+        </a>
+        <a href="https://steamcommunity.com/id/gard3npt/" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-slate-700 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-slate-400"><use href="#icon-steam"/></svg> Steam
+        </a>
+        <a href="https://open.spotify.com/user/3f97p9x9neepy829kwg89o8z3" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-emerald-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-emerald-400"><use href="#icon-spotify"/></svg> Spotify
+        </a>
+        <a href="https://www.twitch.tv/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
+          <svg class="w-4 h-4 text-purple-400"><use href="#icon-twitch"/></svg> Twitch
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. ESPAÇO DE VÍDEOS DO YOUTUBE -->
+    <section class="section-block my-12" data-category="playlists">
+      <!-- CABEÇALHO + BANNER DE SUBSCRIÇÃO num só cartão (ligação simples ao canal, sem scripts da Google) -->
+      <div id="ytSubBanner" class="yt-sub-wrap">
+        <div class="yt-sub-card" id="ytSubCard">
+          <div class="yt-sub-main">
+            <a class="yt-sub-icon" href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" title="Abrir o canal no YouTube" aria-label="Abrir o canal no YouTube"><svg aria-hidden="true"><use href="#icon-yt"/></svg></a>
+            <div class="yt-sub-info">
+              <h2 class="yt-sub-title">Vídeos do YouTube</h2>
+            </div>
+            <div id="ytSubNumBox" class="yt-sub-num" hidden>
+              <b id="ytSubNum">0</b>
+              <span>subscritores</span>
+              <small id="ytSubData" class="yt-sub-data" hidden></small>
+            </div>
+            <a class="yt-sub-cta" href="https://www.youtube.com/channel/UCw9HiRvBcB8TPzNMtGhWchA?sub_confirmation=1" target="_blank" rel="noopener noreferrer" aria-label="Subscrever o canal no YouTube (abre noutro separador)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <span>Subscrever</span>
+            </a>
+          </div>
+          <div id="ytSubProg" class="yt-sub-prog" hidden>
+            <div class="yt-sub-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso até à próxima meta de subscritores"><i id="ytSubBar"></i></div>
+            <p id="ytSubMeta" class="yt-sub-meta"></p>
+          </div>
         </div>
       </div>
 
@@ -1640,90 +1819,12 @@
 
     </section>
 
-    <!-- 3. REDES SOCIAIS & COMUNIDADE -->
-    <section id="redes" class="section-block my-12" data-category="social">
-      <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
-        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-500 text-white shadow-lg shadow-blue-500/30">
-          <svg class="w-5 h-5"><use href="#icon-globe"/></svg>
-        </div>
-        <div>
-          <h2 class="text-xl font-extrabold text-white">Redes Sociais & Comunidade</h2>
-          <p class="text-xs text-blue-300">Siga o meu conteúdo em todas as plataformas</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <!-- SUB-BLOCO INSTAGRAM -->
-        <div class="glass-card rounded-2xl p-4 border border-pink-500/30 bg-gradient-to-br from-pink-950/20 via-slate-900/60 to-purple-950/20">
-          <p class="text-xs font-bold text-pink-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <svg class="w-4 h-4 text-pink-500"><use href="#icon-insta"/></svg> Instagram Profiles
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-            <a href="https://www.instagram.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
-              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
-              <span class="truncate">@gard3npt</span>
-            </a>
-            <a href="https://www.instagram.com/r3d_mini" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
-              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
-              <span class="truncate">@r3d_mini</span>
-            </a>
-            <a href="https://www.instagram.com/caricas_metalicas" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
-              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>
-              <span class="truncate">@caricas_metalicas</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- SUB-BLOCO FACEBOOK -->
-        <div class="glass-card rounded-2xl p-4 border border-blue-500/30 bg-gradient-to-br from-blue-950/20 via-slate-900/60 to-indigo-950/20">
-          <p class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <svg class="w-4 h-4 text-blue-500"><use href="#icon-face"/></svg> Facebook Pages
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <a href="https://www.facebook.com/jardimhelder" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
-              <svg class="w-4 h-4 flex-shrink-0 text-blue-400"><use href="#icon-face"/></svg>
-              <span class="truncate">Hélder Jardim</span>
-            </a>
-            <a href="https://www.facebook.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">
-              <svg class="w-4 h-4 flex-shrink-0 text-blue-400"><use href="#icon-face"/></svg>
-              <span class="truncate">Hélder Jardim | Page</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- OUTRAS REDES SOCIAIS -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2.5">
-        <a href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-red-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 text-red-500"><use href="#icon-yt"/></svg> YouTube
-        </a>
-        <a href="https://www.tiktok.com/@gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-cyan-500 hover:text-slate-950 text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 text-cyan-400"><use href="#icon-tiktok"/></svg> TikTok
-        </a>
-        <a href="https://discord.com/channels/822605864350646313/878278938118455317" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-indigo-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 text-indigo-400"><use href="#icon-discord"/></svg> Discord
-        </a>
-        <a href="https://www.twitter.com/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-sky-500 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 text-sky-400"><use href="#icon-twitter"/></svg> X / Twitter
-        </a>
-        <a href="https://steamcommunity.com/id/gard3npt/" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-slate-700 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 text-slate-400"><use href="#icon-steam"/></svg> Steam
-        </a>
-        <a href="https://open.spotify.com/user/3f97p9x9neepy829kwg89o8z3" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-emerald-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 text-emerald-400"><use href="#icon-spotify"/></svg> Spotify
-        </a>
-        <a href="https://www.twitch.tv/gard3npt" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">
-          <svg class="w-4 h-4 text-purple-400"><use href="#icon-twitch"/></svg> Twitch
-        </a>
-      </div>
-    </section>
-
     <!-- 4. SITES DESENVOLVIDOS & BLOGS GRID -->
     <div id="sitesBlogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
       
       <!-- SITES DESENVOLVIDOS -->
       <section class="section-block" data-category="project">
-        <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+        <div class="flex items-center gap-3 mb-6">
           <div class="p-2.5 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30">
             <svg class="w-5 h-5"><use href="#icon-window"/></svg>
           </div>
@@ -1777,7 +1878,7 @@
 
       <!-- BLOGS -->
       <section class="section-block" data-category="blog">
-        <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+        <div class="flex items-center gap-3 mb-6">
           <div class="p-2.5 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white shadow-lg shadow-orange-500/30">
             <svg class="w-5 h-5"><use href="#icon-brand"/></svg>
           </div>
@@ -1833,7 +1934,7 @@
 
     <!-- 5. REEMBOLSO PARCIAL & REFERIDOS -->
     <section class="section-block my-12" data-category="cashback">
-      <div class="flex items-center gap-3 mb-6 pb-2 border-b border-white/10">
+      <div class="flex items-center gap-3 mb-6">
         <div class="p-2.5 rounded-xl bg-gradient-to-tr from-yellow-500 to-amber-500 text-slate-950 shadow-lg shadow-yellow-500/30">
           <svg class="w-5 h-5"><use href="#icon-heart"/></svg>
         </div>
@@ -2044,7 +2145,7 @@
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Vídeos do YouTube</h4>
-          <p>Os vídeos abrem em modo de privacidade reforçada (youtube-nocookie.com) e só quando carregas em reproduzir; é nessa altura que é pedido ao YouTube o leitor de vídeo. As miniaturas e os tipos de letra são pedidos aos servidores da Google/YouTube, que podem por isso ver o teu endereço IP.</p>
+          <p>Os vídeos abrem em modo de privacidade reforçada (youtube-nocookie.com) e só quando carregas em reproduzir; é nessa altura que é pedido ao YouTube o leitor de vídeo. As miniaturas e os tipos de letra são pedidos aos servidores da Google/YouTube, que podem por isso ver o teu endereço IP. O banner de subscrição é apenas uma ligação para o canal, sem scripts da Google. Se estiver ativa a atualização automática, o número de subscritores é pedido à API do YouTube, que pode por isso ver o teu endereço IP.</p>
         </div>
         <div class="bg-slate-900/60 p-4 rounded-2xl border border-white/5">
           <h4 class="font-bold text-white text-sm mb-1">Tradução do site (Google Tradutor)</h4>
@@ -2898,8 +2999,9 @@
       if (el) el.textContent = new Date().getFullYear();
     })();
 
-    // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão
-    const ULTIMA_ATUALIZACAO = '2026-10-28';
+    // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
+    // É usada no rodapé, no diagnóstico e no banner de subscritores do YouTube: mudas aqui e muda em todos.
+    const ULTIMA_ATUALIZACAO = '2026-11-04';
     let footerToastTimer = null;
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
@@ -2961,6 +3063,105 @@
       document.head.appendChild(sc);
     }
 
+    // ---- Número de subscritores do YouTube (banner) ----
+    // Opção A (automático): cola aqui uma chave da API "YouTube Data API v3" (restringida ao teu site).
+    // Opção B (manual): escreve o número, por exemplo '1923'.
+    const YT_CANAL_ID = 'UCw9HiRvBcB8TPzNMtGhWchA';
+    const YT_API_KEY = '';
+    const YT_SUBS_MANUAL = '1923';
+
+    const YT_METAS = [100, 250, 500, 1000, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 250000, 500000, 1000000];
+    const fmtNum = n => n.toLocaleString('pt-PT');
+    const semAnimacoes = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function animarNumero(el, alvo, ms) {
+      if (semAnimacoes()) { el.textContent = fmtNum(alvo); return; }
+      const t0 = performance.now();
+      (function passo(t) {
+        const p = Math.min(1, (t - t0) / ms);
+        el.textContent = fmtNum(Math.round(alvo * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(passo);
+      })(t0);
+    }
+
+    function mostrarSubs(valor, manual) {
+      const box = document.getElementById('ytSubNumBox');
+      const num = document.getElementById('ytSubNum');
+      const banner = document.getElementById('ytSubBanner');
+      if (!box || !num || !banner || window.__ytSubsMostrado) return;
+      window.__ytSubsMostrado = true;
+      const texto = String(valor).trim();
+      const n = typeof valor === 'number' ? valor : (/^\d+$/.test(texto) ? parseInt(texto, 10) : null);
+      box.hidden = false;
+      // Data de atualização (a mesma do site: ULTIMA_ATUALIZACAO); só no modo manual, porque a API já dá o valor atual
+      const dEl = document.getElementById('ytSubData');
+      if (dEl && manual) {
+        const dt = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
+        if (!isNaN(dt)) {
+          dEl.textContent = 'Atualizado a ' + dt.toLocaleDateString('pt-PT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+          dEl.hidden = false;
+        }
+      }
+      num.textContent = n === null ? texto : '0';
+      const arrancar = () => {
+        if (n === null) return;
+        animarNumero(num, n, 1600);
+        const prox = YT_METAS.find(m => n < m);
+        if (!prox) return;
+        const ant = YT_METAS.filter(m => m <= n).pop() || 0;
+        const pct = Math.max(3, Math.min(100, ((n - ant) / (prox - ant)) * 100));
+        document.getElementById('ytSubProg').hidden = false;
+        document.getElementById('ytSubBar').parentNode.setAttribute('aria-valuenow', String(Math.round(pct)));
+        const meta = document.getElementById('ytSubMeta');
+        meta.innerHTML = '🎯 Faltam <strong></strong> para chegar aos <strong></strong> subscritores';
+        const fortes = meta.querySelectorAll('strong');
+        fortes[0].textContent = fmtNum(prox - n);
+        fortes[1].textContent = fmtNum(prox);
+        const barra = document.getElementById('ytSubBar');
+        if (semAnimacoes()) barra.style.width = pct + '%';
+        else setTimeout(() => { barra.style.width = pct + '%'; }, 150);
+      };
+      if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(es => {
+          if (es.some(e => e.isIntersecting)) { obs.disconnect(); arrancar(); }
+        }, { threshold: 0.4 });
+        obs.observe(banner);
+      } else {
+        arrancar();
+      }
+    }
+
+    function carregarContagemSubs() {
+      if (YT_API_KEY) {
+        let guardado = null;
+        try { guardado = JSON.parse(sessionStorage.getItem('agajota-yt-subs') || 'null'); } catch (e) {}
+        if (guardado && typeof guardado.v === 'number' && Date.now() - guardado.t < 6 * 3600 * 1000) { mostrarSubs(guardado.v); return; }
+        fetch('https://www.googleapis.com/youtube/v3/channels?part=statistics&id=' + encodeURIComponent(YT_CANAL_ID) + '&key=' + encodeURIComponent(YT_API_KEY))
+          .then(r => r.ok ? r.json() : Promise.reject())
+          .then(d => {
+            const st = d && d.items && d.items[0] && d.items[0].statistics;
+            if (!st || st.hiddenSubscriberCount) throw 0;
+            const v = parseInt(st.subscriberCount, 10);
+            try { sessionStorage.setItem('agajota-yt-subs', JSON.stringify({ t: Date.now(), v: v })); } catch (e) {}
+            mostrarSubs(v);
+          })
+          .catch(() => { if (YT_SUBS_MANUAL) mostrarSubs(YT_SUBS_MANUAL, true); });
+      } else if (YT_SUBS_MANUAL) {
+        mostrarSubs(YT_SUBS_MANUAL, true);
+      }
+    }
+
+    // Efeito de luz que segue o rato no banner
+    (function () {
+      const card = document.getElementById('ytSubCard');
+      if (!card) return;
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    })();
+
     function mostrarBannerCookies() {
       const b = document.getElementById('cookieBanner');
       b.classList.remove('hidden');
@@ -2983,6 +3184,8 @@
         if (window.__adsCarregado) location.reload();
       }
     }
+
+    carregarContagemSubs();
 
     (function () {
       const estado = lerConsentimento();
@@ -3150,7 +3353,41 @@
       // Evita meia largura vazia quando só uma das secções (Sites/Blogs) está visível
       const grid = document.getElementById('sitesBlogsGrid');
       if (grid) grid.classList.toggle('md:grid-cols-2', category === 'all');
+      atualizarSeparadores();
     }
+
+    // Menu de três linhas: ir diretamente para um tema (mostra tudo se o tema estava filtrado)
+    function irParaTema(cat) {
+      if (typeof fecharMenuPrincipal === 'function') fecharMenuPrincipal();
+      const sec = document.querySelector('.section-block[data-category="' + cat + '"]');
+      if (!sec) return;
+      if (getComputedStyle(sec).display === 'none') {
+        const todos = document.querySelector('.tag-btn');
+        if (todos) filtrarTag(todos, 'all');
+      }
+      const grelha = sec.closest('#sitesBlogsGrid');
+      // Sites e Blogs: no computador estão lado a lado, por isso vai-se ao grupo (onde está a linha de separação)
+      const alvo = grelha && (cat === 'project' || window.innerWidth >= 768) ? grelha : sec;
+      const reduzir = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      requestAnimationFrame(() => alvo.scrollIntoView({ behavior: reduzir ? 'auto' : 'smooth', block: 'start' }));
+    }
+
+    // Linha fina entre temas: no topo de todas as secções visíveis, incluindo a primeira (separa-a do título e dos filtros); Sites e Blogs contam como um grupo
+    function atualizarSeparadores() {
+      const itens = [];
+      document.querySelectorAll('.section-block').forEach(b => {
+        const it = b.closest('#sitesBlogsGrid') || b;
+        if (itens.indexOf(it) < 0) itens.push(it);
+      });
+      itens.forEach(it => {
+        it.classList.remove('sep-top');
+        const visivel = it.id === 'sitesBlogsGrid'
+          ? Array.from(it.querySelectorAll('.section-block')).some(b => b.style.display !== 'none')
+          : it.style.display !== 'none';
+        if (visivel) it.classList.add('sep-top');
+      });
+    }
+    atualizarSeparadores();
   </script>
   <!-- VER MAIS: mostra os vídeos de 9 em 9 em cada categoria (funciona também para vídeos novos) -->
   <script>
