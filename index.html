@@ -446,6 +446,8 @@
     .pd-amarelo { background: #fde68a; color: #78350f; }
     .pd-vermelho { background: #dc2626; color: #fff; }
     .pd-nota { margin: 3px 4px 0; font-size: 12px; color: #64748b; line-height: 1.35; }
+    .pd-lbl { display: block; margin-top: 8px; font-size: 12px; font-weight: 700; color: #475569; }
+    .pd-input { display: block; box-sizing: border-box; width: 100%; margin-top: 4px; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff; color: #0f172a; font: inherit; font-size: 15px; font-weight: 600; }
     .pd-sug { margin: 0; padding: 4px 12px 4px 30px; font-size: 13px; line-height: 1.4; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; }
     .pd-sug li { padding: 7px 0; border-bottom: 1px solid #eef2f7; }
     .pd-sug li:last-child { border-bottom: 0; }
@@ -632,7 +634,7 @@
           <div role="group" aria-label="Idioma" class="notranslate" translate="no">
             <button type="button" id="menuLangToggle" aria-expanded="false" aria-controls="menuLangList" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="alternarIdiomasMenu(event)">
               <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
-              <span class="flex-1">Idioma / Language</span>
+              <span class="flex-1">Idioma</span>
               <svg id="menuLangFlag" class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-pt"/></svg>
               <svg id="menuLangChevron" class="w-3.5 h-3.5 opacity-70 transition-transform" aria-hidden="true"><use href="#icon-chevron"/></svg>
             </button>
@@ -2870,24 +2872,6 @@
       ] };
     }
 
-    /* sugestões calculadas a partir do estado atual; desaparecem sozinhas quando o ponto deixa de se aplicar */
-    function dnSugestoes() {
-      const s = [], f = (dnDados && dnDados.fatos) || {};
-      if (typeof VERSAO_SITE === 'undefined')
-        s.push(['Número de versão', 'O site ainda não tem número de versão. Mostrar, por exemplo, “v1.4” junto à data ajuda a saber que versão cada pessoa está a usar.']);
-      if (SENHA_DONO.length < 8)
-        s.push(['Senha curta no código', 'A senha desta área tem só ' + SENHA_DONO.length + ' caracteres e está visível no código. Serve para evitar toques acidentais, não para proteger dados.']);
-      if (f.cacheNomes && f.cacheNomes.length && !f.cacheNomes.some(function (n) { return /\d/.test(n); }))
-        s.push(['Cache sem número de versão', 'O nome da cache (“' + f.cacheNomes.join(', ') + '”) não tem número. Mudá-lo a cada atualização garante que todos recebem a versão nova.']);
-      const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
-      const dias = isNaN(d) ? null : Math.floor((Date.now() - d.getTime()) / 86400000);
-      if (dias !== null && dias > 45)
-        s.push(['Data de atualização antiga', 'A última atualização indicada foi há ' + dias + ' dias. Se mexeu no site desde então, atualize a data no código.']);
-      if (f.recursos)
-        s.push(['Ficheiros que não carregam', f.recursos + ' ficheiro(s) não carregaram (ver Erros). Confirme se foram enviados para o servidor.']);
-      return s;
-    }
-
     function dnTexto() {
       let t = 'AGAJOTA — diagnóstico (' + new Date().toLocaleString('pt-PT') + ')\n';
       if (!dnDados) return t;
@@ -2895,8 +2879,6 @@
       dnDados.grupos.forEach(function (g) {
         t += '\n[' + g.t + ']\n' + g.l.map(function (r) { return r[0] + ': ' + r[1]; }).join('\n') + '\n';
       });
-      const sg = dnSugestoes();
-      t += '\n[Sugestões automáticas]\n' + (sg.length ? sg.map(function (x) { return '- ' + x[0] + ': ' + x[1]; }).join('\n') : 'nenhuma') + '\n';
       return t;
     }
     async function dnCopiar(btn) {
@@ -2945,6 +2927,58 @@
       }, 'Repor tudo');
     }
 
+    /* banner de subscritores: aplicar no ecrã e descarregar o index corrigido */
+    function dnLerSubs(btn) {
+      const n = (document.getElementById('pdSubsNum').value || '').replace(/[\s.]/g, '');
+      const d = document.getElementById('pdSubsData').value || '';
+      let erro = '';
+      if (!/^\d+$/.test(n)) erro = '❌ Escreva só algarismos no número';
+      else if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) erro = '❌ Escolha uma data válida';
+      if (erro) { dnFeedback(btn, erro); return null; }
+      return { n: n, d: d };
+    }
+    function dnFeedback(btn, txt) {
+      const antes = btn.textContent;
+      btn.textContent = txt;
+      setTimeout(function () { btn.textContent = antes; }, 2000);
+    }
+    function dnDataHoje() {
+      const t = new Date();
+      const iso = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+      const el = document.getElementById('pdSubsData');
+      if (el) el.value = iso;
+    }
+    function dnAplicarSubs(btn) {
+      const v = dnLerSubs(btn); if (!v) return;
+      ULTIMA_ATUALIZACAO = v.d;
+      YT_SUBS_MANUAL = v.n;
+      window.__ytSubsMostrado = false;
+      const barra = document.getElementById('ytSubBar');
+      if (barra) barra.style.width = '0';
+      mostrarSubs(v.n, true);
+      dnFeedback(btn, '✅ Aplicado');
+    }
+    async function dnDescarregarIndex(btn) {
+      const v = dnLerSubs(btn); if (!v) return;
+      try {
+        const r = await fetch(location.href.split('#')[0], { cache: 'no-store' });
+        if (!r.ok) throw 0;
+        let src = await r.text();
+        let achou = 0;
+        src = src.replace(/((?:const|let)\s+ULTIMA_ATUALIZACAO\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.d + b; });
+        src = src.replace(/((?:const|let)\s+YT_SUBS_MANUAL\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.n + b; });
+        if (achou !== 2) throw 0;
+        const url = URL.createObjectURL(new Blob([src], { type: 'text/html;charset=utf-8' }));
+        const a = document.createElement('a');
+        a.href = url; a.download = 'index.html';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+        dnFeedback(btn, '✅ Descarregado');
+      } catch (e) {
+        dnFeedback(btn, '❌ Não foi possível (abra o site pelo endereço online)');
+      }
+    }
+
     function dnRender(c) {
       const pos = c.scrollTop;
       let h = '<div class="pd-sec">Avisos</div>';
@@ -2955,6 +2989,20 @@
         h += '<div class="pd-sec">' + dnEsc(g.t) + '</div><div class="pd-card">' +
           g.l.map(function (r) { return '<div class="pd-row"><span>' + dnEsc(r[0]) + '</span><b>' + dnEsc(r[1]) + '</b></div>'; }).join('') + '</div>';
       });
+      const antNum = document.getElementById('pdSubsNum'), antData = document.getElementById('pdSubsData');
+      const vNum = antNum ? antNum.value : YT_SUBS_MANUAL, vData = antData ? antData.value : ULTIMA_ATUALIZACAO;
+      h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
+        '<div class="pd-card" style="padding:4px 12px 12px;">' +
+        '<label class="pd-lbl" for="pdSubsNum">Número de subscritores</label>' +
+        '<input id="pdSubsNum" class="pd-input" type="text" inputmode="numeric" autocomplete="off" value="' + dnEsc(vNum) + '">' +
+        '<label class="pd-lbl" for="pdSubsData">Data de atualização (do banner e do site)</label>' +
+        '<input id="pdSubsData" class="pd-input" type="date" value="' + dnEsc(vData) + '">' +
+        '</div>' +
+        '<button type="button" class="pd-btn" onclick="dnDataHoje()">📅 Usar a data de hoje</button>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnAplicarSubs(this)">✅ Aplicar neste ecrã</button>' +
+        '<div class="pd-nota">Mostra já o novo número e a nova data no banner e no rodapé, só para ver. Não fica guardado no site.</div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index.html corrigido</button>' +
+        '<div class="pd-nota">Descarrega o index.html com este número e esta data já escritos. Depois é só substituir o ficheiro no servidor.</div>';
       h += '<div class="pd-sec">Ferramentas</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnCopiar(this)">📋 Copiar diagnóstico</button>' +
         '<div class="pd-nota">Copia tudo isto como texto, para colar numa mensagem.</div>' +
@@ -2968,11 +3016,6 @@
         '<div class="pd-nota">Idioma, reprodução automática e aviso de cookies voltam ao início.</div>' +
         '<button type="button" class="pd-btn pd-vermelho" onclick="dnReporSite()">⚠️ Repor site original</button>' +
         '<div class="pd-nota">Apaga tudo o que está guardado neste dispositivo e recarrega a página.</div>';
-      const sg = dnSugestoes();
-      h += '<div class="pd-sec">Sugestões automáticas</div>' + (sg.length
-        ? '<ol class="pd-sug">' + sg.map(function (x) { return '<li><b>' + dnEsc(x[0]) + '.</b> ' + dnEsc(x[1]) + '</li>'; }).join('') + '</ol>'
-        : '<div class="pd-ok">✅ Nada a sugerir de momento</div>') +
-        '<div class="pd-nota">Calculadas a partir do estado atual do site; desaparecem quando o ponto deixa de se aplicar.</div>';
       c.innerHTML = h;
       c.scrollTop = pos;
     }
@@ -3001,7 +3044,7 @@
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé, no diagnóstico e no banner de subscritores do YouTube: mudas aqui e muda em todos.
-    const ULTIMA_ATUALIZACAO = '2026-11-04';
+    let ULTIMA_ATUALIZACAO = '2026-11-09';
     let footerToastTimer = null;
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
@@ -3068,7 +3111,7 @@
     // Opção B (manual): escreve o número, por exemplo '1923'.
     const YT_CANAL_ID = 'UCw9HiRvBcB8TPzNMtGhWchA';
     const YT_API_KEY = '';
-    const YT_SUBS_MANUAL = '1923';
+    let YT_SUBS_MANUAL = '1924';
 
     const YT_METAS = [100, 250, 500, 1000, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 250000, 500000, 1000000];
     const fmtNum = n => n.toLocaleString('pt-PT');
