@@ -3040,6 +3040,18 @@
     let dnModo = 1;
     let dnGen = { tipo: 'video', link: '', titulo: '', desc: '', num: '', btn: '', emoji: '', cor: 'verde', saida: '', dica: '' };
     const DN_CORES = { 'verde': 'emerald', 'azul': 'blue', 'laranja': 'orange', 'âmbar': 'amber', 'roxo': 'purple', 'rosa': 'pink' };
+    /* cores das recompensas: as de cima + as que alguns cartões já usam */
+    const DN_CORES_REC = { 'verde': 'emerald', 'verde claro': 'green', 'azul': 'blue', 'ciano': 'cyan', 'índigo': 'indigo', 'laranja': 'orange', 'âmbar': 'amber', 'amarelo': 'yellow', 'vermelho': 'red', 'roxo': 'purple', 'rosa': 'pink' };
+    function dnRecCorDe(a) {
+      const fb = a.querySelector('div[style*="display:none"]'), h3 = a.querySelector('h3');
+      const m = (fb && fb.className.match(/bg-([a-z]+)-500\/20/)) || (h3 && h3.className.match(/text-([a-z]+)-300/));
+      const nome = m && m[1];
+      const k = Object.keys(DN_CORES_REC).filter(function (x) { return DN_CORES_REC[x] === nome; })[0];
+      return k || 'âmbar';
+    }
+    function dnRecTrocaCor(txt, velha, nova) {
+      return String(txt).replace(new RegExp('(bg|text)-' + velha + '-(\\d+)', 'g'), '$1-' + nova + '-$2');
+    }
 
     function dnIrModo(n) {
       dnModo = n;
@@ -3061,11 +3073,13 @@
     /* lista de recompensas (persiste enquanto a página estiver aberta; src = posição no ficheiro original, -1 = nova) */
     let dnRec = null;
     let dnNovaRec = { nome: '', link: '', desc: '', cor: 'âmbar' };
+    let dnNovaRecAberta = false;
+    let dnRecSecAberta = false;
     function dnRecInit() {
       if (dnRec) return;
       dnRec = dnRecCartoes().map(function (a, i) {
         const h3 = a.querySelector('h3'), p = a.querySelector('p');
-        return { src: i, el: a, nome: h3 ? h3.textContent.trim() : '', desc: p ? p.textContent.trim() : '', link: a.getAttribute('href') || '', cor: 'âmbar', del: false, ab: false };
+        return { src: i, el: a, nome: h3 ? h3.textContent.trim() : '', desc: p ? p.textContent.trim() : '', link: a.getAttribute('href') || '', cor: dnRecCorDe(a), corOrig: dnRecCorDe(a), ina: a.hasAttribute('data-inativo'), del: false, ab: false };
       });
     }
     function dnRecRender() { const c = document.getElementById('pdCorpo'); if (c) dnRender(c); }
@@ -3075,6 +3089,7 @@
       it.ab = false;
       dnRecRender();
     }
+    function dnRecDesativar(i) { dnRec[i].ina = !dnRec[i].ina; dnRec[i].ab = true; dnRecRender(); }
     function dnRecRestaurar(i) { dnRec[i].del = false; dnRecRender(); }
     function dnRecAdicionar(btn) {
       const n = dnNovaRec, nome = (n.nome || '').trim(), link = (n.link || '').trim(), desc = (n.desc || '').trim();
@@ -3099,7 +3114,7 @@
     }
     function dnRecCriarEl(it) {
       const t = document.createElement('template');
-      t.innerHTML = dnCodigoRec(it.link, it.nome, it.desc, it.cor).trim();
+      t.innerHTML = dnCodigoRec(it.link, it.nome, it.desc, it.cor, it.ina).trim();
       return t.content.firstElementChild;
     }
     function dnAplicarRec(items) {
@@ -3113,6 +3128,13 @@
         const nomeMudou = !!h3 && h3.textContent.trim() !== it.nome;
         if (h3) h3.textContent = it.nome;
         if (p) p.textContent = it.desc;
+        if (it.corOrig && it.cor !== it.corOrig) {
+          const cv = DN_CORES_REC[it.corOrig], cn = DN_CORES_REC[it.cor];
+          if (cv && cn) a.querySelectorAll('div, h3').forEach(function (e) { e.className = dnRecTrocaCor(e.className, cv, cn); });
+          it.corOrig = it.cor;
+        }
+        if (it.ina) { a.setAttribute('data-inativo', '1'); a.style.display = 'none'; }
+        else { a.removeAttribute('data-inativo'); a.style.display = ''; }
         if (img) {
           if (nomeMudou) img.alt = it.nome;
           if (dnDominio(velho) !== dnDominio(it.link) && dnDominio(it.link)) img.src = img.src.replace(/(domain=)[^&]+/, '$1' + dnDominio(it.link));
@@ -3127,7 +3149,7 @@
       let bloco = src.slice(ini, fim), i = 0;
       const re = /<a href="([^"]*)"([^>]*class="item-card[^>]*>)([\s\S]*?)<\/a>(\s*)/g;
       const total = (bloco.match(re) || []).length;
-      const novos = items.filter(function (x) { return x.src < 0 && !x.del; }).map(function (x) { return dnCodigoRec(x.link, x.nome, x.desc, x.cor); });
+      const novos = items.filter(function (x) { return x.src < 0 && !x.del; }).map(function (x) { return dnCodigoRec(x.link, x.nome, x.desc, x.cor, x.ina); });
       bloco = bloco.replace(re, function (m, href, resto, corpo, ws) {
         const idx = i++;
         const it = items.filter(function (x) { return x.src === idx; })[0];
@@ -3146,7 +3168,11 @@
           c = c.replace(/(<h3[^>]*>)([\s\S]*?)(<\/h3>)/, function (x, a, t, b) { return dnDesesc(t) === it.nome ? x : a + dnEsc(it.nome) + b; });
           c = c.replace(/(<p[^>]*>)([\s\S]*?)(<\/p>)/, function (x, a, t, b) { return dnDesesc(t) === it.desc ? x : a + dnEsc(it.desc) + b; });
           if (nomeMudou) c = c.replace(/(<img[^>]*?alt=")([^"]*)(")/, function (x, a, t, b) { return a + dnEsc(it.nome) + b; });
-          out = '<a href="' + novoHref + '"' + resto + c + '</a>' + ws;
+          const corVelha = dnRecCorDe(new DOMParser().parseFromString('<div>' + corpo + '</div>', 'text/html').body.firstChild);
+          if (it.cor !== corVelha && DN_CORES_REC[corVelha] && DN_CORES_REC[it.cor]) c = dnRecTrocaCor(c, DN_CORES_REC[corVelha], DN_CORES_REC[it.cor]);
+          let resto2 = resto.replace(/ data-inativo="1"/g, '').replace(/ style="display:none"/g, '');
+          if (it.ina) resto2 = resto2.replace(/>$/, ' data-inativo="1" style="display:none">');
+          out = '<a href="' + novoHref + '"' + resto2 + c + '</a>' + ws;
         }
         if (idx === total - 1 && novos.length) {
           out = out ? out.replace(/\s*$/, '') + '\n\n' + novos.join('\n\n') + ws : novos.join('\n\n').replace(/^\s+/, '') + ws;
@@ -3209,12 +3235,12 @@
         '        </div>'
       ].join('\n');
     }
-    function dnCodigoRec(link, titulo, desc, cor) {
-      const c = DN_CORES[cor] || 'amber', t = dnEsc(titulo);
+    function dnCodigoRec(link, titulo, desc, cor, ina) {
+      const c = DN_CORES_REC[cor] || 'amber', t = dnEsc(titulo);
       let dom = '';
       try { dom = dnDominio(link); } catch (e) {}
       return [
-        '        <a href="' + dnEsc(link) + '" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">',
+        '        <a href="' + dnEsc(link) + '" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all"' + (ina ? ' data-inativo="1" style="display:none"' : '') + '>',
         '          <img src="https://www.google.com/s2/favicons?domain=' + dnEsc(dom) + '&sz=64" alt="' + t + '" width="32" height="32" loading="lazy" referrerpolicy="no-referrer" class="w-8 h-8 p-1 rounded-lg bg-white shrink-0 object-contain" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'\'">',
         '          <div style="display:none" class="p-2 rounded-lg bg-' + c + '-500/20 text-' + c + '-400"><svg class="w-4 h-4"><use href="#icon-globe"/></svg></div>',
         '          <div>',
@@ -3401,35 +3427,43 @@
           '<div class="pd-nota">Estes cartões ainda não estão no ficheiro: use «Descarregar index.html corrigido» para os guardar.</div>';
       }
       dnRecInit();
-      h += '<div class="pd-sec">Reembolso Parcial &amp; Recompensas</div>';
+      h += '<details class="pd-card" style="padding:6px 12px;margin-top:22px;"' + (dnRecSecAberta ? ' open' : '') + ' ontoggle="if(event.target===this)dnRecSecAberta=this.open">' +
+        '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🎁 Reembolso Parcial &amp; Recompensas <small>(' + dnRec.filter(function (x) { return !x.del; }).length + ')</small></summary>' +
+        '<div style="padding-bottom:6px;">';
       dnRec.forEach(function (it, i) {
         h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="dnRec[' + i + '].ab=this.open">' +
-          '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '🗑️ ' : (it.nova ? '🆕 ' : '')) + dnEsc(it.nome || 'Sem nome') + (it.del ? ' (removida)' : '') + '</summary>' +
+          '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : (it.nova ? '🆕 ' : ''))) + dnEsc(it.nome || 'Sem nome') + (it.del ? ' (removida)' : (it.ina ? ' (inativa)' : '')) + '</summary>' +
           '<div style="padding-bottom:10px;">';
         if (it.del) {
           h += '<button type="button" class="pd-btn" onclick="dnRecRestaurar(' + i + ')">↩️ Restaurar</button>';
         } else {
           h += dnCampoX('pdRecN' + i, 'Nome', it.nome, 'dnRec[' + i + '].nome', '') +
             dnCampoX('pdRecD' + i, 'Descrição', it.desc, 'dnRec[' + i + '].desc', '') +
+            '<label class="pd-lbl" for="pdRecC' + i + '">Cor</label><select id="pdRecC' + i + '" class="pd-input" onchange="dnRec[' + i + '].cor=this.value">' +
+            Object.keys(DN_CORES_REC).map(function (k) { return '<option value="' + k + '"' + (k === it.cor ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>'; }).join('') + '</select>' +
             '<label class="pd-lbl" for="pdRecL' + i + '">Link</label>' +
             '<div style="display:flex;gap:6px;align-items:center;">' +
             '<input id="pdRecL' + i + '" class="pd-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;" value="' + dnEsc(it.link) + '" oninput="dnRec[' + i + '].link=this.value">' +
             '<button type="button" class="pd-btn" style="width:auto;margin-top:4px;padding:10px 12px;" aria-label="Abrir link" title="Abrir link" onclick="dnAbrirRec(' + i + ')">↗</button>' +
             '</div>' +
-            '<button type="button" class="pd-btn pd-vermelho" onclick="dnRecRemover(' + i + ')">🗑️ Remover</button>';
+            '<button type="button" class="pd-btn" onclick="dnRecDesativar(' + i + ')">' + (it.ina ? '▶️ Ativar (voltar a mostrar no site)' : '⏸️ Desativar (esconder do site, fica guardada)') + '</button>' +
+            '<button type="button" class="pd-btn pd-vermelho" onclick="dnRecRemover(' + i + ')">🗑️ Remover (apagar de vez)</button>';
         }
         h += '</div></details>';
       });
-      h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição e o link, ou para a remover. Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar.</div>';
-      h += '<div class="pd-sec pd-sub">Nova recompensa</div><div class="pd-card" style="padding:4px 12px 12px;">' +
+      h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição, a cor e o link, ou para a desativar (esconde do site mas fica guardada, podendo voltar a ativar) ou remover (apaga). Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar.</div>';
+      h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;"' + (dnNovaRecAberta ? ' open' : '') + ' ontoggle="dnNovaRecAberta=this.open">' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">➕ Novo Botão</summary>' +
+        '<div style="padding-bottom:10px;">' +
         dnCampoX('pdNrNome', 'Nome', dnNovaRec.nome, 'dnNovaRec.nome', '') +
         dnCampoX('pdNrDesc', 'Descrição curta', dnNovaRec.desc, 'dnNovaRec.desc', '') +
         dnCampoX('pdNrLink', 'Link (endereço)', dnNovaRec.link, 'dnNovaRec.link', 'inputmode="url" placeholder="https://"') +
         '<label class="pd-lbl" for="pdNrCor">Cor</label><select id="pdNrCor" class="pd-input" onchange="dnNovaRec.cor=this.value">' +
-        Object.keys(DN_CORES).map(function (k) { return '<option value="' + k + '"' + (k === dnNovaRec.cor ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>'; }).join('') + '</select>' +
-        '</div>' +
+        Object.keys(DN_CORES_REC).map(function (k) { return '<option value="' + k + '"' + (k === dnNovaRec.cor ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>'; }).join('') + '</select>' +
         '<button type="button" id="pdRecAdd" class="pd-btn pd-azul" onclick="dnRecAdicionar(this)">➕ Adicionar à lista</button>' +
-        '<div class="pd-nota">A nova recompensa entra na lista acima (marcada com 🆕) e vai para o site com «Aplicar neste ecrã» e «Descarregar index.html corrigido».</div>';
+        '<div class="pd-nota">O novo botão entra na lista acima (marcado com 🆕) e vai para o site com «Aplicar neste ecrã» e «Descarregar index.html corrigido».</div>' +
+        '</div></details>';
+      h += '</div></details>';
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdSubsNum">Número de subscritores</label>' +
