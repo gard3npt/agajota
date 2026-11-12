@@ -434,8 +434,9 @@
 .pd-input.pd-code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; font-weight: 500; min-height: 150px; resize: vertical; white-space: pre; overflow: auto; }
 .pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
     .pd-body { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 4px 14px 16px; text-align: left; }
-    .pd-sec { margin: 18px 0 8px; padding: 16px 2px 0; border-top: 2px solid #cbd5e1; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
-    .pd-sec:first-child { margin-top: 10px; padding-top: 0; border-top: 0; }
+    .pd-sec { margin: 22px 0 8px; padding: 16px 2px 0; border-top: 3px solid #475569; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
+    .pd-sec.pd-sub { margin-top: 16px; border-top: 2px solid #cbd5e1; }
+.pd-sec:first-child { margin-top: 10px; padding-top: 0; border-top: 0; }
     .pd-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 2px 12px; }
     .pd-row { display: grid; grid-template-columns: 40% 1fr; gap: 8px; padding: 7px 0; border-bottom: 1px solid #eef2f7; font-size: 13px; word-break: break-word; }
     .pd-row:last-child { border-bottom: 0; }
@@ -2994,6 +2995,9 @@
     }
     function dnAplicarSubs(btn) {
       const v = dnLerSubs(btn); if (!v) return;
+      const rec = dnLerRec(btn); if (!rec) return;
+      dnAplicarRec(rec);
+      dnAplicarNovos();
       ULTIMA_ATUALIZACAO = v.ds;
       dataForcada = true;
       if (typeof atualizarDataMenu === 'function') atualizarDataMenu();
@@ -3007,6 +3011,7 @@
     }
     async function dnDescarregarIndex(btn) {
       const v = dnLerSubs(btn); if (!v) return;
+      const rec = dnLerRec(btn); if (!rec) return;
       try {
         const r = await fetch(location.href.split('#')[0], { cache: 'no-store' });
         if (!r.ok) throw 0;
@@ -3016,6 +3021,10 @@
         src = src.replace(/((?:const|let)\s+YT_SUBS_DATA\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.db + b; });
         src = src.replace(/((?:const|let)\s+YT_SUBS_MANUAL\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.n + b; });
         if (achou !== 3) throw 0;
+        src = dnReescreverRec(src, rec);
+        if (src === null) throw 0;
+        src = dnInserirNovos(src, dnNovos);
+        if (src === null) throw 0;
         const url = URL.createObjectURL(new Blob([src], { type: 'text/html;charset=utf-8' }));
         const a = document.createElement('a');
         a.href = url; a.download = 'index.html';
@@ -3041,6 +3050,119 @@
       });
       const c = document.getElementById('pdCorpo');
       if (c) { c.scrollTop = 0; dnRender(c); }
+    }
+    function dnRecCartoes() { return Array.prototype.slice.call(document.querySelectorAll('[data-category="cashback"] a.item-card')); }
+    function dnDominio(u) {
+      try { const h = new URL(u).hostname.toLowerCase().split('.'); return h.slice(-2).join('.'); } catch (e) { return ''; }
+    }
+    function dnDesesc(t) {
+      return String(t).replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+    }
+    /* lista de recompensas (persiste enquanto a página estiver aberta; src = posição no ficheiro original, -1 = nova) */
+    let dnRec = null;
+    let dnNovaRec = { nome: '', link: '', desc: '', cor: 'âmbar' };
+    function dnRecInit() {
+      if (dnRec) return;
+      dnRec = dnRecCartoes().map(function (a, i) {
+        const h3 = a.querySelector('h3'), p = a.querySelector('p');
+        return { src: i, el: a, nome: h3 ? h3.textContent.trim() : '', desc: p ? p.textContent.trim() : '', link: a.getAttribute('href') || '', cor: 'âmbar', del: false, ab: false };
+      });
+    }
+    function dnRecRender() { const c = document.getElementById('pdCorpo'); if (c) dnRender(c); }
+    function dnRecRemover(i) {
+      const it = dnRec[i];
+      if (it.src < 0 && !it.el) dnRec.splice(i, 1); else it.del = true;
+      it.ab = false;
+      dnRecRender();
+    }
+    function dnRecRestaurar(i) { dnRec[i].del = false; dnRecRender(); }
+    function dnRecAdicionar(btn) {
+      const n = dnNovaRec, nome = (n.nome || '').trim(), link = (n.link || '').trim(), desc = (n.desc || '').trim();
+      if (!nome) { dnFeedback(btn, '❌ Escreva o nome'); return; }
+      if (!/^https?:\/\/[^\s"'<>]+$/i.test(link)) { dnFeedback(btn, '❌ Link inválido (começa por https://)'); return; }
+      dnRec.push({ src: -1, el: null, nova: true, nome: nome, desc: desc, link: link, cor: n.cor, del: false, ab: true });
+      dnNovaRec = { nome: '', link: '', desc: '', cor: n.cor };
+      dnRecRender();
+      const b = document.getElementById('pdRecAdd');
+      if (b) dnFeedback(b, '✅ Adicionada à lista');
+    }
+    function dnLerRec(btn) {
+      dnRecInit();
+      for (let i = 0; i < dnRec.length; i++) {
+        const it = dnRec[i];
+        if (it.del) continue;
+        it.nome = (it.nome || '').trim(); it.desc = (it.desc || '').trim(); it.link = (it.link || '').trim();
+        if (!it.nome) { dnFeedback(btn, '❌ Há uma recompensa sem nome'); return null; }
+        if (!/^https?:\/\/[^\s"'<>]+$/i.test(it.link)) { dnFeedback(btn, '❌ Link inválido em «' + it.nome + '»'); return null; }
+      }
+      return dnRec;
+    }
+    function dnRecCriarEl(it) {
+      const t = document.createElement('template');
+      t.innerHTML = dnCodigoRec(it.link, it.nome, it.desc, it.cor).trim();
+      return t.content.firstElementChild;
+    }
+    function dnAplicarRec(items) {
+      const grid = document.querySelector('[data-category="cashback"] .grid');
+      items.forEach(function (it) {
+        if (it.del) { if (it.el && it.el.parentNode) it.el.remove(); return; }
+        if (!it.el) it.el = dnRecCriarEl(it);
+        const a = it.el, velho = a.getAttribute('href') || '';
+        a.setAttribute('href', it.link);
+        const h3 = a.querySelector('h3'), p = a.querySelector('p'), img = a.querySelector('img[src*="favicons"]');
+        const nomeMudou = !!h3 && h3.textContent.trim() !== it.nome;
+        if (h3) h3.textContent = it.nome;
+        if (p) p.textContent = it.desc;
+        if (img) {
+          if (nomeMudou) img.alt = it.nome;
+          if (dnDominio(velho) !== dnDominio(it.link) && dnDominio(it.link)) img.src = img.src.replace(/(domain=)[^&]+/, '$1' + dnDominio(it.link));
+        }
+        if (grid) grid.appendChild(a);
+      });
+    }
+    function dnReescreverRec(src, items) {
+      const ini = src.indexOf('data-category="cashback"');
+      if (ini < 0) return null;
+      const fim = src.indexOf('</section>', ini);
+      let bloco = src.slice(ini, fim), i = 0;
+      const re = /<a href="([^"]*)"([^>]*class="item-card[^>]*>)([\s\S]*?)<\/a>(\s*)/g;
+      const total = (bloco.match(re) || []).length;
+      const novos = items.filter(function (x) { return x.src < 0 && !x.del; }).map(function (x) { return dnCodigoRec(x.link, x.nome, x.desc, x.cor); });
+      bloco = bloco.replace(re, function (m, href, resto, corpo, ws) {
+        const idx = i++;
+        const it = items.filter(function (x) { return x.src === idx; })[0];
+        let out;
+        if (!it) out = m;
+        else if (it.del) out = '';
+        else {
+          let c = corpo, novoHref = href;
+          const velho = href.replace(/&amp;/g, '&');
+          if (it.link !== velho) {
+            novoHref = dnEsc(it.link);
+            if (dnDominio(velho) !== dnDominio(it.link) && dnDominio(it.link)) c = c.replace(/(favicons\?domain=)[^&"']+/, function (x, a) { return a + dnDominio(it.link); });
+          }
+          const mh = c.match(/<h3[^>]*>([\s\S]*?)<\/h3>/);
+          const nomeMudou = !!mh && dnDesesc(mh[1]) !== it.nome;
+          c = c.replace(/(<h3[^>]*>)([\s\S]*?)(<\/h3>)/, function (x, a, t, b) { return dnDesesc(t) === it.nome ? x : a + dnEsc(it.nome) + b; });
+          c = c.replace(/(<p[^>]*>)([\s\S]*?)(<\/p>)/, function (x, a, t, b) { return dnDesesc(t) === it.desc ? x : a + dnEsc(it.desc) + b; });
+          if (nomeMudou) c = c.replace(/(<img[^>]*?alt=")([^"]*)(")/, function (x, a, t, b) { return a + dnEsc(it.nome) + b; });
+          out = '<a href="' + novoHref + '"' + resto + c + '</a>' + ws;
+        }
+        if (idx === total - 1 && novos.length) {
+          out = out ? out.replace(/\s*$/, '') + '\n\n' + novos.join('\n\n') + ws : novos.join('\n\n').replace(/^\s+/, '') + ws;
+        }
+        return out;
+      });
+      return src.slice(0, ini) + bloco + src.slice(fim);
+    }
+    function dnAbrirRec(i) {
+      const u = ((dnRec && dnRec[i] && dnRec[i].link) || '').trim();
+      if (/^https?:\/\//i.test(u)) window.open(u, '_blank', 'noopener');
+    }
+    function dnCampoX(id, rotulo, valor, expr, extra) {
+      return '<label class="pd-lbl" for="' + id + '">' + rotulo + '</label>' +
+        '<input id="' + id + '" class="pd-input" type="text" autocomplete="off" ' + (extra || '') +
+        ' value="' + dnEsc(valor) + '" oninput="' + expr + '=this.value">';
     }
     function dnGenTipo(v) {
       dnGen.tipo = v;
@@ -3087,6 +3209,21 @@
         '        </div>'
       ].join('\n');
     }
+    function dnCodigoRec(link, titulo, desc, cor) {
+      const c = DN_CORES[cor] || 'amber', t = dnEsc(titulo);
+      let dom = '';
+      try { dom = dnDominio(link); } catch (e) {}
+      return [
+        '        <a href="' + dnEsc(link) + '" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-3.5 rounded-xl hover:bg-slate-800 flex items-center gap-3 group transition-all">',
+        '          <img src="https://www.google.com/s2/favicons?domain=' + dnEsc(dom) + '&sz=64" alt="' + t + '" width="32" height="32" loading="lazy" referrerpolicy="no-referrer" class="w-8 h-8 p-1 rounded-lg bg-white shrink-0 object-contain" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'\'">',
+        '          <div style="display:none" class="p-2 rounded-lg bg-' + c + '-500/20 text-' + c + '-400"><svg class="w-4 h-4"><use href="#icon-globe"/></svg></div>',
+        '          <div>',
+        '            <h3 class="text-xs font-bold text-white group-hover:text-' + c + '-300">' + t + '</h3>',
+        '            <p class="text-[10px] text-slate-400">' + dnEsc(desc) + '</p>',
+        '          </div>',
+        '        </a>'
+      ].join('\n');
+    }
     function dnCodigoLink(tipo, link, titulo, desc, btn, emoji, cor) {
       const c = DN_CORES[cor] || 'emerald';
       let icone;
@@ -3117,28 +3254,94 @@
         '          </a>'
       ].join('\n');
     }
-    function dnGerarCartao(btn) {
+    /* valida o formulário e devolve o cartão ou null (com aviso no botão) */
+    function dnMontarCartao(btn) {
       const g = dnGen, t = g.tipo;
       const link = (g.link || '').trim(), titulo = (g.titulo || '').trim(), desc = (g.desc || '').trim();
       let cod, dica;
       if (t === 'video') {
         const id = dnYtId(link);
-        if (!id) { dnFeedback(btn, '❌ Link do YouTube inválido'); return; }
-        if (!titulo) { dnFeedback(btn, '❌ Escreva o título'); return; }
+        if (!id) { dnFeedback(btn, '❌ Link do YouTube inválido'); return null; }
+        if (!titulo) { dnFeedback(btn, '❌ Escreva o título'); return null; }
         const n = /^\d+$/.test((g.num || '').trim()) ? g.num.trim() : '';
         cod = dnCodigoVideo(id, titulo, n);
         dica = 'Cole este código dentro da grelha de «Vídeos em Destaque», a seguir ao último cartão (depois de um «</div>» de um vídeo e antes do «</div>» que fecha a grelha).';
       } else {
-        if (!/^https?:\/\/[^\s"'<>]+$/i.test(link)) { dnFeedback(btn, '❌ Link inválido (começa por https://)'); return; }
-        if (!titulo || !desc) { dnFeedback(btn, '❌ Escreva o título e a descrição'); return; }
+        if (!/^https?:\/\/[^\s"'<>]+$/i.test(link)) { dnFeedback(btn, '❌ Link inválido (começa por https://)'); return null; }
+        if (!titulo || !desc) { dnFeedback(btn, '❌ Escreva o título e a descrição'); return null; }
         const texto = (g.btn || '').trim() || (t === 'blog' ? 'Ler Blog →' : 'Abrir →');
         cod = dnCodigoLink(t, link, titulo, desc, texto, (g.emoji || '').trim(), g.cor);
         dica = 'Cole este código dentro de «' + (t === 'blog' ? 'Blogs & Artigos' : 'Sites & Ferramentas Web') + '», no bloco «<div class="space-y-3">», a seguir ao último cartão.';
       }
-      g.saida = cod; g.dica = dica;
-      const ta = document.getElementById('pdGenSaida'); if (ta) ta.value = cod;
-      const dc = document.getElementById('pdGenDica'); if (dc) dc.textContent = dica;
+      return { tipo: t, titulo: titulo, cod: cod, dica: dica, el: null };
+    }
+    function dnGerarCartao(btn) {
+      const c = dnMontarCartao(btn); if (!c) return;
+      dnGen.saida = c.cod; dnGen.dica = c.dica;
+      const ta = document.getElementById('pdGenSaida'); if (ta) ta.value = c.cod;
+      const dc = document.getElementById('pdGenDica'); if (dc) dc.textContent = c.dica;
       dnFeedback(btn, '✅ Código gerado');
+    }
+    /* cartões novos adicionados diretamente (entram no site com Aplicar e no ficheiro com Descarregar) */
+    let dnNovos = [];
+    const DN_DESTINO = {
+      video: { sel: '[data-category="video"] .grid', secao: 'video', abertura: '<div class="grid ', nome: 'Vídeo' },
+      site: { sel: '[data-category="project"] .space-y-3', secao: 'project', abertura: '<div class="space-y-3">', nome: 'Site' },
+      blog: { sel: '[data-category="blog"] .space-y-3', secao: 'blog', abertura: '<div class="space-y-3">', nome: 'Blog' }
+    };
+    function dnAdicionarCartao(btn) {
+      const c = dnMontarCartao(btn); if (!c) return;
+      dnNovos.push(c);
+      const g = dnGen;
+      g.link = ''; g.titulo = ''; g.desc = ''; g.num = ''; g.btn = ''; g.emoji = ''; g.saida = ''; g.dica = '';
+      dnRecRender();
+      const b = document.getElementById('pdGenAdd');
+      if (b) dnFeedback(b, '✅ Adicionado à lista');
+    }
+    function dnNovoRemover(i) {
+      const n = dnNovos[i];
+      if (n && n.el && n.el.parentNode) n.el.remove();
+      dnNovos.splice(i, 1);
+      dnRecRender();
+    }
+    function dnAplicarNovos() {
+      dnNovos.forEach(function (n) {
+        if (n.el) return;
+        const dest = document.querySelector(DN_DESTINO[n.tipo].sel);
+        if (!dest) return;
+        const t = document.createElement('template');
+        t.innerHTML = n.cod.trim();
+        const el = t.content.firstElementChild;
+        if (!el) return;
+        dest.appendChild(el);
+        n.el = el;
+      });
+    }
+    function dnFimContainer(src, secao, abertura) {
+      const ini = src.indexOf('data-category="' + secao + '"');
+      if (ini < 0) return -1;
+      const c = src.indexOf(abertura, ini);
+      if (c < 0) return -1;
+      const re = /<div\b|<\/div>/g;
+      re.lastIndex = c;
+      let prof = 0, m;
+      while ((m = re.exec(src))) {
+        if (m[0] === '</div>') { prof--; if (prof === 0) return m.index; } else { prof++; }
+      }
+      return -1;
+    }
+    function dnInserirNovos(src, novos) {
+      for (const tipo in DN_DESTINO) {
+        const lista = novos.filter(function (n) { return n.tipo === tipo; });
+        if (!lista.length) continue;
+        const d = DN_DESTINO[tipo];
+        const ci = dnFimContainer(src, d.secao, d.abertura);
+        if (ci < 0) return null;
+        const antes = src.slice(0, ci);
+        const indent = (antes.match(/[ \t]*$/) || [''])[0];
+        src = antes.replace(/\s*$/, '') + '\n\n' + lista.map(function (n) { return n.cod; }).join('\n\n') + '\n' + indent + src.slice(ci);
+      }
+      return src;
     }
     async function dnCopiarSaida(btn) {
       const t = dnGen.saida;
@@ -3182,11 +3385,51 @@
           Object.keys(DN_CORES).map(function (k) { return '<option value="' + k + '"' + (k === g.cor ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>'; }).join('') + '</select>';
       }
       h += '</div>' +
-        '<button type="button" class="pd-btn pd-azul" onclick="dnGerarCartao(this)">⚙️ Gerar código do cartão</button>' +
+        '<button type="button" id="pdGenAdd" class="pd-btn pd-azul" onclick="dnAdicionarCartao(this)">➕ Adicionar ao site</button>' +
+        '<div class="pd-nota">Entra diretamente no site com «Aplicar neste ecrã» e no ficheiro com «Descarregar index.html corrigido», sem copiar nem colar.</div>' +
+        '<button type="button" class="pd-btn" onclick="dnGerarCartao(this)">⚙️ Só gerar o código</button>' +
         '<textarea id="pdGenSaida" class="pd-input pd-code" readonly spellcheck="false" placeholder="O código aparece aqui">' + dnEsc(g.saida) + '</textarea>' +
         '<div class="pd-nota" id="pdGenDica">' + dnEsc(g.dica) + '</div>' +
         '<button type="button" class="pd-btn" onclick="dnCopiarSaida(this)">📋 Copiar código</button>' +
-        '<div class="pd-nota">Depois de colar no index.html e enviar o ficheiro para o servidor, o cartão aparece no site.</div>';
+        '<div class="pd-nota">Se preferir colar à mão: depois de colar no index.html e enviar o ficheiro para o servidor, o cartão aparece no site.</div>';
+      if (dnNovos.length) {
+        h += '<div class="pd-sec pd-sub">Cartões novos</div><div class="pd-card">' +
+          dnNovos.map(function (n, i) {
+            return '<div class="pd-row" style="grid-template-columns:1fr auto;align-items:center;"><span>🆕 ' + dnEsc(n.titulo) + ' <small>(' + DN_DESTINO[n.tipo].nome + (n.el ? ', já no ecrã' : '') + ')</small></span>' +
+              '<button type="button" class="pd-btn" style="width:auto;margin:0;padding:6px 10px;" aria-label="Remover cartão" title="Remover" onclick="dnNovoRemover(' + i + ')">🗑️</button></div>';
+          }).join('') + '</div>' +
+          '<div class="pd-nota">Estes cartões ainda não estão no ficheiro: use «Descarregar index.html corrigido» para os guardar.</div>';
+      }
+      dnRecInit();
+      h += '<div class="pd-sec">Reembolso Parcial &amp; Recompensas</div>';
+      dnRec.forEach(function (it, i) {
+        h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="dnRec[' + i + '].ab=this.open">' +
+          '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '🗑️ ' : (it.nova ? '🆕 ' : '')) + dnEsc(it.nome || 'Sem nome') + (it.del ? ' (removida)' : '') + '</summary>' +
+          '<div style="padding-bottom:10px;">';
+        if (it.del) {
+          h += '<button type="button" class="pd-btn" onclick="dnRecRestaurar(' + i + ')">↩️ Restaurar</button>';
+        } else {
+          h += dnCampoX('pdRecN' + i, 'Nome', it.nome, 'dnRec[' + i + '].nome', '') +
+            dnCampoX('pdRecD' + i, 'Descrição', it.desc, 'dnRec[' + i + '].desc', '') +
+            '<label class="pd-lbl" for="pdRecL' + i + '">Link</label>' +
+            '<div style="display:flex;gap:6px;align-items:center;">' +
+            '<input id="pdRecL' + i + '" class="pd-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;" value="' + dnEsc(it.link) + '" oninput="dnRec[' + i + '].link=this.value">' +
+            '<button type="button" class="pd-btn" style="width:auto;margin-top:4px;padding:10px 12px;" aria-label="Abrir link" title="Abrir link" onclick="dnAbrirRec(' + i + ')">↗</button>' +
+            '</div>' +
+            '<button type="button" class="pd-btn pd-vermelho" onclick="dnRecRemover(' + i + ')">🗑️ Remover</button>';
+        }
+        h += '</div></details>';
+      });
+      h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição e o link, ou para a remover. Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar.</div>';
+      h += '<div class="pd-sec pd-sub">Nova recompensa</div><div class="pd-card" style="padding:4px 12px 12px;">' +
+        dnCampoX('pdNrNome', 'Nome', dnNovaRec.nome, 'dnNovaRec.nome', '') +
+        dnCampoX('pdNrDesc', 'Descrição curta', dnNovaRec.desc, 'dnNovaRec.desc', '') +
+        dnCampoX('pdNrLink', 'Link (endereço)', dnNovaRec.link, 'dnNovaRec.link', 'inputmode="url" placeholder="https://"') +
+        '<label class="pd-lbl" for="pdNrCor">Cor</label><select id="pdNrCor" class="pd-input" onchange="dnNovaRec.cor=this.value">' +
+        Object.keys(DN_CORES).map(function (k) { return '<option value="' + k + '"' + (k === dnNovaRec.cor ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>'; }).join('') + '</select>' +
+        '</div>' +
+        '<button type="button" id="pdRecAdd" class="pd-btn pd-azul" onclick="dnRecAdicionar(this)">➕ Adicionar à lista</button>' +
+        '<div class="pd-nota">A nova recompensa entra na lista acima (marcada com 🆕) e vai para o site com «Aplicar neste ecrã» e «Descarregar index.html corrigido».</div>';
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdSubsNum">Número de subscritores</label>' +
@@ -3204,16 +3447,9 @@
         '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSiteData\')">📅 Usar a data de hoje</button>';
       h += '<div class="pd-sec">Guardar alterações</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnAplicarSubs(this)">✅ Aplicar neste ecrã</button>' +
-        '<div class="pd-nota">Mostra já o novo número e as novas datas (banner, menu e rodapé), só para ver. Não fica guardado no site.</div>' +
+        '<div class="pd-nota">Mostra já o novo número, as novas datas (banner, menu e rodapé), as alterações às recompensas e os cartões novos, só para ver. Não fica guardado no site.</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index.html corrigido</button>' +
-        '<div class="pd-nota">Descarrega o index.html com o número e as duas datas já escritos. Depois é só substituir o ficheiro no servidor.</div>';
-      const lks = Array.prototype.slice.call(document.querySelectorAll('[data-category="cashback"] a.item-card'));
-      h += '<div class="pd-sec">Links de recompensas</div><div class="pd-card">' +
-        lks.map(function (a) {
-          const h3 = a.querySelector('h3');
-          return '<div class="pd-row"><span>' + dnEsc(h3 ? h3.textContent : a.hostname) + '</span><b><a href="' + dnEsc(a.href) + '" target="_blank" rel="noopener noreferrer" style="color:#2563eb;text-decoration:none;">Abrir ↗</a></b></div>';
-        }).join('') + '</div>' +
-        '<div class="pd-nota">O browser não consegue confirmar se cada link ainda funciona. Abra um a um e veja se a página de registo aparece.</div>';
+        '<div class="pd-nota">Descarrega o index.html com o número, as duas datas, as recompensas (editadas, removidas e novas) e os cartões novos já escritos. Depois é só substituir o ficheiro no servidor.</div>';
       return h;
     }
 
