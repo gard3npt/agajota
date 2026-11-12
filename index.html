@@ -428,7 +428,11 @@
     #painelDonoOverlay { position: fixed; inset: 0; z-index: 99997; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; padding: 12px; }
     #painelDonoOverlay > div { width: 100%; max-width: 480px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; background: #f8fafc; color: #0f172a; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.4); }
     .pd-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #0f172a; color: #fff; font-size: 1rem; }
-    .pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
+    .pd-head .pd-modo { display: inline-flex; gap: 6px; margin-left: 10px; vertical-align: middle; }
+.pd-head .pd-modo button { width: 32px; height: 30px; padding: 0; border: 0; border-radius: 8px; background: rgba(255,255,255,.14); color: #e2e8f0; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; line-height: 1; }
+.pd-head .pd-modo button.on { background: #2563eb; color: #fff; cursor: default; }
+.pd-input.pd-code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; font-weight: 500; min-height: 150px; resize: vertical; white-space: pre; overflow: auto; }
+.pd-x { cursor: pointer; font-size: 26px; line-height: 1; padding: 0 4px; color: #cbd5e1; }
     .pd-body { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 4px 14px 16px; text-align: left; }
     .pd-sec { margin: 18px 0 8px; padding: 16px 2px 0; border-top: 2px solid #cbd5e1; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; }
     .pd-sec:first-child { margin-top: 10px; padding-top: 0; border-top: 0; }
@@ -697,6 +701,8 @@
               </button>
             </div>
           </div>
+          <div class="my-1.5 border-t border-white/10"></div>
+          <button type="button" role="menuitem" id="menuUpd" onclick="triploClique(this, function () { fecharMenuPrincipal(); abrirPainelDono(); }, event)" class="w-full px-3 py-1.5 rounded-xl text-xs text-center text-slate-400 cursor-default outline-none focus-visible:bg-white/10" style="user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent"></button>
         </div>
       </div>
 
@@ -2082,7 +2088,7 @@
       <div class="flex items-center gap-3 mb-6 pb-3 border-b border-white/10">
         <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-2xl">ℹ️</div>
         <div>
-          <h3 id="sobreTitulo" onclick="triploClique(this, abrirPainelDono)" class="text-xl font-extrabold text-white" style="user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent">Sobre o AGAJOTA</h3>
+          <h3 id="sobreTitulo" class="text-xl font-extrabold text-white">Sobre o AGAJOTA</h3>
           <p class="text-xs text-indigo-300">Conheça o projeto e o criador</p>
         </div>
       </div>
@@ -2706,7 +2712,7 @@
     }
 
     /* ---------------- ÁREA DE CONTROLO (escondida) ----------------
-       Abre com 3 cliques seguidos em "Sobre o AGAJOTA" (janela Sobre) + senha do dono (SENHA_DONO). */
+       Abre com 3 toques seguidos na data de atualização do menu (☰) + senha do dono (SENHA_DONO). */
     function triploClique(el, fn, ev) {
       el._n = (el._n || 0) + 1;
       clearTimeout(el._t);
@@ -2813,8 +2819,9 @@
       return so ? b + ' · ' + so : b;
     }
     function dnDataAtualizacao() {
-      const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
-      return isNaN(d) ? ULTIMA_ATUALIZACAO : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+      const v = dataAtualizacaoEfetiva();
+      const d = new Date(v + 'T12:00:00');
+      return isNaN(d) ? v : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
     }
 
     /* recolhe o diagnóstico (só lê; não altera nada) */
@@ -2988,6 +2995,8 @@
     function dnAplicarSubs(btn) {
       const v = dnLerSubs(btn); if (!v) return;
       ULTIMA_ATUALIZACAO = v.ds;
+      dataForcada = true;
+      if (typeof atualizarDataMenu === 'function') atualizarDataMenu();
       YT_SUBS_DATA = v.db;
       YT_SUBS_MANUAL = v.n;
       window.__ytSubsMostrado = false;
@@ -3018,24 +3027,166 @@
       }
     }
 
-    function dnRender(c) {
-      const pos = c.scrollTop;
-      let h = '<div class="pd-sec">Avisos</div>';
-      h += dnDados.avisos.length
-        ? dnDados.avisos.map(function (a) { return '<div class="pd-aviso">⚠️ ' + dnEsc(a) + '</div>'; }).join('')
-        : '<div class="pd-ok">✅ Sem avisos</div>';
-      dnDados.grupos.forEach(function (g) {
-        h += '<div class="pd-sec">' + dnEsc(g.t) + '</div><div class="pd-card">' +
-          g.l.map(function (r) { return '<div class="pd-row"><span>' + dnEsc(r[0]) + '</span><b>' + dnEsc(r[1]) + '</b></div>'; }).join('') + '</div>';
+    /* Modo 1 = diagnóstico e ferramentas; modo 2 = conteúdos (novos cartões), subscritores e data */
+    let dnModo = 1;
+    let dnGen = { tipo: 'video', link: '', titulo: '', desc: '', num: '', btn: '', emoji: '', cor: 'verde', saida: '', dica: '' };
+    const DN_CORES = { 'verde': 'emerald', 'azul': 'blue', 'laranja': 'orange', 'âmbar': 'amber', 'roxo': 'purple', 'rosa': 'pink' };
+
+    function dnIrModo(n) {
+      dnModo = n;
+      const ov = document.getElementById('painelDonoOverlay');
+      if (ov) ov.querySelectorAll('.pd-modo button').forEach(function (b, i) {
+        b.classList.toggle('on', i + 1 === n);
+        if (i + 1 === n) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
       });
+      const c = document.getElementById('pdCorpo');
+      if (c) { c.scrollTop = 0; dnRender(c); }
+    }
+    function dnGenTipo(v) {
+      dnGen.tipo = v;
+      dnGen.cor = v === 'blog' ? 'laranja' : 'verde';
+      dnGen.saida = ''; dnGen.dica = '';
+      const c = document.getElementById('pdCorpo');
+      if (c) dnRender(c);
+    }
+    function dnYtId(v) {
+      v = (v || '').trim();
+      if (/^[A-Za-z0-9_-]{11}$/.test(v)) return v;
+      const m = v.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([A-Za-z0-9_-]{11})/);
+      return m ? m[1] : '';
+    }
+    /* texto seguro dentro de um atributo HTML e de uma string JavaScript entre plicas */
+    function dnJs(s) { return dnEsc(String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'")); }
+
+    function dnCodigoVideo(id, titulo, n) {
+      const t = dnEsc(titulo);
+      const selo = n
+        ? '            <div title="Destaque #' + n + '" class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">\n' +
+          '              <span class="text-amber-300">★</span>#' + n + '\n' +
+          '            </div>\n\n'
+        : '';
+      return [
+        '        <!-- VÍDEO ' + (n ? 'DESTAQUE ' + n : 'NOVO') + ' -->',
+        '        <div class="item-card featured-video-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/40">',
+        '          <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: ' + t + '" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal(\'' + id + '\', \'' + dnJs(titulo) + '\')">',
+        '            <img width="480" height="360" decoding="async" src="https://img.youtube.com/vi/' + id + '/hqdefault.jpg" alt="' + t + '" class="w-full h-full object-cover group-hover:scale-110 group-hover:rotate-1 transition-transform duration-500">',
+        '            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>',
+        '',
+        selo + '            <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">',
+        '              <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>',
+        '            </div>',
+        '          </div>',
+        '          <div class="p-5 flex flex-col justify-between flex-1 bg-gradient-to-b from-transparent to-red-950/30">',
+        '            <div class="space-y-3">',
+        '              <a href="https://www.youtube.com/watch?v=' + id + '" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">',
+        '                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>',
+        '                  <h3 class="text-base font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">' + t + '</h3>',
+        '                </a>',
+        '            </div>',
+        '          </div>',
+        '        </div>'
+      ].join('\n');
+    }
+    function dnCodigoLink(tipo, link, titulo, desc, btn, emoji, cor) {
+      const c = DN_CORES[cor] || 'emerald';
+      let icone;
+      if (tipo === 'blog') {
+        icone = '                ' + dnEsc(emoji || '📝');
+      } else {
+        let fav = '';
+        try {
+          const u = new URL(link);
+          let caminho = u.pathname.replace(/\/+$/, '');
+          if (/\.[A-Za-z0-9]+$/.test(caminho.split('/').pop())) caminho = caminho.replace(/\/[^\/]*$/, '');
+          fav = u.origin + caminho + '/favicon.png';
+        } catch (e) { fav = ''; }
+        icone = '                <img src="' + dnEsc(fav) + '" alt="" width="28" height="28" class="w-7 h-7 object-contain rounded-md" loading="lazy" decoding="async" onerror="iconeAlternativo(this, \'icon-globe\')">';
+      }
+      return [
+        '          <a href="' + dnEsc(link) + '" target="_blank" rel="noopener noreferrer" class="item-card glass-card p-4 rounded-2xl flex items-center justify-between group border border-' + c + '-500/20 hover:border-' + c + '-500/50">',
+        '            <div class="flex items-center gap-3">',
+        '              <div class="w-10 h-10 rounded-xl bg-' + c + '-500/20 text-' + c + '-400 flex items-center justify-center font-bold">',
+        icone,
+        '              </div>',
+        '              <div>',
+        '                <h3 class="text-sm font-bold text-white group-hover:text-' + c + '-300 transition-colors">' + dnEsc(titulo) + '</h3>',
+        '                <p class="text-[11px] text-slate-400">' + dnEsc(desc) + '</p>',
+        '              </div>',
+        '            </div>',
+        '            <span class="text-xs font-bold text-' + c + '-400 group-hover:translate-x-1 transition-transform">' + dnEsc(btn) + '</span>',
+        '          </a>'
+      ].join('\n');
+    }
+    function dnGerarCartao(btn) {
+      const g = dnGen, t = g.tipo;
+      const link = (g.link || '').trim(), titulo = (g.titulo || '').trim(), desc = (g.desc || '').trim();
+      let cod, dica;
+      if (t === 'video') {
+        const id = dnYtId(link);
+        if (!id) { dnFeedback(btn, '❌ Link do YouTube inválido'); return; }
+        if (!titulo) { dnFeedback(btn, '❌ Escreva o título'); return; }
+        const n = /^\d+$/.test((g.num || '').trim()) ? g.num.trim() : '';
+        cod = dnCodigoVideo(id, titulo, n);
+        dica = 'Cole este código dentro da grelha de «Vídeos em Destaque», a seguir ao último cartão (depois de um «</div>» de um vídeo e antes do «</div>» que fecha a grelha).';
+      } else {
+        if (!/^https?:\/\/[^\s"'<>]+$/i.test(link)) { dnFeedback(btn, '❌ Link inválido (começa por https://)'); return; }
+        if (!titulo || !desc) { dnFeedback(btn, '❌ Escreva o título e a descrição'); return; }
+        const texto = (g.btn || '').trim() || (t === 'blog' ? 'Ler Blog →' : 'Abrir →');
+        cod = dnCodigoLink(t, link, titulo, desc, texto, (g.emoji || '').trim(), g.cor);
+        dica = 'Cole este código dentro de «' + (t === 'blog' ? 'Blogs & Artigos' : 'Sites & Ferramentas Web') + '», no bloco «<div class="space-y-3">», a seguir ao último cartão.';
+      }
+      g.saida = cod; g.dica = dica;
+      const ta = document.getElementById('pdGenSaida'); if (ta) ta.value = cod;
+      const dc = document.getElementById('pdGenDica'); if (dc) dc.textContent = dica;
+      dnFeedback(btn, '✅ Código gerado');
+    }
+    async function dnCopiarSaida(btn) {
+      const t = dnGen.saida;
+      if (!t) { dnFeedback(btn, '❌ Gere o código primeiro'); return; }
+      let ok = false;
+      try { await navigator.clipboard.writeText(t); ok = true; }
+      catch (e) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = t; ta.style.cssText = 'position:fixed; opacity:0;';
+          document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
+        } catch (x) {}
+      }
+      dnFeedback(btn, ok ? '✅ Copiado' : '❌ Não foi possível copiar');
+    }
+
+    function dnCampo(id, rotulo, valor, campo, extra) {
+      return '<label class="pd-lbl" for="' + id + '">' + rotulo + '</label>' +
+        '<input id="' + id + '" class="pd-input" type="text" autocomplete="off" ' + (extra || '') +
+        ' value="' + dnEsc(valor) + '" oninput="dnGen.' + campo + '=this.value">';
+    }
+    function dnRenderConteudos() {
+      const g = dnGen, t = g.tipo;
       const antNum = document.getElementById('pdSubsNum'), antSite = document.getElementById('pdSiteData'), antBan = document.getElementById('pdSubsData');
-      const vNum = antNum ? antNum.value : YT_SUBS_MANUAL, vSite = antSite ? antSite.value : ULTIMA_ATUALIZACAO, vBan = antBan ? antBan.value : YT_SUBS_DATA;
-      h += '<div class="pd-sec">Data de atualização do site</div>' +
-        '<div class="pd-card" style="padding:4px 12px 12px;">' +
-        '<label class="pd-lbl" for="pdSiteData">Data mostrada no rodapé e no diagnóstico</label>' +
-        '<input id="pdSiteData" class="pd-input" type="date" value="' + dnEsc(vSite) + '">' +
-        '</div>' +
-        '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSiteData\')">📅 Usar a data de hoje</button>';
+      const vNum = antNum ? antNum.value : YT_SUBS_MANUAL, vSite = antSite ? antSite.value : dataAtualizacaoEfetiva(), vBan = antBan ? antBan.value : YT_SUBS_DATA;
+      let h = '<div class="pd-sec">Novo cartão</div><div class="pd-card" style="padding:4px 12px 12px;">' +
+        '<label class="pd-lbl" for="pdGenTipo">Tipo de conteúdo</label>' +
+        '<select id="pdGenTipo" class="pd-input" onchange="dnGenTipo(this.value)">' +
+        [['video', '🎬 Vídeo em destaque'], ['site', '🔗 Site ou ferramenta'], ['blog', '📝 Blog ou artigo']].map(function (o) {
+          return '<option value="' + o[0] + '"' + (o[0] === t ? ' selected' : '') + '>' + o[1] + '</option>';
+        }).join('') + '</select>' +
+        dnCampo('pdGenLink', t === 'video' ? 'Link do vídeo do YouTube' : 'Link (endereço)', g.link, 'link', 'inputmode="url" placeholder="https://"') +
+        dnCampo('pdGenTitulo', 'Título', g.titulo, 'titulo', '');
+      if (t === 'video') {
+        h += dnCampo('pdGenNum', 'Número do destaque (opcional)', g.num, 'num', 'inputmode="numeric" placeholder="ex.: 4"');
+      } else {
+        h += dnCampo('pdGenDesc', 'Descrição curta', g.desc, 'desc', '');
+        if (t === 'blog') h += dnCampo('pdGenEmoji', 'Ícone (emoji)', g.emoji, 'emoji', 'placeholder="📝"');
+        h += dnCampo('pdGenBtn', 'Texto do botão', g.btn, 'btn', 'placeholder="' + (t === 'blog' ? 'Ler Blog →' : 'Abrir →') + '"');
+        h += '<label class="pd-lbl" for="pdGenCor">Cor</label><select id="pdGenCor" class="pd-input" onchange="dnGen.cor=this.value">' +
+          Object.keys(DN_CORES).map(function (k) { return '<option value="' + k + '"' + (k === g.cor ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>'; }).join('') + '</select>';
+      }
+      h += '</div>' +
+        '<button type="button" class="pd-btn pd-azul" onclick="dnGerarCartao(this)">⚙️ Gerar código do cartão</button>' +
+        '<textarea id="pdGenSaida" class="pd-input pd-code" readonly spellcheck="false" placeholder="O código aparece aqui">' + dnEsc(g.saida) + '</textarea>' +
+        '<div class="pd-nota" id="pdGenDica">' + dnEsc(g.dica) + '</div>' +
+        '<button type="button" class="pd-btn" onclick="dnCopiarSaida(this)">📋 Copiar código</button>' +
+        '<div class="pd-nota">Depois de colar no index.html e enviar o ficheiro para o servidor, o cartão aparece no site.</div>';
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdSubsNum">Número de subscritores</label>' +
@@ -3044,9 +3195,16 @@
         '<input id="pdSubsData" class="pd-input" type="date" value="' + dnEsc(vBan) + '">' +
         '</div>' +
         '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSubsData\')">📅 Usar a data de hoje</button>';
+      h += '<div class="pd-sec">Data de atualização do site (se necessário)</div>' +
+        '<div class="pd-card" style="padding:4px 12px 12px;">' +
+        '<label class="pd-lbl" for="pdSiteData">Data mostrada no menu, no rodapé e no diagnóstico</label>' +
+        '<input id="pdSiteData" class="pd-input" type="date" value="' + dnEsc(vSite) + '">' +
+        '</div>' +
+        '<div class="pd-nota">A data é automática (vem da data do ficheiro no servidor). Só precisa de a mudar se o servidor não a indicar ou se quiser forçar outra.</div>' +
+        '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSiteData\')">📅 Usar a data de hoje</button>';
       h += '<div class="pd-sec">Guardar alterações</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnAplicarSubs(this)">✅ Aplicar neste ecrã</button>' +
-        '<div class="pd-nota">Mostra já o novo número e as novas datas (banner e rodapé), só para ver. Não fica guardado no site.</div>' +
+        '<div class="pd-nota">Mostra já o novo número e as novas datas (banner, menu e rodapé), só para ver. Não fica guardado no site.</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnDescarregarIndex(this)">⬇️ Descarregar index.html corrigido</button>' +
         '<div class="pd-nota">Descarrega o index.html com o número e as duas datas já escritos. Depois é só substituir o ficheiro no servidor.</div>';
       const lks = Array.prototype.slice.call(document.querySelectorAll('[data-category="cashback"] a.item-card'));
@@ -3056,6 +3214,25 @@
           return '<div class="pd-row"><span>' + dnEsc(h3 ? h3.textContent : a.hostname) + '</span><b><a href="' + dnEsc(a.href) + '" target="_blank" rel="noopener noreferrer" style="color:#2563eb;text-decoration:none;">Abrir ↗</a></b></div>';
         }).join('') + '</div>' +
         '<div class="pd-nota">O browser não consegue confirmar se cada link ainda funciona. Abra um a um e veja se a página de registo aparece.</div>';
+      return h;
+    }
+
+    function dnRender(c) {
+      const pos = c.scrollTop;
+      if (dnModo === 2) {
+        c.innerHTML = dnRenderConteudos();
+        c.scrollTop = pos;
+        return;
+      }
+      if (!dnDados) { c.textContent = 'A recolher diagnóstico…'; return; }
+      let h = '<div class="pd-sec">Avisos</div>';
+      h += dnDados.avisos.length
+        ? dnDados.avisos.map(function (a) { return '<div class="pd-aviso">⚠️ ' + dnEsc(a) + '</div>'; }).join('')
+        : '<div class="pd-ok">✅ Sem avisos</div>';
+      dnDados.grupos.forEach(function (g) {
+        h += '<div class="pd-sec">' + dnEsc(g.t) + '</div><div class="pd-card">' +
+          g.l.map(function (r) { return '<div class="pd-row"><span>' + dnEsc(r[0]) + '</span><b>' + dnEsc(r[1]) + '</b></div>'; }).join('') + '</div>';
+      });
       h += '<div class="pd-sec">Ferramentas</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnCopiar(this)">📋 Copiar diagnóstico</button>' +
         '<div class="pd-nota">Copia tudo isto como texto, para colar numa mensagem.</div>' +
@@ -3079,10 +3256,15 @@
     }
     function montarPainelDono() {
       fecharPainelDono();
+      dnModo = 1;
       const ov = document.createElement('div');
       ov.id = 'painelDonoOverlay';
       ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Área de controlo">' +
-        '<div class="pd-head"><strong>🛠️ Área de controlo</strong><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
+        '<div class="pd-head"><span style="display:flex;align-items:center;"><strong>🛠️ Área de controlo</strong>' +
+        '<span class="pd-modo" role="group" aria-label="Modo do administrador">' +
+        '<button type="button" class="on" aria-current="true" title="1: diagnóstico e ferramentas" aria-label="Administrador 1" onclick="dnIrModo(1)">1</button>' +
+        '<button type="button" title="2: conteúdos, subscritores e data" aria-label="Administrador 2" onclick="dnIrModo(2)">2</button>' +
+        '</span></span><span class="pd-x" onclick="fecharPainelDono()" aria-label="Fechar">×</span></div>' +
         '<div class="pd-body" id="pdCorpo">A recolher diagnóstico…</div></div>';
       ov.addEventListener('click', function (e) { if (e.target === ov) fecharPainelDono(); });
       document.body.appendChild(ov);
@@ -3098,13 +3280,47 @@
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé e no diagnóstico. A data do banner de subscritores é à parte (YT_SUBS_DATA).
     let ULTIMA_ATUALIZACAO = '2026-11-11';
+    /* A data é automática: vem da data de modificação do index.html no servidor (cabeçalho Last-Modified).
+       Se o servidor não a indicar, usa-se ULTIMA_ATUALIZACAO. Uma data aplicada na área de controlo prevalece. */
+    let dataAuto = '';
+    let dataForcada = false;
+    function dataAtualizacaoEfetiva() {
+      return (!dataForcada && dataAuto) ? dataAuto : ULTIMA_ATUALIZACAO;
+    }
+    function textoUltimaAtualizacao() {
+      const v = dataAtualizacaoEfetiva();
+      const d = new Date(v + 'T12:00:00');
+      return 'Última atualização: ' + (isNaN(d) ? v : d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' }));
+    }
+    function dataParaIso(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    async function obterDataAutomatica() {
+      try {
+        let d = null;
+        if (/^https?:$/.test(location.protocol)) {
+          const r = await fetch(location.href.split('#')[0], { method: 'HEAD', cache: 'no-store' });
+          const lm = r.ok ? r.headers.get('Last-Modified') : null;
+          if (lm) d = new Date(lm);
+        } else if (document.lastModified) {
+          d = new Date(document.lastModified);
+        }
+        if (d && !isNaN(d)) { dataAuto = dataParaIso(d); atualizarDataMenu(); }
+      } catch (e) { /* sem data do servidor: fica a de ULTIMA_ATUALIZACAO */ }
+    }
+    // Data de atualização no fim do menu (☰)
+    function atualizarDataMenu() {
+      const el = document.getElementById('menuUpd');
+      if (el) el.textContent = textoUltimaAtualizacao();
+    }
+    atualizarDataMenu();
+    obterDataAutomatica();
     let footerToastTimer = null;
     function mostrarUltimaAtualizacao() {
       const el = document.getElementById('footer-toast');
       if (!el) return;
       if (typeof fecharPainelInstalar === 'function') fecharPainelInstalar();
-      const d = new Date(ULTIMA_ATUALIZACAO + 'T12:00:00');
-      el.textContent = 'Última atualização: ' + d.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+      el.textContent = textoUltimaAtualizacao();
       el.classList.add('show');
       clearTimeout(footerToastTimer);
       footerToastTimer = setTimeout(() => el.classList.remove('show'), 2500);
@@ -3711,6 +3927,7 @@
       window.alternarMenuPrincipal = function (e) {
         if (e) e.stopPropagation();
         if (menu.classList.contains('hidden')) {
+          if (typeof atualizarDataMenu === 'function') atualizarDataMenu();
           if (typeof fecharMenuIdioma === 'function') fecharMenuIdioma();
           var iw = document.getElementById('menuInstalarWrap');
           if (iw) iw.hidden = (typeof appJaInstalada === 'function' && appJaInstalada());
