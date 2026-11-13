@@ -2347,6 +2347,7 @@
       const vistos = new Set();
       const lista = [];
       cont.querySelectorAll('[data-video]').forEach(v => {
+        if (v.closest('[data-inativo]')) return;
         const id = idDoVideoEl(v);
         if (id && !vistos.has(id)) {
           vistos.add(id);
@@ -2996,7 +2997,9 @@
     function dnAplicarSubs(btn) {
       const v = dnLerSubs(btn); if (!v) return;
       const rec = dnLerRec(btn); if (!rec) return;
+      if (!dnLerTemas(btn)) return;
       dnAplicarRec(rec);
+      dnAplicarTemas();
       dnAplicarNovos();
       ULTIMA_ATUALIZACAO = v.ds;
       dataForcada = true;
@@ -3012,6 +3015,7 @@
     async function dnDescarregarIndex(btn) {
       const v = dnLerSubs(btn); if (!v) return;
       const rec = dnLerRec(btn); if (!rec) return;
+      if (!dnLerTemas(btn)) return;
       try {
         const r = await fetch(location.href.split('#')[0], { cache: 'no-store' });
         if (!r.ok) throw 0;
@@ -3023,6 +3027,8 @@
         if (achou !== 3) throw 0;
         src = dnReescreverRec(src, rec);
         if (src === null) throw 0;
+        src = dnReescreverTemas(src);
+        if (src === null) throw 0;
         src = dnInserirNovos(src, dnNovos);
         if (src === null) throw 0;
         const url = URL.createObjectURL(new Blob([src], { type: 'text/html;charset=utf-8' }));
@@ -3032,7 +3038,7 @@
         setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
         dnFeedback(btn, '✅ Descarregado');
       } catch (e) {
-        dnFeedback(btn, '❌ Não foi possível (abra o site pelo endereço online)');
+        dnFeedback(btn, dnTmErro ? '❌ ' + dnTmErro : '❌ Não foi possível (abra o site pelo endereço online)');
       }
     }
 
@@ -3041,7 +3047,7 @@
     let dnGen = { tipo: 'video', link: '', titulo: '', desc: '', num: '', btn: '', emoji: '', cor: 'verde', saida: '', dica: '' };
     const DN_CORES = { 'verde': 'emerald', 'azul': 'blue', 'laranja': 'orange', 'âmbar': 'amber', 'roxo': 'purple', 'rosa': 'pink' };
     /* cores das recompensas: as de cima + as que alguns cartões já usam */
-    const DN_CORES_REC = { 'verde': 'emerald', 'verde claro': 'green', 'azul': 'blue', 'ciano': 'cyan', 'índigo': 'indigo', 'laranja': 'orange', 'âmbar': 'amber', 'amarelo': 'yellow', 'vermelho': 'red', 'roxo': 'purple', 'rosa': 'pink' };
+    const DN_CORES_REC = { 'verde': 'emerald', 'verde claro': 'green', 'azul': 'blue', 'ciano': 'cyan', 'índigo': 'indigo', 'laranja': 'orange', 'âmbar': 'amber', 'amarelo': 'yellow', 'vermelho': 'red', 'azul claro': 'sky', 'cinza': 'slate', 'roxo': 'purple', 'rosa': 'pink' };
     function dnRecCorDe(a) {
       const fb = a.querySelector('div[style*="display:none"]'), h3 = a.querySelector('h3');
       const m = (fb && fb.className.match(/bg-([a-z]+)-500\/20/)) || (h3 && h3.className.match(/text-([a-z]+)-300/));
@@ -3181,6 +3187,273 @@
       });
       return src.slice(0, ini) + bloco + src.slice(fim);
     }
+    /* ===== Temas independentes: Vídeos em Destaque, Redes Sociais, Vídeos do YouTube, Sites e Ferramentas =====
+       Cada tema tem a sua lista minimizada no painel (editar, desativar, remover). O mesmo código de edição
+       serve para o ecrã e para o ficheiro (lido do index.html original), por isso o resultado é igual nos dois. */
+    const DN_TEMAS = [
+      { id: 'video', nome: 'Vídeos em Destaque', ic: '🎬', secao: 'video', video: true },
+      { id: 'social', nome: 'Redes Sociais e Comunicação', ic: '💬', secao: 'social', video: false },
+      { id: 'playlists', nome: 'Vídeos do YouTube', ic: '▶️', secao: 'playlists', video: true },
+      { id: 'project', nome: 'Sites e Ferramentas', ic: '🛠️', secao: 'project', video: false },
+      { id: 'blog', nome: 'Blogs & Artigos', ic: '📝', secao: 'blog', video: false }
+    ];
+    let dnTm = null;
+    let dnTmAb = {};
+    let dnGenAb = false;
+    let dnTmErro = '';
+    function dnTmCartoes(t) {
+      return Array.prototype.slice.call(document.querySelectorAll('[data-category="' + t.secao + '"] .item-card')).filter(function (e) {
+        return !(e.parentElement && e.parentElement.closest('.item-card')) && !dnNovos.some(function (n) { return n.el === e; });
+      });
+    }
+    function dnTmLer(t, el) {
+      const h3 = el.querySelector('h3'), p = el.querySelector('p');
+      let nome = '', link = '', desc = '', cat = '';
+      if (t.video) {
+        const a = el.querySelector('a[title="Ver no YouTube"]') || el.querySelector('a[href]');
+        nome = h3 ? h3.textContent.trim() : '';
+        link = a ? (a.getAttribute('href') || '') : '';
+        const c = el.closest('[id^="cat-"]');
+        if (c) { const hb = document.querySelector('#btn-' + c.id + ' h3'); cat = hb ? hb.textContent.trim() : ''; }
+      } else if (t.id === 'social') {
+        const sp = el.querySelector('span.truncate');
+        nome = (sp ? sp.textContent : el.textContent).replace(/\s+/g, ' ').trim();
+        link = el.getAttribute('href') || '';
+      } else {
+        nome = h3 ? h3.textContent.trim() : '';
+        desc = p ? p.textContent.trim() : '';
+        link = el.getAttribute('href') || '';
+      }
+      return { nome: nome, desc: desc, link: link, cat: cat };
+    }
+    function dnTmDiff(t, el, it) {
+      const v = dnTmLer(t, el);
+      return v.nome !== it.nome || v.desc !== it.desc || v.link !== it.link || el.hasAttribute('data-inativo') !== !!it.ina;
+    }
+    function dnTmEditarEl(t, el, it) {
+      const v = dnTmLer(t, el);
+      const mudou = it.nome !== v.nome || it.link !== v.link;
+      if (t.video) {
+        const pl = el.querySelector('[data-video]'), im = el.querySelector('img'), h3 = el.querySelector('h3');
+        const a = el.querySelector('a[title="Ver no YouTube"]') || el.querySelector('a[href]');
+        const idVelho = pl ? idDoVideoEl(pl) : null;
+        const idNovo = it.link !== v.link ? (dnYtId(it.link) || idVelho) : idVelho;
+        if (mudou) {
+          if (pl && idNovo) {
+            pl.setAttribute('aria-label', 'Reproduzir vídeo: ' + it.nome);
+            pl.setAttribute('onclick', "abrirVideoModal('" + idNovo + "', '" + String(it.nome).replace(/\\/g, '\\\\').replace(/'/g, "\\'") + "')");
+          }
+          if (im) {
+            im.setAttribute('alt', it.nome);
+            if (idNovo && idVelho && idNovo !== idVelho) im.setAttribute('src', (im.getAttribute('src') || '').replace('/vi/' + idVelho + '/', '/vi/' + idNovo + '/'));
+          }
+          el.querySelectorAll('[title]').forEach(function (e) {
+            if (e !== a && e.getAttribute('title') === v.nome) e.setAttribute('title', it.nome);
+          });
+          if (h3) h3.textContent = it.nome;
+          if (a && it.link !== v.link) a.setAttribute('href', it.link);
+        }
+      } else {
+        if (t.id === 'project' || t.id === 'blog') {
+          const h3 = el.querySelector('h3'), p = el.querySelector('p');
+          if (h3 && it.nome !== v.nome) h3.textContent = it.nome;
+          if (p && it.desc !== v.desc) p.textContent = it.desc;
+        } else if (it.nome !== v.nome) {
+          const sp = el.querySelector('span.truncate');
+          if (sp) sp.textContent = it.nome;
+          else {
+            let tn = null;
+            el.childNodes.forEach(function (n) { if (n.nodeType === 3 && n.nodeValue.trim()) tn = n; });
+            if (tn) { const velho = tn.nodeValue.trim(); tn.nodeValue = tn.nodeValue.replace(velho, function () { return it.nome; }); }
+          }
+        }
+        if (it.link !== v.link) {
+          const ob = v.link.replace(/\/+$/, ''), nb = it.link.replace(/\/+$/, '');
+          el.setAttribute('href', it.link);
+          const im = el.querySelector('img[src^="http"]');
+          if (im && ob && (im.getAttribute('src') || '').indexOf(ob + '/') === 0) im.setAttribute('src', nb + im.getAttribute('src').slice(ob.length));
+        }
+      }
+      if (it.ina) { el.setAttribute('data-inativo', '1'); el.style.display = 'none'; }
+      else {
+        el.removeAttribute('data-inativo');
+        el.style.removeProperty('display');
+        if (!el.getAttribute('style')) el.removeAttribute('style');
+      }
+    }
+    function dnTmGrupoSocial(el) {
+      const sub = el.parentElement ? el.parentElement.closest('.glass-card') : null;
+      if (!sub) return 'Outras redes e comunicação';
+      const p = sub.querySelector('p');
+      if (p && p.querySelector('use[href="#icon-insta"]')) return 'Instagram';
+      if (p && p.querySelector('use[href="#icon-face"]')) return 'Facebook';
+      return p ? p.textContent.replace(/\s+/g, ' ').trim() : 'Outras redes e comunicação';
+    }
+    let dnTmGrAb = {};
+    function dnTmInit() {
+      if (dnTm) return;
+      dnTm = {};
+      DN_TEMAS.forEach(function (t) {
+        dnTm[t.id] = dnTmCartoes(t).map(function (el, i) {
+          const d = dnTmLer(t, el);
+          return { src: i, el: el, nome: d.nome, desc: d.desc, link: d.link, cat: d.cat, grp: t.id === 'playlists' ? d.cat : (t.id === 'social' ? dnTmGrupoSocial(el) : ''), ina: el.hasAttribute('data-inativo'), del: false, ab: false, pai: null, irmao: null, s0: { nome: d.nome, desc: d.desc, link: d.link, ina: el.hasAttribute('data-inativo') } };
+        });
+      });
+    }
+    function dnTmRef(id, i) { return dnTm[id][i]; }
+    function dnTmDesativar(id, i) { const it = dnTm[id][i]; it.ina = !it.ina; it.ab = true; dnRecRender(); }
+    function dnTmRemover(id, i) { const it = dnTm[id][i]; it.del = true; it.ab = false; dnRecRender(); }
+    function dnTmRestaurar(id, i) { dnTm[id][i].del = false; dnRecRender(); }
+    function dnTmAbrir(id, i) {
+      const u = ((dnTm && dnTm[id] && dnTm[id][i] && dnTm[id][i].link) || '').trim();
+      if (/^https?:\/\//i.test(u)) window.open(u, '_blank', 'noopener');
+    }
+    function dnLerTemas(btn) {
+      dnTmInit();
+      for (let k = 0; k < DN_TEMAS.length; k++) {
+        const t = DN_TEMAS[k], L = dnTm[t.id];
+        for (let i = 0; i < L.length; i++) {
+          const it = L[i];
+          if (it.del) continue;
+          it.nome = (it.nome || '').trim(); it.desc = (it.desc || '').trim(); it.link = (it.link || '').trim();
+          if (!it.nome) { dnFeedback(btn, '❌ «' + t.nome + '»: há um cartão sem nome'); return null; }
+          const v = dnTmLer(t, it.el);
+          if (it.link !== v.link) {
+            if (!/^https?:\/\/[^\s"'<>]+$/i.test(it.link)) { dnFeedback(btn, '❌ Link inválido em «' + it.nome + '»'); return null; }
+            if (t.video && !dnYtId(it.link)) { dnFeedback(btn, '❌ Link do YouTube inválido em «' + it.nome + '»'); return null; }
+          }
+        }
+      }
+      return dnTm;
+    }
+    function dnAplicarTemas() {
+      if (!dnTm) return;
+      DN_TEMAS.forEach(function (t) {
+        dnTm[t.id].forEach(function (it) {
+          const el = it.el;
+          if (!el) return;
+          if (it.del) {
+            if (el.parentNode) { it.pai = el.parentNode; it.irmao = el.nextSibling; el.remove(); }
+            return;
+          }
+          if (!el.parentNode && it.pai) it.pai.insertBefore(el, it.irmao && it.irmao.parentNode === it.pai ? it.irmao : null);
+          if (dnTmDiff(t, el, it)) dnTmEditarEl(t, el, it);
+        });
+      });
+    }
+    function dnTmBlocos(src, secao) {
+      const ini = src.indexOf('data-category="' + secao + '"');
+      if (ini < 0) return null;
+      const fimSec = src.indexOf('</section>', ini);
+      if (fimSec < 0) return null;
+      const re = /<(a|div)\b[^>]*\bclass="(?:[^"]*\s)?item-card(?:\s[^"]*)?"[^>]*>/g;
+      re.lastIndex = ini;
+      const out = [];
+      let m;
+      while ((m = re.exec(src)) && m.index < fimSec) {
+        const rt = new RegExp('<' + m[1] + '\\b|</' + m[1] + '>', 'g');
+        rt.lastIndex = m.index;
+        let prof = 0, x, fim = -1;
+        while ((x = rt.exec(src))) {
+          if (x[0].charAt(1) === '/') { prof--; if (prof === 0) { fim = x.index + x[0].length; break; } } else prof++;
+        }
+        if (fim < 0) return null;
+        out.push({ ini: m.index, fim: fim });
+        re.lastIndex = fim;
+      }
+      return out;
+    }
+    function dnTmApagarBloco(src, b) {
+      let ini = b.ini, fim = b.fim;
+      const lin = src.lastIndexOf('\n', ini - 1) + 1;
+      if (/^[ \t]*$/.test(src.slice(lin, ini))) ini = lin;
+      const jan = Math.max(0, ini - 400), antes = src.slice(jan, ini);
+      const mc = /[ \t]*<!--(?:(?!-->)[\s\S])*-->[ \t]*\r?\n(?:[ \t]*\r?\n)*$/.exec(antes);
+      if (mc) ini = jan + mc.index;
+      const m2 = /^[ \t]*\r?\n(?:[ \t]*\r?\n)?/.exec(src.slice(fim));
+      if (m2) fim += m2[0].length;
+      return src.slice(0, ini) + src.slice(fim);
+    }
+    function dnReescreverTemas(src) {
+      dnTmErro = '';
+      if (!dnTm) return src;
+      for (let k = 0; k < DN_TEMAS.length; k++) {
+        const t = DN_TEMAS[k], L = dnTm[t.id];
+        const blocos = dnTmBlocos(src, t.secao);
+        if (!blocos || blocos.length !== L.length) {
+          const mexeu = L.some(function (x) { return x.del || x.nome !== x.s0.nome || x.desc !== x.s0.desc || x.link !== x.s0.link || !!x.ina !== x.s0.ina; });
+          if (mexeu) { dnTmErro = 'A estrutura de «' + t.nome + '» no ficheiro difere do ecrã'; return null; }
+          continue;
+        }
+        for (let i = L.length - 1; i >= 0; i--) {
+          const it = L[i], b = blocos[i];
+          if (it.del) { src = dnTmApagarBloco(src, b); continue; }
+          const tpl = document.createElement('template');
+          tpl.innerHTML = src.slice(b.ini, b.fim);
+          const el = tpl.content.firstElementChild;
+          if (!el || !dnTmDiff(t, el, it)) continue;
+          dnTmEditarEl(t, el, it);
+          src = src.slice(0, b.ini) + el.outerHTML + src.slice(b.fim);
+        }
+      }
+      return src;
+    }
+    function dnTmItemHtml(t, it, i, mostraCat) {
+      const r = 'dnTm.' + t.id + '[' + i + ']', pre = 'pdTm' + t.id + i;
+      let h = '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="' + r + '.ab=this.open">' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : '')) + dnEsc(it.nome || 'Sem nome') +
+        (mostraCat && it.cat ? ' <small>· ' + dnEsc(it.cat) + '</small>' : '') + (it.del ? ' (removido)' : (it.ina ? ' (inativo)' : '')) + '</summary>' +
+        '<div style="padding-bottom:10px;">';
+      if (it.del) {
+        h += '<button type="button" class="pd-btn" onclick="dnTmRestaurar(\'' + t.id + '\',' + i + ')">↩️ Restaurar</button>';
+      } else {
+        h += dnCampoX(pre + 'N', t.video ? 'Título' : 'Nome', it.nome, r + '.nome', '');
+        if (t.id === 'project' || t.id === 'blog') h += dnCampoX(pre + 'D', 'Descrição', it.desc, r + '.desc', '');
+        h += '<label class="pd-lbl" for="' + pre + 'L">' + (t.video ? 'Link do YouTube' : 'Link') + '</label>' +
+          '<div style="display:flex;gap:6px;align-items:center;">' +
+          '<input id="' + pre + 'L" class="pd-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;" value="' + dnEsc(it.link) + '" oninput="' + r + '.link=this.value">' +
+          '<button type="button" class="pd-btn" style="width:auto;margin-top:4px;padding:10px 12px;" aria-label="Abrir link" title="Abrir link" onclick="dnTmAbrir(\'' + t.id + '\',' + i + ')">↗</button>' +
+          '</div>' +
+          '<button type="button" class="pd-btn" onclick="dnTmDesativar(\'' + t.id + '\',' + i + ')">' + (it.ina ? '▶️ Ativar (voltar a mostrar no site)' : '⏸️ Desativar (esconder do site, fica guardado)') + '</button>' +
+          '<button type="button" class="pd-btn pd-vermelho" onclick="dnTmRemover(\'' + t.id + '\',' + i + ')">🗑️ Remover (apagar de vez)</button>';
+      }
+      return h + '</div></details>';
+    }
+    function dnTmHtml() {
+      dnTmInit();
+      let h = '<div class="pd-sec">Temas do site (pela ordem do site)</div>' +
+        '<div class="pd-nota">Cada tema é independente: abra só o que quer mudar. Em cada cartão pode editar, desativar (esconde do site mas fica guardado) ou remover (apaga). Para juntar um cartão novo, use «➕ NOVO» dentro do tema.</div>';
+      DN_TEMAS.forEach(function (t) {
+        const L = dnTm[t.id];
+        const ativos = L.filter(function (x) { return !x.del && !x.ina; }).length + dnNovos.filter(function (n) { return DN_TM_TIPOS[t.id](n.tipo); }).length, inat = L.filter(function (x) { return !x.del && x.ina; }).length;
+        h += '<details class="pd-card" style="padding:6px 12px;margin-top:10px;"' + (dnTmAb[t.id] ? ' open' : '') + ' ontoggle="if(event.target===this)dnTmAb.' + t.id + '=this.open">' +
+          '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">' + t.ic + ' ' + dnEsc(t.nome) + ' <small>(' + ativos + (inat ? ' · ' + inat + ' inativo' + (inat > 1 ? 's' : '') : '') + ')</small></summary>' +
+          '<div style="padding-bottom:6px;">';
+        if (!L.length) h += '<div class="pd-nota">Sem cartões neste tema.</div>';
+        const agrupa = t.id === 'playlists' || t.id === 'social';
+        if (agrupa) {
+          const grupos = [];
+          L.forEach(function (it, i) {
+            let g = grupos.filter(function (x) { return x.nome === it.grp; })[0];
+            if (!g) { g = { nome: it.grp, idx: [] }; grupos.push(g); }
+            g.idx.push(i);
+          });
+          grupos.forEach(function (g, gi) {
+            const k = t.id + '_' + gi;
+            const at = g.idx.filter(function (i) { return !L[i].del && !L[i].ina; }).length, ni = g.idx.filter(function (i) { return !L[i].del && L[i].ina; }).length;
+            h += '<details class="pd-card" style="padding:4px 10px;margin-top:8px;"' + (dnTmGrAb[k] ? ' open' : '') + ' ontoggle="if(event.target===this)dnTmGrAb[\'' + k + '\']=this.open">' +
+              '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (t.id === 'playlists' ? '📁 ' : '🔗 ') + dnEsc(g.nome || 'Outros') + ' <small>(' + at + (ni ? ' · ' + ni + ' inativo' + (ni > 1 ? 's' : '') : '') + ')</small></summary><div style="padding-bottom:4px;">';
+            g.idx.forEach(function (i) { h += dnTmItemHtml(t, L[i], i, false); });
+            h += '</div></details>';
+          });
+        } else {
+          L.forEach(function (it, i) { h += dnTmItemHtml(t, it, i, false); });
+        }
+        h += dnTmNovosHtml(t) + dnTmFormHtml(t);
+        h += '</div></details>';
+      });
+      return h;
+    }
     function dnAbrirRec(i) {
       const u = ((dnRec && dnRec[i] && dnRec[i].link) || '').trim();
       if (/^https?:\/\//i.test(u)) window.open(u, '_blank', 'noopener');
@@ -3251,7 +3524,7 @@
       ].join('\n');
     }
     function dnCodigoLink(tipo, link, titulo, desc, btn, emoji, cor) {
-      const c = DN_CORES[cor] || 'emerald';
+      const c = DN_CORES_REC[cor] || 'emerald';
       let icone;
       if (tipo === 'blog') {
         icone = '                ' + dnEsc(emoji || '📝');
@@ -3315,6 +3588,187 @@
       site: { sel: '[data-category="project"] .space-y-3', secao: 'project', abertura: '<div class="space-y-3">', nome: 'Site' },
       blog: { sel: '[data-category="blog"] .space-y-3', secao: 'blog', abertura: '<div class="space-y-3">', nome: 'Blog' }
     };
+    /* ===== Adicionar cartões novos em cada tema ===== */
+    function dnCodigoYt(id, titulo, n) {
+      const t = dnEsc(titulo);
+      return [
+        '          <!-- VÍDEO NOVO ADICIONADO (ID #' + n + ' - ' + id + ') -->',
+        '          <div class="item-card glass-card rounded-2xl overflow-hidden flex flex-col justify-between group border border-red-500/20 hover:border-red-500/50">',
+        '            <div role="button" tabindex="0" data-video aria-label="Reproduzir vídeo: ' + t + '" class="relative aspect-video overflow-hidden bg-black cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-400" onclick="abrirVideoModal(\'' + id + '\', \'' + dnJs(titulo) + '\')">',
+        '              <img width="320" height="180" loading="lazy" decoding="async" src="https://img.youtube.com/vi/' + id + '/mqdefault.jpg" alt="' + t + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">',
+        '              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>',
+        '              ',
+        '              <div title="' + t + '" class="absolute top-2.5 left-2.5 flex items-center bg-black/35 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold leading-none px-2 py-1 rounded-full tracking-wide shadow-sm">',
+        '                #' + n,
+        '              </div>',
+        '',
+        '              <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">',
+        '                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-lg">▶</div>',
+        '              </div>',
+        '            </div>',
+        '            <div class="p-4 flex flex-col justify-between flex-1">',
+        '              <div class="space-y-3">',
+        '                <a href="https://www.youtube.com/watch?v=' + id + '" target="_blank" rel="noopener noreferrer" title="Ver no YouTube" class="group/yt flex items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-blue-400">',
+        '                  <span class="p-2 rounded-xl bg-red-600 hover:bg-red-500 text-white transition-all flex items-center justify-center shadow-md shadow-red-900/50 shrink-0 group-hover/yt:bg-red-500"><svg class="w-4 h-4"><use href="#icon-yt"/></svg></span>',
+        '                  <h3 class="text-sm font-bold text-white group-hover:text-red-300 transition-colors min-w-0 break-words leading-snug group-hover/yt:underline underline-offset-2">' + t + '</h3>',
+        '                </a>',
+        '              </div>',
+        '            </div>',
+        '          </div>'
+      ].join('\n');
+    }
+    const DN_ICONES_SOC = [['icon-yt', 'YouTube', 'vermelho'], ['icon-tiktok', 'TikTok', 'ciano'], ['icon-discord', 'Discord', 'índigo'], ['icon-twitter', 'X / Twitter', 'azul claro'],
+      ['icon-steam', 'Steam', 'cinza'], ['icon-spotify', 'Spotify', 'verde'], ['icon-twitch', 'Twitch', 'roxo'], ['icon-whatsapp', 'WhatsApp', 'verde claro'],
+      ['icon-telegram', 'Telegram', 'azul claro'], ['icon-messenger', 'Messenger', 'azul'], ['icon-message', 'Mensagem', 'âmbar'], ['icon-globe', 'Site / outro', 'azul']];
+    function dnCodigoSocial(grupo, link, nome, icone, cor) {
+      const l = dnEsc(link), n = dnEsc(nome);
+      if (grupo === 'soc-insta') return [
+        '            <a href="' + l + '" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-gradient-to-r hover:from-pink-600 hover:to-purple-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">',
+        '              <svg class="w-4 h-4 flex-shrink-0 text-pink-400"><use href="#icon-insta"/></svg>',
+        '              <span class="truncate">' + n + '</span>',
+        '            </a>'].join('\n');
+      if (grupo === 'soc-face') return [
+        '            <a href="' + l + '" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl bg-slate-900/80 hover:bg-blue-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2 transition-all shadow-md">',
+        '              <svg class="w-4 h-4 flex-shrink-0 text-blue-400"><use href="#icon-face"/></svg>',
+        '              <span class="truncate">' + n + '</span>',
+        '            </a>'].join('\n');
+      const c = DN_CORES_REC[cor] || 'blue';
+      return [
+        '        <a href="' + l + '" target="_blank" rel="noopener noreferrer" class="item-card p-3 rounded-xl glass-card hover:bg-' + c + '-600 hover:text-white text-slate-200 text-xs font-semibold flex items-center gap-2.5 transition-all">',
+        '          <svg class="w-4 h-4 text-' + c + '-400"><use href="#' + dnEsc(icone) + '"/></svg> ' + n,
+        '        </a>'].join('\n');
+    }
+    function dnTmCats() {
+      return Array.prototype.slice.call(document.querySelectorAll('[data-category="playlists"] .youtube-category-content')).map(function (c) {
+        const hb = document.querySelector('#btn-' + c.id + ' h3');
+        return [c.id, hb ? hb.textContent.trim() : c.id];
+      });
+    }
+    function dnTmGridSocial(ic) {
+      const u = document.querySelector('[data-category="social"] p use[href="#' + ic + '"]'), p = u && u.closest('p');
+      return p ? p.nextElementSibling : null;
+    }
+    DN_DESTINO['soc-insta'] = { dest: function () { return dnTmGridSocial('icon-insta'); }, secao: 'social', marca: '<!-- SUB-BLOCO INSTAGRAM -->', abertura: '<div class="grid ', nome: 'Instagram' };
+    DN_DESTINO['soc-face'] = { dest: function () { return dnTmGridSocial('icon-face'); }, secao: 'social', marca: '<!-- SUB-BLOCO FACEBOOK -->', abertura: '<div class="grid ', nome: 'Facebook' };
+    DN_DESTINO['soc-outras'] = { dest: function () { const s = document.querySelector('[data-category="social"]'); return s ? Array.prototype.slice.call(s.children).filter(function (c) { return c.classList.contains('grid'); }).pop() : null; }, secao: 'social', marca: '<!-- OUTRAS REDES SOCIAIS -->', abertura: '<div class="grid ', nome: 'Redes' };
+    function dnTmDestinoYt(catId, nomeCat) {
+      const tipo = 'yt:' + catId;
+      if (!DN_DESTINO[tipo]) DN_DESTINO[tipo] = { sel: '#' + catId + ' .video-grid-container', inicio: true, secao: 'playlists', marca: 'id="' + catId + '"', abertura: '<div class="video-grid-container', nome: 'YouTube · ' + nomeCat };
+      return tipo;
+    }
+    const DN_TM_TIPOS = {
+      video: function (t) { return t === 'video'; },
+      social: function (t) { return t.indexOf('soc-') === 0; },
+      playlists: function (t) { return t.indexOf('yt:') === 0; },
+      project: function (t) { return t === 'site'; },
+      blog: function (t) { return t === 'blog'; }
+    };
+    let dnTmForm = {
+      video: { link: '', titulo: '', num: '' },
+      social: { grupo: 'soc-outras', nome: '', link: '', icone: 'icon-yt', cor: '(automática)' },
+      playlists: { cat: '', link: '', titulo: '' },
+      project: { link: '', titulo: '', desc: '', btn: '', cor: 'verde' },
+      blog: { link: '', titulo: '', desc: '', btn: '', emoji: '', cor: 'laranja' }
+    };
+    let dnTmAddAb = {};
+    function dnTmProximoNumero(catId, tipo) {
+      let max = 0;
+      document.querySelectorAll('#' + catId + ' .video-grid-container .item-card').forEach(function (e) {
+        const b = e.querySelector('div[title].absolute'), m = b && b.textContent.match(/#\s*(\d+)/);
+        if (m) max = Math.max(max, parseInt(m[1], 10));
+      });
+      const pend = dnNovos.filter(function (n) { return n.tipo === tipo && !n.el; }).length;
+      return String(max + pend + 1).padStart(2, '0');
+    }
+    function dnTmAdicionar(id, btn) {
+      const f = dnTmForm[id];
+      const link = (f.link || '').trim(), titulo = (f.titulo || f.nome || '').trim(), desc = (f.desc || '').trim();
+      let novo = null;
+      if (id === 'video' || id === 'playlists') {
+        const yid = dnYtId(link);
+        if (!yid) { dnFeedback(btn, '❌ Link do YouTube inválido'); return; }
+        if (!titulo) { dnFeedback(btn, '❌ Escreva o título'); return; }
+        if (id === 'video') {
+          const n = /^\d+$/.test((f.num || '').trim()) ? f.num.trim() : '';
+          novo = { tipo: 'video', titulo: titulo, cod: dnCodigoVideo(yid, titulo, n), el: null };
+        } else {
+          const cats = dnTmCats(), cat = f.cat || (cats[0] && cats[0][0]);
+          const par = cats.filter(function (c) { return c[0] === cat; })[0];
+          if (!par) { dnFeedback(btn, '❌ Escolha a categoria'); return; }
+          const tipo = dnTmDestinoYt(par[0], par[1]);
+          novo = { tipo: tipo, titulo: titulo, cod: dnCodigoYt(yid, titulo, dnTmProximoNumero(par[0], tipo)), el: null };
+        }
+      } else {
+        if (!/^https?:\/\/[^\s"'<>]+$/i.test(link)) { dnFeedback(btn, '❌ Link inválido (começa por https://)'); return; }
+        if (!titulo) { dnFeedback(btn, '❌ Escreva o ' + (id === 'social' ? 'nome' : 'título')); return; }
+        if (id === 'social') {
+          const ic = DN_ICONES_SOC.filter(function (x) { return x[0] === f.icone; })[0] || DN_ICONES_SOC[0];
+          const cor = f.cor && f.cor !== '(automática)' ? f.cor : ic[2];
+          novo = { tipo: f.grupo, titulo: titulo, cod: dnCodigoSocial(f.grupo, link, titulo, ic[0], cor), el: null };
+        } else {
+          if (!desc) { dnFeedback(btn, '❌ Escreva a descrição'); return; }
+          const tipo = id === 'blog' ? 'blog' : 'site';
+          const texto = (f.btn || '').trim() || (id === 'blog' ? 'Ler Blog →' : 'Abrir →');
+          novo = { tipo: tipo, titulo: titulo, cod: dnCodigoLink(tipo, link, titulo, desc, texto, (f.emoji || '').trim(), id === 'blog' ? f.cor : f.cor), el: null };
+        }
+      }
+      dnNovos.push(novo);
+      dnTmAddAb[id] = true; dnTmAb[id] = true;
+      const cat = f.cat;
+      dnTmForm[id] = JSON.parse(JSON.stringify(Object.assign({}, f, { link: '', titulo: '', nome: '', desc: '', num: '', btn: '', emoji: '' })));
+      if (cat) dnTmForm[id].cat = cat;
+      dnRecRender();
+      const b = document.getElementById('pdTmAdd' + id);
+      if (b) dnFeedback(b, '✅ Adicionado à lista');
+    }
+    function dnTmSel(idc, rotulo, ops, valor, expr) {
+      return '<label class="pd-lbl" for="' + idc + '">' + rotulo + '</label><select id="' + idc + '" class="pd-input" onchange="' + expr + '=this.value">' +
+        ops.map(function (o) { return '<option value="' + dnEsc(o[0]) + '"' + (o[0] === valor ? ' selected' : '') + '>' + dnEsc(o[1]) + '</option>'; }).join('') + '</select>';
+    }
+    function dnTmCorSel(idc, valor, expr, auto) {
+      const ops = (auto ? [['(automática)', '(Automática)']] : []).concat(Object.keys(DN_CORES_REC).map(function (k) { return [k, k.charAt(0).toUpperCase() + k.slice(1)]; }));
+      return dnTmSel(idc, 'Cor', ops, valor, expr);
+    }
+    function dnTmFormHtml(t) {
+      const id = t.id, f = dnTmForm[id], r = 'dnTmForm.' + id, p = 'pdTmF' + id;
+      let h = '';
+      if (id === 'playlists') {
+        const cats = dnTmCats();
+        if (!f.cat && cats[0]) f.cat = cats[0][0];
+        h += dnTmSel(p + 'Cat', 'Categoria', cats, f.cat, r + '.cat');
+      }
+      if (id === 'social') {
+        h += dnTmSel(p + 'Gr', 'Onde aparece', [['soc-insta', 'Instagram'], ['soc-face', 'Facebook'], ['soc-outras', 'Outras redes e comunicação']], f.grupo, r + '.grupo');
+        h += dnCampoX(p + 'N', 'Nome (ex.: @utilizador)', f.nome, r + '.nome', '');
+        h += dnCampoX(p + 'L', 'Link (endereço)', f.link, r + '.link', 'inputmode="url" placeholder="https://"');
+        h += dnTmSel(p + 'Ic', 'Ícone (só em «Outras redes»)', DN_ICONES_SOC.map(function (x) { return [x[0], x[1]]; }), f.icone, r + '.icone');
+        h += dnTmCorSel(p + 'Cor', f.cor, r + '.cor', true);
+      } else {
+        h += dnCampoX(p + 'L', t.video ? 'Link do vídeo do YouTube' : 'Link (endereço)', f.link, r + '.link', 'inputmode="url" placeholder="https://"');
+        h += dnCampoX(p + 'T', t.video ? 'Título' : 'Título', f.titulo, r + '.titulo', '');
+        if (id === 'video') h += dnCampoX(p + 'Nu', 'Número do destaque (opcional)', f.num, r + '.num', 'inputmode="numeric" placeholder="ex.: 4"');
+        if (id === 'project' || id === 'blog') {
+          h += dnCampoX(p + 'D', 'Descrição curta', f.desc, r + '.desc', '');
+          if (id === 'blog') h += dnCampoX(p + 'E', 'Ícone (emoji)', f.emoji, r + '.emoji', 'placeholder="📝"');
+          h += dnCampoX(p + 'B', 'Texto do botão', f.btn, r + '.btn', 'placeholder="' + (id === 'blog' ? 'Ler Blog →' : 'Abrir →') + '"');
+          h += dnTmCorSel(p + 'Cor', f.cor, r + '.cor', false);
+        }
+      }
+      return '<details class="pd-card" style="padding:6px 12px;margin-top:8px;"' + (dnTmAddAb[id] ? ' open' : '') + ' ontoggle="dnTmAddAb.' + id + '=this.open">' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">➕ NOVO</summary><div style="padding-bottom:10px;">' + h +
+        '<button type="button" id="pdTmAdd' + id + '" class="pd-btn pd-azul" onclick="dnTmAdicionar(\'' + id + '\', this)">➕ Adicionar à lista</button>' +
+        '<div class="pd-nota">Entra no site com «Aplicar neste ecrã» e no ficheiro com «Descarregar index.html corrigido».</div></div></details>';
+    }
+    function dnTmNovosHtml(t) {
+      const teste = DN_TM_TIPOS[t.id];
+      let h = '';
+      dnNovos.forEach(function (n, i) {
+        if (!teste(n.tipo)) return;
+        h += '<div class="pd-row" style="grid-template-columns:1fr auto;align-items:center;margin-top:8px;"><span>🆕 ' + dnEsc(n.titulo) + ' <small>(' + dnEsc(DN_DESTINO[n.tipo].nome) + (n.el ? ', já no ecrã' : ', por guardar') + ')</small></span>' +
+          '<button type="button" class="pd-btn" style="width:auto;margin:0;padding:6px 10px;" aria-label="Remover cartão novo" title="Remover" onclick="dnNovoRemover(' + i + ')">🗑️</button></div>';
+      });
+      return h;
+    }
     function dnAdicionarCartao(btn) {
       const c = dnMontarCartao(btn); if (!c) return;
       dnNovos.push(c);
@@ -3333,18 +3787,26 @@
     function dnAplicarNovos() {
       dnNovos.forEach(function (n) {
         if (n.el) return;
-        const dest = document.querySelector(DN_DESTINO[n.tipo].sel);
+        const d = DN_DESTINO[n.tipo], dest = d.dest ? d.dest() : document.querySelector(d.sel);
         if (!dest) return;
         const t = document.createElement('template');
         t.innerHTML = n.cod.trim();
         const el = t.content.firstElementChild;
         if (!el) return;
-        dest.appendChild(el);
+        if (d.inicio && dest.firstElementChild) dest.insertBefore(el, dest.firstElementChild); else dest.appendChild(el);
         n.el = el;
       });
     }
-    function dnFimContainer(src, secao, abertura) {
-      const ini = src.indexOf('data-category="' + secao + '"');
+    function dnIniContainer(src, marca, abertura) {
+      const ini = src.indexOf(marca);
+      if (ini < 0) return -1;
+      const c = src.indexOf(abertura, ini);
+      if (c < 0) return -1;
+      const f = src.indexOf('>', c);
+      return f < 0 ? -1 : f + 1;
+    }
+    function dnFimContainer(src, secao, abertura, marca) {
+      const ini = marca ? src.indexOf(marca) : src.indexOf('data-category="' + secao + '"');
       if (ini < 0) return -1;
       const c = src.indexOf(abertura, ini);
       if (c < 0) return -1;
@@ -3361,7 +3823,13 @@
         const lista = novos.filter(function (n) { return n.tipo === tipo; });
         if (!lista.length) continue;
         const d = DN_DESTINO[tipo];
-        const ci = dnFimContainer(src, d.secao, d.abertura);
+        if (d.inicio) {
+          const pi = dnIniContainer(src, d.marca, d.abertura);
+          if (pi < 0) return null;
+          src = src.slice(0, pi) + '\n\n' + lista.slice().reverse().map(function (n) { return n.cod; }).join('\n\n') + '\n' + src.slice(pi);
+          continue;
+        }
+        const ci = dnFimContainer(src, d.secao, d.abertura, d.marca);
         if (ci < 0) return null;
         const antes = src.slice(0, ci);
         const indent = (antes.match(/[ \t]*$/) || [''])[0];
@@ -3393,7 +3861,7 @@
       const g = dnGen, t = g.tipo;
       const antNum = document.getElementById('pdSubsNum'), antSite = document.getElementById('pdSiteData'), antBan = document.getElementById('pdSubsData');
       const vNum = antNum ? antNum.value : YT_SUBS_MANUAL, vSite = antSite ? antSite.value : dataAtualizacaoEfetiva(), vBan = antBan ? antBan.value : YT_SUBS_DATA;
-      let h = '<div class="pd-sec">Novo cartão</div><div class="pd-card" style="padding:4px 12px 12px;">' +
+      let h = '<details class="pd-card" style="padding:6px 12px;margin-top:10px;"' + (dnGenAb ? ' open' : '') + ' ontoggle="dnGenAb=this.open"><summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🧰 Gerar código à mão (avançado)</summary><div style="padding-bottom:6px;"><div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdGenTipo">Tipo de conteúdo</label>' +
         '<select id="pdGenTipo" class="pd-input" onchange="dnGenTipo(this.value)">' +
         [['video', '🎬 Vídeo em destaque'], ['site', '🔗 Site ou ferramenta'], ['blog', '📝 Blog ou artigo']].map(function (o) {
@@ -3417,15 +3885,10 @@
         '<textarea id="pdGenSaida" class="pd-input pd-code" readonly spellcheck="false" placeholder="O código aparece aqui">' + dnEsc(g.saida) + '</textarea>' +
         '<div class="pd-nota" id="pdGenDica">' + dnEsc(g.dica) + '</div>' +
         '<button type="button" class="pd-btn" onclick="dnCopiarSaida(this)">📋 Copiar código</button>' +
-        '<div class="pd-nota">Se preferir colar à mão: depois de colar no index.html e enviar o ficheiro para o servidor, o cartão aparece no site.</div>';
-      if (dnNovos.length) {
-        h += '<div class="pd-sec pd-sub">Cartões novos</div><div class="pd-card">' +
-          dnNovos.map(function (n, i) {
-            return '<div class="pd-row" style="grid-template-columns:1fr auto;align-items:center;"><span>🆕 ' + dnEsc(n.titulo) + ' <small>(' + DN_DESTINO[n.tipo].nome + (n.el ? ', já no ecrã' : '') + ')</small></span>' +
-              '<button type="button" class="pd-btn" style="width:auto;margin:0;padding:6px 10px;" aria-label="Remover cartão" title="Remover" onclick="dnNovoRemover(' + i + ')">🗑️</button></div>';
-          }).join('') + '</div>' +
-          '<div class="pd-nota">Estes cartões ainda não estão no ficheiro: use «Descarregar index.html corrigido» para os guardar.</div>';
-      }
+        '<div class="pd-nota">Se preferir colar à mão: depois de colar no index.html e enviar o ficheiro para o servidor, o cartão aparece no site.</div>' +
+        '</div></details>';
+      const gen = h; h = '';
+      h += dnTmHtml();
       dnRecInit();
       h += '<details class="pd-card" style="padding:6px 12px;margin-top:22px;"' + (dnRecSecAberta ? ' open' : '') + ' ontoggle="if(event.target===this)dnRecSecAberta=this.open">' +
         '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🎁 Reembolso Parcial &amp; Recompensas <small>(' + dnRec.filter(function (x) { return !x.del; }).length + ')</small></summary>' +
@@ -3453,7 +3916,7 @@
       });
       h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição, a cor e o link, ou para a desativar (esconde do site mas fica guardada, podendo voltar a ativar) ou remover (apaga). Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar.</div>';
       h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;"' + (dnNovaRecAberta ? ' open' : '') + ' ontoggle="dnNovaRecAberta=this.open">' +
-        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">➕ Novo Botão</summary>' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">➕ NOVO</summary>' +
         '<div style="padding-bottom:10px;">' +
         dnCampoX('pdNrNome', 'Nome', dnNovaRec.nome, 'dnNovaRec.nome', '') +
         dnCampoX('pdNrDesc', 'Descrição curta', dnNovaRec.desc, 'dnNovaRec.desc', '') +
@@ -3464,6 +3927,7 @@
         '<div class="pd-nota">O novo botão entra na lista acima (marcado com 🆕) e vai para o site com «Aplicar neste ecrã» e «Descarregar index.html corrigido».</div>' +
         '</div></details>';
       h += '</div></details>';
+      h += gen;
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdSubsNum">Número de subscritores</label>' +
@@ -3983,7 +4447,7 @@
         var grid = cat.querySelector('.video-grid-container');
         if (!grid) return;
 
-        var cards = Array.prototype.slice.call(grid.querySelectorAll(':scope > .item-card'));
+        var cards = Array.prototype.slice.call(grid.querySelectorAll(':scope > .item-card:not([data-inativo])'));
         if (cards.length <= POR_PAGINA) return;
 
         var visiveis = POR_PAGINA;
