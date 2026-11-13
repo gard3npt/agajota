@@ -174,19 +174,27 @@
   </script>
 
   <style>
-    /* Ocultação elegante da barra de scroll */
-    html, body {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      scroll-behavior: smooth;
+    @keyframes apoiarBatida { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.22); } 30% { transform: scale(1); } 45% { transform: scale(1.14); } }
+    .menu-apoiar-coracao { animation: apoiarBatida 1.8s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .menu-apoiar-coracao { animation: none; } }
+    /* Barra de scroll fina e moderna (degradê rosa/roxo do site) */
+    html { scroll-behavior: smooth; background-color: #030712; }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #ec4899, #8b5cf6);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      border-radius: 999px;
     }
-
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar,
-    *::-webkit-scrollbar {
-      display: none !important;
-      width: 0 !important;
-      height: 0 !important;
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #f472b6, #a78bfa);
+      background-clip: padding-box;
+    }
+    ::-webkit-scrollbar-corner { background: transparent; }
+    /* Firefox (não suporta o degradê): barra fina com uma só cor */
+    @supports not selector(::-webkit-scrollbar) {
+      * { scrollbar-width: thin; scrollbar-color: #a855f7 transparent; }
     }
 
     /* Glassmorphism Backgrounds */
@@ -612,6 +620,14 @@
             <span>Reembolso Parcial</span>
           </button>
           <div class="my-1.5 border-t border-white/10" role="separator"></div>
+          <a href="https://paypal.me/gard3npt" target="_blank" rel="noopener noreferrer" role="menuitem" class="menu-apoiar w-full flex items-center gap-3 my-1 px-3 py-2.5 rounded-2xl text-left text-white bg-gradient-to-r from-pink-500 via-rose-500 to-orange-400 hover:from-pink-400 hover:via-rose-400 hover:to-orange-300 shadow-lg shadow-pink-900/40 ring-1 ring-white/25 outline-none focus-visible:ring-2 focus-visible:ring-white transition-all" onclick="fecharMenuPrincipal()">
+            <span class="shrink-0 w-9 h-9 rounded-full bg-white/25 flex items-center justify-center"><svg class="menu-apoiar-coracao w-[18px] h-[18px]" aria-hidden="true"><use href="#icon-heart"/></svg></span>
+            <span class="flex flex-col leading-tight">
+              <span class="text-sm font-extrabold">Apoiar o projeto</span>
+              <span class="text-[11px] font-medium text-white/90">Um café virtual faz a diferença ☕</span>
+            </span>
+          </a>
+          <div class="my-1.5 border-t border-white/10" role="separator"></div>
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); abrirSobreModalInfo()">
             <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             <span>Sobre</span>
@@ -619,10 +635,6 @@
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); abrirContactoModal()">
             <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             <span>Contacto</span>
-          </button>
-          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-pink-300 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); irParaApoio(event)">
-            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 14h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m7 20 1.6 1.4c.3.4.8.6 1.4.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 15 6 6"/><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.73 2.73 0 0 0 16 4a2.78 2.78 0 0 0-5 1.8c0 1.2.8 2 1.5 2.8L16 12Z"/></svg>
-            <span>Apoiar</span>
           </button>
           <button type="button" id="btnPartilhar" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="partilharSite(event)">
             <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
@@ -634,73 +646,6 @@
               <span>Instalar app</span>
             </button>
             <div id="ajudaInstalar" role="status" aria-live="polite" hidden class="mt-1 mx-1 mb-1 text-xs text-slate-300 bg-white/5 border border-white/10 rounded-xl p-3"></div>
-          </div>
-          <div class="my-1.5 border-t border-white/10"></div>
-          <div role="group" aria-label="Idioma" class="notranslate" translate="no">
-            <button type="button" id="menuLangToggle" aria-expanded="false" aria-controls="menuLangList" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="alternarIdiomasMenu(event)">
-              <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
-              <span class="flex-1">Idioma</span>
-              <svg id="menuLangFlag" class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-pt"/></svg>
-              <svg id="menuLangChevron" class="w-3.5 h-3.5 opacity-70 transition-transform" aria-hidden="true"><use href="#icon-chevron"/></svg>
-            </button>
-            <div id="menuLangList" class="hidden grid grid-cols-2 gap-1 mt-1 max-h-60 overflow-y-auto">
-            <button type="button" role="menuitemradio" aria-checked="true" data-lang="pt" lang="pt" onclick="fecharMenuPrincipal(); selecionarIdioma('pt')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-              <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-pt"/></svg>
-              <span class="flex-1 whitespace-nowrap">Português</span>
-            </button>
-            <button type="button" role="menuitemradio" aria-checked="false" data-lang="en" lang="en" onclick="fecharMenuPrincipal(); selecionarIdioma('en')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-              <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-gb"/></svg>
-              <span class="flex-1 whitespace-nowrap">English</span>
-            </button>
-            <button type="button" role="menuitemradio" aria-checked="false" data-lang="es" lang="es" onclick="fecharMenuPrincipal(); selecionarIdioma('es')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-              <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-es"/></svg>
-              <span class="flex-1 whitespace-nowrap">Español</span>
-            </button>
-            <button type="button" role="menuitemradio" aria-checked="false" data-lang="fr" lang="fr" onclick="fecharMenuPrincipal(); selecionarIdioma('fr')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-              <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-fr"/></svg>
-              <span class="flex-1 whitespace-nowrap">Français</span>
-            </button>
-            <button type="button" role="menuitemradio" aria-checked="false" data-lang="de" lang="de" onclick="fecharMenuPrincipal(); selecionarIdioma('de')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-              <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-de"/></svg>
-              <span class="flex-1 whitespace-nowrap">Deutsch</span>
-            </button>
-            <button type="button" role="menuitemradio" aria-checked="false" data-lang="it" lang="it" onclick="fecharMenuPrincipal(); selecionarIdioma('it')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-              <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-it"/></svg>
-              <span class="flex-1 whitespace-nowrap">Italiano</span>
-            </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="nl" lang="nl" onclick="fecharMenuPrincipal(); selecionarIdioma('nl')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-nl"/></svg>
-                <span class="flex-1 whitespace-nowrap">Nederlands</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="pl" lang="pl" onclick="fecharMenuPrincipal(); selecionarIdioma('pl')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-pl"/></svg>
-                <span class="flex-1 whitespace-nowrap">Polski</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="ro" lang="ro" onclick="fecharMenuPrincipal(); selecionarIdioma('ro')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-ro"/></svg>
-                <span class="flex-1 whitespace-nowrap">Română</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="ru" lang="ru" onclick="fecharMenuPrincipal(); selecionarIdioma('ru')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-ru"/></svg>
-                <span class="flex-1 whitespace-nowrap">Русский</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="uk" lang="uk" onclick="fecharMenuPrincipal(); selecionarIdioma('uk')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-ua"/></svg>
-                <span class="flex-1 whitespace-nowrap">Українська</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="tr" lang="tr" onclick="fecharMenuPrincipal(); selecionarIdioma('tr')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-tr"/></svg>
-                <span class="flex-1 whitespace-nowrap">Türkçe</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="ja" lang="ja" onclick="fecharMenuPrincipal(); selecionarIdioma('ja')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-jp"/></svg>
-                <span class="flex-1 whitespace-nowrap">日本語</span>
-              </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-lang="zh-CN" lang="zh-CN" onclick="fecharMenuPrincipal(); selecionarIdioma('zh-CN')" class="menu-lang-item flex items-center gap-2 px-2.5 py-2 rounded-xl text-xs text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors">
-                <svg class="w-6 h-4 rounded-sm shrink-0 shadow-sm" aria-hidden="true"><use href="#flag-cn"/></svg>
-                <span class="flex-1 whitespace-nowrap">中文</span>
-              </button>
-            </div>
           </div>
           <div class="my-1.5 border-t border-white/10"></div>
           <button type="button" role="menuitem" id="menuUpd" onclick="triploClique(this, function () { fecharMenuPrincipal(); abrirPainelDono(); }, event)" class="w-full px-3 py-1.5 rounded-xl text-xs text-center text-slate-400 cursor-default outline-none focus-visible:bg-white/10" style="user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent"></button>
@@ -721,15 +666,11 @@
       </a>
 
       <!-- Navigation Buttons -->
-      <nav class="order-3 md:order-2 w-full md:w-auto flex items-center justify-between md:justify-start gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
+      <nav class="order-3 md:order-2 w-full md:w-auto flex items-center justify-center md:justify-start gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
         <button type="button" id="btnInicio" aria-current="page" aria-label="Início" title="Voltar ao início" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
           <svg class="w-4 h-4"><use href="#icon-globe"/></svg>
           <span>Início</span>
           <svg class="inicio-seta" aria-hidden="true"><use href="#icon-chevron"/></svg>
-        </button>
-        <button type="button" title="Apoiar o Projeto" aria-label="Apoiar o projeto" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-pink-300 hover:text-white hover:bg-pink-500/20 transition-all" onclick="irParaApoio(event)">
-          <svg class="w-4 h-4"><use href="#icon-heart"/></svg>
-          <span>Apoiar</span>
         </button>
       </nav>
 
@@ -3044,7 +2985,6 @@
 
     /* Modo 1 = diagnóstico e ferramentas; modo 2 = conteúdos (novos cartões), subscritores e data */
     let dnModo = 1;
-    let dnGen = { tipo: 'video', link: '', titulo: '', desc: '', num: '', btn: '', emoji: '', cor: 'verde', saida: '', dica: '' };
     const DN_CORES = { 'verde': 'emerald', 'azul': 'blue', 'laranja': 'orange', 'âmbar': 'amber', 'roxo': 'purple', 'rosa': 'pink' };
     /* cores das recompensas: as de cima + as que alguns cartões já usam */
     const DN_CORES_REC = { 'verde': 'emerald', 'verde claro': 'green', 'azul': 'blue', 'ciano': 'cyan', 'índigo': 'indigo', 'laranja': 'orange', 'âmbar': 'amber', 'amarelo': 'yellow', 'vermelho': 'red', 'azul claro': 'sky', 'cinza': 'slate', 'roxo': 'purple', 'rosa': 'pink' };
@@ -3149,43 +3089,49 @@
       });
     }
     function dnReescreverRec(src, items) {
+      dnTmErro = '';
       const ini = src.indexOf('data-category="cashback"');
       if (ini < 0) return null;
       const fim = src.indexOf('</section>', ini);
-      let bloco = src.slice(ini, fim), i = 0;
+      const bloco = src.slice(ini, fim);
       const re = /<a href="([^"]*)"([^>]*class="item-card[^>]*>)([\s\S]*?)<\/a>(\s*)/g;
-      const total = (bloco.match(re) || []).length;
-      const novos = items.filter(function (x) { return x.src < 0 && !x.del; }).map(function (x) { return dnCodigoRec(x.link, x.nome, x.desc, x.cor, x.ina); });
-      bloco = bloco.replace(re, function (m, href, resto, corpo, ws) {
-        const idx = i++;
-        const it = items.filter(function (x) { return x.src === idx; })[0];
-        let out;
-        if (!it) out = m;
-        else if (it.del) out = '';
-        else {
-          let c = corpo, novoHref = href;
-          const velho = href.replace(/&amp;/g, '&');
-          if (it.link !== velho) {
-            novoHref = dnEsc(it.link);
-            if (dnDominio(velho) !== dnDominio(it.link) && dnDominio(it.link)) c = c.replace(/(favicons\?domain=)[^&"']+/, function (x, a) { return a + dnDominio(it.link); });
-          }
-          const mh = c.match(/<h3[^>]*>([\s\S]*?)<\/h3>/);
-          const nomeMudou = !!mh && dnDesesc(mh[1]) !== it.nome;
-          c = c.replace(/(<h3[^>]*>)([\s\S]*?)(<\/h3>)/, function (x, a, t, b) { return dnDesesc(t) === it.nome ? x : a + dnEsc(it.nome) + b; });
-          c = c.replace(/(<p[^>]*>)([\s\S]*?)(<\/p>)/, function (x, a, t, b) { return dnDesesc(t) === it.desc ? x : a + dnEsc(it.desc) + b; });
-          if (nomeMudou) c = c.replace(/(<img[^>]*?alt=")([^"]*)(")/, function (x, a, t, b) { return a + dnEsc(it.nome) + b; });
-          const corVelha = dnRecCorDe(new DOMParser().parseFromString('<div>' + corpo + '</div>', 'text/html').body.firstChild);
-          if (it.cor !== corVelha && DN_CORES_REC[corVelha] && DN_CORES_REC[it.cor]) c = dnRecTrocaCor(c, DN_CORES_REC[corVelha], DN_CORES_REC[it.cor]);
-          let resto2 = resto.replace(/ data-inativo="1"/g, '').replace(/ style="display:none"/g, '');
-          if (it.ina) resto2 = resto2.replace(/>$/, ' data-inativo="1" style="display:none">');
-          out = '<a href="' + novoHref + '"' + resto2 + c + '</a>' + ws;
+      const slots = [];
+      let m;
+      while ((m = re.exec(bloco))) slots.push({ ini: m.index, fim: m.index + m[0].length, href: m[1], resto: m[2], corpo: m[3], ws: m[4] });
+      const N = slots.length;
+      if (!N || items.filter(function (x) { return x.src >= 0; }).length !== N) { dnTmErro = 'A estrutura de «Recompensas» no ficheiro difere do ecrã'; return null; }
+      function cartao(it, sl) {
+        let c = sl.corpo, novoHref = sl.href;
+        const velho = sl.href.replace(/&amp;/g, '&');
+        if (it.link !== velho) {
+          novoHref = dnEsc(it.link);
+          if (dnDominio(velho) !== dnDominio(it.link) && dnDominio(it.link)) c = c.replace(/(favicons\?domain=)[^&"']+/, function (x, a) { return a + dnDominio(it.link); });
         }
-        if (idx === total - 1 && novos.length) {
-          out = out ? out.replace(/\s*$/, '') + '\n\n' + novos.join('\n\n') + ws : novos.join('\n\n').replace(/^\s+/, '') + ws;
-        }
-        return out;
+        const mh = c.match(/<h3[^>]*>([\s\S]*?)<\/h3>/);
+        const nomeMudou = !!mh && dnDesesc(mh[1]) !== it.nome;
+        c = c.replace(/(<h3[^>]*>)([\s\S]*?)(<\/h3>)/, function (x, a, t, b) { return dnDesesc(t) === it.nome ? x : a + dnEsc(it.nome) + b; });
+        c = c.replace(/(<p[^>]*>)([\s\S]*?)(<\/p>)/, function (x, a, t, b) { return dnDesesc(t) === it.desc ? x : a + dnEsc(it.desc) + b; });
+        if (nomeMudou) c = c.replace(/(<img[^>]*?alt=")([^"]*)(")/, function (x, a, t, b) { return a + dnEsc(it.nome) + b; });
+        const corVelha = dnRecCorDe(new DOMParser().parseFromString('<div>' + sl.corpo + '</div>', 'text/html').body.firstChild);
+        if (it.cor !== corVelha && DN_CORES_REC[corVelha] && DN_CORES_REC[it.cor]) c = dnRecTrocaCor(c, DN_CORES_REC[corVelha], DN_CORES_REC[it.cor]);
+        let resto2 = sl.resto.replace(/ data-inativo="1"/g, '').replace(/ style="display:none"/g, '');
+        if (it.ina) resto2 = resto2.replace(/>$/, ' data-inativo="1" style="display:none">');
+        return '<a href="' + novoHref + '"' + resto2 + c + '</a>';
+      }
+      /* pela ordem escolhida no painel: cartões do ficheiro (editados) e novos */
+      const ordem = items.filter(function (x) { return !x.del; }).map(function (x) {
+        return x.src >= 0 ? cartao(x, slots[x.src]) : dnCodigoRec(x.link, x.nome, x.desc, x.cor, x.ina).trim();
       });
-      return src.slice(0, ini) + bloco + src.slice(fim);
+      const n = ordem.length, wsMeio = N > 1 ? slots[0].ws : '\n\n        ';
+      let out = bloco.slice(0, slots[0].ini);
+      for (let j = 0; j < n; j++) {
+        out += ordem[j];
+        const ult = j === n - 1;
+        out += ult ? slots[N - 1].ws : (j < N - 1 ? slots[j].ws : wsMeio);
+        if (!ult && j + 1 < N) out += bloco.slice(slots[j].fim, slots[j + 1].ini);
+      }
+      out += bloco.slice(slots[N - 1].fim);
+      return src.slice(0, ini) + out + src.slice(fim);
     }
     /* ===== Temas independentes: Vídeos em Destaque, Redes Sociais, Vídeos do YouTube, Sites e Ferramentas =====
        Cada tema tem a sua lista minimizada no painel (editar, desativar, remover). O mesmo código de edição
@@ -3199,7 +3145,6 @@
     ];
     let dnTm = null;
     let dnTmAb = {};
-    let dnGenAb = false;
     let dnTmErro = '';
     function dnTmCartoes(t) {
       return Array.prototype.slice.call(document.querySelectorAll('[data-category="' + t.secao + '"] .item-card')).filter(function (e) {
@@ -3290,6 +3235,69 @@
       return p ? p.textContent.replace(/\s+/g, ' ').trim() : 'Outras redes e comunicação';
     }
     let dnTmGrAb = {};
+    let dnMovUlt = null;
+    function dnMvBtns(fn, args, cima, baixo) {
+      const b = function (d, ic, tit, ok) {
+        return '<button type="button" class="pd-btn" style="display:inline-block;width:auto;margin:0 0 0 4px;padding:3px 8px;font-size:12px;' + (ok ? '' : 'opacity:.3;') + '" aria-label="' + tit + '" title="' + tit + '"' +
+          (ok ? ' onclick="event.preventDefault();event.stopPropagation();' + fn + '(' + args + ',' + d + ')"' : ' disabled') + '>' + ic + '</button>';
+      };
+      return '<span style="float:right;">' + b(-1, '⬆️', 'Subir', cima) + b(1, '⬇️', 'Descer', baixo) + '</span>';
+    }
+    function dnTmVizinho(L, i, d) {
+      let j = i + d;
+      while (j >= 0 && j < L.length && L[j].del) j += d;
+      return j >= 0 && j < L.length && L[j].grp === L[i].grp;
+    }
+    function dnTmMover(id, i, d) {
+      const L = dnTm[id], it = L[i];
+      let j = i + d;
+      while (j >= 0 && j < L.length && L[j].del) j += d;
+      if (j < 0 || j >= L.length || L[j].grp !== it.grp) return;
+      L[i] = L[j]; L[j] = it;
+      dnMovUlt = it; dnRecRender();
+    }
+    function dnRecVizinho(i, d) {
+      let j = i + d;
+      while (j >= 0 && j < dnRec.length && dnRec[j].del) j += d;
+      return j >= 0 && j < dnRec.length;
+    }
+    function dnRecMover(i, d) {
+      let j = i + d;
+      while (j >= 0 && j < dnRec.length && dnRec[j].del) j += d;
+      if (j < 0 || j >= dnRec.length) return;
+      const t = dnRec[i]; dnRec[i] = dnRec[j]; dnRec[j] = t;
+      dnMovUlt = t; dnRecRender();
+    }
+    function dnTmReordenarDom(L) {
+      const porPai = new Map();
+      L.forEach(function (it) {
+        if (it.del || !it.el || !it.el.parentNode) return;
+        const pai = it.el.parentNode;
+        if (!porPai.has(pai)) porPai.set(pai, []);
+        porPai.get(pai).push(it.el);
+      });
+      porPai.forEach(function (desejados, pai) {
+        const atuais = Array.prototype.slice.call(pai.children).filter(function (c) { return desejados.indexOf(c) >= 0; });
+        if (atuais.every(function (c, k) { return c === desejados[k]; })) return;
+        const marcas = atuais.map(function (c) { const m = document.createComment(''); pai.insertBefore(m, c); return m; });
+        atuais.forEach(function (c) { pai.removeChild(c); });
+        desejados.forEach(function (c, k) { pai.insertBefore(c, marcas[k]); });
+        marcas.forEach(function (m) { pai.removeChild(m); });
+      });
+    }
+    function dnTmIniSeg(src, b) {
+      let ini = b.ini;
+      const lin = src.lastIndexOf('\n', ini - 1) + 1;
+      if (!/^[ \t]*$/.test(src.slice(lin, ini))) return ini;
+      ini = lin;
+      const jan = Math.max(0, ini - 400), antes = src.slice(jan, ini);
+      const mc = /[ \t]*<!--(?:(?!-->)[\s\S])*-->[ \t]*\r?\n(?:[ \t]*\r?\n)*$/.exec(antes);
+      if (mc) {
+        const id = (src.slice(b.ini, b.fim).match(/abrirVideoModal\('([^']+)'/) || [])[1];
+        if (id && mc[0].indexOf(id) >= 0) ini = jan + mc.index;
+      }
+      return ini;
+    }
     function dnTmInit() {
       if (dnTm) return;
       dnTm = {};
@@ -3339,6 +3347,7 @@
           if (!el.parentNode && it.pai) it.pai.insertBefore(el, it.irmao && it.irmao.parentNode === it.pai ? it.irmao : null);
           if (dnTmDiff(t, el, it)) dnTmEditarEl(t, el, it);
         });
+        dnTmReordenarDom(dnTm[t.id]);
       });
     }
     function dnTmBlocos(src, secao) {
@@ -3379,11 +3388,23 @@
       if (!dnTm) return src;
       for (let k = 0; k < DN_TEMAS.length; k++) {
         const t = DN_TEMAS[k], L = dnTm[t.id];
-        const blocos = dnTmBlocos(src, t.secao);
+        let blocos = dnTmBlocos(src, t.secao);
         if (!blocos || blocos.length !== L.length) {
-          const mexeu = L.some(function (x) { return x.del || x.nome !== x.s0.nome || x.desc !== x.s0.desc || x.link !== x.s0.link || !!x.ina !== x.s0.ina; });
+          const mexeu = L.some(function (x, k) { return x.src !== k || x.del || x.nome !== x.s0.nome || x.desc !== x.s0.desc || x.link !== x.s0.link || !!x.ina !== x.s0.ina; });
           if (mexeu) { dnTmErro = 'A estrutura de «' + t.nome + '» no ficheiro difere do ecrã'; return null; }
           continue;
+        }
+        if (L.some(function (x, k) { return x.src !== k; })) {
+          const seg = blocos.map(function (b) { return { ini: dnTmIniSeg(src, b), fim: b.fim }; });
+          let novoSrc = src.slice(0, seg[0].ini);
+          for (let k = 0; k < seg.length; k++) {
+            const o = seg[L[k].src];
+            novoSrc += src.slice(o.ini, o.fim);
+            if (k < seg.length - 1) novoSrc += src.slice(seg[k].fim, seg[k + 1].ini);
+          }
+          src = novoSrc + src.slice(seg[seg.length - 1].fim);
+          blocos = dnTmBlocos(src, t.secao);
+          if (!blocos || blocos.length !== L.length) { dnTmErro = 'Não foi possível reordenar «' + t.nome + '»'; return null; }
         }
         for (let i = L.length - 1; i >= 0; i--) {
           const it = L[i], b = blocos[i];
@@ -3400,8 +3421,9 @@
     }
     function dnTmItemHtml(t, it, i, mostraCat) {
       const r = 'dnTm.' + t.id + '[' + i + ']', pre = 'pdTm' + t.id + i;
-      let h = '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="' + r + '.ab=this.open">' +
-        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : '')) + dnEsc(it.nome || 'Sem nome') +
+      const L = dnTm[t.id];
+      let h = '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + (it === dnMovUlt ? 'outline:2px solid #3b82f6;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="' + r + '.ab=this.open">' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '' : dnMvBtns('dnTmMover', "'" + t.id + "'," + i, dnTmVizinho(L, i, -1), dnTmVizinho(L, i, 1))) + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : '')) + dnEsc(it.nome || 'Sem nome') +
         (mostraCat && it.cat ? ' <small>· ' + dnEsc(it.cat) + '</small>' : '') + (it.del ? ' (removido)' : (it.ina ? ' (inativo)' : '')) + '</summary>' +
         '<div style="padding-bottom:10px;">';
       if (it.del) {
@@ -3422,7 +3444,7 @@
     function dnTmHtml() {
       dnTmInit();
       let h = '<div class="pd-sec">Temas do site (pela ordem do site)</div>' +
-        '<div class="pd-nota">Cada tema é independente: abra só o que quer mudar. Em cada cartão pode editar, desativar (esconde do site mas fica guardado) ou remover (apaga). Para juntar um cartão novo, use «➕ NOVO» dentro do tema.</div>';
+        '<div class="pd-nota">Cada tema é independente: abra só o que quer mudar. Em cada cartão pode editar, desativar (esconde do site mas fica guardado) ou remover (apaga). Para juntar um cartão novo, use «➕ NOVO» dentro do tema. Use ⬆️ ⬇️ para subir ou descer (dentro da mesma pasta ou bloco).</div>';
       DN_TEMAS.forEach(function (t) {
         const L = dnTm[t.id];
         const ativos = L.filter(function (x) { return !x.del && !x.ina; }).length + dnNovos.filter(function (n) { return DN_TM_TIPOS[t.id](n.tipo); }).length, inat = L.filter(function (x) { return !x.del && x.ina; }).length;
@@ -3462,13 +3484,6 @@
       return '<label class="pd-lbl" for="' + id + '">' + rotulo + '</label>' +
         '<input id="' + id + '" class="pd-input" type="text" autocomplete="off" ' + (extra || '') +
         ' value="' + dnEsc(valor) + '" oninput="' + expr + '=this.value">';
-    }
-    function dnGenTipo(v) {
-      dnGen.tipo = v;
-      dnGen.cor = v === 'blog' ? 'laranja' : 'verde';
-      dnGen.saida = ''; dnGen.dica = '';
-      const c = document.getElementById('pdCorpo');
-      if (c) dnRender(c);
     }
     function dnYtId(v) {
       v = (v || '').trim();
@@ -3552,34 +3567,6 @@
         '            <span class="text-xs font-bold text-' + c + '-400 group-hover:translate-x-1 transition-transform">' + dnEsc(btn) + '</span>',
         '          </a>'
       ].join('\n');
-    }
-    /* valida o formulário e devolve o cartão ou null (com aviso no botão) */
-    function dnMontarCartao(btn) {
-      const g = dnGen, t = g.tipo;
-      const link = (g.link || '').trim(), titulo = (g.titulo || '').trim(), desc = (g.desc || '').trim();
-      let cod, dica;
-      if (t === 'video') {
-        const id = dnYtId(link);
-        if (!id) { dnFeedback(btn, '❌ Link do YouTube inválido'); return null; }
-        if (!titulo) { dnFeedback(btn, '❌ Escreva o título'); return null; }
-        const n = /^\d+$/.test((g.num || '').trim()) ? g.num.trim() : '';
-        cod = dnCodigoVideo(id, titulo, n);
-        dica = 'Cole este código dentro da grelha de «Vídeos em Destaque», a seguir ao último cartão (depois de um «</div>» de um vídeo e antes do «</div>» que fecha a grelha).';
-      } else {
-        if (!/^https?:\/\/[^\s"'<>]+$/i.test(link)) { dnFeedback(btn, '❌ Link inválido (começa por https://)'); return null; }
-        if (!titulo || !desc) { dnFeedback(btn, '❌ Escreva o título e a descrição'); return null; }
-        const texto = (g.btn || '').trim() || (t === 'blog' ? 'Ler Blog →' : 'Abrir →');
-        cod = dnCodigoLink(t, link, titulo, desc, texto, (g.emoji || '').trim(), g.cor);
-        dica = 'Cole este código dentro de «' + (t === 'blog' ? 'Blogs & Artigos' : 'Sites & Ferramentas Web') + '», no bloco «<div class="space-y-3">», a seguir ao último cartão.';
-      }
-      return { tipo: t, titulo: titulo, cod: cod, dica: dica, el: null };
-    }
-    function dnGerarCartao(btn) {
-      const c = dnMontarCartao(btn); if (!c) return;
-      dnGen.saida = c.cod; dnGen.dica = c.dica;
-      const ta = document.getElementById('pdGenSaida'); if (ta) ta.value = c.cod;
-      const dc = document.getElementById('pdGenDica'); if (dc) dc.textContent = c.dica;
-      dnFeedback(btn, '✅ Código gerado');
     }
     /* cartões novos adicionados diretamente (entram no site com Aplicar e no ficheiro com Descarregar) */
     let dnNovos = [];
@@ -3769,15 +3756,6 @@
       });
       return h;
     }
-    function dnAdicionarCartao(btn) {
-      const c = dnMontarCartao(btn); if (!c) return;
-      dnNovos.push(c);
-      const g = dnGen;
-      g.link = ''; g.titulo = ''; g.desc = ''; g.num = ''; g.btn = ''; g.emoji = ''; g.saida = ''; g.dica = '';
-      dnRecRender();
-      const b = document.getElementById('pdGenAdd');
-      if (b) dnFeedback(b, '✅ Adicionado à lista');
-    }
     function dnNovoRemover(i) {
       const n = dnNovos[i];
       if (n && n.el && n.el.parentNode) n.el.remove();
@@ -3837,65 +3815,19 @@
       }
       return src;
     }
-    async function dnCopiarSaida(btn) {
-      const t = dnGen.saida;
-      if (!t) { dnFeedback(btn, '❌ Gere o código primeiro'); return; }
-      let ok = false;
-      try { await navigator.clipboard.writeText(t); ok = true; }
-      catch (e) {
-        try {
-          const ta = document.createElement('textarea');
-          ta.value = t; ta.style.cssText = 'position:fixed; opacity:0;';
-          document.body.appendChild(ta); ta.select(); ok = document.execCommand('copy'); ta.remove();
-        } catch (x) {}
-      }
-      dnFeedback(btn, ok ? '✅ Copiado' : '❌ Não foi possível copiar');
-    }
 
-    function dnCampo(id, rotulo, valor, campo, extra) {
-      return '<label class="pd-lbl" for="' + id + '">' + rotulo + '</label>' +
-        '<input id="' + id + '" class="pd-input" type="text" autocomplete="off" ' + (extra || '') +
-        ' value="' + dnEsc(valor) + '" oninput="dnGen.' + campo + '=this.value">';
-    }
     function dnRenderConteudos() {
-      const g = dnGen, t = g.tipo;
       const antNum = document.getElementById('pdSubsNum'), antSite = document.getElementById('pdSiteData'), antBan = document.getElementById('pdSubsData');
       const vNum = antNum ? antNum.value : YT_SUBS_MANUAL, vSite = antSite ? antSite.value : dataAtualizacaoEfetiva(), vBan = antBan ? antBan.value : YT_SUBS_DATA;
-      let h = '<details class="pd-card" style="padding:6px 12px;margin-top:10px;"' + (dnGenAb ? ' open' : '') + ' ontoggle="dnGenAb=this.open"><summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🧰 Gerar código à mão (avançado)</summary><div style="padding-bottom:6px;"><div class="pd-card" style="padding:4px 12px 12px;">' +
-        '<label class="pd-lbl" for="pdGenTipo">Tipo de conteúdo</label>' +
-        '<select id="pdGenTipo" class="pd-input" onchange="dnGenTipo(this.value)">' +
-        [['video', '🎬 Vídeo em destaque'], ['site', '🔗 Site ou ferramenta'], ['blog', '📝 Blog ou artigo']].map(function (o) {
-          return '<option value="' + o[0] + '"' + (o[0] === t ? ' selected' : '') + '>' + o[1] + '</option>';
-        }).join('') + '</select>' +
-        dnCampo('pdGenLink', t === 'video' ? 'Link do vídeo do YouTube' : 'Link (endereço)', g.link, 'link', 'inputmode="url" placeholder="https://"') +
-        dnCampo('pdGenTitulo', 'Título', g.titulo, 'titulo', '');
-      if (t === 'video') {
-        h += dnCampo('pdGenNum', 'Número do destaque (opcional)', g.num, 'num', 'inputmode="numeric" placeholder="ex.: 4"');
-      } else {
-        h += dnCampo('pdGenDesc', 'Descrição curta', g.desc, 'desc', '');
-        if (t === 'blog') h += dnCampo('pdGenEmoji', 'Ícone (emoji)', g.emoji, 'emoji', 'placeholder="📝"');
-        h += dnCampo('pdGenBtn', 'Texto do botão', g.btn, 'btn', 'placeholder="' + (t === 'blog' ? 'Ler Blog →' : 'Abrir →') + '"');
-        h += '<label class="pd-lbl" for="pdGenCor">Cor</label><select id="pdGenCor" class="pd-input" onchange="dnGen.cor=this.value">' +
-          Object.keys(DN_CORES).map(function (k) { return '<option value="' + k + '"' + (k === g.cor ? ' selected' : '') + '>' + k.charAt(0).toUpperCase() + k.slice(1) + '</option>'; }).join('') + '</select>';
-      }
-      h += '</div>' +
-        '<button type="button" id="pdGenAdd" class="pd-btn pd-azul" onclick="dnAdicionarCartao(this)">➕ Adicionar ao site</button>' +
-        '<div class="pd-nota">Entra diretamente no site com «Aplicar neste ecrã» e no ficheiro com «Descarregar index.html corrigido», sem copiar nem colar.</div>' +
-        '<button type="button" class="pd-btn" onclick="dnGerarCartao(this)">⚙️ Só gerar o código</button>' +
-        '<textarea id="pdGenSaida" class="pd-input pd-code" readonly spellcheck="false" placeholder="O código aparece aqui">' + dnEsc(g.saida) + '</textarea>' +
-        '<div class="pd-nota" id="pdGenDica">' + dnEsc(g.dica) + '</div>' +
-        '<button type="button" class="pd-btn" onclick="dnCopiarSaida(this)">📋 Copiar código</button>' +
-        '<div class="pd-nota">Se preferir colar à mão: depois de colar no index.html e enviar o ficheiro para o servidor, o cartão aparece no site.</div>' +
-        '</div></details>';
-      const gen = h; h = '';
+      let h = '';
       h += dnTmHtml();
       dnRecInit();
       h += '<details class="pd-card" style="padding:6px 12px;margin-top:22px;"' + (dnRecSecAberta ? ' open' : '') + ' ontoggle="if(event.target===this)dnRecSecAberta=this.open">' +
         '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🎁 Reembolso Parcial &amp; Recompensas <small>(' + dnRec.filter(function (x) { return !x.del; }).length + ')</small></summary>' +
         '<div style="padding-bottom:6px;">';
       dnRec.forEach(function (it, i) {
-        h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="dnRec[' + i + '].ab=this.open">' +
-          '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : (it.nova ? '🆕 ' : ''))) + dnEsc(it.nome || 'Sem nome') + (it.del ? ' (removida)' : (it.ina ? ' (inativa)' : '')) + '</summary>' +
+        h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + (it === dnMovUlt ? 'outline:2px solid #3b82f6;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="dnRec[' + i + '].ab=this.open">' +
+          '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '' : dnMvBtns('dnRecMover', String(i), dnRecVizinho(i, -1), dnRecVizinho(i, 1))) + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : (it.nova ? '🆕 ' : ''))) + dnEsc(it.nome || 'Sem nome') + (it.del ? ' (removida)' : (it.ina ? ' (inativa)' : '')) + '</summary>' +
           '<div style="padding-bottom:10px;">';
         if (it.del) {
           h += '<button type="button" class="pd-btn" onclick="dnRecRestaurar(' + i + ')">↩️ Restaurar</button>';
@@ -3914,7 +3846,7 @@
         }
         h += '</div></details>';
       });
-      h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição, a cor e o link, ou para a desativar (esconde do site mas fica guardada, podendo voltar a ativar) ou remover (apaga). Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar.</div>';
+      h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição, a cor e o link, ou para a desativar (esconde do site mas fica guardada, podendo voltar a ativar) ou remover (apaga). Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar. Use ⬆️ ⬇️ para subir ou descer.</div>';
       h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;"' + (dnNovaRecAberta ? ' open' : '') + ' ontoggle="dnNovaRecAberta=this.open">' +
         '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">➕ NOVO</summary>' +
         '<div style="padding-bottom:10px;">' +
@@ -3927,7 +3859,6 @@
         '<div class="pd-nota">O novo botão entra na lista acima (marcado com 🆕) e vai para o site com «Aplicar neste ecrã» e «Descarregar index.html corrigido».</div>' +
         '</div></details>';
       h += '</div></details>';
-      h += gen;
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdSubsNum">Número de subscritores</label>' +
@@ -4013,7 +3944,7 @@
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé e no diagnóstico. A data do banner de subscritores é à parte (YT_SUBS_DATA).
-    let ULTIMA_ATUALIZACAO = '2026-11-11';
+    let ULTIMA_ATUALIZACAO = '2026-11-13';
     /* A data é automática: vem da data de modificação do index.html no servidor (cabeçalho Last-Modified).
        Se o servidor não a indicar, usa-se ULTIMA_ATUALIZACAO. Uma data aplicada na área de controlo prevalece. */
     let dataAuto = '';
@@ -4117,7 +4048,7 @@
     const YT_API_KEY = '';
     let YT_SUBS_MANUAL = '1924';
     // Data a que se refere o número acima (AAAA-MM-DD); é independente da data de atualização do site.
-    let YT_SUBS_DATA = '2026-11-11';
+    let YT_SUBS_DATA = '2026-11-13';
 
     const YT_METAS = [100, 250, 500, 1000, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 250000, 500000, 1000000];
     const fmtNum = n => n.toLocaleString('pt-PT');
