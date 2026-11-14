@@ -402,6 +402,10 @@
       box-shadow: 0 6px 20px -4px rgba(99, 102, 241, 0.6);
     }
 
+    /* Ícones dos botões de atalho: mesmo estilo do menu de três linhas, com menos brilho */
+    .tag-ico { filter: brightness(0.82) saturate(0.88); transition: filter 0.2s ease; }
+    .tag-btn:hover .tag-ico, .tag-btn.active .tag-ico { filter: brightness(0.95) saturate(1); }
+
     /* ===== Rodapé (idêntico ao do Simulador de Juros) ===== */
     #page-footer {
       position: relative;
@@ -630,7 +634,7 @@
         <div id="menuPrincipal" role="menu" aria-label="Menu" class="hidden absolute left-0 top-full mt-3 w-64 max-h-[78vh] overflow-y-auto p-1.5 rounded-2xl glass-modal border border-white/15 shadow-2xl z-50">
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('video')">
             <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-red-600 to-rose-600 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-video"/></svg></span>
-            <span>Destaques</span>
+            <span>Vídeos em Destaque</span>
           </button>
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('social')">
             <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-500 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-globe"/></svg></span>
@@ -799,12 +803,12 @@
       <!-- TAGS FILTRO RÁPIDO -->
       <div class="flex flex-wrap justify-center gap-2.5 mt-8 text-xs">
         <button onclick="filtrarTag(this, 'all')" class="tag-btn active px-4 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium shadow-md transition-all whitespace-nowrap">Todos</button>
-        <button onclick="filtrarTag(this, 'video')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-video"/></svg>Destaques</button>
-        <button onclick="filtrarTag(this, 'social')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-globe"/></svg>Redes</button>
-        <button onclick="filtrarTag(this, 'playlists')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-yt"/></svg>Vídeos do YouTube</button>
-        <button onclick="filtrarTag(this, 'project')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-window"/></svg>Projetos</button>
-        <button onclick="filtrarTag(this, 'blog')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-brand"/></svg>Blogs</button>
-        <button onclick="filtrarTag(this, 'cashback')" class="tag-btn px-4 py-2 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><svg class="w-3.5 h-3.5 inline-block align-[-2px] mr-1.5" aria-hidden="true"><use href="#icon-heart"/></svg>Cashback</button>
+        <button onclick="filtrarTag(this, 'video')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-red-600 to-rose-600 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-video"/></svg></span>Destaques</button>
+        <button onclick="filtrarTag(this, 'social')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-blue-500 to-indigo-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-globe"/></svg></span>Redes</button>
+        <button onclick="filtrarTag(this, 'playlists')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-red-500 to-rose-600 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-yt"/></svg></span>YouTube</button>
+        <button onclick="filtrarTag(this, 'project')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-emerald-500 to-teal-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-window"/></svg></span>Sites</button>
+        <button onclick="filtrarTag(this, 'blog')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-amber-500 to-orange-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-brand"/></svg></span>Blogs</button>
+        <button onclick="filtrarTag(this, 'cashback')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-yellow-500 to-amber-500 text-slate-950"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-heart"/></svg></span>Reembolso</button>
       </div>
     </section>
 
@@ -2971,12 +2975,17 @@
       const n = (document.getElementById('pdSubsNum').value || '').replace(/[\s.]/g, '');
       const ds = document.getElementById('pdSiteData').value || '';
       const db = document.getElementById('pdSubsData').value || '';
+      const mEl = document.querySelector('input[name="pdSubsModo"]:checked');
+      const modo = mEl ? mEl.value : YT_SUBS_MODO;
+      const chave = (document.getElementById('pdSubsChave').value || '').trim();
       let erro = '';
       if (!/^\d+$/.test(n)) erro = '❌ Escreva só algarismos no número';
+      else if (chave && !/^[A-Za-z0-9_-]{20,}$/.test(chave)) erro = '❌ A chave da API parece inválida';
+      else if (modo === 'api' && !chave) erro = '❌ Escreva a chave da API ou escolha «Manual»';
       else if (!/^\d{4}-\d{2}-\d{2}$/.test(ds)) erro = '❌ Escolha uma data de atualização do site válida';
       else if (!/^\d{4}-\d{2}-\d{2}$/.test(db)) erro = '❌ Escolha uma data do banner válida';
       if (erro) { dnFeedback(btn, erro); return null; }
-      return { n: n, ds: ds, db: db };
+      return { n: n, ds: ds, db: db, modo: modo, chave: chave };
     }
     function dnFeedback(btn, txt) {
       const antes = btn.textContent;
@@ -3001,10 +3010,13 @@
       if (typeof atualizarDataMenu === 'function') atualizarDataMenu();
       YT_SUBS_DATA = v.db;
       YT_SUBS_MANUAL = v.n;
+      YT_SUBS_MODO = v.modo;
+      YT_API_KEY = v.chave;
+      try { sessionStorage.removeItem('agajota-yt-subs'); } catch (e) {}
       window.__ytSubsMostrado = false;
       const barra = document.getElementById('ytSubBar');
       if (barra) barra.style.width = '0';
-      mostrarSubs(v.n, true);
+      carregarContagemSubs();
       dnFeedback(btn, '✅ Aplicado');
     }
     async function dnDescarregarIndex(btn) {
@@ -3019,7 +3031,9 @@
         src = src.replace(/((?:const|let)\s+ULTIMA_ATUALIZACAO\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.ds + b; });
         src = src.replace(/((?:const|let)\s+YT_SUBS_DATA\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.db + b; });
         src = src.replace(/((?:const|let)\s+YT_SUBS_MANUAL\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.n + b; });
-        if (achou !== 3) throw 0;
+        src = src.replace(/((?:const|let)\s+YT_SUBS_MODO\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.modo + b; });
+        src = src.replace(/((?:const|let)\s+YT_API_KEY\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.chave + b; });
+        if (achou !== 5) throw 0;
         src = dnReescreverRec(src, rec);
         if (src === null) throw 0;
         src = dnReescreverTemas(src);
@@ -3187,14 +3201,14 @@
       out += bloco.slice(slots[N - 1].fim);
       return src.slice(0, ini) + out + src.slice(fim);
     }
-    /* ===== Temas independentes: Vídeos em Destaque, Redes Sociais, Vídeos do YouTube, Sites e Ferramentas =====
+    /* ===== Temas independentes: Vídeos em Destaque, Redes Sociais & Comunidade, Vídeos do YouTube, Sites & Ferramentas Web, Blogs & Artigos =====
        Cada tema tem a sua lista minimizada no painel (editar, desativar, remover). O mesmo código de edição
        serve para o ecrã e para o ficheiro (lido do index.html original), por isso o resultado é igual nos dois. */
     const DN_TEMAS = [
       { id: 'video', nome: 'Vídeos em Destaque', ic: '🎬', secao: 'video', video: true },
-      { id: 'social', nome: 'Redes Sociais e Comunicação', ic: '💬', secao: 'social', video: false },
+      { id: 'social', nome: 'Redes Sociais & Comunidade', ic: '💬', secao: 'social', video: false },
       { id: 'playlists', nome: 'Vídeos do YouTube', ic: '▶️', secao: 'playlists', video: true },
-      { id: 'project', nome: 'Sites e Ferramentas', ic: '🛠️', secao: 'project', video: false },
+      { id: 'project', nome: 'Sites & Ferramentas Web', ic: '🛠️', secao: 'project', video: false },
       { id: 'blog', nome: 'Blogs & Artigos', ic: '📝', secao: 'blog', video: false }
     ];
     let dnTm = null;
@@ -3872,6 +3886,8 @@
 
     function dnRenderConteudos() {
       const antNum = document.getElementById('pdSubsNum'), antSite = document.getElementById('pdSiteData'), antBan = document.getElementById('pdSubsData');
+      const antChave = document.getElementById('pdSubsChave'), antModo = document.querySelector('input[name="pdSubsModo"]:checked');
+      const vChave = antChave ? antChave.value : YT_API_KEY, vModo = antModo ? antModo.value : YT_SUBS_MODO;
       const vNum = antNum ? antNum.value : YT_SUBS_MANUAL, vSite = antSite ? antSite.value : dataAtualizacaoEfetiva(), vBan = antBan ? antBan.value : YT_SUBS_DATA;
       let h = '';
       h += dnTmHtml();
@@ -3915,10 +3931,15 @@
       h += '</div></details>';
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
-        '<label class="pd-lbl" for="pdSubsNum">Número de subscritores</label>' +
+        '<div class="pd-lbl" style="margin-top:10px;">Origem do número (a que fica a funcionar)</div>' +
+        '<label style="display:flex;gap:8px;align-items:flex-start;margin-top:6px;font-size:13px;cursor:pointer;"><input type="radio" name="pdSubsModo" value="manual"' + (vModo === 'manual' ? ' checked' : '') + ' style="margin-top:3px;"><span><strong>Manual</strong>: mostra o número escrito aqui em baixo</span></label>' +
+        '<label style="display:flex;gap:8px;align-items:flex-start;margin-top:6px;font-size:13px;cursor:pointer;"><input type="radio" name="pdSubsModo" value="api"' + (vModo === 'api' ? ' checked' : '') + ' style="margin-top:3px;"><span><strong>Automático</strong>: vem do YouTube com a chave da API (se falhar, mostra o número manual)</span></label>' +
+        '<label class="pd-lbl" for="pdSubsNum">Número de subscritores (manual)</label>' +
         '<input id="pdSubsNum" class="pd-input" type="text" inputmode="numeric" autocomplete="off" value="' + dnEsc(vNum) + '">' +
-        '<label class="pd-lbl" for="pdSubsData">Data a que se refere o número</label>' +
+        '<label class="pd-lbl" for="pdSubsData">Data a que se refere o número manual</label>' +
         '<input id="pdSubsData" class="pd-input" type="date" value="' + dnEsc(vBan) + '">' +
+        '<label class="pd-lbl" for="pdSubsChave">Chave da API do YouTube (automático)</label>' +
+        '<input id="pdSubsChave" class="pd-input" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="AIza…" value="' + dnEsc(vChave) + '">' +
         '</div>' +
         '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSubsData\')">📅 Usar a data de hoje</button>';
       h += '<div class="pd-sec">Data de atualização do site (se necessário)</div>' +
@@ -3998,7 +4019,7 @@
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé e no diagnóstico. A data do banner de subscritores é à parte (YT_SUBS_DATA).
-    let ULTIMA_ATUALIZACAO = '2026-11-14';
+    let ULTIMA_ATUALIZACAO = '2026-11-13';
     /* A data é automática: vem da data de modificação do index.html no servidor (cabeçalho Last-Modified).
        Se o servidor não a indicar, usa-se ULTIMA_ATUALIZACAO. Uma data aplicada na área de controlo prevalece. */
     let dataAuto = '';
@@ -4109,13 +4130,15 @@
     }
 
     // ---- Número de subscritores do YouTube (banner) ----
-    // Opção A (automático): cola aqui uma chave da API "YouTube Data API v3" (restringida ao teu site).
-    // Opção B (manual): escreve o número, por exemplo '1923'.
+    // Duas formas de obter o número (escolhe-se na Área de controlo, em «Origem do número»):
+    //  'api'    = automático: vem do YouTube com a chave da API abaixo (se falhar, mostra o número manual);
+    //  'manual' = mostra o número escrito à mão (YT_SUBS_MANUAL).
     const YT_CANAL_ID = 'UCw9HiRvBcB8TPzNMtGhWchA';
-    const YT_API_KEY = '';
+    let YT_API_KEY = 'AIzaSyCP1mc9vEhZld7eeiRFzNB2IYZeFn2Ut4U';
+    let YT_SUBS_MODO = 'api';
     let YT_SUBS_MANUAL = '1924';
     // Data a que se refere o número acima (AAAA-MM-DD); é independente da data de atualização do site.
-    let YT_SUBS_DATA = '2026-11-14';
+    let YT_SUBS_DATA = '2026-11-13';
 
     const YT_METAS = [100, 250, 500, 1000, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 250000, 500000, 1000000];
     const fmtNum = n => n.toLocaleString('pt-PT');
@@ -4142,6 +4165,7 @@
       box.hidden = false;
       // Data de atualização do número (YT_SUBS_DATA, independente da do site); só no modo manual, porque a API já dá o valor atual
       const dEl = document.getElementById('ytSubData');
+      if (dEl && !manual) dEl.hidden = true;
       if (dEl && manual) {
         const dt = new Date(YT_SUBS_DATA + 'T12:00:00');
         if (!isNaN(dt)) {
@@ -4179,7 +4203,7 @@
     }
 
     function carregarContagemSubs() {
-      if (YT_API_KEY) {
+      if (YT_SUBS_MODO === 'api' && YT_API_KEY) {
         let guardado = null;
         try { guardado = JSON.parse(sessionStorage.getItem('agajota-yt-subs') || 'null'); } catch (e) {}
         if (guardado && typeof guardado.v === 'number' && Date.now() - guardado.t < 6 * 3600 * 1000) { mostrarSubs(guardado.v); return; }
