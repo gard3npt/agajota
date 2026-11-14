@@ -178,12 +178,12 @@
     .menu-apoiar-coracao { animation: apoiarBatida 1.8s ease-in-out infinite; }
     @media (prefers-reduced-motion: reduce) { .menu-apoiar-coracao { animation: none; } }
     /* Barra de scroll fina e moderna (degradê rosa/roxo do site) */
-    html { scroll-behavior: smooth; background-color: #030712; }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    html { scroll-behavior: smooth; background-color: #030712; overflow-y: scroll; } /* overflow-y: barra sempre visível, mesmo em páginas curtas */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb {
       background: linear-gradient(180deg, #ec4899, #8b5cf6);
-      border: 2px solid transparent;
+      border: 1.5px solid transparent;
       background-clip: padding-box;
       border-radius: 999px;
     }
@@ -192,9 +192,59 @@
       background-clip: padding-box;
     }
     ::-webkit-scrollbar-corner { background: transparent; }
+    /* Carril da página: visível mesmo quando não há nada para deslizar */
+    /* No computador a página tem sempre 1 px de scroll: assim o puxador aparece mesmo em páginas curtas */
+    @media (hover: hover) and (pointer: fine) { body { min-height: calc(100vh + 1px) !important; } }
+    html::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.07); }
     /* Firefox (não suporta o degradê): barra fina com uma só cor */
     @supports not selector(::-webkit-scrollbar) {
       * { scrollbar-width: thin; scrollbar-color: #a855f7 transparent; }
+    }
+
+    /* Título AGAJOTA: ao passar o rato, uma luz segue o cursor dentro das letras e o título ganha um halo suave */
+    @property --luz { syntax: '<number>'; inherits: false; initial-value: 0; }
+    h1.titulo-hero {
+      width: fit-content; max-width: 100%; margin-left: auto; margin-right: auto;
+      --mx: 50%; --my: 50%;
+      background:
+        radial-gradient(0.9em circle at var(--mx) var(--my), rgba(255, 255, 255, var(--luz)) 0%, rgba(251, 113, 133, calc(var(--luz) * 0.55)) 45%, rgba(251, 113, 133, 0) 80%),
+        linear-gradient(135deg, #ffffff 10%, #a855f7 50%, #ec4899 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      transition: --luz 0.35s ease, filter 0.35s ease;
+    }
+    h1.titulo-hero:hover, h1.titulo-hero.tocado { --luz: 1; filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.55)); }
+    @media (prefers-reduced-motion: reduce) { h1.titulo-hero { transition: none; } }
+    /* ===== Efeitos visuais modernos ===== */
+    /* Fundo "aurora": manchas de luz suaves atrás do conteúdo (o fundo escuro vem do html) */
+    body { background-color: transparent !important; }
+    .aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .aurora i { position: absolute; border-radius: 50%; will-change: transform; }
+    .aurora .o1 { width: 70vmax; height: 70vmax; left: -25vmax; top: -30vmax; background: radial-gradient(circle, rgba(236, 72, 153, 0.28), transparent 62%); }
+    .aurora .o2 { width: 65vmax; height: 65vmax; right: -28vmax; top: 10vh; background: radial-gradient(circle, rgba(139, 92, 246, 0.30), transparent 62%); }
+    .aurora .o3 { width: 60vmax; height: 60vmax; left: 10vw; bottom: -32vmax; background: radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 62%); }
+    @keyframes auroraA { to { transform: translate3d(14vmax, 10vmax, 0) scale(1.15); } }
+    @keyframes auroraB { to { transform: translate3d(-16vmax, 12vmax, 0) scale(1.1); } }
+    @keyframes auroraC { to { transform: translate3d(12vmax, -14vmax, 0) scale(1.2); } }
+    /* Movimento só no computador (poupa bateria no telemóvel) */
+    @media (min-width: 768px) and (hover: hover) {
+      .aurora .o1 { animation: auroraA 26s ease-in-out infinite alternate; }
+      .aurora .o2 { animation: auroraB 32s ease-in-out infinite alternate; }
+      .aurora .o3 { animation: auroraC 38s ease-in-out infinite alternate; }
+    }
+    /* Entrada suave do título e secções que aparecem ao descer a página */
+    @keyframes heroEntrada { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    main > section.text-center { animation: heroEntrada 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .js-reveal .section-block { opacity: 0; transform: translateY(22px); transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+    .js-reveal .section-block.revelado { opacity: 1; transform: none; }
+    /* Cartões sobem ligeiramente ao passar o rato */
+    @media (hover: hover) and (pointer: fine) {
+      .item-card { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease; }
+      .item-card:hover { transform: translateY(-3px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .aurora i, main > section.text-center { animation: none !important; }
+      .js-reveal .section-block { opacity: 1; transform: none; transition: none; }
+      .item-card:hover { transform: none; }
     }
 
     /* Glassmorphism Backgrounds */
@@ -273,6 +323,7 @@
     .text-gradient {
       background: linear-gradient(135deg, #ffffff 10%, #a855f7 50%, #ec4899 100%);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -303,30 +354,9 @@
       box-shadow: 0 0 25px rgba(239, 68, 68, 0.5);
     }
 
-    /* Botão Início: estado ativo (topo) e seta "subir" (quando há scroll) */
-    #btnInicio[aria-current="page"] {
-      color: #ffffff;
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    #btnInicio .inicio-seta {
-      width: 0;
-      height: 0.875rem;
-      opacity: 0;
-      margin-left: -0.5rem;
-      transform: rotate(180deg);
-      transition: width 0.25s ease, opacity 0.25s ease, margin 0.25s ease;
-    }
-
-    #btnInicio.is-scrolled .inicio-seta {
-      width: 0.875rem;
-      opacity: 1;
-      margin-left: 0;
-    }
-
     /* Destaque breve da secção de redes ao vir do logo */
     #redes {
-      scroll-margin-top: 9.5rem; /* telemóvel: cabeçalho com 2 linhas */
+      scroll-margin-top: 6rem; /* cabeçalho com 1 linha */
       border-radius: 1.5rem;
     }
     @media (min-width: 768px) {
@@ -523,12 +553,13 @@
       background: linear-gradient(90deg, transparent, rgba(148, 163, 184, .28) 18%, rgba(148, 163, 184, .28) 82%, transparent); }
   
     /* Ao ir para um tema pelo menu, deixa espaço para o cabeçalho fixo */
-    .section-block, #sitesBlogsGrid { scroll-margin-top: 9.5rem; }
+    .section-block, #sitesBlogsGrid { scroll-margin-top: 6.5rem; }
     @media (min-width: 768px) { .section-block, #sitesBlogsGrid { scroll-margin-top: 6.5rem; } }
   </style>
 </head>
 
 <body class="bg-[#030712] text-slate-100 font-sans min-h-screen flex flex-col justify-between relative selection:bg-pink-500 selection:text-white">
+  <div class="aurora" aria-hidden="true"><i class="o1"></i><i class="o2"></i><i class="o3"></i></div>
 
   <!-- SÍMBOLOS SVG -->
   <svg style="display: none;">
@@ -665,15 +696,6 @@
         </div>
       </a>
 
-      <!-- Navigation Buttons -->
-      <nav class="order-3 md:order-2 w-full md:w-auto flex items-center justify-center md:justify-start gap-1 bg-slate-900/80 p-1 rounded-2xl border border-white/10">
-        <button type="button" id="btnInicio" aria-current="page" aria-label="Início" title="Voltar ao início" class="top-btn flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="voltarAoInicio()">
-          <svg class="w-4 h-4"><use href="#icon-globe"/></svg>
-          <span>Início</span>
-          <svg class="inicio-seta" aria-hidden="true"><use href="#icon-chevron"/></svg>
-        </button>
-      </nav>
-
       <!-- Seletor de idioma: canto superior direito (1.ª linha no telemóvel) -->
       <div id="langWrap" class="relative order-2 md:order-3 p-1 bg-slate-900/80 rounded-2xl border border-white/10 notranslate" translate="no">
         <button type="button" id="langBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" aria-label="Idioma: Português" title="Idioma / Language" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="alternarMenuIdioma(event)">
@@ -758,12 +780,12 @@
   </header>
 
   <!-- CONTAINER PRINCIPAL -->
-  <main class="container max-w-6xl mx-auto px-4 pt-40 md:pt-28 pb-16 z-10 flex-1 relative">
+  <main class="container max-w-6xl mx-auto px-4 pt-20 pb-16 z-10 flex-1 relative">
 
     <!-- HERO SECTION ESTILO BLOG -->
-    <section class="text-center mt-8 mb-12 max-w-5xl mx-auto">
+    <section class="text-center mt-2 mb-12 max-w-5xl mx-auto">
       
-      <h1 class="text-6xl sm:text-9xl font-black tracking-tight text-gradient mb-4 leading-tight">
+      <h1 id="tituloHero" class="titulo-hero text-6xl sm:text-9xl font-black tracking-tight text-gradient mb-4 leading-tight">
         AGAJOTA
       </h1>
 
@@ -4217,24 +4239,36 @@
       }
     }
 
-    function voltarAoInicio() {
-      // Fechar modais abertos (e parar o vídeo que estiver a tocar)
-      fecharTodosModais();
+    // Efeito: as secções aparecem suavemente quando entram no ecrã
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      document.documentElement.classList.add('js-reveal');
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('revelado'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll('.section-block').forEach(function (b) { io.observe(b); });
+    })();
 
-      // Fechar categorias do YouTube abertas
-      fecharCategoriasYoutube();
-
-      // Repor o filtro para "Todos"
-      const btnTodos = document.querySelector('.tag-btn');
-      if (btnTodos) filtrarTag(btnTodos, 'all');
-
-      // Atualizar o URL (#inicio) sem empilhar entradas repetidas no histórico
-      try {
-        if (location.hash !== '#inicio') history.pushState(null, '', '#inicio');
-      } catch (e) { /* ignorar (ex.: ambientes que bloqueiam history) */ }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Luz que segue o rato dentro das letras do título (no telemóvel, um toque acende-a por instantes)
+    (function () {
+      var t = document.getElementById('tituloHero');
+      if (!t) return;
+      function pos(e) {
+        var r = t.getBoundingClientRect();
+        t.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        t.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      }
+      t.addEventListener('pointermove', pos);
+      t.addEventListener('pointerdown', function (e) {
+        pos(e);
+        if (e.pointerType === 'mouse') return;
+        t.classList.add('tocado');
+        setTimeout(function () { t.classList.remove('tocado'); }, 1000);
+      });
+    })();
 
     // Logo AGAJOTA: leva à secção de redes sociais e destaca-a brevemente
     function irParaRedes(event) {
@@ -4279,39 +4313,6 @@
       alvo.classList.add('destaque-redes');
       setTimeout(() => alvo.classList.remove('destaque-redes'), 1900);
     }
-
-    // Estado do botão Início: ativo no topo, com seta "subir" quando a página desce
-    (function () {
-      const btn = document.getElementById('btnInicio');
-      if (!btn) return;
-      let ticking = false;
-
-      function atualizarBotaoInicio() {
-        const noTopo = window.scrollY < 80;
-        btn.classList.toggle('is-scrolled', !noTopo);
-        if (noTopo) {
-          btn.setAttribute('aria-current', 'page');
-        } else {
-          btn.removeAttribute('aria-current');
-          // Ao sair do topo, limpar o #inicio do URL
-          try {
-            if (location.hash === '#inicio') history.replaceState(null, '', location.pathname + location.search);
-          } catch (e) {}
-        }
-        ticking = false;
-      }
-
-      window.addEventListener('scroll', () => {
-        if (!ticking) { requestAnimationFrame(atualizarBotaoInicio); ticking = true; }
-      }, { passive: true });
-
-      // Se alguém abrir/voltar para o link #inicio, sobe ao topo
-      window.addEventListener('hashchange', () => {
-        if (location.hash === '#inicio') window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
-      atualizarBotaoInicio();
-    })();
 
     function filtrarTag(btn, category) {
       document.querySelectorAll('.tag-btn').forEach(b => {
