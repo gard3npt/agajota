@@ -2971,6 +2971,12 @@
     }
 
     /* banner de subscritores: aplicar no ecrã e descarregar o index corrigido */
+    /* datas automáticas: só valem as escolhidas à mão se mexeres nos campos (nesta atualização) */
+    let dnDataSiteManual = false, dnDataBanManual = false;
+    function dnSubsNumMudou(v) {
+      const n = String(v || '').replace(/[\s.]/g, '');
+      if (!dnDataBanManual && n !== String(YT_SUBS_MANUAL)) dnDataHoje('pdSubsData');
+    }
     function dnLerSubs(btn) {
       const n = (document.getElementById('pdSubsNum').value || '').replace(/[\s.]/g, '');
       const ds = document.getElementById('pdSiteData').value || '';
@@ -3005,8 +3011,7 @@
       dnAplicarRec(rec);
       dnAplicarTemas();
       dnAplicarNovos();
-      ULTIMA_ATUALIZACAO = v.ds;
-      dataForcada = true;
+      if (dnDataSiteManual) { ULTIMA_ATUALIZACAO = v.ds; dataForcada = true; } else { ULTIMA_ATUALIZACAO = dataParaIso(new Date()); }
       if (typeof atualizarDataMenu === 'function') atualizarDataMenu();
       YT_SUBS_DATA = v.db;
       YT_SUBS_MANUAL = v.n;
@@ -3028,7 +3033,9 @@
         if (!r.ok) throw 0;
         let src = await r.text();
         let achou = 0;
-        src = src.replace(/((?:const|let)\s+ULTIMA_ATUALIZACAO\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.ds + b; });
+        const dsFinal = dnDataSiteManual ? v.ds : dataParaIso(new Date());
+        src = src.replace(/((?:const|let)\s+ULTIMA_ATUALIZACAO\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + dsFinal + b; });
+        src = src.replace(/(let\s+DATA_MANUAL\s*=\s*)(?:true|false)(;)/, function (m, a, b) { return a + (dnDataSiteManual ? 'true' : 'false') + b; });
         src = src.replace(/((?:const|let)\s+YT_SUBS_DATA\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.db + b; });
         src = src.replace(/((?:const|let)\s+YT_SUBS_MANUAL\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.n + b; });
         src = src.replace(/((?:const|let)\s+YT_SUBS_MODO\s*=\s*')[^']*(')/, function (m, a, b) { achou++; return a + v.modo + b; });
@@ -3304,12 +3311,27 @@
     }
     let dnTmGrAb = {};
     let dnMovUlt = null;
-    function dnMvBtns(fn, args, cima, baixo) {
+    /* à direita: 👁️ ocultar (🙈 se oculto), 🗑️ apagar, ⬆️ ⬇️ ordenar. Cores iguais ao SC: caixas azul-acinzentado (#dbe5f1); apagar em vermelho claro (#fee2e2) */
+    const DN_MV_BASE = 'display:inline-block;box-sizing:border-box;width:30px;height:28px;margin:0 0 0 4px;padding:0;border:0;border-radius:9px;background:#dbe5f1;color:#0f172a;font-size:14px;line-height:1;vertical-align:middle;cursor:pointer;';
+    function dnMvBtns(fn, args, cima, baixo, oc) {
       const b = function (d, ic, tit, ok) {
-        return '<button type="button" class="pd-btn" style="display:inline-block;width:auto;margin:0 0 0 4px;padding:3px 8px;font-size:12px;' + (ok ? '' : 'opacity:.3;') + '" aria-label="' + tit + '" title="' + tit + '"' +
+        return '<button type="button" class="pd-btn" style="' + DN_MV_BASE + (ok ? '' : 'opacity:.35;cursor:default;') + '" aria-label="' + tit + '" title="' + tit + '"' +
           (ok ? ' onclick="event.preventDefault();event.stopPropagation();' + fn + '(' + args + ',' + d + ')"' : ' disabled') + '>' + ic + '</button>';
       };
-      return '<span style="float:right;">' + b(-1, '⬆️', 'Subir', cima) + b(1, '⬇️', 'Descer', baixo) + '</span>';
+      const ap = oc && oc.ap ? '<button type="button" class="pd-btn" style="' + DN_MV_BASE + 'background:#fee2e2;" aria-label="Apagar" title="Apagar" onclick="event.preventDefault();event.stopPropagation();' + oc.ap.fn + '(' + oc.ap.args + ')">🗑️</button>' : '';
+      const o = oc ? '<button type="button" class="pd-btn" style="' + DN_MV_BASE + '" aria-label="' + (oc.ina ? 'Mostrar no site' : 'Ocultar do site') + '" title="' + (oc.ina ? 'Oculto: tocar para mostrar' : 'Visível: tocar para ocultar') + '" onclick="event.preventDefault();event.stopPropagation();' + oc.fn + '(' + oc.args + ')">' + (oc.ina ? '🙈' : '👁️') + '</button>' : '';
+      return '<span style="float:right;">' + o + ap + b(-1, '⬆️', 'Subir', cima) + b(1, '⬇️', 'Descer', baixo) + '</span>';
+    }
+    /* linhas que não se podem ocultar (removidas): espaço invisível do mesmo tamanho, para o alinhamento ficar igual */
+    function dnMvVazio() {
+      const b = '<button type="button" class="pd-btn" tabindex="-1" disabled style="' + DN_MV_BASE + 'visibility:hidden;">👁️</button>';
+      return '<span style="float:right;" aria-hidden="true">' + b + b + b + b + '</span>';
+    }
+    /* nome da linha: riscado e com «· oculto» quando está oculta */
+    function dnMvNome(it, nome, removido) {
+      if (it.del) return '🗑️ ' + nome + ' (' + removido + ')';
+      if (it.ina) return '<span style="text-decoration:line-through;opacity:.6;">' + nome + ' · oculto</span>';
+      return nome;
     }
     function dnTmVizinho(L, i, d) {
       let j = i + d;
@@ -3377,6 +3399,8 @@
       });
     }
     function dnTmRef(id, i) { return dnTm[id][i]; }
+    function dnTmOcultar(id, i) { const it = dnTm[id][i]; if (!it || it.del) return; it.ina = !it.ina; dnRecRender(); }
+    function dnRecOcultar(i) { const it = dnRec[i]; if (!it || it.del) return; it.ina = !it.ina; dnRecRender(); }
     function dnTmDesativar(id, i) { const it = dnTm[id][i]; it.ina = !it.ina; it.ab = true; dnRecRender(); }
     function dnTmRemover(id, i) { const it = dnTm[id][i]; it.del = true; it.ab = false; dnRecRender(); }
     function dnTmRestaurar(id, i) { dnTm[id][i].del = false; dnRecRender(); }
@@ -3491,8 +3515,7 @@
       const r = 'dnTm.' + t.id + '[' + i + ']', pre = 'pdTm' + t.id + i;
       const L = dnTm[t.id];
       let h = '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + (it === dnMovUlt ? 'outline:2px solid #3b82f6;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="' + r + '.ab=this.open">' +
-        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '' : dnMvBtns('dnTmMover', "'" + t.id + "'," + i, dnTmVizinho(L, i, -1), dnTmVizinho(L, i, 1))) + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : '')) + dnEsc(it.nome || 'Sem nome') +
-        (mostraCat && it.cat ? ' <small>· ' + dnEsc(it.cat) + '</small>' : '') + (it.del ? ' (removido)' : (it.ina ? ' (inativo)' : '')) + '</summary>' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? dnMvVazio() : dnMvBtns('dnTmMover', "'" + t.id + "'," + i, dnTmVizinho(L, i, -1), dnTmVizinho(L, i, 1), { fn: 'dnTmOcultar', args: "'" + t.id + "'," + i, ina: !!it.ina, ap: { fn: 'dnTmRemover', args: "'" + t.id + "'," + i } })) + dnMvNome(it, dnEsc(it.nome || 'Sem nome') + (mostraCat && it.cat ? ' <small>· ' + dnEsc(it.cat) + '</small>' : ''), 'removido') + '</summary>' +
         '<div style="padding-bottom:10px;">';
       if (it.del) {
         h += '<button type="button" class="pd-btn" onclick="dnTmRestaurar(\'' + t.id + '\',' + i + ')">↩️ Restaurar</button>';
@@ -3503,21 +3526,19 @@
           '<div style="display:flex;gap:6px;align-items:center;">' +
           '<input id="' + pre + 'L" class="pd-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;" value="' + dnEsc(it.link) + '" oninput="' + r + '.link=this.value">' +
           '<button type="button" class="pd-btn" style="width:auto;margin-top:4px;padding:10px 12px;" aria-label="Abrir link" title="Abrir link" onclick="dnTmAbrir(\'' + t.id + '\',' + i + ')">↗</button>' +
-          '</div>' +
-          '<button type="button" class="pd-btn" onclick="dnTmDesativar(\'' + t.id + '\',' + i + ')">' + (it.ina ? '▶️ Ativar (voltar a mostrar no site)' : '⏸️ Desativar (esconder do site, fica guardado)') + '</button>' +
-          '<button type="button" class="pd-btn pd-vermelho" onclick="dnTmRemover(\'' + t.id + '\',' + i + ')">🗑️ Remover (apagar de vez)</button>';
+          '</div>';
       }
       return h + '</div></details>';
     }
     function dnTmHtml() {
       dnTmInit();
       let h = '<div class="pd-sec">Temas do site (pela ordem do site)</div>' +
-        '<div class="pd-nota">Cada tema é independente: abra só o que quer mudar. Em cada cartão pode editar, desativar (esconde do site mas fica guardado) ou remover (apaga). Para juntar um cartão novo, use «➕ NOVO» dentro do tema. Use ⬆️ ⬇️ para subir ou descer (dentro da mesma pasta ou bloco).</div>';
+        '<div class="pd-nota">Cada tema é independente: abra só o que quer mudar. Em cada cartão pode editar. Em cada linha: 👁️ oculta do site (fica guardado; 🙈 = oculto, toque outra vez para mostrar), 🗑️ apaga (pode restaurar até guardar) e ⬆️ ⬇️ ordenam. Para juntar um cartão novo, use «➕ NOVO» dentro do tema. Use ⬆️ ⬇️ para subir ou descer (dentro da mesma pasta ou bloco).</div>';
       DN_TEMAS.forEach(function (t) {
         const L = dnTm[t.id];
         const ativos = L.filter(function (x) { return !x.del && !x.ina; }).length + dnNovos.filter(function (n) { return DN_TM_TIPOS[t.id](n.tipo); }).length, inat = L.filter(function (x) { return !x.del && x.ina; }).length;
         h += '<details class="pd-card" style="padding:6px 12px;margin-top:10px;"' + (dnTmAb[t.id] ? ' open' : '') + ' ontoggle="if(event.target===this)dnTmAb.' + t.id + '=this.open">' +
-          '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">' + t.ic + ' ' + dnEsc(t.nome) + ' <small>(' + ativos + (inat ? ' · ' + inat + ' inativo' + (inat > 1 ? 's' : '') : '') + ')</small></summary>' +
+          '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">' + t.ic + ' ' + dnEsc(t.nome) + ' <small>(' + ativos + (inat ? ' · ' + inat + ' oculto' + (inat > 1 ? 's' : '') : '') + ')</small></summary>' +
           '<div style="padding-bottom:6px;">';
         if (!L.length) h += '<div class="pd-nota">Sem cartões neste tema.</div>';
         const agrupa = t.id === 'playlists' || t.id === 'social';
@@ -3532,7 +3553,7 @@
             const k = t.id + '_' + gi;
             const at = g.idx.filter(function (i) { return !L[i].del && !L[i].ina; }).length, ni = g.idx.filter(function (i) { return !L[i].del && L[i].ina; }).length;
             h += '<details class="pd-card" style="padding:4px 10px;margin-top:8px;"' + (dnTmGrAb[k] ? ' open' : '') + ' ontoggle="if(event.target===this)dnTmGrAb[\'' + k + '\']=this.open">' +
-              '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (t.id === 'playlists' ? '📁 ' : '🔗 ') + dnEsc(g.nome || 'Outros') + ' <small>(' + at + (ni ? ' · ' + ni + ' inativo' + (ni > 1 ? 's' : '') : '') + ')</small></summary><div style="padding-bottom:4px;">';
+              '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (t.id === 'playlists' ? '📁 ' : '🔗 ') + dnEsc(g.nome || 'Outros') + ' <small>(' + at + (ni ? ' · ' + ni + ' oculto' + (ni > 1 ? 's' : '') : '') + ')</small></summary><div style="padding-bottom:4px;">';
             g.idx.forEach(function (i) { h += dnTmItemHtml(t, L[i], i, false); });
             h += '</div></details>';
           });
@@ -3897,7 +3918,7 @@
         '<div style="padding-bottom:6px;">';
       dnRec.forEach(function (it, i) {
         h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + (it === dnMovUlt ? 'outline:2px solid #3b82f6;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="dnRec[' + i + '].ab=this.open">' +
-          '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? '' : dnMvBtns('dnRecMover', String(i), dnRecVizinho(i, -1), dnRecVizinho(i, 1))) + (it.del ? '🗑️ ' : (it.ina ? '⏸️ ' : (it.nova ? '🆕 ' : ''))) + dnEsc(it.nome || 'Sem nome') + (it.del ? ' (removida)' : (it.ina ? ' (inativa)' : '')) + '</summary>' +
+          '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' + (it.del ? dnMvVazio() : dnMvBtns('dnRecMover', String(i), dnRecVizinho(i, -1), dnRecVizinho(i, 1), { fn: 'dnRecOcultar', args: String(i), ina: !!it.ina, ap: { fn: 'dnRecRemover', args: String(i) } })) + dnMvNome(it, (it.nova ? '🆕 ' : '') + dnEsc(it.nome || 'Sem nome'), 'removida') + '</summary>' +
           '<div style="padding-bottom:10px;">';
         if (it.del) {
           h += '<button type="button" class="pd-btn" onclick="dnRecRestaurar(' + i + ')">↩️ Restaurar</button>';
@@ -3910,13 +3931,11 @@
             '<div style="display:flex;gap:6px;align-items:center;">' +
             '<input id="pdRecL' + i + '" class="pd-input" type="url" inputmode="url" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;" value="' + dnEsc(it.link) + '" oninput="dnRec[' + i + '].link=this.value">' +
             '<button type="button" class="pd-btn" style="width:auto;margin-top:4px;padding:10px 12px;" aria-label="Abrir link" title="Abrir link" onclick="dnAbrirRec(' + i + ')">↗</button>' +
-            '</div>' +
-            '<button type="button" class="pd-btn" onclick="dnRecDesativar(' + i + ')">' + (it.ina ? '▶️ Ativar (voltar a mostrar no site)' : '⏸️ Desativar (esconder do site, fica guardada)') + '</button>' +
-            '<button type="button" class="pd-btn pd-vermelho" onclick="dnRecRemover(' + i + ')">🗑️ Remover (apagar de vez)</button>';
+            '</div>';
         }
         h += '</div></details>';
       });
-      h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição, a cor e o link, ou para a desativar (esconde do site mas fica guardada, podendo voltar a ativar) ou remover (apaga). Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar. Use ⬆️ ⬇️ para subir ou descer.</div>';
+      h += '<div class="pd-nota">Toque numa recompensa para editar o nome, a descrição, a cor e o link, Em cada linha: 👁️ oculta do site (fica guardada; 🙈 = oculta, toque outra vez para mostrar) e 🗑️ apaga (pode restaurar até guardar). Use «Aplicar neste ecrã» para ver, ou «Descarregar index.html corrigido» para guardar no site. O botão ↗ abre o link para o testar. Use ⬆️ ⬇️ para subir ou descer.</div>';
       h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;"' + (dnNovaRecAberta ? ' open' : '') + ' ontoggle="dnNovaRecAberta=this.open">' +
         '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">➕ NOVO</summary>' +
         '<div style="padding-bottom:10px;">' +
@@ -3935,20 +3954,21 @@
         '<label style="display:flex;gap:8px;align-items:flex-start;margin-top:6px;font-size:13px;cursor:pointer;"><input type="radio" name="pdSubsModo" value="manual"' + (vModo === 'manual' ? ' checked' : '') + ' style="margin-top:3px;"><span><strong>Manual</strong>: mostra o número escrito aqui em baixo</span></label>' +
         '<label style="display:flex;gap:8px;align-items:flex-start;margin-top:6px;font-size:13px;cursor:pointer;"><input type="radio" name="pdSubsModo" value="api"' + (vModo === 'api' ? ' checked' : '') + ' style="margin-top:3px;"><span><strong>Automático</strong>: vem do YouTube com a chave da API (se falhar, mostra o número manual)</span></label>' +
         '<label class="pd-lbl" for="pdSubsNum">Número de subscritores (manual)</label>' +
-        '<input id="pdSubsNum" class="pd-input" type="text" inputmode="numeric" autocomplete="off" value="' + dnEsc(vNum) + '">' +
+        '<input id="pdSubsNum" class="pd-input" type="text" inputmode="numeric" autocomplete="off" value="' + dnEsc(vNum) + '" oninput="dnSubsNumMudou(this.value)">' +
         '<label class="pd-lbl" for="pdSubsData">Data a que se refere o número manual</label>' +
-        '<input id="pdSubsData" class="pd-input" type="date" value="' + dnEsc(vBan) + '">' +
+        '<input id="pdSubsData" class="pd-input" type="date" value="' + dnEsc(vBan) + '" oninput="dnDataBanManual = true">' +
         '<label class="pd-lbl" for="pdSubsChave">Chave da API do YouTube (automático)</label>' +
         '<input id="pdSubsChave" class="pd-input" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="AIza…" value="' + dnEsc(vChave) + '">' +
         '</div>' +
-        '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSubsData\')">📅 Usar a data de hoje</button>';
+        '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSubsData\'); dnDataBanManual = false">📅 Usar a data de hoje</button>' +
+        '<div class="pd-nota">A data só aparece no banner quando a origem é «Manual». Em «Automático» (API) não se mostra data. Ao mudares o número manual, a data passa sozinha para hoje (podes escolher outra no calendário).</div>';
       h += '<div class="pd-sec">Data de atualização do site (se necessário)</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdSiteData">Data mostrada no menu, no rodapé e no diagnóstico</label>' +
-        '<input id="pdSiteData" class="pd-input" type="date" value="' + dnEsc(vSite) + '">' +
+        '<input id="pdSiteData" class="pd-input" type="date" value="' + dnEsc(vSite) + '" oninput="dnDataSiteManual = true">' +
         '</div>' +
-        '<div class="pd-nota">A data é automática (vem da data do ficheiro no servidor). Só precisa de a mudar se o servidor não a indicar ou se quiser forçar outra.</div>' +
-        '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSiteData\')">📅 Usar a data de hoje</button>';
+        '<div class="pd-nota">Automática: acompanha a data do ficheiro no servidor e passa para hoje ao aplicar ou descarregar. Preencha o calendário só se precisar de outra data para esta atualização.</div>' +
+        '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSiteData\'); dnDataSiteManual = false">📅 Usar a data de hoje</button>';
       h += '<div class="pd-sec">Guardar alterações</div>' +
         '<button type="button" class="pd-btn pd-azul" onclick="dnAplicarSubs(this)">✅ Aplicar neste ecrã</button>' +
         '<div class="pd-nota">Mostra já o novo número, as novas datas (banner, menu e rodapé), as alterações às recompensas e os cartões novos, só para ver. Não fica guardado no site.</div>' +
@@ -3996,7 +4016,7 @@
     }
     function montarPainelDono() {
       fecharPainelDono();
-      dnModo = 1;
+      dnModo = 1; dnDataSiteManual = false; dnDataBanManual = false;
       const ov = document.createElement('div');
       ov.id = 'painelDonoOverlay';
       ov.innerHTML = '<div role="dialog" aria-modal="true" aria-label="Área de controlo">' +
@@ -4019,11 +4039,13 @@
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé e no diagnóstico. A data do banner de subscritores é à parte (YT_SUBS_DATA).
-    let ULTIMA_ATUALIZACAO = '2026-11-13';
+    let ULTIMA_ATUALIZACAO = '2026-11-14';
+    // Normalmente false (data automática). Fica true só nas atualizações em que se escreveu uma data à mão na área de controlo.
+    let DATA_MANUAL = false;
     /* A data é automática: vem da data de modificação do index.html no servidor (cabeçalho Last-Modified).
        Se o servidor não a indicar, usa-se ULTIMA_ATUALIZACAO. Uma data aplicada na área de controlo prevalece. */
     let dataAuto = '';
-    let dataForcada = false;
+    let dataForcada = DATA_MANUAL;
     function dataAtualizacaoEfetiva() {
       return (!dataForcada && dataAuto) ? dataAuto : ULTIMA_ATUALIZACAO;
     }
@@ -4163,10 +4185,12 @@
       const texto = String(valor).trim();
       const n = typeof valor === 'number' ? valor : (/^\d+$/.test(texto) ? parseInt(texto, 10) : null);
       box.hidden = false;
-      // Data de atualização do número (YT_SUBS_DATA, independente da do site); só no modo manual, porque a API já dá o valor atual
+      // Data de atualização do número (YT_SUBS_DATA, independente da do site): só aparece quando a origem escolhida é «Manual».
+      // Em «Automático» (API) não se mostra data.
       const dEl = document.getElementById('ytSubData');
-      if (dEl && !manual) dEl.hidden = true;
-      if (dEl && manual) {
+      const mostraData = manual && YT_SUBS_MODO === 'manual';
+      if (dEl && !mostraData) dEl.hidden = true;
+      if (dEl && mostraData) {
         const dt = new Date(YT_SUBS_DATA + 'T12:00:00');
         if (!isNaN(dt)) {
           dEl.textContent = 'Atualizado a ' + dt.toLocaleDateString('pt-PT', { day: '2-digit', month: '2-digit', year: 'numeric' });
