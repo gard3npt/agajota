@@ -175,7 +175,17 @@
 
   <style>
     @keyframes apoiarBatida { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.22); } 30% { transform: scale(1); } 45% { transform: scale(1.14); } }
+    /* Países visitados */
+    .pais-bandeira { display: block; width: 100%; max-width: 64px; height: auto; aspect-ratio: 3 / 2; border-radius: 6px; box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 4px 10px rgba(0,0,0,.35); }
+    .pais-card { transition: transform .2s ease, border-color .2s ease; }
+    .pais-card:hover { transform: translateY(-3px) scale(1.04); border-color: rgba(34,211,238,.5); }
+    @media (prefers-reduced-motion: reduce) { .pais-card { transition: none; } .pais-card:hover { transform: none; } }
     .menu-apoiar-coracao { animation: apoiarBatida 1.8s ease-in-out infinite; }
+    /* Apoiar o projeto: cartão com tom dourado/rosa suave e contorno fino. Destaca-se dos outros botões sem ser berrante */
+    .menu-apoiar { background: linear-gradient(135deg, rgba(251,191,36,.16), rgba(244,114,182,.16)); border: 1px solid rgba(251,191,36,.42); box-shadow: inset 0 0 0 1px rgba(244,114,182,.10); transition: background .2s, border-color .2s, box-shadow .2s; }
+    .menu-apoiar:hover, .menu-apoiar:focus-visible { background: linear-gradient(135deg, rgba(251,191,36,.26), rgba(244,114,182,.26)); border-color: rgba(251,191,36,.7); box-shadow: 0 0 14px rgba(251,191,36,.18), inset 0 0 0 1px rgba(244,114,182,.18); }
+    .menu-apoiar-chip { background: linear-gradient(135deg, #f59e0b, #ec4899); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+    .menu-apoiar-sub { color: #fde68a; opacity: .9; }
     @media (prefers-reduced-motion: reduce) { .menu-apoiar-coracao { animation: none; } }
     /* Barra de scroll fina e moderna (degradê rosa/roxo do site) */
     html { scroll-behavior: smooth; background-color: #030712; overflow-y: scroll; } /* overflow-y: barra sempre visível, mesmo em páginas curtas */
@@ -610,6 +620,18 @@
     <symbol id="flag-jp" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="4.8" fill="#BC002D"/></symbol>
     <symbol id="flag-cn" viewBox="0 0 24 16"><rect width="24" height="16" fill="#DE2910"/><polygon points="4.80,1.80 5.38,3.60 7.27,3.60 5.74,4.71 6.33,6.50 4.80,5.39 3.27,6.50 3.86,4.71 2.33,3.60 4.22,3.60" fill="#FFDE00"/><polygon points="9.67,1.15 9.65,1.73 10.20,1.93 9.64,2.09 9.62,2.67 9.30,2.19 8.74,2.35 9.09,1.89 8.77,1.41 9.32,1.61" fill="#FFDE00"/><polygon points="11.71,3.29 11.50,3.83 11.94,4.20 11.36,4.16 11.14,4.70 11.00,4.13 10.42,4.09 10.92,3.79 10.78,3.22 11.22,3.60" fill="#FFDE00"/><polygon points="11.20,5.80 11.38,6.35 11.96,6.35 11.49,6.69 11.67,7.25 11.20,6.91 10.73,7.25 10.91,6.69 10.44,6.35 11.02,6.35" fill="#FFDE00"/><polygon points="9.80,7.91 9.68,8.48 10.18,8.77 9.60,8.83 9.48,9.40 9.25,8.86 8.67,8.93 9.10,8.54 8.86,8.01 9.37,8.30" fill="#FFDE00"/></symbol>
     <symbol id="flag-tr" viewBox="0 0 24 16"><rect width="24" height="16" fill="#E30A17"/><circle cx="9" cy="8" r="4.2" fill="#fff"/><circle cx="10.2" cy="8" r="3.4" fill="#E30A17"/><polygon points="15.50,8.00 14.19,8.43 14.19,9.81 13.38,8.69 12.06,9.12 12.87,8.00 12.06,6.88 13.38,7.31 14.19,6.19 14.19,7.57" fill="#fff"/></symbol>
+    <!-- Bandeiras (países visitados) -->
+    <symbol id="flag-be" viewBox="0 0 24 16"><rect width="8" height="16" fill="#000"/><rect x="8" width="8" height="16" fill="#FDDA24"/><rect x="16" width="8" height="16" fill="#EF3340"/></symbol>
+    <symbol id="flag-lu" viewBox="0 0 24 16"><rect width="24" height="5.34" fill="#EF3340"/><rect y="5.33" width="24" height="5.34" fill="#fff"/><rect y="10.66" width="24" height="5.34" fill="#00A3E0"/></symbol>
+    <symbol id="flag-ch" viewBox="0 0 24 16"><rect width="24" height="16" fill="#D52B1E"/><rect x="10.5" y="3" width="3" height="10" fill="#fff"/><rect x="7" y="6.5" width="10" height="3" fill="#fff"/></symbol>
+    <symbol id="flag-mt" viewBox="0 0 24 16"><rect width="12" height="16" fill="#fff"/><rect x="12" width="12" height="16" fill="#CF142B"/><rect x="3.2" y="1.2" width="1.6" height="5" fill="#9AA0A6"/><rect x="1.5" y="2.9" width="5" height="1.6" fill="#9AA0A6"/></symbol>
+    <symbol id="flag-ma" viewBox="0 0 24 16"><rect width="24" height="16" fill="#C1272D"/><path d="M12.00 4.30L14.53 12.08L7.91 7.27L16.09 7.27L9.47 12.08Z" fill="none" stroke="#006233" stroke-width=".75" stroke-linejoin="miter"/></symbol>
+    <symbol id="flag-mz" viewBox="0 0 24 16"><rect width="24" height="5" fill="#007168"/><rect y="5" width="24" height="5.6" fill="#000"/><rect y="11" width="24" height="5" fill="#FCE100"/><rect y="4.7" width="24" height=".8" fill="#fff"/><rect y="10.5" width="24" height=".8" fill="#fff"/><polygon points="0,0 9.2,8 0,16" fill="#D21034"/><polygon points="3.10,5.70 3.62,7.29 5.29,7.29 3.94,8.27 4.45,9.86 3.10,8.88 1.75,9.86 2.26,8.27 0.91,7.29 2.58,7.29" fill="#FCE100"/></symbol>
+    <symbol id="flag-ao" viewBox="0 0 24 16"><rect width="24" height="8" fill="#CC092F"/><rect y="8" width="24" height="8" fill="#000"/><polygon points="12.00,6.00 12.47,7.35 13.90,7.38 12.76,8.25 13.18,9.62 12.00,8.80 10.82,9.62 11.24,8.25 10.10,7.38 11.53,7.35" fill="#FFCB00"/><path d="M8.6 5.2a4.2 4.2 0 0 0 0 5.6" fill="none" stroke="#FFCB00" stroke-width=".9"/><path d="M12.6 12.6L15.6 9.4" stroke="#FFCB00" stroke-width=".9" stroke-linecap="round"/></symbol>
+    <symbol id="flag-za" viewBox="0 0 24 16"><rect width="24" height="8" fill="#E03C31"/><rect y="8" width="24" height="8" fill="#001489"/><path d="M0 0L9.6 8L0 16M9.6 8H24" fill="none" stroke="#fff" stroke-width="5.2"/><path d="M0 0L9.6 8L0 16M9.6 8H24" fill="none" stroke="#007749" stroke-width="3.2"/><polygon points="0,1.5 7.4,8 0,14.5" fill="#FFB612"/><polygon points="0,3.2 5.2,8 0,12.8" fill="#000"/></symbol>
+    <symbol id="flag-do" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect width="10.8" height="6.8" fill="#002D62"/><rect x="13.2" width="10.8" height="6.8" fill="#CE1126"/><rect y="9.2" width="10.8" height="6.8" fill="#CE1126"/><rect x="13.2" y="9.2" width="10.8" height="6.8" fill="#002D62"/><rect x="10.3" y="6.1" width="3.4" height="3.8" rx=".6" fill="#fff"/><rect x="10.7" y="6.5" width="1.3" height="1.5" fill="#002D62"/><rect x="12" y="6.5" width="1.3" height="1.5" fill="#CE1126"/><rect x="10.7" y="8" width="2.6" height="1.5" fill="#009739"/></symbol>
+    <symbol id="flag-dk" viewBox="0 0 24 16"><rect width="24" height="16" fill="#C8102E"/><rect x="7.78" width="2.6" height="16" fill="#fff"/><rect y="6.86" width="24" height="2.29" fill="#fff"/></symbol>
+    <symbol id="flag-se" viewBox="0 0 24 16"><rect width="24" height="16" fill="#006AA7"/><rect x="7.5" width="3" height="16" fill="#FECC02"/><rect y="6.4" width="24" height="3.2" fill="#FECC02"/></symbol>
   </svg>
 
   <!-- BACKGROUND VIBRANTE COM GLOWS COLORIDOS -->
@@ -656,12 +678,16 @@
             <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-yellow-500 to-amber-500 text-slate-950"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-heart"/></svg></span>
             <span>Reembolso Parcial</span>
           </button>
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('paises')">
+            <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-cyan-500 to-sky-500 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-globe"/></svg></span>
+            <span>Países Visitados</span>
+          </button>
           <div class="my-1.5 border-t border-white/10" role="separator"></div>
-          <a href="https://paypal.me/gard3npt" target="_blank" rel="noopener noreferrer" role="menuitem" class="menu-apoiar w-full flex items-center gap-3 my-1 px-3 py-2.5 rounded-2xl text-left text-white bg-gradient-to-r from-pink-500 via-rose-500 to-orange-400 hover:from-pink-400 hover:via-rose-400 hover:to-orange-300 shadow-lg shadow-pink-900/40 ring-1 ring-white/25 outline-none focus-visible:ring-2 focus-visible:ring-white transition-all" onclick="fecharMenuPrincipal()">
-            <span class="shrink-0 w-9 h-9 rounded-full bg-white/25 flex items-center justify-center"><svg class="menu-apoiar-coracao w-[18px] h-[18px]" aria-hidden="true"><use href="#icon-heart"/></svg></span>
+          <a href="https://paypal.me/gard3npt" target="_blank" rel="noopener noreferrer" role="menuitem" class="menu-apoiar w-full flex items-center gap-3 my-1 px-3 py-2.5 rounded-2xl text-left text-white outline-none focus-visible:ring-2 focus-visible:ring-amber-200" onclick="fecharMenuPrincipal()">
+            <span class="menu-apoiar-chip shrink-0 w-9 h-9 rounded-full flex items-center justify-center"><svg class="menu-apoiar-coracao w-[18px] h-[18px]" aria-hidden="true"><use href="#icon-heart"/></svg></span>
             <span class="flex flex-col leading-tight">
               <span class="text-sm font-extrabold">Apoiar o projeto</span>
-              <span class="text-[11px] font-medium text-white/90">Um café virtual faz a diferença ☕</span>
+              <span class="menu-apoiar-sub text-[11px] font-medium">Um café virtual faz a diferença ☕</span>
             </span>
           </a>
           <div class="my-1.5 border-t border-white/10" role="separator"></div>
@@ -809,6 +835,7 @@
         <button onclick="filtrarTag(this, 'project')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-emerald-500 to-teal-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-window"/></svg></span>Sites</button>
         <button onclick="filtrarTag(this, 'blog')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-amber-500 to-orange-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-brand"/></svg></span>Blogs</button>
         <button onclick="filtrarTag(this, 'cashback')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-yellow-500 to-amber-500 text-slate-950"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-heart"/></svg></span>Reembolso</button>
+        <button onclick="filtrarTag(this, 'paises')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-cyan-500 to-sky-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-globe"/></svg></span>Países</button>
       </div>
     </section>
 
@@ -2050,6 +2077,20 @@
       </div>
     </section>
 
+    <!-- 6. PAÍSES QUE JÁ VISITEI (lista em PAISES_VISITADOS, no fim da página) -->
+    <section id="paises" class="section-block my-12" data-category="paises">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-cyan-500 to-sky-500 text-white shadow-lg shadow-cyan-500/30">
+          <svg class="w-5 h-5"><use href="#icon-globe"/></svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-extrabold text-white">Países que já visitei</h2>
+          <p id="paisesSub" class="text-xs text-cyan-300">A explorar o mundo, um país de cada vez</p>
+        </div>
+      </div>
+      <div id="paisesGrid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3"></div>
+    </section>
+
     <!-- APOIO / PAY -->
     <section id="apoio" class="section-block my-10" data-category="pay">
       <div class="glass-card rounded-2xl p-6 border border-pink-500/30 text-center max-w-xl mx-auto bg-gradient-to-tr from-indigo-950/40 via-purple-950/40 to-pink-950/40">
@@ -3008,8 +3049,10 @@
       const v = dnLerSubs(btn); if (!v) return;
       const rec = dnLerRec(btn); if (!rec) return;
       if (!dnLerTemas(btn)) return;
+      if (!dnLerPaises(btn)) return;
       dnAplicarRec(rec);
       dnAplicarTemas();
+      dnAplicarPaises();
       dnAplicarNovos();
       if (dnDataSiteManual) { ULTIMA_ATUALIZACAO = v.ds; dataForcada = true; } else { ULTIMA_ATUALIZACAO = dataParaIso(new Date()); }
       if (typeof atualizarDataMenu === 'function') atualizarDataMenu();
@@ -3028,6 +3071,7 @@
       const v = dnLerSubs(btn); if (!v) return;
       const rec = dnLerRec(btn); if (!rec) return;
       if (!dnLerTemas(btn)) return;
+      if (!dnLerPaises(btn)) return;
       try {
         const r = await fetch(location.href.split('#')[0], { cache: 'no-store' });
         if (!r.ok) throw 0;
@@ -3044,6 +3088,8 @@
         src = dnReescreverRec(src, rec);
         if (src === null) throw 0;
         src = dnReescreverTemas(src);
+        if (src === null) throw 0;
+        src = dnReescreverPaises(src);
         if (src === null) throw 0;
         src = dnInserirNovos(src, dnNovos);
         if (src === null) throw 0;
@@ -3565,6 +3611,125 @@
       });
       return h;
     }
+    /* ===== Países que já visitei (lista PAISES_VISITADOS, no fim da página) ===== */
+    let dnPaises = null, dnPaisesAb = false, dnPaisesNovoAb = false, dnPaisesForm = { n: '', c: '' };
+    function dnPaisesInit() {
+      if (dnPaises) return;
+      dnPaises = PAISES_VISITADOS.map(function (p) { return { c: p.c, n: p.n, ina: !!p.o, del: false, ab: false, novo: false }; });
+    }
+    function dnPaisesBandeira(c) { return !!document.getElementById('flag-' + String(c || '').trim().toLowerCase()); }
+    function dnPaisesBandeiras() {
+      return Array.prototype.slice.call(document.querySelectorAll('symbol[id^="flag-"]')).map(function (s) { return s.id.slice(5); }).sort();
+    }
+    function dnPaisesVizinho(i, d) {
+      let j = i + d;
+      while (j >= 0 && j < dnPaises.length && dnPaises[j].del) j += d;
+      return j >= 0 && j < dnPaises.length;
+    }
+    function dnPaisesMover(i, d) {
+      let j = i + d;
+      while (j >= 0 && j < dnPaises.length && dnPaises[j].del) j += d;
+      if (j < 0 || j >= dnPaises.length) return;
+      const t = dnPaises[i]; dnPaises[i] = dnPaises[j]; dnPaises[j] = t;
+      dnMovUlt = t; dnRecRender();
+    }
+    function dnPaisesOcultar(i) { const it = dnPaises[i]; if (!it || it.del) return; it.ina = !it.ina; dnRecRender(); }
+    function dnPaisesRemover(i) {
+      const it = dnPaises[i];
+      if (!it) return;
+      if (it.novo) dnPaises.splice(i, 1); else { it.del = true; it.ab = false; }
+      dnRecRender();
+    }
+    function dnPaisesRestaurar(i) { if (dnPaises[i]) dnPaises[i].del = false; dnRecRender(); }
+    function dnPaisesDica(valor) {
+      const el = document.getElementById('pdPaisDica');
+      if (!el) return;
+      const c = String(valor || '').trim().toLowerCase();
+      el.textContent = !c ? '' : (dnPaisesBandeira(c) ? '✅ Há bandeira para «' + c + '»' : '⚠️ Ainda não há bandeira para «' + c + '»: o cartão aparece só com o nome');
+    }
+    function dnLerPaises(btn) {
+      dnPaisesInit();
+      const vistos = {};
+      for (let i = 0; i < dnPaises.length; i++) {
+        const it = dnPaises[i];
+        if (it.del) continue;
+        it.n = String(it.n || '').trim(); it.c = String(it.c || '').trim().toLowerCase();
+        if (!it.n) { dnFeedback(btn, '❌ Países: há um país sem nome'); return null; }
+        if (!/^[a-z]{2,3}(-[a-z]{2,3})?$/.test(it.c)) { dnFeedback(btn, '❌ Código inválido em «' + it.n + '» (ex.: dk)'); return null; }
+        if (vistos[it.c]) { dnFeedback(btn, '❌ Código repetido: «' + it.c + '»'); return null; }
+        vistos[it.c] = true;
+      }
+      return dnPaises;
+    }
+    function dnPaisesLista() {
+      return dnPaises.filter(function (x) { return !x.del; }).map(function (x) { const o = { c: x.c, n: x.n }; if (x.ina) o.o = 1; return o; });
+    }
+    function dnAplicarPaises() {
+      if (!dnPaises) return;
+      PAISES_VISITADOS = dnPaisesLista();
+      if (typeof desenharPaises === 'function') desenharPaises();
+    }
+    function dnReescreverPaises(src) {
+      if (!dnPaises) return src;
+      /* a declaração tem de começar no início de uma linha e a lista fecha com «];» na mesma indentação (assim nunca apanha texto de código) */
+      const re = /^([ \t]*)(?:const|let)\s+PAISES_VISITADOS\s*=\s*\[\s*\{[\s\S]*?\n\1\];/m;
+      if (!re.test(src)) { dnTmErro = 'Não encontrei a lista de países no ficheiro'; return null; }
+      const esc = function (t) { return String(t).replace(/\\/g, '\\\\').replace(/'/g, "\\'"); };
+      const lista = dnPaisesLista(), linhas = [];
+      for (let k = 0; k < lista.length; k += 4) {
+        linhas.push('      ' + lista.slice(k, k + 4).map(function (x) { return "{ c: '" + esc(x.c) + "', n: '" + esc(x.n) + "'" + (x.o ? ', o: 1' : '') + ' }'; }).join(', '));
+      }
+      const novo = 'let PAISES_VISITADOS = [\n' + linhas.join(',\n') + '\n    ];';
+      return src.replace(re, function (m, ind) { return ind + novo; });
+    }
+    function dnPaisesAdicionar(btn) {
+      dnPaisesInit();
+      const n = (dnPaisesForm.n || '').trim(), c = (dnPaisesForm.c || '').trim().toLowerCase();
+      if (!n) { dnFeedback(btn, '❌ Escreva o nome do país'); return; }
+      if (!/^[a-z]{2,3}(-[a-z]{2,3})?$/.test(c)) { dnFeedback(btn, '❌ Código inválido (2 letras, ex.: dk)'); return; }
+      if (dnPaises.some(function (x) { return !x.del && x.c === c; })) { dnFeedback(btn, '❌ Esse código já está na lista'); return; }
+      dnPaises.push({ c: c, n: n, ina: false, del: false, ab: false, novo: true });
+      dnPaisesAb = true; dnPaisesNovoAb = true;
+      dnPaisesForm = { n: '', c: '' };
+      dnRecRender();
+      const b = document.getElementById('pdPaisAdd');
+      if (b) dnFeedback(b, '✅ Adicionado à lista');
+    }
+    function dnPaisesItemHtml(it, i) {
+      const r = 'dnPaises[' + i + ']', pre = 'pdPais' + i;
+      const bandeira = !it.del && dnPaisesBandeira(it.c) ? '<svg width="24" height="16" viewBox="0 0 24 16" aria-hidden="true" style="vertical-align:-3px;margin-right:6px;border-radius:2px;"><use href="#flag-' + dnEsc(it.c) + '"/></svg>' : '';
+      let h = '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + (it === dnMovUlt ? 'outline:2px solid #3b82f6;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="' + r + '.ab=this.open">' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">' +
+        (it.del ? dnMvVazio() : dnMvBtns('dnPaisesMover', String(i), dnPaisesVizinho(i, -1), dnPaisesVizinho(i, 1), { fn: 'dnPaisesOcultar', args: String(i), ina: !!it.ina, ap: { fn: 'dnPaisesRemover', args: String(i) } })) +
+        bandeira + dnMvNome(it, dnEsc(it.n || 'Sem nome') + (it.novo ? ' 🆕' : ''), 'removido') + '</summary>' +
+        '<div style="padding-bottom:10px;">';
+      if (it.del) {
+        h += '<button type="button" class="pd-btn" onclick="dnPaisesRestaurar(' + i + ')">↩️ Restaurar</button>';
+      } else {
+        h += dnCampoX(pre + 'N', 'Nome', it.n, r + '.n', '') +
+          dnCampoX(pre + 'C', 'Código do país (para a bandeira)', it.c, r + '.c', 'maxlength="7" autocapitalize="off" spellcheck="false"') +
+          '<div class="pd-nota">' + (dnPaisesBandeira(it.c) ? '✅ Há bandeira para «' + dnEsc(it.c) + '».' : '⚠️ Ainda não há bandeira para «' + dnEsc(it.c) + '»: o cartão aparece só com o nome.') + '</div>';
+      }
+      return h + '</div></details>';
+    }
+    function dnPaisesHtml() {
+      dnPaisesInit();
+      const ativos = dnPaises.filter(function (x) { return !x.del && !x.ina; }).length, oc = dnPaises.filter(function (x) { return !x.del && x.ina; }).length;
+      let h = '<details class="pd-card" style="padding:6px 12px;margin-top:10px;"' + (dnPaisesAb ? ' open' : '') + ' ontoggle="if(event.target===this)dnPaisesAb=this.open">' +
+        '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🌍 Países que já visitei <small>(' + ativos + (oc ? ' · ' + oc + ' oculto' + (oc > 1 ? 's' : '') : '') + ')</small></summary>' +
+        '<div style="padding-bottom:6px;">' +
+        '<div class="pd-nota">Em cada linha: 👁️ oculta do site (fica guardado), 🗑️ apaga (pode restaurar até guardar) e ⬆️ ⬇️ ordenam. A bandeira vem do código do país; se ainda não houver bandeira, o cartão mostra só o nome.</div>';
+      dnPaises.forEach(function (it, i) { h += dnPaisesItemHtml(it, i); });
+      h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;"' + (dnPaisesNovoAb ? ' open' : '') + ' ontoggle="dnPaisesNovoAb=this.open">' +
+        '<summary style="cursor:pointer;font-weight:700;font-size:13px;padding:6px 0;">➕ NOVO</summary><div style="padding-bottom:10px;">' +
+        dnCampoX('pdPaisNome', 'Nome do país', dnPaisesForm.n, 'dnPaisesForm.n', 'placeholder="ex.: Dinamarca"') +
+        dnCampoX('pdPaisCod', 'Código do país (2 letras)', dnPaisesForm.c, 'dnPaisesForm.c', 'maxlength="7" autocapitalize="off" spellcheck="false" placeholder="ex.: dk" onkeyup="dnPaisesDica(this.value)"') +
+        '<div class="pd-nota" id="pdPaisDica"></div>' +
+        '<button type="button" id="pdPaisAdd" class="pd-btn pd-azul" onclick="dnPaisesAdicionar(this)">➕ Adicionar à lista</button>' +
+        '<div class="pd-nota">Bandeiras que já existem: ' + dnPaisesBandeiras().join(', ') + '. Para outro país, o cartão aparece só com o nome até haver a bandeira.</div>' +
+        '</div></details>';
+      return h + '</div></details>';
+    }
     function dnAbrirRec(i) {
       const u = ((dnRec && dnRec[i] && dnRec[i].link) || '').trim();
       if (/^https?:\/\//i.test(u)) window.open(u, '_blank', 'noopener');
@@ -3948,6 +4113,7 @@
         '<div class="pd-nota">O novo botão entra na lista acima (marcado com 🆕) e vai para o site com «Aplicar neste ecrã» e «Descarregar index.html corrigido».</div>' +
         '</div></details>';
       h += '</div></details>';
+      h += dnPaisesHtml();
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<div class="pd-lbl" style="margin-top:10px;">Origem do número (a que fica a funcionar)</div>' +
@@ -3961,7 +4127,7 @@
         '<input id="pdSubsChave" class="pd-input" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" placeholder="AIza…" value="' + dnEsc(vChave) + '">' +
         '</div>' +
         '<button type="button" class="pd-btn" onclick="dnDataHoje(\'pdSubsData\'); dnDataBanManual = false">📅 Usar a data de hoje</button>' +
-        '<div class="pd-nota">A data só aparece no banner quando a origem é «Manual». Em «Automático» (API) não se mostra data. Ao mudares o número manual, a data passa sozinha para hoje (podes escolher outra no calendário).</div>';
+        '<div class="pd-nota">A data só aparece no banner quando se usa o número manual: origem «Manual» ou, em «Automático», se a API falhar (reserva). Com o número da API não se mostra data. Ao mudares o número manual, a data passa sozinha para hoje (podes escolher outra no calendário).</div>';
       h += '<div class="pd-sec">Data de atualização do site (se necessário)</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
         '<label class="pd-lbl" for="pdSiteData">Data mostrada no menu, no rodapé e no diagnóstico</label>' +
@@ -4039,7 +4205,7 @@
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé e no diagnóstico. A data do banner de subscritores é à parte (YT_SUBS_DATA).
-    let ULTIMA_ATUALIZACAO = '2026-11-14';
+    let ULTIMA_ATUALIZACAO = '2026-11-15';
     // Normalmente false (data automática). Fica true só nas atualizações em que se escreveu uma data à mão na área de controlo.
     let DATA_MANUAL = false;
     /* A data é automática: vem da data de modificação do index.html no servidor (cabeçalho Last-Modified).
@@ -4160,7 +4326,7 @@
     let YT_SUBS_MODO = 'api';
     let YT_SUBS_MANUAL = '1924';
     // Data a que se refere o número acima (AAAA-MM-DD); é independente da data de atualização do site.
-    let YT_SUBS_DATA = '2026-11-14';
+    let YT_SUBS_DATA = '2026-11-15';
 
     const YT_METAS = [100, 250, 500, 1000, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 250000, 500000, 1000000];
     const fmtNum = n => n.toLocaleString('pt-PT');
@@ -4185,10 +4351,10 @@
       const texto = String(valor).trim();
       const n = typeof valor === 'number' ? valor : (/^\d+$/.test(texto) ? parseInt(texto, 10) : null);
       box.hidden = false;
-      // Data de atualização do número (YT_SUBS_DATA, independente da do site): só aparece quando a origem escolhida é «Manual».
-      // Em «Automático» (API) não se mostra data.
+      // Data de atualização do número (YT_SUBS_DATA, independente da do site): aparece só quando se usa o número manual,
+      // seja porque a origem é «Manual» ou porque a API falhou (reserva). Com o número da API não se mostra data.
       const dEl = document.getElementById('ytSubData');
-      const mostraData = manual && YT_SUBS_MODO === 'manual';
+      const mostraData = manual;
       if (dEl && !mostraData) dEl.hidden = true;
       if (dEl && mostraData) {
         const dt = new Date(YT_SUBS_DATA + 'T12:00:00');
@@ -4456,6 +4622,49 @@
       });
     }
     atualizarSeparadores();
+
+    /* ===== Países que já visitei =====
+       Para juntar um país: acrescentar { c: 'código', n: 'Nome' } à lista (a ordem da lista é a ordem no site).
+       A bandeira vem do símbolo #flag-código, no início da página; se não existir, aparece só o nome.
+       Também se gere na Área de controlo (modo 2): acrescentar, ordenar, ocultar (o: 1) e apagar. */
+    let PAISES_VISITADOS = [
+      { c: 'pt', n: 'Portugal' }, { c: 'es', n: 'Espanha' }, { c: 'fr', n: 'França' }, { c: 'be', n: 'Bélgica' },
+      { c: 'nl', n: 'Holanda' }, { c: 'lu', n: 'Luxemburgo' }, { c: 'de', n: 'Alemanha' }, { c: 'dk', n: 'Dinamarca' },
+      { c: 'se', n: 'Suécia' }, { c: 'ch', n: 'Suíça' }, { c: 'it', n: 'Itália' }, { c: 'mt', n: 'Malta' },
+      { c: 'ma', n: 'Marrocos' }, { c: 'mz', n: 'Moçambique' }, { c: 'ao', n: 'Angola' }, { c: 'za', n: 'África do Sul' },
+      { c: 'do', n: 'República Dominicana' }
+    ];
+    function desenharPaises() {
+      const grelha = document.getElementById('paisesGrid');
+      if (!grelha) return;
+      grelha.textContent = '';
+      const visiveis = PAISES_VISITADOS.filter(function (p) { return !p.o; });
+      visiveis.forEach(function (p) {
+        const card = document.createElement('div');
+        card.className = 'pais-card glass-card rounded-2xl p-3 flex flex-col items-center justify-start gap-2 text-center border border-white/10';
+        card.title = p.n;
+        const temBandeira = !!document.getElementById('flag-' + p.c);
+        if (temBandeira) {
+          const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('class', 'pais-bandeira');
+          svg.setAttribute('viewBox', '0 0 24 16');
+          svg.setAttribute('role', 'img');
+          svg.setAttribute('aria-label', 'Bandeira: ' + p.n);
+          const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+          use.setAttribute('href', '#flag-' + p.c);
+          svg.appendChild(use);
+          card.appendChild(svg);
+        }
+        const nome = document.createElement('span');
+        nome.className = 'text-[11px] font-semibold text-slate-200 leading-tight';
+        nome.textContent = p.n;
+        card.appendChild(nome);
+        grelha.appendChild(card);
+      });
+      const sub = document.getElementById('paisesSub');
+      if (sub) sub.textContent = visiveis.length + ' países visitados e a contar';
+    }
+    desenharPaises();
   </script>
   <!-- VER MAIS: mostra os vídeos de 9 em 9 em cada categoria (funciona também para vídeos novos) -->
   <script>
