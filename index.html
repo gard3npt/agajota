@@ -188,6 +188,8 @@
     .menu-apoiar-sub { color: #fde68a; opacity: .9; }
     @media (prefers-reduced-motion: reduce) { .menu-apoiar-coracao { animation: none; } }
     /* Barra de scroll fina e moderna (degradê rosa/roxo do site) */
+    /* Secção oculta pela Área de controlo (SECOES_OCULTAS): desaparece da página, dos filtros e do menu */
+    [data-oculta] { display: none !important; }
     html { scroll-behavior: smooth; background-color: #030712; overflow-y: scroll; } /* overflow-y: barra sempre visível, mesmo em páginas curtas */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -520,13 +522,15 @@
       background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), rgba(244, 63, 94, 0.22), transparent 70%); }
     .yt-sub-card:hover::before { opacity: 1; }
     .yt-sub-main { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem; }
-    .yt-sub-icon { position: relative; flex-shrink: 0; width: 2.75rem; height: 2.75rem; border-radius: .9rem; display: flex; align-items: center; justify-content: center;
+    .yt-sub-icon { position: relative; flex-shrink: 0; width: 3.5rem; height: 3.5rem; border-radius: 1.1rem; display: flex; align-items: center; justify-content: center;
       color: #fff; background: linear-gradient(135deg, #ef4444, #e11d48); box-shadow: 0 8px 24px rgba(239, 68, 68, .35); }
     .yt-sub-icon::after { content: ''; position: absolute; inset: 0; border-radius: inherit; border: 2px solid rgba(244, 63, 94, .7); animation: ytPulso 2.6s ease-out infinite; }
-    .yt-sub-icon svg { width: 1.4rem; height: 1.4rem; }
+    .yt-sub-icon svg { width: 1.8rem; height: 1.8rem; }
     .yt-sub-info { flex: 1 1 11rem; min-width: 0; }
     .yt-sub-title { font-weight: 800; font-size: 1.25rem; color: #fff; line-height: 1.2; margin: 0; }
-    .yt-sub-sub { font-size: .78rem; color: #fca5a5; margin-top: .25rem; }
+    .yt-sub-kicker { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: #f87171; margin: 0 0 .2rem; }
+    .yt-sub-nome { font-weight: 800; font-size: 1.5rem; color: #fff; line-height: 1.2; margin: 0; }
+    .yt-sub-sub { font-size: .92rem; color: #fca5a5; margin-top: .1rem; }
     a.yt-sub-icon { text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
     a.yt-sub-icon:hover { transform: scale(1.06) rotate(-3deg); box-shadow: 0 10px 28px rgba(239, 68, 68, .5); }
     a.yt-sub-icon:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
@@ -551,15 +555,25 @@
     .yt-sub-data[hidden] { display: none; }
     .yt-sub-prog { position: relative; margin-top: .7rem; display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .8rem; }
     .yt-sub-prog[hidden] { display: none; }
+    /* a barra de subscritores fica na mesma linha de «@gard3npt» e começa logo depois do fim dessa palavra */
+    .yt-sub-linha { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .3rem .9rem; margin-top: .1rem; }
+    .yt-sub-linha .yt-sub-sub { margin: 0; flex-shrink: 0; }
+    /* o texto «Faltam N para…» fica na linha de cima e a barra ocupa a largura toda, mais longa */
+    .yt-sub-linha .yt-sub-prog { flex: 1 1 14rem; margin-top: 0; flex-direction: column-reverse; flex-wrap: nowrap; align-items: stretch; gap: .3rem; }
+    .yt-sub-linha .yt-sub-bar { flex: none; width: 100%; }
+    .yt-sub-linha .yt-sub-meta { white-space: normal; text-align: right; } /* a frase termina no mesmo ponto onde acaba a barra */
     .yt-sub-bar { flex: 1 1 9rem; height: .4rem; border-radius: 999px; background: rgba(255, 255, 255, .08); overflow: hidden; }
     .yt-sub-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, #ef4444, #ec4899, #8b5cf6); transition: width 1.6s cubic-bezier(.22, 1, .36, 1); }
     .yt-sub-meta { font-size: .72rem; color: #94a3b8; margin: 0; white-space: nowrap; }
     .yt-sub-meta strong { color: #e2e8f0; }
     @keyframes ytBorda { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
     @keyframes ytPulso { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.65); opacity: 0; } }
+    /* o sino do botão «Subscrever» toca de vez em quando, mesmo sem passar o rato, para chamar a atenção */
+    @keyframes ytSinoPeriodico { 0%, 16%, 100% { transform: rotate(0); } 3% { transform: rotate(18deg); } 6% { transform: rotate(-16deg); } 9% { transform: rotate(10deg); } 12% { transform: rotate(-6deg); } }
+    .yt-sub-cta svg { animation: ytSinoPeriodico 5s ease-in-out 1.5s infinite; }
     @keyframes ytSino { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(18deg); } 40% { transform: rotate(-16deg); } 60% { transform: rotate(10deg); } 80% { transform: rotate(-6deg); } }
     @media (prefers-reduced-motion: reduce) {
-      .yt-sub-wrap, .yt-sub-icon::after, .yt-sub-cta:hover svg { animation: none; }
+      .yt-sub-wrap, .yt-sub-icon::after, .yt-sub-cta svg, .yt-sub-cta:hover svg { animation: none; }
       .yt-sub-bar i, .yt-sub-cta, .yt-sub-cta::after { transition: none; }
     }
   
@@ -632,6 +646,7 @@
     <symbol id="flag-do" viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><rect width="10.8" height="6.8" fill="#002D62"/><rect x="13.2" width="10.8" height="6.8" fill="#CE1126"/><rect y="9.2" width="10.8" height="6.8" fill="#CE1126"/><rect x="13.2" y="9.2" width="10.8" height="6.8" fill="#002D62"/><rect x="10.3" y="6.1" width="3.4" height="3.8" rx=".6" fill="#fff"/><rect x="10.7" y="6.5" width="1.3" height="1.5" fill="#002D62"/><rect x="12" y="6.5" width="1.3" height="1.5" fill="#CE1126"/><rect x="10.7" y="8" width="2.6" height="1.5" fill="#009739"/></symbol>
     <symbol id="flag-dk" viewBox="0 0 24 16"><rect width="24" height="16" fill="#C8102E"/><rect x="7.78" width="2.6" height="16" fill="#fff"/><rect y="6.86" width="24" height="2.29" fill="#fff"/></symbol>
     <symbol id="flag-se" viewBox="0 0 24 16"><rect width="24" height="16" fill="#006AA7"/><rect x="7.5" width="3" height="16" fill="#FECC02"/><rect y="6.4" width="24" height="3.2" fill="#FECC02"/></symbol>
+    <symbol id="flag-cv" viewBox="0 0 24 16"><rect width="24" height="16" fill="#003893"/><rect y="8" width="24" height="1.6" fill="#fff"/><rect y="9.6" width="24" height="1.6" fill="#CF2027"/><rect y="11.2" width="24" height="1.6" fill="#fff"/><g fill="#F7D116"><polygon points="9.00,6.25 9.22,6.89 9.90,6.91 9.36,7.32 9.56,7.97 9.00,7.58 8.44,7.97 8.64,7.32 8.10,6.91 8.78,6.89"/><polygon points="10.88,6.86 11.10,7.50 11.78,7.52 11.24,7.93 11.44,8.58 10.88,8.19 10.32,8.58 10.52,7.93 9.98,7.52 10.66,7.50"/><polygon points="12.04,8.46 12.27,9.10 12.95,9.12 12.40,9.53 12.60,10.18 12.04,9.79 11.48,10.18 11.68,9.53 11.14,9.12 11.82,9.10"/><polygon points="12.04,10.44 12.27,11.08 12.95,11.10 12.40,11.51 12.60,12.16 12.04,11.77 11.48,12.16 11.68,11.51 11.14,11.10 11.82,11.08"/><polygon points="10.88,12.04 11.10,12.68 11.78,12.70 11.24,13.11 11.44,13.76 10.88,13.37 10.32,13.76 10.52,13.11 9.98,12.70 10.66,12.68"/><polygon points="9.00,12.65 9.22,13.29 9.90,13.31 9.36,13.72 9.56,14.37 9.00,13.98 8.44,14.37 8.64,13.72 8.10,13.31 8.78,13.29"/><polygon points="7.12,12.04 7.34,12.68 8.02,12.70 7.48,13.11 7.68,13.76 7.12,13.37 6.56,13.76 6.76,13.11 6.22,12.70 6.90,12.68"/><polygon points="5.96,10.44 6.18,11.08 6.86,11.10 6.32,11.51 6.52,12.16 5.96,11.77 5.40,12.16 5.60,11.51 5.05,11.10 5.73,11.08"/><polygon points="5.96,8.46 6.18,9.10 6.86,9.12 6.32,9.53 6.52,10.18 5.96,9.79 5.40,10.18 5.60,9.53 5.05,9.12 5.73,9.10"/><polygon points="7.12,6.86 7.34,7.50 8.02,7.52 7.48,7.93 7.68,8.58 7.12,8.19 6.56,8.58 6.76,7.93 6.22,7.52 6.90,7.50"/></g></symbol>
   </svg>
 
   <!-- BACKGROUND VIBRANTE COM GLOWS COLORIDOS -->
@@ -1017,13 +1032,32 @@
 
     <!-- 3. ESPAÇO DE VÍDEOS DO YOUTUBE -->
     <section class="section-block my-12" data-category="playlists">
-      <!-- CABEÇALHO + BANNER DE SUBSCRIÇÃO num só cartão (ligação simples ao canal, sem scripts da Google) -->
+      <!-- TÍTULO DA SECÇÃO (fora do banner) -->
+      <div class="flex items-center gap-3 mb-6">
+        <div class="p-2.5 rounded-xl bg-gradient-to-tr from-red-600 to-rose-600 text-white shadow-lg shadow-red-500/30">
+          <svg class="w-5 h-5"><use href="#icon-yt"/></svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-extrabold text-white">Vídeos do YouTube</h2>
+          <p class="text-xs text-red-400">Música, viagens, clássicos e muito mais</p>
+        </div>
+      </div>
+
+      <!-- BANNER DE SUBSCRIÇÃO (continua depois do título; ligação simples ao canal, sem scripts da Google) -->
       <div id="ytSubBanner" class="yt-sub-wrap">
         <div class="yt-sub-card" id="ytSubCard">
           <div class="yt-sub-main">
             <a class="yt-sub-icon" href="https://www.youtube.com/gard3npt" target="_blank" rel="noopener noreferrer" title="Abrir o canal no YouTube" aria-label="Abrir o canal no YouTube"><svg aria-hidden="true"><use href="#icon-yt"/></svg></a>
             <div class="yt-sub-info">
-              <h2 class="yt-sub-title">Vídeos do YouTube</h2>
+              <p class="yt-sub-kicker">Canal do YouTube</p>
+              <p class="yt-sub-nome">Helder Jardim</p>
+              <div class="yt-sub-linha">
+                <p class="yt-sub-sub">@gard3npt</p>
+              <div id="ytSubProg" class="yt-sub-prog" hidden>
+                <div class="yt-sub-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso até à próxima meta de subscritores"><i id="ytSubBar"></i></div>
+                <p id="ytSubMeta" class="yt-sub-meta"></p>
+              </div>
+              </div>
             </div>
             <div id="ytSubNumBox" class="yt-sub-num" hidden>
               <b id="ytSubNum">0</b>
@@ -1034,10 +1068,6 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
               <span>Subscrever</span>
             </a>
-          </div>
-          <div id="ytSubProg" class="yt-sub-prog" hidden>
-            <div class="yt-sub-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso até à próxima meta de subscritores"><i id="ytSubBar"></i></div>
-            <p id="ytSubMeta" class="yt-sub-meta"></p>
           </div>
         </div>
       </div>
@@ -3053,6 +3083,7 @@
       dnAplicarRec(rec);
       dnAplicarTemas();
       dnAplicarPaises();
+      dnAplicarSecoes();
       dnAplicarNovos();
       if (dnDataSiteManual) { ULTIMA_ATUALIZACAO = v.ds; dataForcada = true; } else { ULTIMA_ATUALIZACAO = dataParaIso(new Date()); }
       if (typeof atualizarDataMenu === 'function') atualizarDataMenu();
@@ -3090,6 +3121,8 @@
         src = dnReescreverTemas(src);
         if (src === null) throw 0;
         src = dnReescreverPaises(src);
+        if (src === null) throw 0;
+        src = dnReescreverSecoes(src);
         if (src === null) throw 0;
         src = dnInserirNovos(src, dnNovos);
         if (src === null) throw 0;
@@ -3584,7 +3617,7 @@
         const L = dnTm[t.id];
         const ativos = L.filter(function (x) { return !x.del && !x.ina; }).length + dnNovos.filter(function (n) { return DN_TM_TIPOS[t.id](n.tipo); }).length, inat = L.filter(function (x) { return !x.del && x.ina; }).length;
         h += '<details class="pd-card" style="padding:6px 12px;margin-top:10px;"' + (dnTmAb[t.id] ? ' open' : '') + ' ontoggle="if(event.target===this)dnTmAb.' + t.id + '=this.open">' +
-          '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">' + t.ic + ' ' + dnEsc(t.nome) + ' <small>(' + ativos + (inat ? ' · ' + inat + ' oculto' + (inat > 1 ? 's' : '') : '') + ')</small></summary>' +
+          '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">' + dnSecBtn(t.id, true) + dnSecTitulo(t.id, t.ic + ' ' + dnEsc(t.nome)) + ' <small>(' + ativos + (inat ? ' · ' + inat + ' oculto' + (inat > 1 ? 's' : '') : '') + ')</small></summary>' +
           '<div style="padding-bottom:6px;">';
         if (!L.length) h += '<div class="pd-nota">Sem cartões neste tema.</div>';
         const agrupa = t.id === 'playlists' || t.id === 'social';
@@ -3716,7 +3749,7 @@
       dnPaisesInit();
       const ativos = dnPaises.filter(function (x) { return !x.del && !x.ina; }).length, oc = dnPaises.filter(function (x) { return !x.del && x.ina; }).length;
       let h = '<details class="pd-card" style="padding:6px 12px;margin-top:10px;"' + (dnPaisesAb ? ' open' : '') + ' ontoggle="if(event.target===this)dnPaisesAb=this.open">' +
-        '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🌍 Países que já visitei <small>(' + ativos + (oc ? ' · ' + oc + ' oculto' + (oc > 1 ? 's' : '') : '') + ')</small></summary>' +
+        '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">' + dnSecBtn('paises', true) + dnSecTitulo('paises', '🌍 Países que já visitei') + ' <small>(' + ativos + (oc ? ' · ' + oc + ' oculto' + (oc > 1 ? 's' : '') : '') + ')</small></summary>' +
         '<div style="padding-bottom:6px;">' +
         '<div class="pd-nota">Em cada linha: 👁️ oculta do site (fica guardado), 🗑️ apaga (pode restaurar até guardar) e ⬆️ ⬇️ ordenam. A bandeira vem do código do país; se ainda não houver bandeira, o cartão mostra só o nome.</div>';
       dnPaises.forEach(function (it, i) { h += dnPaisesItemHtml(it, i); });
@@ -3729,6 +3762,50 @@
         '<div class="pd-nota">Bandeiras que já existem: ' + dnPaisesBandeiras().join(', ') + '. Para outro país, o cartão aparece só com o nome até haver a bandeira.</div>' +
         '</div></details>';
       return h + '</div></details>';
+    }
+    /* ===== Ocultar secções inteiras (👁️ em cada secção; fica gravado em SECOES_OCULTAS) ===== */
+    let dnSecOc = null;
+    function dnSecInit() { if (!dnSecOc) dnSecOc = SECOES_OCULTAS.slice(); }
+    function dnSecOculta(id) { dnSecInit(); return dnSecOc.indexOf(id) >= 0; }
+    function dnSecAlternar(id) {
+      dnSecInit();
+      const k = dnSecOc.indexOf(id);
+      if (k >= 0) dnSecOc.splice(k, 1); else dnSecOc.push(id);
+      dnRecRender();
+    }
+    /* botão 👁️ (🙈 quando oculta); flutuante à direita nos cabeçalhos das secções */
+    function dnSecBtn(id, flutuante) {
+      const o = dnSecOculta(id);
+      const b = '<button type="button" class="pd-btn" style="' + DN_MV_BASE + (o ? 'background:#fde68a;' : '') + '" aria-label="' + (o ? 'Mostrar esta secção no site' : 'Ocultar esta secção do site') + '" title="' + (o ? 'Secção oculta: tocar para mostrar' : 'Secção visível: tocar para ocultar') + '" onclick="event.preventDefault();event.stopPropagation();dnSecAlternar(\'' + id + '\')">' + (o ? '🙈' : '👁️') + '</button>';
+      return flutuante ? '<span style="float:right;">' + b + '</span>' : b;
+    }
+    function dnSecTitulo(id, texto) {
+      return dnSecOculta(id) ? '<span style="text-decoration:line-through;opacity:.6;">' + texto + '</span> <small>· oculta</small>' : texto;
+    }
+    /* linha dentro de um cartão: texto + botão (banner de subscritores e «Apoiar o Projeto») */
+    function dnSecLinha(id, texto, nota) {
+      return '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;"><span style="font-size:13px;">' + dnSecTitulo(id, texto) + '</span>' + dnSecBtn(id, false) + '</div>' +
+        (nota ? '<div class="pd-nota">' + nota + '</div>' : '');
+    }
+    function dnApoioHtml() {
+      return '<div class="pd-sec">Apoiar o Projeto</div><div class="pd-card" style="padding:4px 12px 12px;">' +
+        dnSecLinha('apoio', 'Cartão «Apoiar o Projeto» (PayPal)', 'Ao ocultar, desaparecem também o cartão do fundo da página e o botão «Apoiar o projeto» do menu de três linhas.') + '</div>';
+    }
+    function dnAplicarSecoes() {
+      dnSecInit();
+      SECOES_OCULTAS = SECOES_SITE.map(function (d) { return d.id; }).filter(function (id) { return dnSecOc.indexOf(id) >= 0; });
+      aplicarSecoesOcultas();
+      const ativo = document.querySelector('.tag-btn.active');
+      if (ativo && ativo.hasAttribute('data-oculta')) { const t = document.querySelector('.tag-btn'); if (t) filtrarTag(t, 'all'); }
+      atualizarSeparadores();
+    }
+    function dnReescreverSecoes(src) {
+      dnSecInit();
+      const re = /^([ \t]*)let\s+SECOES_OCULTAS\s*=\s*\[[^\]]*\];/m;
+      if (!re.test(src)) { dnTmErro = 'Não encontrei a lista de secções ocultas no ficheiro'; return null; }
+      const ids = SECOES_SITE.map(function (d) { return d.id; }).filter(function (id) { return dnSecOc.indexOf(id) >= 0; });
+      const lista = '[' + ids.map(function (id) { return "'" + id + "'"; }).join(', ') + ']';
+      return src.replace(re, function (m, ind) { return ind + 'let SECOES_OCULTAS = ' + lista + ';'; });
     }
     function dnAbrirRec(i) {
       const u = ((dnRec && dnRec[i] && dnRec[i].link) || '').trim();
@@ -4079,7 +4156,7 @@
       h += dnTmHtml();
       dnRecInit();
       h += '<details class="pd-card" style="padding:6px 12px;margin-top:22px;"' + (dnRecSecAberta ? ' open' : '') + ' ontoggle="if(event.target===this)dnRecSecAberta=this.open">' +
-        '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">🎁 Reembolso Parcial &amp; Recompensas <small>(' + dnRec.filter(function (x) { return !x.del; }).length + ')</small></summary>' +
+        '<summary style="cursor:pointer;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding:8px 0;">' + dnSecBtn('cashback', true) + dnSecTitulo('cashback', '🎁 Reembolso Parcial &amp; Recompensas') + ' <small>(' + dnRec.filter(function (x) { return !x.del; }).length + ')</small></summary>' +
         '<div style="padding-bottom:6px;">';
       dnRec.forEach(function (it, i) {
         h += '<details class="pd-card" style="padding:6px 12px;margin-top:8px;' + (it.del ? 'opacity:.55;' : '') + (it === dnMovUlt ? 'outline:2px solid #3b82f6;' : '') + '"' + (it.ab ? ' open' : '') + ' ontoggle="dnRec[' + i + '].ab=this.open">' +
@@ -4114,8 +4191,10 @@
         '</div></details>';
       h += '</div></details>';
       h += dnPaisesHtml();
+      h += dnApoioHtml();
       h += '<div class="pd-sec">Banner de subscritores do YouTube</div>' +
         '<div class="pd-card" style="padding:4px 12px 12px;">' +
+        dnSecLinha('subs', 'Mostrar o banner no site', 'Esconde o cartão do canal e dos subscritores no topo de «Vídeos do YouTube»; o resto da secção fica.') +
         '<div class="pd-lbl" style="margin-top:10px;">Origem do número (a que fica a funcionar)</div>' +
         '<label style="display:flex;gap:8px;align-items:flex-start;margin-top:6px;font-size:13px;cursor:pointer;"><input type="radio" name="pdSubsModo" value="manual"' + (vModo === 'manual' ? ' checked' : '') + ' style="margin-top:3px;"><span><strong>Manual</strong>: mostra o número escrito aqui em baixo</span></label>' +
         '<label style="display:flex;gap:8px;align-items:flex-start;margin-top:6px;font-size:13px;cursor:pointer;"><input type="radio" name="pdSubsModo" value="api"' + (vModo === 'api' ? ' checked' : '') + ' style="margin-top:3px;"><span><strong>Automático</strong>: vem do YouTube com a chave da API (se falhar, mostra o número manual)</span></label>' +
@@ -4607,6 +4686,48 @@
     }
 
     // Linha fina entre temas: no topo de todas as secções visíveis, incluindo a primeira (separa-a do título e dos filtros); Sites e Blogs contam como um grupo
+    /* ===== Secções ocultas =====
+       Lista das secções escondidas do site (a Área de controlo, modo 2, liga e desliga cada uma com o 👁️).
+       Ids possíveis: video, social, subs (banner de subscritores), playlists, project, blog, cashback, paises, apoio.
+       Uma secção oculta mantém o conteúdo no ficheiro; só deixa de aparecer na página, nos filtros e no menu. */
+    let SECOES_OCULTAS = [];
+    const SECOES_SITE = [
+      { id: 'video', nome: 'Vídeos em Destaque', sel: '.section-block[data-category="video"]', filtro: 'video', menu: 'video' },
+      { id: 'social', nome: 'Redes Sociais & Comunidade', sel: '.section-block[data-category="social"]', filtro: 'social', menu: 'social' },
+      { id: 'subs', nome: 'Banner de subscritores do YouTube', sel: '#ytSubBanner' },
+      { id: 'playlists', nome: 'Vídeos do YouTube', sel: '.section-block[data-category="playlists"]', filtro: 'playlists', menu: 'playlists' },
+      { id: 'project', nome: 'Sites & Ferramentas Web', sel: '.section-block[data-category="project"]', filtro: 'project', menu: 'project' },
+      { id: 'blog', nome: 'Blogs & Artigos', sel: '.section-block[data-category="blog"]', filtro: 'blog', menu: 'blog' },
+      { id: 'cashback', nome: 'Reembolso Parcial & Recompensas', sel: '.section-block[data-category="cashback"]', filtro: 'cashback', menu: 'cashback' },
+      { id: 'paises', nome: 'Países que já visitei', sel: '.section-block[data-category="paises"]', filtro: 'paises', menu: 'paises' },
+      { id: 'apoio', nome: 'Apoiar o Projeto', sel: '#apoio', apoio: true }
+    ];
+    function aplicarSecoesOcultas() {
+      function marcar(el, oculta) { if (!el) return; if (oculta) el.setAttribute('data-oculta', '1'); else el.removeAttribute('data-oculta'); }
+      SECOES_SITE.forEach(function (d) {
+        const oculta = SECOES_OCULTAS.indexOf(d.id) >= 0;
+        const el = document.querySelector(d.sel);
+        marcar(el, oculta);
+        if (el && oculta) el.classList.remove('sep-top');
+        if (d.filtro) document.querySelectorAll('.tag-btn').forEach(function (b) { if ((b.getAttribute('onclick') || '').indexOf("'" + d.filtro + "'") >= 0) marcar(b, oculta); });
+        if (d.menu) document.querySelectorAll('#menuPrincipal [onclick]').forEach(function (b) { if ((b.getAttribute('onclick') || '').indexOf("irParaTema('" + d.menu + "')") >= 0) marcar(b, oculta); });
+        if (d.apoio) {
+          const a = document.querySelector('#menuPrincipal .menu-apoiar');
+          marcar(a, oculta);
+          const sep = a && a.nextElementSibling;
+          if (sep && sep.getAttribute('role') === 'separator') marcar(sep, oculta);
+        }
+      });
+      /* Sites e Blogs formam um grupo: com os dois ocultos esconde-se o grupo; com um só, o outro ocupa a largura toda */
+      const grelha = document.getElementById('sitesBlogsGrid');
+      if (grelha) {
+        const p = SECOES_OCULTAS.indexOf('project') >= 0, b = SECOES_OCULTAS.indexOf('blog') >= 0;
+        marcar(grelha, p && b);
+        if (p && b) grelha.classList.remove('sep-top');
+        const todos = !!document.querySelector('.tag-btn.active[onclick*="\'all\'"]');
+        grelha.classList.toggle('md:grid-cols-2', todos && p === b);
+      }
+    }
     function atualizarSeparadores() {
       const itens = [];
       document.querySelectorAll('.section-block').forEach(b => {
@@ -4620,6 +4741,7 @@
           : it.style.display !== 'none';
         if (visivel) it.classList.add('sep-top');
       });
+      aplicarSecoesOcultas();
     }
     atualizarSeparadores();
 
@@ -4628,11 +4750,11 @@
        A bandeira vem do símbolo #flag-código, no início da página; se não existir, aparece só o nome.
        Também se gere na Área de controlo (modo 2): acrescentar, ordenar, ocultar (o: 1) e apagar. */
     let PAISES_VISITADOS = [
-      { c: 'pt', n: 'Portugal' }, { c: 'es', n: 'Espanha' }, { c: 'mt', n: 'Malta' }, { c: 'it', n: 'Itália' },
-      { c: 'de', n: 'Alemanha' }, { c: 'lu', n: 'Luxemburgo' }, { c: 'fr', n: 'França' }, { c: 'be', n: 'Bélgica' },
-      { c: 'ch', n: 'Suíça' }, { c: 'mz', n: 'Moçambique' }, { c: 'za', n: 'África do Sul' }, { c: 'nl', n: 'Holanda' },
-      { c: 'ao', n: 'Angola' }, { c: 'dk', n: 'Dinamarca' }, { c: 'se', n: 'Suécia' }, { c: 'do', n: 'República Dominicana' },
-      { c: 'ma', n: 'Marrocos' }
+      { c: 'pt', n: 'Portugal' }, { c: 'es', n: 'Espanha' }, { c: 'fr', n: 'França' }, { c: 'be', n: 'Bélgica' },
+      { c: 'nl', n: 'Holanda' }, { c: 'lu', n: 'Luxemburgo' }, { c: 'de', n: 'Alemanha' }, { c: 'dk', n: 'Dinamarca' },
+      { c: 'se', n: 'Suécia' }, { c: 'ch', n: 'Suíça' }, { c: 'it', n: 'Itália' }, { c: 'mt', n: 'Malta' },
+      { c: 'ma', n: 'Marrocos' }, { c: 'mz', n: 'Moçambique' }, { c: 'ao', n: 'Angola' }, { c: 'cv', n: 'Cabo Verde' },
+      { c: 'za', n: 'África do Sul' }, { c: 'do', n: 'República Dominicana' }
     ];
     function desenharPaises() {
       const grelha = document.getElementById('paisesGrid');
@@ -4895,7 +5017,7 @@
           if (iw) iw.hidden = (typeof appJaInstalada === 'function' && appJaInstalada());
           menu.classList.remove('hidden');
           btn.setAttribute('aria-expanded', 'true');
-          var primeiro = menu.querySelector('[role="menuitem"]');
+          var primeiro = Array.prototype.slice.call(menu.querySelectorAll('[role="menuitem"]')).filter(function (x) { return x.offsetParent !== null; })[0];
           if (primeiro) primeiro.focus();
         } else {
           window.fecharMenuPrincipal();
