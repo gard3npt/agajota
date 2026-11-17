@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-PT" class="dark">
 
-<head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -142,11 +142,16 @@
   <meta name="google-adsense-account" content="ca-pub-4094039418988922">
   <link rel="canonical" href="https://gard3npt.github.io/agajota/">
   <meta property="og:url" content="https://gard3npt.github.io/agajota/">
-  <meta property="og:image" content="https://gard3npt.github.io/agajota/favicon2.png">
+  <meta property="og:image" content="https://gard3npt.github.io/agajota/og-image.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="1200">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:image" content="https://gard3npt.github.io/agajota/favicon2.png">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="AGAJOTA – O espaço digital de Hélder Jardim">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AGAJOTA">
+  <meta name="twitter:description" content="O espaço digital de Hélder Jardim @gard3npt">
+  <meta name="twitter:image" content="https://gard3npt.github.io/agajota/og-image.png">
+  <meta name="twitter:image:alt" content="AGAJOTA – O espaço digital de Hélder Jardim">
 
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='1' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%23ec4899'/%3E%3Cstop offset='0.5' stop-color='%23a855f7'/%3E%3Cstop offset='1' stop-color='%236366f1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='32' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='32' r='28' fill='%230f172a'/%3E%3Ctext x='32' y='42' font-size='27' font-weight='800' font-family='Montserrat,Arial,sans-serif' text-anchor='middle' fill='white'%3EHJ%3C/text%3E%3C/svg%3E">
@@ -925,12 +930,6 @@
         <button onclick="filtrarTag(this, 'blog')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-amber-500 to-orange-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-brand"/></svg></span>Blogs</button>
         <button onclick="filtrarTag(this, 'cashback')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-yellow-500 to-amber-500 text-slate-950"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-heart"/></svg></span>Reembolso</button>
         <button onclick="filtrarTag(this, 'paises')" class="tag-btn inline-flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 font-medium hover:bg-slate-700 transition-all whitespace-nowrap"><span class="tag-ico shrink-0 p-[3px] rounded-md bg-gradient-to-tr from-cyan-500 to-sky-500 text-white"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#icon-globe"/></svg></span>Países</button>
-      </div>
-      <div id="filtroLinkWrap" class="hidden justify-center mt-3">
-        <button type="button" id="filtroLinkBtn" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 text-slate-300 text-xs font-medium border border-white/10 hover:bg-slate-700 hover:text-white transition-all">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          <span>Copiar link deste filtro</span>
-        </button>
       </div>
     </section>
 
@@ -1973,7 +1972,7 @@
           </div>
           <div>
             <h2 class="text-xl font-extrabold text-white">Sites & Ferramentas Web</h2>
-            <p class="text-xs text-emerald-300">Projetos originais desenvolvidos de raiz</p>
+            <p class="text-xs text-emerald-300">Projetos originais desenvolvidos de raiz <span class="ml-1 inline-block align-middle text-[10px] font-semibold leading-none px-1.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Criado por mim</span></p>
           </div>
         </div>
 
@@ -1984,10 +1983,7 @@
                 <img src="https://gard3npt.github.io/simuladorjuros/favicon.png" alt="" width="28" height="28" class="w-7 h-7 object-contain rounded-md" loading="lazy" decoding="async" onerror="iconeAlternativo(this, 'icon-trend')">
               </div>
               <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h3 class="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">Simulador de Juros</h3>
-                  <span class="shrink-0 text-[10px] font-semibold leading-none px-1.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Criado por mim</span>
-                </div>
+                <h3 class="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">Simulador de Juros</h3>
                 <p class="text-[11px] text-slate-400">Calcula juros compostos e TANB, de forma rápida e intuitiva</p>
               </div>
             </div>
@@ -2000,10 +1996,7 @@
                 <img src="https://gard3npt.github.io/caricas_metalicas/favicon.png" alt="" width="28" height="28" class="w-7 h-7 object-contain rounded-md" loading="lazy" decoding="async" onerror="iconeAlternativo(this, 'icon-cap')">
               </div>
               <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h3 class="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Caricas Metálicas</h3>
-                  <span class="shrink-0 text-[10px] font-semibold leading-none px-1.5 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">Criado por mim</span>
-                </div>
+                <h3 class="text-sm font-bold text-white group-hover:text-blue-300 transition-colors">Caricas Metálicas</h3>
                 <p class="text-[11px] text-slate-400">A minha coleção de caricas, em galeria numerada</p>
               </div>
             </div>
@@ -2016,11 +2009,8 @@
                 <img src="https://gard3npt.github.io/sc/favicon.png" alt="" width="28" height="28" class="w-7 h-7 object-contain rounded-md" loading="lazy" decoding="async" onerror="iconeAlternativo(this, 'icon-flask')">
               </div>
               <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h3 class="text-sm font-bold text-white group-hover:text-purple-300 transition-colors">SC Lab</h3>
-                  <span class="shrink-0 text-[10px] font-semibold leading-none px-1.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">Criado por mim</span>
-                </div>
-                <p class="text-[11px] text-slate-400">Hub com links úteis e várias calculadoras especificas</p>
+                <h3 class="text-sm font-bold text-white group-hover:text-purple-300 transition-colors">SC Lab</h3>
+                <p class="text-[11px] text-slate-400">Hub com calculadoras e links úteis para o local de trabalho</p>
               </div>
             </div>
             <span class="text-xs font-bold text-purple-400 group-hover:translate-x-1 transition-transform">Abrir →</span>
@@ -2061,7 +2051,7 @@
               </div>
               <div>
                 <h3 class="text-sm font-bold text-white group-hover:text-amber-300 transition-colors">@caricas_metalicas</h3>
-                <p class="text-[11px] text-slate-400">Imagens de Colecionismo de caricas metalicas</p>
+                <p class="text-[11px] text-slate-400">Colecionismo e notas de caricas</p>
               </div>
             </div>
             <span class="text-xs font-bold text-amber-400 group-hover:translate-x-1 transition-transform">Ler Blog →</span>
@@ -2074,7 +2064,7 @@
               </div>
               <div>
                 <h3 class="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">Calculadora TANB</h3>
-                <p class="text-[11px] text-slate-400">Calculadora de Juros bancários TANB</p>
+                <p class="text-[11px] text-slate-400">Análise de taxas e finanças bancárias</p>
               </div>
             </div>
             <span class="text-xs font-bold text-cyan-400 group-hover:translate-x-1 transition-transform">Ler Blog →</span>
@@ -4376,7 +4366,7 @@
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé e no diagnóstico. A data do banner de subscritores é à parte (YT_SUBS_DATA).
-    let ULTIMA_ATUALIZACAO = '2026-11-16';
+    let ULTIMA_ATUALIZACAO = '2026-11-15';
     // Normalmente false (data automática). Fica true só nas atualizações em que se escreveu uma data à mão na área de controlo.
     let DATA_MANUAL = false;
     /* A data é automática: vem da data de modificação do index.html no servidor (cabeçalho Last-Modified).
@@ -4497,7 +4487,7 @@
     let YT_SUBS_MODO = 'api';
     let YT_SUBS_MANUAL = '1924';
     // Data a que se refere o número acima (AAAA-MM-DD); é independente da data de atualização do site.
-    let YT_SUBS_DATA = '2026-11-16';
+    let YT_SUBS_DATA = '2026-11-15';
 
     const fmtNum = n => n.toLocaleString('pt-PT');
     const semAnimacoes = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -4811,7 +4801,7 @@
       const grid = document.getElementById('sitesBlogsGrid');
       if (grid) grid.classList.toggle('md:grid-cols-2', category === 'all');
       if (category === 'paises' && typeof abrirPaises === 'function') abrirPaises(true);
-      if (typeof atualizarChipLink === 'function') atualizarChipLink(category);
+      if (typeof atualizarEnderecoFiltro === 'function') atualizarEnderecoFiltro(category);
       atualizarSeparadores();
     }
 
@@ -4897,11 +4887,11 @@
        A bandeira vem do símbolo #flag-código, no início da página; se não existir, aparece só o nome.
        Também se gere na Área de controlo (modo 2): acrescentar, ordenar, ocultar (o: 1) e apagar. */
     let PAISES_VISITADOS = [
-      { c: 'pt', n: 'Portugal' }, { c: 'es', n: 'Espanha' }, { c: 'mt', n: 'Malta' }, { c: 'it', n: 'Itália' },
-      { c: 'de', n: 'Alemanha' }, { c: 'lu', n: 'Luxemburgo' }, { c: 'be', n: 'Bélgica' }, { c: 'fr', n: 'França' },
-      { c: 'ch', n: 'Suíça' }, { c: 'mz', n: 'Moçambique' }, { c: 'za', n: 'África do Sul' }, { c: 'ao', n: 'Angola' },
-      { c: 'cv', n: 'Cabo Verde' }, { c: 'nl', n: 'Holanda' }, { c: 'dk', n: 'Dinamarca' }, { c: 'se', n: 'Suécia' },
-      { c: 'do', n: 'República Dominicana' }, { c: 'ma', n: 'Marrocos' }
+      { c: 'pt', n: 'Portugal' }, { c: 'es', n: 'Espanha' }, { c: 'fr', n: 'França' }, { c: 'be', n: 'Bélgica' },
+      { c: 'nl', n: 'Holanda' }, { c: 'lu', n: 'Luxemburgo' }, { c: 'de', n: 'Alemanha' }, { c: 'dk', n: 'Dinamarca' },
+      { c: 'se', n: 'Suécia' }, { c: 'ch', n: 'Suíça' }, { c: 'it', n: 'Itália' }, { c: 'mt', n: 'Malta' },
+      { c: 'ma', n: 'Marrocos' }, { c: 'mz', n: 'Moçambique' }, { c: 'ao', n: 'Angola' }, { c: 'cv', n: 'Cabo Verde' },
+      { c: 'za', n: 'África do Sul' }, { c: 'do', n: 'República Dominicana' }
     ];
     // A secção começa minimizada: o cartão de cada país só é criado quando a secção é aberta (a página carrega menos)
     let paisesAberto = false;
@@ -4924,9 +4914,14 @@
       if (!paisesAberto) return;
       visiveis.forEach(function (p) {
         const nasci = p.c === 'pt';
-        const card = document.createElement('div');
-        card.className = 'pais-card glass-card rounded-2xl p-3 flex flex-col items-center justify-start gap-2 text-center border border-white/10' + (nasci ? ' pais-nasci' : '');
-        card.title = nasci ? p.n + ' · onde nasci' : p.n;
+        // cada cartão é um link para o país no Google Maps (abre num separador novo)
+        const card = document.createElement('a');
+        card.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(p.n);
+        card.target = '_blank';
+        card.rel = 'noopener noreferrer';
+        card.className = 'pais-card glass-card rounded-2xl p-3 flex flex-col items-center justify-start gap-2 text-center border border-white/10 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-cyan-400' + (nasci ? ' pais-nasci' : '');
+        card.title = (nasci ? p.n + ' · onde nasci' : p.n) + ' · ver no Google Maps';
+        card.setAttribute('aria-label', p.n + ': ver no Google Maps');
         const temBandeira = !!document.getElementById('flag-' + p.c);
         if (temBandeira) {
           const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -5233,10 +5228,12 @@
       if (menuBtn) menuBtn.addEventListener('click', window.prepararImagemPartilha, { once: true });
       window.partilharSite = function (e) {
         if (e) e.stopPropagation();
-        var dados = { title: 'AGAJOTA', text: 'O espaço digital de Hélder Jardim @gard3npt', url: URL_SITE };
+        // se houver um filtro escolhido (ex.: Países), o link partilhado leva a esse filtro; caso contrário, ao início do site
+        var link = URL_SITE + (/^#f=[a-z]+$/.test(location.hash) ? location.hash : '');
+        var dados = { title: 'AGAJOTA', text: 'O espaço digital de Hélder Jardim @gard3npt', url: link };
         if (navigator.share) {
           // Com imagem, o link vai dentro do texto (muitas aplicações ignoram o campo «url» quando há ficheiros)
-          var comImagem = ficheiroImg ? { title: dados.title, text: dados.text + '\n' + URL_SITE, files: [ficheiroImg] } : null;
+          var comImagem = ficheiroImg ? { title: dados.title, text: dados.text + '\n' + link, files: [ficheiroImg] } : null;
           navigator.share(comImagem || dados).then(function () {
             if (typeof fecharMenuPrincipal === 'function') fecharMenuPrincipal();
           }).catch(function (err) {
@@ -5246,16 +5243,16 @@
           return;
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(URL_SITE).then(function () { aviso('✓ Link copiado'); },
-            function () { aviso(copiarFallback(URL_SITE) ? '✓ Link copiado' : URL_SITE); });
+          navigator.clipboard.writeText(link).then(function () { aviso('✓ Link copiado'); },
+            function () { aviso(copiarFallback(link) ? '✓ Link copiado' : link); });
         } else {
-          aviso(copiarFallback(URL_SITE) ? '✓ Link copiado' : URL_SITE);
+          aviso(copiarFallback(link) ? '✓ Link copiado' : link);
         }
       };
     })();
   </script>
-  <!-- LINKS DIRETOS PARA SECÇÕES E FILTROS: #s=tema (vai à secção) e #f=tema (aplica o filtro). Depois de abrir, o endereço volta ao normal,
-       por isso o site não "guarda" o sítio: quem o abrir de novo ou o puser nos favoritos começa pelo início. -->
+  <!-- LINKS DIRETOS PARA FILTROS: ao escolher um filtro o endereço do browser passa a ter #f=tema (copiar/partilhar pelo browser);
+       quem abre esse link vê o filtro aplicado. Com «Todos» o endereço volta ao normal, e o site não guarda o sítio. -->
   <script>
     (function () {
       var URL_SITE = 'https://gard3npt.github.io/agajota/';
@@ -5268,56 +5265,13 @@
         return !!sec && !sec.hasAttribute('data-oculta');
       }
 
-      /* aviso curto no fundo do ecrã */
-      var tt;
-      function aviso(texto) {
-        var el = document.getElementById('avisoLink');
-        if (!el) {
-          el = document.createElement('div');
-          el.id = 'avisoLink';
-          el.setAttribute('role', 'status');
-          el.style.cssText = 'position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);z-index:90;padding:.55rem 1rem;border-radius:999px;font-size:.8rem;font-weight:700;color:#fff;background:rgba(15,23,42,.95);border:1px solid rgba(255,255,255,.18);box-shadow:0 8px 24px rgba(0,0,0,.45);transition:opacity .2s;opacity:0;pointer-events:none;';
-          document.body.appendChild(el);
-        }
-        el.textContent = texto;
-        el.style.opacity = '1';
-        clearTimeout(tt);
-        tt = setTimeout(function () { el.style.opacity = '0'; }, 2000);
-      }
-
-      function copiarFallback(texto) {
-        var ta = document.createElement('textarea');
-        ta.value = texto; ta.setAttribute('readonly', '');
-        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
-        document.body.appendChild(ta); ta.select();
-        var ok = false;
-        try { ok = document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
-        return ok;
-      }
-
-      function copiarLink(url) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(url).then(function () { aviso('✓ Link copiado'); },
-            function () { aviso(copiarFallback(url) ? '✓ Link copiado' : url); });
-        } else {
-          aviso(copiarFallback(url) ? '✓ Link copiado' : url);
-        }
-      }
-
-      /* botão «Copiar link deste filtro»: só aparece com um filtro escolhido */
-      window.atualizarChipLink = function (cat) {
-        filtroAtual = cat;
-        var w = document.getElementById('filtroLinkWrap');
-        if (!w) return;
-        var mostra = cat !== 'all' && TEMAS.indexOf(cat) >= 0;
-        w.classList.toggle('hidden', !mostra);
-        w.classList.toggle('flex', mostra);
+      /* o endereço do browser acompanha o filtro escolhido (#f=tema), para se poder copiar/partilhar a partir do browser;
+         com «Todos» o endereço volta ao normal */
+      window.atualizarEnderecoFiltro = function (cat) {
+        var novo = TEMAS.indexOf(cat) >= 0 ? '#f=' + cat : '';
+        if (!novo && !/^#f=/.test(location.hash)) return;
+        try { history.replaceState(null, '', location.pathname + location.search + novo); } catch (e) {}
       };
-      var chip = document.getElementById('filtroLinkBtn');
-      if (chip) chip.addEventListener('click', function () {
-        if (TEMAS.indexOf(filtroAtual) >= 0) copiarLink(URL_SITE + '#f=' + filtroAtual);
-      });
 
       /* abrir através do link recebido */
       function abrirDoEndereco() {
@@ -5325,7 +5279,7 @@
         if (!m) return;
         var tipo = m[1], cat = m[2];
         if (!temaValido(cat)) return;
-        try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+        if (tipo === 's') { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
         if (tipo === 'f') {
           var btn = Array.prototype.find.call(document.querySelectorAll('.tag-btn'), function (b) {
             return (b.getAttribute('onclick') || '').indexOf("'" + cat + "'") >= 0;
