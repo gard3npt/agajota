@@ -712,7 +712,7 @@
         <button type="button" id="menuBtn" aria-haspopup="menu" aria-expanded="false" aria-controls="menuPrincipal" aria-label="Menu" title="Menu" class="flex items-center justify-center w-9 h-8 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all" onclick="alternarMenuPrincipal(event)">
           <svg class="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
-        <div id="menuPrincipal" role="menu" aria-label="Menu" class="hidden absolute left-0 top-full mt-3 w-64 max-h-[78vh] overflow-y-auto p-1.5 rounded-2xl glass-modal border border-white/15 shadow-2xl z-50">
+        <div id="menuPrincipal" role="menu" aria-label="Menu" class="hidden absolute left-0 top-full mt-3 w-72 max-w-[calc(100vw-24px)] max-h-[78vh] overflow-y-auto p-1.5 rounded-2xl glass-modal border border-white/15 shadow-2xl z-50">
           <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="irParaTema('video')">
             <span class="shrink-0 p-1 rounded-lg bg-gradient-to-tr from-red-600 to-rose-600 text-white"><svg class="w-4 h-4" aria-hidden="true"><use href="#icon-video"/></svg></span>
             <span>Vídeos em Destaque</span>
@@ -758,10 +758,7 @@
             <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             <span>Contacto</span>
           </button>
-          <button type="button" id="btnPartilhar" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="partilharSite(event)">
-            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
-            <span id="btnPartilharTxt">Partilhar</span>
-          </button>
+          <div class="my-1.5 border-t border-white/10" role="separator"></div>
           <div id="menuInstalarWrap">
             <button type="button" id="btnInstalar" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="estadoAppDoSobre(event)">
               <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
@@ -769,8 +766,23 @@
             </button>
             <div id="ajudaInstalar" role="status" aria-live="polite" hidden class="mt-1 mx-1 mb-1 text-xs text-slate-300 bg-white/5 border border-white/10 rounded-xl p-3"></div>
           </div>
-          <div class="my-1.5 border-t border-white/10"></div>
-          <button type="button" role="menuitem" id="menuUpd" onclick="triploClique(this, function () { fecharMenuPrincipal(); abrirPainelDono(); }, event)" class="w-full px-3 py-1.5 rounded-xl text-xs text-center text-slate-400 cursor-default outline-none focus-visible:bg-white/10" style="user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent"></button>
+          <button type="button" id="btnPartilhar" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="partilharSite(event)">
+            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>
+            <span id="btnPartilharTxt">Partilhar o site</span>
+          </button>
+          <button type="button" role="menuitem" class="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold text-slate-200 hover:bg-white/10 focus-visible:bg-white/10 outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); atualizarApp()">
+            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px] text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+            <span>Atualizar<span class="hidden md:inline text-slate-400 font-medium"> (F5)</span></span>
+          </button>
+          <div class="my-1.5 border-t border-white/10" role="separator"></div>
+          <button type="button" role="menuitem" class="menu-logout w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-extrabold text-red-200 bg-red-500/15 border border-red-400/50 hover:bg-red-500/30 hover:text-white outline-none text-left transition-colors" onclick="fecharMenuPrincipal(); sairDaApp()">
+            <svg class="w-[18px] h-[18px] shrink-0 mx-[3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg>
+            <span>Logout</span>
+          </button>
+          <div class="mt-2 px-3 pt-2 pb-1 border-t border-white/10 text-[11px] leading-snug text-slate-400 whitespace-nowrap">
+            <div>Desenvolvido por: Helder Jardim Fernandes</div>
+          <button type="button" id="menuUpd" onclick="triploClique(this, function () { fecharMenuPrincipal(); abrirPainelDono(); }, event)" class="block w-full p-0 text-left text-[11px] leading-snug text-slate-400 whitespace-nowrap cursor-default outline-none focus-visible:text-white" style="user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent"></button>
+          </div>
         </div>
       </div>
 
@@ -4379,7 +4391,7 @@
 
     // Data da última atualização (AAAA-MM-DD): alterar sempre que publicares uma nova versão.
     // É usada no rodapé e no diagnóstico. A data do banner de subscritores é à parte (YT_SUBS_DATA).
-    let ULTIMA_ATUALIZACAO = '2026-11-15';
+    let ULTIMA_ATUALIZACAO = '2026-11-22';
     // Normalmente false (data automática). Fica true só nas atualizações em que se escreveu uma data à mão na área de controlo.
     let DATA_MANUAL = false;
     /* A data é automática: vem da data de modificação do index.html no servidor (cabeçalho Last-Modified).
@@ -5312,6 +5324,43 @@
     })();
   </script>
 
+
+  <!-- Logout: ecrã mostrado quando o navegador não deixa fechar a janela -->
+  <div id="saidaApp" role="dialog" aria-modal="true" aria-labelledby="saidaTitulo" translate="no" class="notranslate hidden fixed inset-0 z-[9999] items-center justify-center p-6 bg-slate-950">
+    <div class="w-full max-w-sm text-center">
+      <h2 id="saidaTitulo" class="text-2xl font-extrabold text-white mb-2">Sessão terminada</h2>
+      <p class="text-slate-300 mb-6 leading-relaxed">O navegador não permite que esta página se feche sozinha. Já pode fechar esta janela ou a app.</p>
+      <a href="https://gard3npt.github.io/" class="block w-full py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold">Abrir a página inicial</a>
+      <button type="button" id="saidaVoltar" class="block w-full mt-3 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold" onclick="fecharSaidaApp()">Voltar ao site</button>
+    </div>
+  </div>
+  <script>
+    /* Menu: «Atualizar (F5)» e «Logout» */
+    (function () {
+      window.atualizarApp = function () {
+        var recarregar = function () { location.reload(); };
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistration().then(function (r) { return r ? r.update() : null; }).then(recarregar, recarregar);
+        } else { recarregar(); }
+      };
+      window.fecharSaidaApp = function () {
+        var el = document.getElementById('saidaApp');
+        if (el) { el.classList.add('hidden'); el.classList.remove('flex'); }
+      };
+      /* tenta fechar a janela/app; se o navegador não deixar, mostra o ecrã de despedida */
+      window.sairDaApp = function () {
+        try { window.close(); } catch (e) {}
+        try { window.open('', '_self'); window.close(); } catch (e) {}
+        setTimeout(function () {
+          var el = document.getElementById('saidaApp');
+          if (!el) return;
+          el.classList.remove('hidden'); el.classList.add('flex');
+          var b = document.getElementById('saidaVoltar'); if (b) b.focus();
+        }, 300);
+      };
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') window.fecharSaidaApp(); });
+    })();
+  </script>
 </body>
 
 </html>
