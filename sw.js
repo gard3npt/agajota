@@ -1,15 +1,15 @@
 /* AGAJOTA – service worker
    - Páginas (index.html): rede primeiro, para veres sempre a versão mais recente; sem ligação usa a cópia guardada.
-   - Ícones e ficheiros da app: cache primeiro.
+   - Ícones e ficheiros da app: mostra a cópia guardada e atualiza-a em segundo plano (não é preciso mexer neste ficheiro).
    - Tailwind e tipos de letra (outros domínios): usa a cópia guardada e atualiza em segundo plano.
    - Tudo o resto (YouTube, anúncios, tradutor…) passa direto, sem ser guardado.
-   Quando mudares ficheiros da app, sobe o número da VERSAO para limpar caches antigas. */
-const VERSAO = 'v1';
+   Basta substituir o index.html no site: a página atualiza sozinha. */
+const VERSAO = 'v2';
 const CACHE_APP = 'agajota-app-' + VERSAO;
 const CACHE_EXTRA = 'agajota-extra-' + VERSAO;
 const FICHEIROS_APP = [
   './', 'index.html', 'manifest.webmanifest',
-  'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png', 'favicon.png'
+  'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png', 'icons/favicon.png', 'icons/favicon2.png'
 ];
 const DOMINIOS_EXTRA = ['cdn.tailwindcss.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
 
@@ -42,7 +42,7 @@ self.addEventListener('fetch', function (e) {
   // Páginas: rede primeiro
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req)
+      fetch(req.url, { cache: 'no-cache' })
         .then(function (r) {
           if (r && r.ok && url.origin === location.origin) {
             const copia = r.clone();
@@ -55,17 +55,18 @@ self.addEventListener('fetch', function (e) {
     return;
   }
 
-  // Ficheiros da própria app: cache primeiro
+  // Ficheiros da própria app: mostra a cópia guardada já e atualiza-a em segundo plano
   if (url.origin === location.origin) {
     e.respondWith(
       caches.match(req).then(function (r) {
-        return r || fetch(req).then(function (resp) {
+        const rede = fetch(req.url, { cache: 'no-cache' }).then(function (resp) {
           if (resp && resp.ok) {
             const copia = resp.clone();
             caches.open(CACHE_APP).then(function (c) { c.put(req, copia); });
           }
           return resp;
-        });
+        }).catch(function () { return r; });
+        return r || rede;
       })
     );
     return;
