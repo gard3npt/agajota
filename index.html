@@ -630,6 +630,17 @@
     .section-block, #sitesBlogsGrid { scroll-margin-top: 6.5rem; }
     @media (min-width: 768px) { .section-block, #sitesBlogsGrid { scroll-margin-top: 6.5rem; } }
   </style>
+<style id="menu-padrao">
+/* Menu padrão: cor, tamanho, fonte e ícones iguais aos da Calculadora de Juros (Mobile) */
+#menuPrincipal { width: 290px; max-width: calc(100vw - 24px); }
+#menuPrincipal button[role="menuitem"] { min-height: 44px; font-size: 1.05rem; font-weight: 700; }
+#menuPrincipal button[role="menuitem"] > svg { width: 22px; height: 22px; }
+#menuPrincipal button[role="menuitem"] > span:first-child svg { width: 20px; height: 20px; }
+#btnInstalar > svg { color: #60a5fa; }
+#btnPartilhar > svg { color: #a78bfa; }
+#menuPrincipal button[onclick*="abrirContactoModal"] > svg { color: #60a5fa; }
+#menuPrincipal button[onclick*="abrirSobreModalInfo"] > svg { color: #38bdf8; }
+</style>
 </head>
 
 <body class="bg-[#030712] text-slate-100 font-sans min-h-screen flex flex-col justify-between relative selection:bg-pink-500 selection:text-white">
